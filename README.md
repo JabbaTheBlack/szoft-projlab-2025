@@ -1,0 +1,1 @@
+# szoft-projlab-2025
