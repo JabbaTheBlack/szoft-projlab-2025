@@ -49,4 +49,12 @@ public class FungalManager {
     public int getHyphaeCount() {
         return hyphaeManager.getHyphaeCount();
     }
+
+    public MyceliumManager getMyceliumManager() {
+        return myceliumManager;
+    }
+
+    public HyphaeManager getHyphaeManager() {
+        return hyphaeManager;
+    }
 }
