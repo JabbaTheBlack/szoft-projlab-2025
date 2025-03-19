@@ -17,7 +17,7 @@ public abstract class Spore {
      * @param nutrition  The nutritional value of the spore.
      * @param effectRate The rate at which the spore applies its effect.
      */
-    public Spore(float nutrition, float effectRate) {
+    protected Spore(float nutrition, float effectRate) {
         this.nutrition = nutrition;
         this.effectRate = effectRate;
     }
@@ -25,7 +25,7 @@ public abstract class Spore {
     /**
      * Constructs a spore with default values.
      */
-    public Spore(){
+    protected Spore(){
         this(1, 1);
     }
 

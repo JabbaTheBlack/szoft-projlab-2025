@@ -16,7 +16,7 @@ public abstract class Tekton {
     private List<Tekton> neighbours;
     private List<Tekton> connectedNeighbours;
 
-    public Tekton() {
+    protected Tekton() {
         fungalManager = new FungalManager();
         neighbours = new ArrayList<>();
         connectedNeighbours = new ArrayList<>();
