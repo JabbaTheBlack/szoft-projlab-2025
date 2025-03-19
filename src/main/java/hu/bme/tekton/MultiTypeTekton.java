@@ -10,9 +10,7 @@ public class MultiTypeTekton extends Tekton {
 
     @Override
     public void addHyphae(Hyphae hyphae) {
-        // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'addHyphae' in MultitypeTekton class");
-      
+        fungalManager.addHyphae(hyphae);
     }
     
 }
