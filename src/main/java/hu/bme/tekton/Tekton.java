@@ -57,7 +57,9 @@ public abstract class Tekton {
     }
 
     public void addMycelium(Mycelium mycelium) {
-        fungalManager.addMycelium(mycelium);
+        if(fungalManager.getMyceliumCount() != 0) {
+            fungalManager.addMycelium(mycelium);
+        }
     }
 
     public void removeMycelium(Mycelium mycelium)
@@ -66,7 +68,9 @@ public abstract class Tekton {
     }
 
     public void addHyphae(Hyphae hyphae) {
-        fungalManager.addHyphae(hyphae);
+        if(fungalManager.getHyphaeCount() != 0) {
+            fungalManager.addHyphae(hyphae);
+        }
     }
 
     public void removeHyphae(Hyphae hyphae) {
