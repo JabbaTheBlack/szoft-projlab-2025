@@ -27,4 +27,8 @@ public class HyphaeManager implements IHyphaeManager {
     public int getHyphaeCount() {
         return hyphaes.size();
     }
+
+    public List<Hyphae> getHyphaes() {
+        return hyphaes;
+    }
 }

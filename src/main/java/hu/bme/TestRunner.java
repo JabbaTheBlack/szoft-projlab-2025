@@ -6,8 +6,60 @@ import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 
 public class TestRunner {
     public void runTests() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);  
+        int choice = 0;
+        do {
+            printTestOptions();
+            System.out.print("Adja meg a teszteset számát: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (choice) {
+                case 1 :
+                    TestGombaFonalElvagasaNincsSporaHatas.test_gombafonal_elvagasa_nincs_spora_hatas();
+                    waitForEnter(scanner);
+                    break;
+                // case 2 -> 
+                // case 3 -> 
+                // case 4 -> 
+                // case 5 -> 
+                // case 6 -> 
+                // case 7 -> 
+                // case 8 -> 
+                // case 9 -> 
+                // case 10 -> 
+                // case 11 -> 
+                // case 12 -> 
+                // case 13 -> 
+                // case 14 -> 
+                // case 15 -> 
+                // case 16 -> 
+                // case 17 -> 
+                // case 18 -> 
+                // case 19 -> 
+                // case 20 -> 
+                // case 21 -> 
+                // case 22 -> 
+                // case 23 -> 
+                case 24 : 
+                    System.out.println("Kilépés...");
+                    break;
+                default:
+                    System.out.println("Érvénytelen választás.");
+                    break;
+            }
+
+        }while(choice != 24);
         
+        scanner.close();
+    }
+
+    private void waitForEnter(Scanner scanner) {
+        System.out.println("\nNyomjon entert a folytatáshoz...");
+        scanner.nextLine();
+    }
+
+    private void printTestOptions() {
         System.out.println("Válasszon egy tesztesetet az alábbi listából:");
         System.out.println("1 - test_gombafonal_elvagasa_nincs_spora_hatas");
         System.out.println("2 - test_gombafonal_elvagasa_rovar_spora_hatas");
@@ -33,43 +85,5 @@ public class TestRunner {
         System.out.println("22 - test_gombatest_elhal_spora_szetszoras_utan");
         System.out.println("23 - test_tobb_hatas_a_rovaron");
         System.out.println("24 - Kilépés");
-        
-        int choice = 0;
-        do {
-            System.out.print("Adja meg a teszteset számát: ");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // sor végének beolvasása
-            
-            switch (choice) {
-                case 1 -> TestGombaFonalElvagasaNincsSporaHatas.test_gombafonal_elvagasa_nincs_spora_hatas();
-                // case 2 -> 
-                // case 3 -> 
-                // case 4 -> 
-                // case 5 -> 
-                // case 6 -> 
-                // case 7 -> 
-                // case 8 -> 
-                // case 9 -> 
-                // case 10 -> 
-                // case 11 -> 
-                // case 12 -> 
-                // case 13 -> 
-                // case 14 -> 
-                // case 15 -> 
-                // case 16 -> 
-                // case 17 -> 
-                // case 18 -> 
-                // case 19 -> 
-                // case 20 -> 
-                // case 21 -> 
-                // case 22 -> 
-                // case 23 -> 
-                case 24 -> System.out.println("Kilépés...");
-                default -> System.out.println("Érvénytelen választás.");
-            }
-
-        }while(choice != 24);
-        
-        scanner.close();
     }
 }

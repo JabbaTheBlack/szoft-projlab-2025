@@ -1,16 +1,17 @@
 package hu.bme.insect;
 
+import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.tekton.Tekton;
 
 public class Insect {
     private float nutrition;
-    private Tekton currentTetkon;
+    private Tekton currentTekton;
     private float movementSpeed;
     private boolean canCutHyphae;
 
     public Insect(Tekton currentTekton, float movementSpeed) {
-        this.currentTetkon = currentTekton;
+        this.currentTekton = currentTekton;
         this.movementSpeed = movementSpeed;
     }
 
@@ -21,12 +22,14 @@ public class Insect {
     }
 
     public void setCurrentTekton(Tekton tekton) {
-        currentTetkon = tekton;
+        currentTekton = tekton;
     }
 
     public void move(Tekton targetTekton) {
         // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'move' in Insect class");
+        if(currentTekton.isConnectedTo(targetTekton)) {
+            currentTekton = targetTekton;
+        }
     }
 
     public void eatSpore(Spore spore) {
@@ -34,9 +37,16 @@ public class Insect {
         spore.applyEffect(this);
     }
 
-    public void cutHyphae(Tekton targTekton) {
-        // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'cutHyphae' in Insect class");
+    public void cutHyphae(Hyphae hyphae) {
+        // TODO add javadoc
+        for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
+            if(tekton.getFungalManager().getHyphaeManager().getHyphaes().contains(hyphae)) {
+                tekton.getFungalManager().getHyphaeManager().removeHyphae(hyphae);
+                tekton.breakConnectionTo(currentTekton);
+                currentTekton.breakConnectionTo(tekton);
+            }
+        }
+        currentTekton.removeHyphae(hyphae);
     }
 
     public float getNutrition() {
@@ -56,6 +66,6 @@ public class Insect {
     }   
 
     public Tekton getCurrentTekton() {
-        return currentTetkon;
+        return currentTekton;
     }
 }

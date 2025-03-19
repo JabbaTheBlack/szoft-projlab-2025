@@ -16,7 +16,7 @@ public abstract class Tekton {
     private List<Tekton> neighbours;
     private List<Tekton> connectedNeighbours;
 
-    public Tekton() {
+    protected Tekton() {
         fungalManager = new FungalManager();
         neighbours = new ArrayList<>();
         connectedNeighbours = new ArrayList<>();
@@ -83,5 +83,17 @@ public abstract class Tekton {
 
     public void removeSpore(Spore spore) {
         fungalManager.removeSpore(spore);
+    }
+
+    public List<Tekton> getNeighbours() {
+        return neighbours;
+    }
+
+    public List<Tekton> getConnectedNeighbours() {
+        return connectedNeighbours;
+    }
+
+    public FungalManager getFungalManager() {
+        return fungalManager;
     }
 }
