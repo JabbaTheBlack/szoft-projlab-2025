@@ -23,4 +23,8 @@ public class HyphaeManager implements IHyphaeManager {
     public void removeHyphae(Hyphae hyphae) {
         hyphaes.remove(hyphae);
     }    
+
+    public int getHyphaeCount() {
+        return hyphaes.size();
+    }
 }

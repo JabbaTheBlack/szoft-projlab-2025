@@ -23,5 +23,7 @@ public class MyceliumManager implements IMyceliumManager{
         myceliums.remove(mycelium);
     }
 
-
+    public int getMyceliumCount() {
+        return myceliums.size();
+    }
 }

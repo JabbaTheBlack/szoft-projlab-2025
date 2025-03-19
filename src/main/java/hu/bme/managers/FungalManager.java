@@ -8,8 +8,8 @@ import hu.bme.interfaces.IMyceliumManager;
 import hu.bme.interfaces.ISporeManager;
 
 public class FungalManager {
-    private IMyceliumManager myceliumManager;
-    private IHyphaeManager hyphaeManager;
+    private MyceliumManager myceliumManager;
+    private HyphaeManager hyphaeManager;
     private ISporeManager sporeManager;
 
     public FungalManager() {
@@ -40,5 +40,13 @@ public class FungalManager {
 
     public void removeSpore(Spore spore) {
         sporeManager.removeSpore(spore);    
+    }
+
+    public int getMyceliumCount() {
+        return myceliumManager.getMyceliumCount();
+    }
+
+    public int getHyphaeCount() {
+        return hyphaeManager.getHyphaeCount();
     }
 }
