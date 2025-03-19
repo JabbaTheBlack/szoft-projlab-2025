@@ -84,4 +84,16 @@ public abstract class Tekton {
     public void removeSpore(Spore spore) {
         fungalManager.removeSpore(spore);
     }
+
+    public List<Tekton> getNeighbours() {
+        return neighbours;
+    }
+
+    public List<Tekton> getConnectedNeighbours() {
+        return connectedNeighbours;
+    }
+
+    public FungalManager getFungalManager() {
+        return fungalManager;
+    }
 }
