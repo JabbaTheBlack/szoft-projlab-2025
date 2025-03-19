@@ -15,10 +15,10 @@ public class TestRunner {
             scanner.nextLine();
             
             switch (choice) {
-                case 1 -> {
+                case 1 :
                     TestGombaFonalElvagasaNincsSporaHatas.test_gombafonal_elvagasa_nincs_spora_hatas();
                     waitForEnter(scanner);
-                }
+                    break;
                 // case 2 -> 
                 // case 3 -> 
                 // case 4 -> 
@@ -41,8 +41,12 @@ public class TestRunner {
                 // case 21 -> 
                 // case 22 -> 
                 // case 23 -> 
-                case 24 -> System.out.println("Kilépés...");
-                default -> System.out.println("Érvénytelen választás.");
+                case 24 : 
+                    System.out.println("Kilépés...");
+                    break;
+                default:
+                    System.out.println("Érvénytelen választás.");
+                    break;
             }
 
         }while(choice != 24);
