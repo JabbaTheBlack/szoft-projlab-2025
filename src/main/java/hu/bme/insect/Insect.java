@@ -59,7 +59,7 @@ public class Insect {
         this.movementSpeed = movementSpeed;
     }
 
-    public void setCutHyphae(boolean canCutHyphae) {
+    public void setCanCutHyphae(boolean canCutHyphae) {
         this.canCutHyphae = canCutHyphae;
     }
 
