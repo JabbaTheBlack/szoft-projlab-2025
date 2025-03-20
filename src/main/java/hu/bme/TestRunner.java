@@ -2,6 +2,7 @@ package hu.bme;
 
 import java.util.Scanner;
 
+import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 
 public class TestRunner {
@@ -19,7 +20,10 @@ public class TestRunner {
                     TestGombaFonalElvagasaNincsSporaHatas.test_gombafonal_elvagasa_nincs_spora_hatas();
                     waitForEnter(scanner);
                     break;
-                // case 2 -> 
+                case 2 : 
+                    TestGombaFonalElvagasVanSporaHatas.test_gombafonal_elvagasa_van_spora_hatas();
+                    waitForEnter(scanner);
+                    break; 
                 // case 3 -> 
                 // case 4 -> 
                 // case 5 -> 
