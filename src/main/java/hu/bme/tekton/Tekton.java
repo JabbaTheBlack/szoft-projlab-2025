@@ -3,8 +3,6 @@ package hu.bme.tekton;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.OperationNotSupportedException;
-
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
@@ -12,7 +10,7 @@ import hu.bme.managers.FungalManager;
 
 public abstract class Tekton {
     
-    FungalManager fungalManager;
+    protected final FungalManager fungalManager;
     private List<Tekton> neighbours;
     private List<Tekton> connectedNeighbours;
 
@@ -93,7 +91,7 @@ public abstract class Tekton {
         return connectedNeighbours;
     }
 
-    public FungalManager getFungalManager() {
-        return fungalManager;
+    public boolean hasHyphae(Hyphae hyphae) {
+        return fungalManager.hasHyphae(hyphae);
     }
 }
