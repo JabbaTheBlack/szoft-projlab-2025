@@ -18,4 +18,6 @@ public interface IMyceliumManager {
      * @param mycelium The mycelium to be removed.
      */
     void removeMycelium(Mycelium mycelium);
+
+    int getMyceliumCount();
 }

@@ -23,4 +23,9 @@ public class SporeManager implements ISporeManager{
     public void removeSpore(Spore spore) {
         spores.remove(spore);
     }
+
+    @Override 
+    public int getSporeCount() {
+        return spores.size();
+    }
 }

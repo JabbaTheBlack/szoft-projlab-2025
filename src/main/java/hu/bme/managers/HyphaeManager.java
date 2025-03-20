@@ -8,6 +8,7 @@ import hu.bme.interfaces.IHyphaeManager;
 
 
 public class HyphaeManager implements IHyphaeManager {
+    
     private List<Hyphae> hyphaes;
 
     public HyphaeManager() {
@@ -24,11 +25,13 @@ public class HyphaeManager implements IHyphaeManager {
         hyphaes.remove(hyphae);
     }    
 
+    @Override
     public int getHyphaeCount() {
         return hyphaes.size();
     }
 
-    public List<Hyphae> getHyphaes() {
-        return hyphaes;
+    @Override
+    public boolean hasHyphae(Hyphae hyphae) {
+        return hyphaes.contains(hyphae);
     }
 }

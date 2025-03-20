@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.bme.fungi.spore.SporeEffect;
-import hu.bme.interfaces.IMyceliumManager;
 import hu.bme.tekton.Tekton;
 
-public class Mycologist implements IMyceliumManager{
+public class Mycologist {
 
     private SporeEffect selectedSporeEffect;
     private List<Mycelium> myceliums;
@@ -33,12 +32,10 @@ public class Mycologist implements IMyceliumManager{
         throw new UnsupportedOperationException("Unimplemented method 'growHyphaeToTekton' in Mycologist class");
     }
 
-    @Override
     public void addMycelium(Mycelium mycelium) {
         myceliums.add(mycelium);
     }
 
-    @Override
     public void removeMycelium(Mycelium mycelium) {
         myceliums.remove(mycelium);    
     }

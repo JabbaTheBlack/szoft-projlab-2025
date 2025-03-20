@@ -40,8 +40,8 @@ public class Insect {
     public void cutHyphae(Hyphae hyphae) {
         // TODO add javadoc
         for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
-            if(tekton.getFungalManager().getHyphaeManager().getHyphaes().contains(hyphae)) {
-                tekton.getFungalManager().getHyphaeManager().removeHyphae(hyphae);
+            if(tekton.hasHyphae(hyphae)) {
+                tekton.removeHyphae(hyphae);
                 tekton.breakConnectionTo(currentTekton);
                 currentTekton.breakConnectionTo(tekton);
             }

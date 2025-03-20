@@ -1,7 +1,5 @@
 package hu.bme.fungi;
 
-import hu.bme.interfaces.IHyphaeManager;
-import hu.bme.interfaces.ISporeManager;
 import hu.bme.tekton.Tekton;
 
 import java.util.ArrayList;
@@ -9,7 +7,7 @@ import java.util.List;
 
 import hu.bme.fungi.spore.*;
 
-public class Mycelium implements ISporeManager, IHyphaeManager{
+public class Mycelium {
     
     private boolean upgraded;
     private List<Spore> spores;
@@ -41,22 +39,20 @@ public class Mycelium implements ISporeManager, IHyphaeManager{
         currentTekton = tekton;
     }
 
-    @Override
     public void addSpore(Spore spore) {
         spores.add(spore);
     }
 
-    @Override
     public void removeSpore(Spore spore) {
         spores.remove(spore);
     }
     
-    @Override
+
     public void addHyphae(Hyphae hyphae) {
         hyphaes.add(hyphae);
     }
 
-    @Override 
+ 
     public void removeHyphae(Hyphae hyphae) {
         hyphaes.remove(hyphae);
     }

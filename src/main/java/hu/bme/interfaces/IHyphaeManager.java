@@ -19,4 +19,8 @@ public interface IHyphaeManager {
      * @param hyphae The hyphae to be removed.
      */
     void removeHyphae(Hyphae hyphae);
+
+    int getHyphaeCount();
+
+    boolean hasHyphae(Hyphae hyphae);
 }

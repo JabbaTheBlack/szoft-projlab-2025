@@ -18,4 +18,6 @@ public interface ISporeManager {
      * @param spore Spore to be removed
      */
     void removeSpore(Spore spore);
+
+    int getSporeCount();
 }
