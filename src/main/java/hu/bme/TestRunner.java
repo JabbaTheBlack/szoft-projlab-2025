@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
+import hu.bme.tests.TestRovarAtlepMasikTektonra;
 
 public class TestRunner {
     public void runTests() {
@@ -24,7 +25,10 @@ public class TestRunner {
                     TestGombaFonalElvagasVanSporaHatas.test_gombafonal_elvagasa_van_spora_hatas();
                     waitForEnter(scanner);
                     break; 
-                // case 3 -> 
+                case 3 :
+                    TestRovarAtlepMasikTektonra.test_rovar_atlep_masik_tektonra();
+                    waitForEnter(scanner);
+                    break;
                 // case 4 -> 
                 // case 5 -> 
                 // case 6 -> 
