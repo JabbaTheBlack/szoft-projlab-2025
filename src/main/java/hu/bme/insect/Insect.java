@@ -39,14 +39,16 @@ public class Insect {
 
     public void cutHyphae(Hyphae hyphae) {
         // TODO add javadoc
-        for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
-            if(tekton.hasHyphae(hyphae)) {
-                tekton.removeHyphae(hyphae);
-                tekton.breakConnectionTo(currentTekton);
-                currentTekton.breakConnectionTo(tekton);
+        if(canCutHyphae) {
+            for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
+                if(tekton.hasHyphae(hyphae)) {
+                    tekton.removeHyphae(hyphae);
+                    tekton.breakConnectionTo(currentTekton);
+                    currentTekton.breakConnectionTo(tekton);
+                }
             }
+            currentTekton.removeHyphae(hyphae);
         }
-        currentTekton.removeHyphae(hyphae);
     }
 
     public float getNutrition() {
