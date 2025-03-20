@@ -14,7 +14,7 @@ public class DefensiveSpore extends Spore{
 
     @Override
     public void applyEffect(Insect insect) {
-        // TODO implement the function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        // TODO add javadoc
+        insect.setCanCutHyphae(false);
     }
 }
