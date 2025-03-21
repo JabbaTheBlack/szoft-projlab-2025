@@ -1,6 +1,7 @@
 package hu.bme.insect;
 
 import hu.bme.fungi.Hyphae;
+import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.tekton.Tekton;
 
@@ -45,8 +46,18 @@ public class Insect {
                     tekton.removeHyphae(hyphae);
                     tekton.breakConnectionTo(currentTekton);
                     currentTekton.breakConnectionTo(tekton);
+                    break;
                 }
             }
+
+            for(Hyphae h : hyphae.getConnectedHyphae()) {
+                h.removeHyphae(hyphae);
+            }
+
+            for(Mycelium mycelium : hyphae.getConnectedMyceliums()) {
+                mycelium.removeHyphae(hyphae);
+            }
+
             currentTekton.removeHyphae(hyphae);
         }
     }
