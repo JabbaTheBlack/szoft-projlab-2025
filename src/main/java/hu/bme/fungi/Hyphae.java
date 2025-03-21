@@ -1,7 +1,10 @@
 package hu.bme.fungi;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
 
 public class Hyphae{
     private List<Hyphae> connectedHyphae;
@@ -31,5 +34,13 @@ public class Hyphae{
 
     public void removeHyphae(Hyphae hyphae) {
         connectedHyphae.remove(hyphae);
+    }
+
+    public List<Hyphae> getConnectedHyphae() {
+        return Collections.unmodifiableList(connectedHyphae);
+    }
+
+    public List<Mycelium> getConnectedMyceliums() {
+        return Collections.unmodifiableList(connectedMyceliums);
     }
 }
