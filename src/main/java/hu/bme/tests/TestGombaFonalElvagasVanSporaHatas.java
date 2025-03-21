@@ -47,9 +47,8 @@ public class TestGombaFonalElvagasVanSporaHatas {
         DefensiveSpore spore = new DefensiveSpore();
         spore.applyEffect(insect);
 
-        System.out.println("[Insect] cutting hyphae: " + h2);
+        
+        System.out.println("[Tester] cutHyphae(" + h2 + ") -> [Insect]");
         insect.cutHyphae(h2);
-        System.out.println("T1 and T2 tektons are connected:" + t1.isConnectedTo(t2));
-
     }
 }
