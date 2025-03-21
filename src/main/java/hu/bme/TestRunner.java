@@ -26,7 +26,7 @@ public class TestRunner {
                     waitForEnter(scanner);
                     break; 
                 case 3 :
-                    TestRovarAtlepMasikTektonra.test_rovar_atlep_masik_tektonra();
+                    TestRovarAtlepMasikTektonra.test_rovar_atlep_masik_tektonra(scanner);
                     waitForEnter(scanner);
                     break;
                 // case 4 -> 

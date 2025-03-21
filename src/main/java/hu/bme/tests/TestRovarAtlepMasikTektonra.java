@@ -1,5 +1,7 @@
 package hu.bme.tests;
 
+import java.util.Scanner;
+
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.insect.Insect;
@@ -7,7 +9,7 @@ import hu.bme.tekton.MultiTypeTekton;
 
 public class TestRovarAtlepMasikTektonra {
     
-    public static void test_rovar_atlep_masik_tektonra() {
+    public static void test_rovar_atlep_masik_tektonra(Scanner scanner) {
         Insect i1 = new Insect();
         MultiTypeTekton t1 = new MultiTypeTekton();
         MultiTypeTekton t2 = new MultiTypeTekton();
@@ -20,11 +22,9 @@ public class TestRovarAtlepMasikTektonra {
         
         t1.addNeighbour(t3);
         t1.addNeighbour(t2);
-        t1.connectToTekton(t2);
         t1.addMycelium(m1);
 
         t2.addNeighbour(t1);
-        t2.connectToTekton(t1);
 
         t3.addNeighbour(t1);
 
@@ -35,8 +35,16 @@ public class TestRovarAtlepMasikTektonra {
 
         m1.addHyphae(h1);
 
-        System.out.println("Rovar jelenlegi tektonja: " + i1.getCurrentTekton());
+        System.out.println("Are the 2 Tektons connected? (yes/no)");
+        String input = scanner.nextLine().trim().toLowerCase();
+        
+
+        if(input.equals("yes")) {
+            t1.connectToTekton(t2);
+            t2.connectToTekton(t1);            
+        }
+
+        System.out.println("[Tester] move(" + t1 + ") -> [Insect]");
         i1.move(t1);
-        System.out.println("Rovar új tektonja: " + i1.getCurrentTekton());
     }
 }
