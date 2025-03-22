@@ -33,7 +33,7 @@ public class GameController {
      * Starts the game by initializing all game components.
      */
     public void startGame() {
-        // TODO implement function, add javadoc
+        // TODO implement function
         throw new UnsupportedOperationException("Unimplemented method 'startGame' in GameController class");
     }
 
@@ -41,7 +41,7 @@ public class GameController {
      * Ends the game by stopping all game components.
      */
     public void endGame() {
-        // TODO implement function, add javadoc
+        // TODO implement function
         throw new UnsupportedOperationException("Unimplemented method 'endGame' in GameController class");
     }
 
