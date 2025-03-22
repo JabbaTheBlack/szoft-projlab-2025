@@ -82,5 +82,26 @@ public class Mycologist {
     public void removeMycelium(Mycelium mycelium) {
         myceliums.remove(mycelium);    
     }
-    
+
+    public void growMycelium(Hyphae hyphae, Tekton targetTekton) {
+        if(hyphae.getCurrentTekton() == targetTekton) {
+            Mycelium newMycelium = new Mycelium(targetTekton);
+
+            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Tekton]");
+            if(!targetTekton.addMycelium(newMycelium)) {
+                return;
+            }
+
+            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Mycologist]");
+            addMycelium(newMycelium);
+
+            System.out.println("[Mycologist] addHyphae(" + hyphae + ") -> [Mycelium]");
+            newMycelium.addHyphae(hyphae);
+
+            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Hyphae]");
+            hyphae.addMycelium(newMycelium);
+
+               
+        }
+    }
 }
