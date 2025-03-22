@@ -25,7 +25,7 @@ public class TestGombaFonalNovesztesMultiTypeTektonon {
         h1.addHyphae(h2);
 
         h2.addHyphae(h1);
-
+        // TODO implement the growHyphae function and deicde what to do with the sporeEffect
     }
     
 }

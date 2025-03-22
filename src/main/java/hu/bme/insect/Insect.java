@@ -1,6 +1,7 @@
 package hu.bme.insect;
 
 import hu.bme.fungi.Hyphae;
+import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.tekton.Tekton;
 
@@ -27,13 +28,25 @@ public class Insect {
 
     public void move(Tekton targetTekton) {
         // TODO implement function, add javadoc
+        
+        System.out.println("[Insect] isConenctedTo(" + targetTekton + ") -> [Tekton]");
+
         if(currentTekton.isConnectedTo(targetTekton)) {
-            currentTekton = targetTekton;
+            System.out.println("[Insect] isConnectedTo(" + targetTekton + ") <- [Tekton] {true}");
+            System.out.println("[Insect] setCurrentTekton(" + this + ") -> [Insect]");
+            this.setCurrentTekton(targetTekton);
+            return;
         }
+        
+        System.out.println("[Insect] isConnectedTo(" + targetTekton + ") <- [Tekton] {false}");
     }
 
     public void eatSpore(Spore spore) {
+        System.out.println("[Insect] getNutrition() -> [Spore]");
         nutrition += spore.getNutrition(); 
+        System.out.println("[Insect] getNutrition() <- [Spore] {" + nutrition + "}");
+        
+        System.out.println("[Insect] applyEffect(" + this + ") -> [Spore]");
         spore.applyEffect(this);
     }
 
@@ -45,8 +58,19 @@ public class Insect {
                     tekton.removeHyphae(hyphae);
                     tekton.breakConnectionTo(currentTekton);
                     currentTekton.breakConnectionTo(tekton);
+                    break;
                 }
             }
+
+            for(Hyphae h : hyphae.getConnectedHyphae()) {
+                System.out.println("[Insect] removeConnectedHyphae(" + h + ") -> [Hyphae]");
+                h.removeHyphae(hyphae);
+            }
+
+            for(Mycelium mycelium : hyphae.getConnectedMyceliums()) {
+                mycelium.removeHyphae(hyphae);
+            }
+
             currentTekton.removeHyphae(hyphae);
         }
     }

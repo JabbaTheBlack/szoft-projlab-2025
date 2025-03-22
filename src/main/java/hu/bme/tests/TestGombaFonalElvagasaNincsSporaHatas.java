@@ -89,8 +89,8 @@ public class TestGombaFonalElvagasaNincsSporaHatas {
         h7.addHyphae(h6);
         h7.addMycelium(m2);
 
-        System.out.println("[Insect] cutting hyphae: " + h2);
+        System.out.println("[Tester] cutHyphae(" + h2 + ") -> [Insect]");
         insect.cutHyphae(h2);
-        System.out.println("T1 and T2 tektons are connected:" + t1.isConnectedTo(t2));
+        
     }
 }

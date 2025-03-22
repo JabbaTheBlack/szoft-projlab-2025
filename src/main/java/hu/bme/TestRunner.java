@@ -5,6 +5,7 @@ import java.util.Scanner;
 import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
+import hu.bme.tests.TestRovarElfogyasztSporat;
 
 public class TestRunner {
     public void runTests() {
@@ -26,12 +27,15 @@ public class TestRunner {
                     waitForEnter(scanner);
                     break; 
                 case 3 :
-                    TestRovarAtlepMasikTektonra.test_rovar_atlep_masik_tektonra();
+                    TestRovarAtlepMasikTektonra.test_rovar_atlep_masik_tektonra(scanner);
                     waitForEnter(scanner);
                     break;
                 // case 4 -> 
                 // case 5 -> 
-                // case 6 -> 
+                case 6 :
+                    TestRovarElfogyasztSporat.test_rovar_elfogyaszt_sporat_es_megkapja_hatasat();
+                    waitForEnter(scanner);
+                    break; 
                 // case 7 -> 
                 // case 8 -> 
                 // case 9 -> 
