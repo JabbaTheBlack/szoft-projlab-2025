@@ -17,6 +17,11 @@ public class TestGombaFonalNovesztesNemSzomszedosTekton {
         m1.setCurrentTekton(t2);
         m1.addHyphae(h1);
         h1.addMycelium(m1);
+        h1.addCurrentTekton(t2);
         t2.addMycelium(m1);
+
+
+        System.out.println("[Tester] growHyphaeToTekton("+h1+", "+t1+") -> [Mycologist]");
+        myc1.growHyphaeToTekton(h1, null);
     }
 }

@@ -47,23 +47,30 @@ public class Mycologist {
         Hyphae newHyphae = new Hyphae();
         newHyphae.setOwner(hyphae.getOwner()); // Ensure owner consistency
 
+        if(!hyphae.getCurrentTekton().get(0).isConnectedTo(targetTekton)) {
+            System.out.println("[Mycologist] <- [targetTekton] {fail}");
+            return;
+        }
+
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Tekton]");
         if (!targetTekton.addHyphae(newHyphae)) {
             System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
             return;  // Stop execution if adding hyphae fails
         }
-
+        
+        // ATNEZNI
         System.out.println("[Mycologist] setCurrentTekton(" + targetTekton + ") -> [Hyphae]");
-        newHyphae.setCurrentTekton(targetTekton);
+        newHyphae.addCurrentTekton(targetTekton);
 
         System.out.println("[Mycologist] connectToTekton(" + targetTekton + ") -> [Tekton]");
-        hyphae.getCurrentTekton().connectToTekton(targetTekton);
+        hyphae.getCurrentTekton().get(0).connectToTekton(targetTekton);
 
         System.out.println("[Mycologist] connectToTekton(" + hyphae.getCurrentTekton() + ") -> [Tekton]");
-        targetTekton.connectToTekton(hyphae.getCurrentTekton());
+        targetTekton.connectToTekton(hyphae.getCurrentTekton().get(0));
 
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Hyphae]");
         hyphae.addHyphae(newHyphae);
+        
 
     }
 
