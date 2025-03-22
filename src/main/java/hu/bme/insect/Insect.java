@@ -42,7 +42,11 @@ public class Insect {
     }
 
     public void eatSpore(Spore spore) {
+        System.out.println("[Insect] getNutrition() -> [Spore]");
         nutrition += spore.getNutrition(); 
+        System.out.println("[Insect] getNutrition() <- [Spore] {" + nutrition + "}");
+        
+        System.out.println("[Insect] applyEffect(" + this + ") -> [Spore]");
         spore.applyEffect(this);
     }
 

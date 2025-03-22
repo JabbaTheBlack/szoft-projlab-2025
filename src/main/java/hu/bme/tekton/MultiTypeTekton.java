@@ -9,8 +9,11 @@ public class MultiTypeTekton extends Tekton {
     }
 
     @Override
-    public void addHyphae(Hyphae hyphae) {
-        fungalManager.addHyphae(hyphae);
+    public boolean addHyphae(Hyphae hyphae) {
+        if(!hasHyphae(hyphae)) {
+            fungalManager.addHyphae(hyphae);
+            return true;
+        }
+        return false;   
     }
-    
 }
