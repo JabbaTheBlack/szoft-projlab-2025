@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
+import hu.bme.tests.TestGombaFonalFelszivodasa;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 
 public class TestRunner {
@@ -33,7 +34,10 @@ public class TestRunner {
                 // case 5 -> 
                 // case 6 -> 
                 // case 7 -> 
-                // case 8 -> 
+                case 8 :
+                    TestGombaFonalFelszivodasa.test_gombafonal_felszivodasa();
+                    waitForEnter(scanner);
+                    break;
                 // case 9 -> 
                 // case 10 -> 
                 // case 11 -> 
