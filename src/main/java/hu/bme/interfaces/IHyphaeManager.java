@@ -16,12 +16,15 @@ public interface IHyphaeManager {
     void addHyphae(Hyphae hyphae);
 
     /**
-     * 
      * Removes a hyphae.
      * @param hyphae The hyphae to be removed.
      */
     void removeHyphae(Hyphae hyphae);
 
+    /**
+     * Returns the number of hyphaes.
+     * @return The number of hyphaes.
+     */
     int getHyphaeCount();
 
     boolean hasHyphae(Hyphae hyphae);

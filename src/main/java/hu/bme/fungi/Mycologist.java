@@ -3,39 +3,82 @@ package hu.bme.fungi;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.bme.fungi.spore.SporeEffect;
 import hu.bme.tekton.Tekton;
 
+/**
+ * Represents a mycologist who manages myceliums and interacts with Tekton.
+ */
 public class Mycologist {
 
-    private SporeEffect selectedSporeEffect;
     private List<Mycelium> myceliums;
 
+    /**
+     * Initializes a new mycologist with an empty list of myceliums.
+     */
     public Mycologist() {
         myceliums = new ArrayList<>();
     }
 
-    public void chooseSporeEffect(SporeEffect sporeEffect) {
-        selectedSporeEffect = sporeEffect;
-    }
-
+    /**
+     * Releases spores from a mycelium.
+     * @param mycelium
+     */
     public void releaseSpore(Mycelium mycelium) {   
         mycelium.releaseSpores();
     }
 
+    /**
+     * Upgrades a mycelium.
+     * @param mycelium the mycelium to be upgraded
+     */
     public void upgradeMyceium(Mycelium mycelium) {
         mycelium.upgrade();
     }
 
-    public void growHyphaeToTekton(Tekton tekton) {
-        // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'growHyphaeToTekton' in Mycologist class");
+    /**
+     * Grows hyphae towards a Tekton.
+     * @param tekton The current Tekton.
+     * @param tekton The target Tekton towards which hyphae are grown.
+     */
+    public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
+        // TODO add javadoc
+        
+        System.out.println("[Mycologist] new Hyphae() -> [Mycologist]");
+        Hyphae newHyphae = new Hyphae();
+        newHyphae.setOwner(hyphae.getOwner()); // Ensure owner consistency
+
+        System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Tekton]");
+        if (!targetTekton.addHyphae(newHyphae)) {
+            System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
+            return;  // Stop execution if adding hyphae fails
+        }
+
+        System.out.println("[Mycologist] setCurrentTekton(" + targetTekton + ") -> [Hyphae]");
+        newHyphae.setCurrentTekton(targetTekton);
+
+        System.out.println("[Mycologist] connectToTekton(" + targetTekton + ") -> [Tekton]");
+        hyphae.getCurrentTekton().connectToTekton(targetTekton);
+
+        System.out.println("[Mycologist] connectToTekton(" + hyphae.getCurrentTekton() + ") -> [Tekton]");
+        targetTekton.connectToTekton(hyphae.getCurrentTekton());
+
+        System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Hyphae]");
+        hyphae.addHyphae(newHyphae);
+
     }
 
+    /**
+     * Adds a mycelium to the list of managed myceliums.
+     * @param mycelium The mycelium to be added.
+     */
     public void addMycelium(Mycelium mycelium) {
         myceliums.add(mycelium);
     }
 
+    /**
+     * Removes a mycelium from the list of managed myceliums, when a mycelium is dies.
+     * @param mycelium The mycelium to be removed.
+     */
     public void removeMycelium(Mycelium mycelium) {
         myceliums.remove(mycelium);    
     }
