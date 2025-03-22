@@ -96,4 +96,13 @@ public class FungalManager {
     public boolean hasHyphae(Hyphae hyphae) {
         return hyphaeManager.hasHyphae(hyphae);
     }
+
+
+    /**
+     * Sets the spore manager.
+     * @param sporeManager
+     */
+    public void setSporeManager(ISporeManager sporeManager) {
+        this.sporeManager = sporeManager;
+    }
 }

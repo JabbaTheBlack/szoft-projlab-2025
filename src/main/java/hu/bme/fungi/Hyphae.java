@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import hu.bme.tekton.Tekton;
+
 /**
  * Represents a hyphae in a fungal network, managing connections to other hyphae and myceliums.
  */
@@ -76,4 +78,6 @@ public class Hyphae{
     public List<Mycelium> getConnectedMyceliums() {
         return Collections.unmodifiableList(connectedMyceliums);
     }
+
+
 }

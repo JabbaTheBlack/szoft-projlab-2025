@@ -5,6 +5,8 @@ import java.util.Scanner;
 import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
+import hu.bme.tests.TestUjGombatestNovesztese;
+import hu.bme.tests.TestUjGombatestNoveszteseSikertelen;
 
 public class TestRunner {
     public void runTests() {
@@ -36,8 +38,14 @@ public class TestRunner {
                 // case 8 -> 
                 // case 9 -> 
                 // case 10 -> 
-                // case 11 -> 
-                // case 12 -> 
+                case 11 : 
+                    TestUjGombatestNovesztese.test_uj_gombatest_novesztese();
+                    waitForEnter(scanner);
+                    break;
+                case 12 : 
+                    TestUjGombatestNoveszteseSikertelen.test_uj_gombatest_novesztese_sikertelen();
+                    waitForEnter(scanner);
+                    break;
                 // case 13 -> 
                 // case 14 -> 
                 // case 15 -> 
