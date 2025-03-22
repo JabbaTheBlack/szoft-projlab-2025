@@ -13,12 +13,14 @@ public class Mycelium {
     private List<Spore> spores;
     private List<Hyphae> hyphaes;
     private Tekton currentTekton;
+    public int maxSporeRelease;
 
     public Mycelium() {
         upgraded = false;
         spores = new ArrayList<>();
         hyphaes = new ArrayList<>();
         currentTekton = null;
+
     }
 
     public boolean isUpgraded() { return upgraded; }
@@ -32,7 +34,7 @@ public class Mycelium {
     }
 
     public void releaseSpores() {
-        // TODO implement function, add javadoc
+        maxSporeRelease--;
     }
 
     public void setCurrentTekton(Tekton tekton) {
