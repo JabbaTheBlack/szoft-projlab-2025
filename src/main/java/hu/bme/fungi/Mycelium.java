@@ -2,8 +2,7 @@ package hu.bme.fungi;
 
 import hu.bme.tekton.Tekton;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import hu.bme.fungi.spore.*;
 
@@ -56,14 +55,30 @@ public class Mycelium {
      * Releases spores from the mycelium.
      */
     public void releaseSpores() {
-        int i = 0;
-        for(Tekton neighbour : currentTekton.getNeighbours()) {
-            if(!spores.isEmpty()) {
-                System.out.println("[Mycelium] addSpore(" + spores.get(i) + ") -> [" + neighbour + "]");
-                neighbour.addSpore(spores.get(i++));
-            } else {
-                return;
+        if(spores.isEmpty()) { return; }
+        
+        Random random = new Random();
+        List<Tekton> targets = new ArrayList<>(currentTekton.getNeighbours());
+
+        if(upgraded) {
+            Set<Tekton> allNeighbours = new HashSet<>(targets);
+            for(Tekton neighbour : targets) {
+                allNeighbours.addAll(neighbour.getNeighbours());
             }
+            allNeighbours.remove(currentTekton);
+            targets = new ArrayList<>(allNeighbours);
+        }
+
+        Collections.shuffle(targets, random);
+
+        while(!spores.isEmpty() && !targets.isEmpty()) {
+            Tekton randomTekton = targets.remove(random.nextInt(targets.size()));
+
+            System.out.println("[Mycelium] addSpore(" + spores.get(0) + ") -> [" + randomTekton + "]");
+                randomTekton.addSpore(spores.get(0));
+
+            System.out.println("[Mycelium] removeSpore(" + spores.get(0) + ") -> [" + this + "]");
+            removeSpore(spores.get(0));
         }
     }
 
