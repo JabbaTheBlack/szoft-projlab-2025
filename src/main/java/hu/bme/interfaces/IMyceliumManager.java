@@ -1,5 +1,8 @@
 package hu.bme.interfaces;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import hu.bme.fungi.Mycelium;
 
 /**
@@ -20,4 +23,6 @@ public interface IMyceliumManager {
     void removeMycelium(Mycelium mycelium);
 
     int getMyceliumCount();
+
+    ArrayList<Mycelium> getMyceliums();
 }
