@@ -30,7 +30,7 @@ public class SporeManager implements ISporeManager{
     }
 
     @Override
-    public ArrayList<Spore> getSpores() {
+    public List<Spore> getSpores() {
         return spores;
     }
 }

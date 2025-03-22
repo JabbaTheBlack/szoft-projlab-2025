@@ -36,7 +36,7 @@ public class HyphaeManager implements IHyphaeManager {
     }
 
     @Override
-    public ArrayList<Hyphae> getHyphaes() {
+    public List<Hyphae> getHyphaes() {
         return hyphaes;
     }
 }

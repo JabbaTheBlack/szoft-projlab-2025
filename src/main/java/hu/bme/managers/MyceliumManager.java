@@ -29,7 +29,7 @@ public class MyceliumManager implements IMyceliumManager{
     }
 
     @Override
-    public ArrayList<Mycelium> getMyceliums() {
+    public List<Mycelium> getMyceliums() {
         return myceliums;
     }
 }
