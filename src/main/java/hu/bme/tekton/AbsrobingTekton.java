@@ -18,7 +18,7 @@ public class AbsrobingTekton extends Tekton {
         Iterator<Hyphae> iterator = fungalManager.getHyphaes().iterator();
         while (iterator.hasNext()) {
             Hyphae hyphae = iterator.next();
-            System.out.println("[" + this + "] removeHyphae(" + hyphae + ") -> [" + this.fungalManager + "]");
+            System.out.println("[AbsorbingTekton] removeHyphae(" + hyphae + ") -> [FungalManager]");
             iterator.remove();
             removeHyphae(hyphae);
         }

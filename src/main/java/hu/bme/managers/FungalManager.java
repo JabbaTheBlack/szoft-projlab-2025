@@ -38,21 +38,17 @@ public class FungalManager {
     }
 
     public void removeHyphae(Hyphae hyphae) {
-
-        System.out.println("[" + this + "] removeHyphae("+ hyphae +") -> [" + hyphaeManager + "]");
+        System.out.println("[FungalManager] removeHyphae("+ hyphae +") -> [HyphaeManager]");
         for (Hyphae rmv : getHyphaes()) {
-            System.out.println("[" + hyphaeManager + "] removeHyphae("+ hyphae +") -> [" + rmv + "]");
+            System.out.println("[HyphaeManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
         }
-        //hyphaeManager.getHyphaes().forEach(h -> h.removeHyphae(hyphae));
         for (Mycelium rmv : getMyceliums()) {
-            System.out.println("[" + myceliumManager + "] removeHyphae("+ hyphae +") -> [" + rmv + "]");
+            System.out.println("[MyceliumManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
             
         }
         hyphaeManager.removeHyphae(hyphae);
-
-        //myceliumManager.getMyceliums().forEach(m -> m.removeHyphae(hyphae));
     }
 
     public void removeSpore(Spore spore) {
