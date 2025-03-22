@@ -56,7 +56,15 @@ public class Mycelium {
      * Releases spores from the mycelium.
      */
     public void releaseSpores() {
-        // TODO implement function
+        int i = 0;
+        for(Tekton neighbour : currentTekton.getNeighbours()) {
+            if(!spores.isEmpty()) {
+                System.out.println("[Mycelium] addSpore(" + spores.get(i) + ") -> [" + neighbour + "]");
+                neighbour.addSpore(spores.get(i++));
+            } else {
+                return;
+            }
+        }
     }
 
     /**
