@@ -19,5 +19,9 @@ public interface ISporeManager {
      */
     void removeSpore(Spore spore);
 
+    /**
+     * Returns the number of spores
+     * @return The number of spores
+     */
     int getSporeCount();
 }
