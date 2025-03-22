@@ -27,6 +27,11 @@ public class Mycelium {
         currentTekton = null;
     }
 
+    public Mycelium(Tekton currentTekton) {
+        this();
+        this.currentTekton = currentTekton;
+    }
+
     /**
      * Checks if the mycelium is upgraded.
      * @return true if the mycelium is upgraded, false otherwise.
