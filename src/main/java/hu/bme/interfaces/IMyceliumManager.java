@@ -19,5 +19,9 @@ public interface IMyceliumManager {
      */
     void removeMycelium(Mycelium mycelium);
 
+    /**
+     * Returns the number of myceliums.
+     * @return The number of myceliums.
+     */
     int getMyceliumCount();
 }

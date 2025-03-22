@@ -8,10 +8,17 @@ import hu.bme.insect.Insect;
  */
 public class StunSpore extends Spore {
     
+    /**
+     * Initializes a StunSpore.
+     */
     public StunSpore() {
         super();
     }
 
+    /**
+     * Applies the effect of the StunSpore on an {@link Insect}.
+     * @param insect the insect to apply the effect on
+     */
     @Override
     public void applyEffect(Insect insect) {
         // TODO implemen the function, add javadoc
