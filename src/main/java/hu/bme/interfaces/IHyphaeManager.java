@@ -1,6 +1,6 @@
 package hu.bme.interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import hu.bme.fungi.Hyphae;
 
@@ -26,5 +26,5 @@ public interface IHyphaeManager {
 
     boolean hasHyphae(Hyphae hyphae);
 
-    ArrayList<Hyphae> getHyphaes();
+    List<Hyphae> getHyphaes();
 }

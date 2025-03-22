@@ -1,7 +1,7 @@
 package hu.bme.interfaces;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
 import hu.bme.fungi.spore.Spore;
 
@@ -23,5 +23,5 @@ public interface ISporeManager {
     void removeSpore(Spore spore);
 
     int getSporeCount();
-    ArrayList<Spore> getSpores();
+    List<Spore> getSpores();
 }
