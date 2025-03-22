@@ -2,7 +2,6 @@ package hu.bme.tests;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
-import hu.bme.fungi.spore.SporeEffect;
 import hu.bme.tekton.MultiTypeTekton;
 
 public class TestGombaFonalNovesztesMultiTypeTektonon {

@@ -3,20 +3,14 @@ package hu.bme.fungi;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.bme.fungi.spore.SporeEffect;
 import hu.bme.tekton.Tekton;
 
 public class Mycologist {
 
-    private SporeEffect selectedSporeEffect;
     private List<Mycelium> myceliums;
 
     public Mycologist() {
         myceliums = new ArrayList<>();
-    }
-
-    public void chooseSporeEffect(SporeEffect sporeEffect) {
-        selectedSporeEffect = sporeEffect;
     }
 
     public void releaseSpore(Mycelium mycelium) {   
