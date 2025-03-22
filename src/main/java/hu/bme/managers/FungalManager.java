@@ -7,7 +7,7 @@ import hu.bme.interfaces.IHyphaeManager;
 import hu.bme.interfaces.IMyceliumManager;
 import hu.bme.interfaces.ISporeManager;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class FungalManager {
@@ -40,12 +40,12 @@ public class FungalManager {
     public void removeHyphae(Hyphae hyphae) {
 
         System.out.println("[" + this + "] removeHyphae("+ hyphae +") -> [" + hyphaeManager + "]");
-        for (Hyphae rmv : hyphaeManager.getHyphaes()) {
+        for (Hyphae rmv : getHyphaes()) {
             System.out.println("[" + hyphaeManager + "] removeHyphae("+ hyphae +") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
         }
         //hyphaeManager.getHyphaes().forEach(h -> h.removeHyphae(hyphae));
-        for (Mycelium rmv : myceliumManager.getMyceliums()) {
+        for (Mycelium rmv : getMyceliums()) {
             System.out.println("[" + myceliumManager + "] removeHyphae("+ hyphae +") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
             
@@ -71,7 +71,10 @@ public class FungalManager {
         return hyphaeManager.hasHyphae(hyphae);
     }
 
-    public ArrayList<Hyphae> getHyphaes() {
+    public List<Hyphae> getHyphaes() {
         return hyphaeManager.getHyphaes();
+    }
+    public List<Mycelium> getMyceliums() {
+        return myceliumManager.getMyceliums();
     }
 }
