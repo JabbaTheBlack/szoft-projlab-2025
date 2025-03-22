@@ -8,6 +8,7 @@ import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
 import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
+import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
 
 public class TestRunner {
     public void runTests() {
@@ -51,7 +52,10 @@ public class TestRunner {
                 // case 11 -> 
                 // case 12 -> 
                 // case 13 -> 
-                // case 14 -> 
+                case 14 : 
+                    TestUjGombatestNemNoHaMarVan.test_uj_gombatest_nem_no_ha_mar_van();
+                    waitForEnter(scanner);
+                    break;
                 // case 15 -> 
                 // case 16 -> 
                 // case 17 -> 
