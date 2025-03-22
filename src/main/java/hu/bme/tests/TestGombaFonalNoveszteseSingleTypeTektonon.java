@@ -25,14 +25,14 @@ public class TestGombaFonalNoveszteseSingleTypeTektonon {
         MultiTypeTekton t2 = new MultiTypeTekton();
 
         h1.setOwner(myc1);
-        h1.setCurrentTekton(t1);
+        h1.addCurrentTekton(t1);
         t1.addMycelium(m1);
         m1.addHyphae(h1);
         t1.addHyphae(h1);
 
         t2.addMycelium(m2);
         h2.setOwner(myc2);
-        h2.setCurrentTekton(t2);
+        h2.addCurrentTekton(t2);
         m2.addHyphae(h2);
         t2.addHyphae(h2);
 

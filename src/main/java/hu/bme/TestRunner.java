@@ -9,6 +9,7 @@ import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
 import hu.bme.tests.TestGombaFonalFelszivodasa;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
+import hu.bme.tests.TestGombaFonalNovesztesNemSzomszedosTekton;
 
 public class TestRunner {
     public void runTests() {
@@ -45,7 +46,10 @@ public class TestRunner {
                     TestRovarElfogyasztSporat.test_rovar_elfogyaszt_sporat_es_megkapja_hatasat();
                     waitForEnter(scanner);
                     break; 
-                // case 7 -> 
+                case 7 :
+                    TestGombaFonalNovesztesNemSzomszedosTekton.TestGombaFonalNovesztesNemSzomszedosTekton();
+                    waitForEnter(scanner);
+                    break;
                 case 8 :
                     TestGombaFonalFelszivodasa.test_gombafonal_felszivodasa();
                     waitForEnter(scanner);
