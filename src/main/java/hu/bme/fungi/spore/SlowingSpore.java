@@ -8,13 +8,20 @@ import hu.bme.insect.Insect;
  */
 public class SlowingSpore extends Spore {
 
+    /**
+     * Initializes a SlowingSpore.
+     */
     public SlowingSpore() {
         super();
     }
 
+    /**
+     * Applies the effect of the SlowingSpore on an {@link Insect}.
+     * @param insect the insect to apply the effect on
+     */
     @Override
     public void applyEffect(Insect insect) {
-        // TODO implement the function, add javadoc
+        // TODO implement the function
         throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
     }
     

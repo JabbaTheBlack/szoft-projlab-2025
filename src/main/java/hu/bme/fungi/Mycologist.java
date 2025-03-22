@@ -5,22 +5,41 @@ import java.util.List;
 
 import hu.bme.tekton.Tekton;
 
+/**
+ * Represents a mycologist who manages myceliums and interacts with Tekton.
+ */
 public class Mycologist {
 
     private List<Mycelium> myceliums;
 
+    /**
+     * Initializes a new mycologist with an empty list of myceliums.
+     */
     public Mycologist() {
         myceliums = new ArrayList<>();
     }
 
+    /**
+     * Releases spores from a mycelium.
+     * @param mycelium
+     */
     public void releaseSpore(Mycelium mycelium) {   
         mycelium.releaseSpores();
     }
 
+    /**
+     * Upgrades a mycelium.
+     * @param mycelium the mycelium to be upgraded
+     */
     public void upgradeMyceium(Mycelium mycelium) {
         mycelium.upgrade();
     }
 
+    /**
+     * Grows hyphae towards a Tekton.
+     * @param tekton The current Tekton.
+     * @param tekton The target Tekton towards which hyphae are grown.
+     */
     public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
         // TODO add javadoc
         
@@ -48,10 +67,18 @@ public class Mycologist {
 
     }
 
+    /**
+     * Adds a mycelium to the list of managed myceliums.
+     * @param mycelium The mycelium to be added.
+     */
     public void addMycelium(Mycelium mycelium) {
         myceliums.add(mycelium);
     }
 
+    /**
+     * Removes a mycelium from the list of managed myceliums, when a mycelium is dies.
+     * @param mycelium The mycelium to be removed.
+     */
     public void removeMycelium(Mycelium mycelium) {
         myceliums.remove(mycelium);    
     }
