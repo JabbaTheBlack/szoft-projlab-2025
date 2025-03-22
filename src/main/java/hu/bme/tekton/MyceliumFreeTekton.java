@@ -19,7 +19,7 @@ public class MyceliumFreeTekton extends Tekton{
      * @param mycelium The mycelium to add.
      */
     @Override
-    public void addMycelium(Mycelium mycelium) {
+    public boolean addMycelium(Mycelium mycelium) {
         // TODO implement function, add javadoc
         throw new UnsupportedOperationException("Unimplemented method 'addMycelium' in MyceliumFreeTekton class");
     }

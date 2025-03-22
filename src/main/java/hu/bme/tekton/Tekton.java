@@ -92,10 +92,12 @@ public abstract class Tekton {
      * Adds a mycelium to this tekton.
      * @param mycelium The mycelium to add.
      */
-    public void addMycelium(Mycelium mycelium) {
-        if(fungalManager.getMyceliumCount() != 0) {
+    public boolean addMycelium(Mycelium mycelium) {
+        if(fungalManager.getMyceliumCount() == 0) {
             fungalManager.addMycelium(mycelium);
+            return true;
         }
+        return false;
     }
 
     /**
