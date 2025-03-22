@@ -8,6 +8,7 @@ import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
 import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
+import hu.bme.tests.TestSporaKiloveseSzomszedosTektonra;
 import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
 
 public class TestRunner {
@@ -56,7 +57,10 @@ public class TestRunner {
                     TestUjGombatestNemNoHaMarVan.test_uj_gombatest_nem_no_ha_mar_van();
                     waitForEnter(scanner);
                     break;
-                // case 15 -> 
+                case 15:
+                    TestSporaKiloveseSzomszedosTektonra.test_spora_kilovese_szomszedos_tektonra();
+                    waitForEnter(scanner);
+                    break;
                 // case 16 -> 
                 // case 17 -> 
                 // case 18 -> 
