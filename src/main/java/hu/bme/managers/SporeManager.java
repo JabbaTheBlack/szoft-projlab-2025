@@ -8,7 +8,7 @@ import java.util.List;
 import hu.bme.fungi.spore.*;
 
 public class SporeManager implements ISporeManager{
-    private List<Spore> spores;
+    private ArrayList<Spore> spores;
 
     public SporeManager() {
         spores = new ArrayList<>();
@@ -27,5 +27,10 @@ public class SporeManager implements ISporeManager{
     @Override 
     public int getSporeCount() {
         return spores.size();
+    }
+
+    @Override
+    public ArrayList<Spore> getSpores() {
+        return spores;
     }
 }

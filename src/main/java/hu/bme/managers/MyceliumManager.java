@@ -7,7 +7,7 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.interfaces.IMyceliumManager;
 
 public class MyceliumManager implements IMyceliumManager{
-    private List<Mycelium> myceliums;
+    private ArrayList<Mycelium> myceliums;
 
     public MyceliumManager() {
         myceliums = new ArrayList<>();
@@ -26,5 +26,10 @@ public class MyceliumManager implements IMyceliumManager{
     @Override
     public int getMyceliumCount() {
         return myceliums.size();
+    }
+
+    @Override
+    public ArrayList<Mycelium> getMyceliums() {
+        return myceliums;
     }
 }

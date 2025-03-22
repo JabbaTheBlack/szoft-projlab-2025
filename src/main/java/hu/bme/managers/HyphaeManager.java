@@ -9,7 +9,7 @@ import hu.bme.interfaces.IHyphaeManager;
 
 public class HyphaeManager implements IHyphaeManager {
     
-    private List<Hyphae> hyphaes;
+    private ArrayList<Hyphae> hyphaes;
 
     public HyphaeManager() {
         hyphaes = new ArrayList<>();
@@ -33,5 +33,10 @@ public class HyphaeManager implements IHyphaeManager {
     @Override
     public boolean hasHyphae(Hyphae hyphae) {
         return hyphaes.contains(hyphae);
+    }
+
+    @Override
+    public ArrayList<Hyphae> getHyphaes() {
+        return hyphaes;
     }
 }
