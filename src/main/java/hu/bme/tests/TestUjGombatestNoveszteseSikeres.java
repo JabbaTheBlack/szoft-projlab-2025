@@ -58,6 +58,7 @@ public class TestUjGombatestNoveszteseSikeres {
         t1.connectToTekton(t2);
         t2.connectToTekton(t1);
 
+        System.out.println("[Tester] growMycelium(" + h3 + ", " + t1 + ") -> [Mycologist]");
         mycologist.growMycelium(h3, t1);
 
     }

@@ -147,7 +147,6 @@ public class Mycologist {
                 targetTekton.removeSpore(spore);
             }
 
-            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Mycologist]");
             addMycelium(newMycelium);
 
             System.out.println("[Mycologist] addHyphae(" + hyphae + ") -> [Mycelium]");
