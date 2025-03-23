@@ -42,19 +42,26 @@ public class MultiTypeTekton extends Tekton {
 
             newTekton1.addNeighbour(newTekton2);
             newTekton2.addNeighbour(newTekton1);
+
             this.fungalManager.getHyphaes().forEach(hyphae -> {
                 if(hyphae.getCurrentTekton().size() >= 2){
+                    System.out.println("["+this+"] addHyphea("+hyphae+") -> ["+newTekton1+"]");
                     newTekton1.addHyphae(hyphae);
+                    System.out.println("["+this+"] addCurrentTekton("+newTekton1+") -> ["+hyphae+"]");
                     hyphae.addCurrentTekton(newTekton1);
+                    System.out.println("["+this+"] removeCurrentTekton("+this+") -> ["+hyphae+"]");
                     hyphae.removeCurrentTekton(this);
                 } else{
                     hyphae.getConnectedHyphae().forEach(nghHyphae -> {
+                        System.out.println("["+this+"] removeHyphae("+hyphae+") -> ["+nghHyphae+"]");
                         nghHyphae.removeHyphae(hyphae);
                     });
                 }
             });
             this.fungalManager.getSpores().forEach(spore -> {
+                System.out.println("["+this+"] addSpore("+spore+") -> ["+newTekton1+"]");
                 newTekton1.addSpore(spore);
+            
             });
 
             List<Tekton> newTektons = new ArrayList<>();
