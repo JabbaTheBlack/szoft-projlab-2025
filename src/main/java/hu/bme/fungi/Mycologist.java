@@ -53,11 +53,16 @@ public class Mycologist {
      * @param targetTekton The Tekton to grow the hyphae to.
      */
     public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
-        //szomszédosak e a tektonok?
+        
+        Tekton neighbourTekton = null;
         boolean isNeighbour = false;
+
+        // Get tektons neighbouring the target
         for(Tekton tekton : hyphae.getCurrentTekton()) {
             if(tekton.getNeighbours().contains(targetTekton)) {
                 isNeighbour = true;
+                neighbourTekton = tekton;
+                break;
             }
         }
         if(isNeighbour == false) {
@@ -81,16 +86,16 @@ public class Mycologist {
         newHyphae.addCurrentTekton(targetTekton);
 
         System.out.println("[Mycologist] connectToTekton(" + targetTekton + ") -> [Tekton]");
-        hyphae.getCurrentTekton().get(0).connectToTekton(targetTekton);
+        neighbourTekton.connectToTekton(targetTekton);
 
         System.out.println("[Mycologist] connectToTekton(" + hyphae.getCurrentTekton() + ") -> [Tekton]");
-        targetTekton.connectToTekton(hyphae.getCurrentTekton().get(0));
+        targetTekton.connectToTekton(neighbourTekton);
 
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Hyphae]");
         hyphae.addHyphae(newHyphae);        
 
         //spore on the tekton, bc that it grows faster
-        if(hyphae.getCurrentTekton().get(0).getSporeCount() >= 4) {
+        if(neighbourTekton.getSporeCount() >= 4) {
             Hyphae newHyphae2 = new Hyphae(targetTekton);
             
             System.out.println("[Mycologist]  addHyphae(" + newHyphae2 + ") -> [" + targetTekton + "]");
