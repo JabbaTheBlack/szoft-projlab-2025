@@ -6,9 +6,20 @@ import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the unsuccessful growth of a new mycelium due to insufficient spores.
+ * This test case simulates the interaction between mycelium, hyphae, a mycologist, and tekton structures.
+ * 
+ * @see Mycelium
+ * @see Hyphae
+ * @see Mycologist
+ * @see DefensiveSpore
+ * @see MultiTypeTekton
+ */
+
 public class TestUjGombatestSikeretelenNincsSpora {
     public static void test_uj_gombatest_novesztese_sikertelen_nincs_spora() {
-         Mycelium m1 = new Mycelium();
+        Mycelium m1 = new Mycelium();
         MultiTypeTekton t1 = new MultiTypeTekton();
         MultiTypeTekton t2 = new MultiTypeTekton();
         Hyphae h1 = new Hyphae();

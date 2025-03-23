@@ -4,6 +4,15 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the development of a new mycelium level with an adequate spore level.
+ * This test case simulates the interaction between mycelium, defensive spores, and a tekton structure.
+ * 
+ * @see Mycelium
+ * @see DefensiveSpore
+ * @see MultiTypeTekton
+ */
+
 public class TestGombatestFejleszteseSporaszintEleg {
     public static void test_gombatest_fejlesztese_megfelelo_sporaszinttel() {
         MultiTypeTekton t1 = new MultiTypeTekton();

@@ -5,6 +5,16 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the growth of hyphae to a non-adjacent tekton structure, it will fail
+ * This test case simulates the interaction between a mycologist, mycelium, hyphae, and tekton structures.
+ * 
+ * @see Mycologist
+ * @see Mycelium
+ * @see Hyphae
+ * @see MultiTypeTekton
+ */
+
 public class TestGombaFonalNovesztesNemSzomszedosTekton {
     public static void TestGombaFonalNovesztesNemSzomszedosTekton(){
         Mycologist myc1 = new Mycologist();

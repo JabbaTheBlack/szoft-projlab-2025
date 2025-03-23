@@ -2,6 +2,15 @@ package hu.bme.tests;
 
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the update of neighboring tekton structures when one tekton breaks apart.
+ * This test case simulates the interaction between multiple tekton structures.
+ * 
+ * When one tekton breaks apart, the new tektons get the same type as the original tekton.
+ * 
+ * @see MultiTypeTekton
+ */
+
 public class TestTektonToresSzomszedokFrissitese {
     public static void test_tekton_tores_szomszedok_frissitese() {
         MultiTypeTekton t1 = new MultiTypeTekton();

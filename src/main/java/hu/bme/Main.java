@@ -15,7 +15,8 @@ public class Main {
      * It creates an instance of the TestRunner and calls its runTests method.
      * 
      * @param args Command-line arguments (not used in this application).
-     */public static void main(String[] args) {
+     */
+    public static void main(String[] args) {
         TestRunner runner = new TestRunner();
 
         runner.runTests();

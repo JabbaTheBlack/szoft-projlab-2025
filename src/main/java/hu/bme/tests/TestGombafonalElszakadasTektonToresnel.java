@@ -8,6 +8,16 @@ import hu.bme.managers.TektonManager;
 import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.Tekton;
 
+/**
+ * This test case simulates the interaction between hyphae, mycelium, and tekton structures.
+ * When a tekton breaks apart, the hyphae structures should be updated accordingly.
+ * 
+ * @see TektonManager
+ * @see Mycelium
+ * @see Hyphae
+ * @see MultiTypeTekton
+ */
+
 public class TestGombafonalElszakadasTektonToresnel {
     public static void TestGombafonalElszakadasTektonToresnel() {
         TektonManager TM = new TektonManager();

@@ -11,6 +11,15 @@ import hu.bme.fungi.spore.Spore;
 import hu.bme.fungi.spore.StunSpore;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the selection of different fungal spore types, like the start of the game.
+ * This test case simulates user interaction to choose a type of spore for mycelium.
+ * 
+ * @see Mycelium
+ * @see Mycologist
+ * @see Spore
+ */
+
 public class TestGombaTipusValasztas {
     public static void test_gomba_tipus_valasztas_sikeres(Scanner scanner){
         MultiTypeTekton t1 = new MultiTypeTekton();

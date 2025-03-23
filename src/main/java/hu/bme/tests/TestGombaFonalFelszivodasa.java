@@ -4,6 +4,15 @@ import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.tekton.AbsrobingTekton;
 
+/**
+ * Tests the absorption of hyphae by an absorbing tekton structure.
+ * This test case simulates the interaction between mycelium, hyphae, and an absorbing tekton.
+ * 
+ * @see Mycelium
+ * @see Hyphae
+ * @see AbsrobingTekton
+ */
+
 public class TestGombaFonalFelszivodasa {
     public static void test_gombafonal_felszivodasa() {
         Mycelium m1 = new Mycelium();
