@@ -3,6 +3,7 @@ package hu.bme.tests;
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.DefensiveSpore;
+import hu.bme.managers.TektonManager;
 import hu.bme.tekton.MultiTypeTekton;
 
 /**
@@ -27,9 +28,12 @@ public class TestTektonNemTorhetGombaTestMiatt {
         DefensiveSpore s2 = new DefensiveSpore();
         Hyphae h1 = new Hyphae();
         Hyphae h2 = new Hyphae();
+        TektonManager tm = new TektonManager();
 
+        tm.addTekton(t1);
+        tm.addTekton(t2);
 
-        t1.addHyphae(h2);
+        t2.addHyphae(h2);
         h2.addCurrentTekton(t2);
         t1.addSpore(s1);
 
@@ -40,9 +44,10 @@ public class TestTektonNemTorhetGombaTestMiatt {
         t1.addSpore(s2);
 
         System.out.println("[Tester] breakApart() -> [" + t2 + "]");
-        t2.breakApart();
+        tm.breakApart(t2);
+        
         
         System.out.println("[Tester] breakApart() -> [" + t1 + "]");
-        t1.breakApart();
+        tm.breakApart(t1);
     }
 }

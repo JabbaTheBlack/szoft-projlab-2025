@@ -52,7 +52,7 @@ public class Insect {
 
         if(currentTekton.isConnectedTo(targetTekton)) {
             System.out.println("[Insect] isConnectedTo(" + targetTekton + ") <- [Tekton] {true}");
-            System.out.println("[Insect] setCurrentTekton(" + this + ") -> [Insect]");
+            System.out.println("[Insect] setCurrentTekton(" + targetTekton + ") -> [Insect]");
             this.setCurrentTekton(targetTekton);
             return;
         }

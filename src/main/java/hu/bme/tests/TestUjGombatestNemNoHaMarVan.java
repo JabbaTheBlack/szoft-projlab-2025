@@ -38,20 +38,24 @@ public class TestUjGombatestNemNoHaMarVan {
         DefensiveSpore s2 = new DefensiveSpore();
         DefensiveSpore s3 = new DefensiveSpore();
 
-        myc.addMycelium(m2);
 
         t2.addMycelium(m2);
         t2.addHyphae(h3);
         t2.addHyphae(h2);
-
+        ///
         h1.addMycelium(m1);
         h1.addCurrentTekton(t1);
+        h1.addHyphae(h2);
 
         h2.addHyphae(h3);
         h2.addCurrentTekton(t1);
+        
+        h2.addCurrentTekton(t2);
+        h2.addHyphae(h1);
 
         h3.addHyphae(h2);
         h3.addMycelium(m2);
+        h3.addCurrentTekton(t2);
 
         m2.addHyphae(h3);
         m2.addHyphae(h2);

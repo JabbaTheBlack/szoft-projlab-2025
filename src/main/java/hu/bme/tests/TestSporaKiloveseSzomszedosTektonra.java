@@ -38,7 +38,7 @@ public class TestSporaKiloveseSzomszedosTektonra {
 
         t3.addNeighbour(t2);
 
-        System.out.println("[Tester] releaseSpores() -> [Mycologist]");
+        System.out.println("[Tester] releaseSpores() -> [Mycelium]");
         m1.releaseSpores();
     }
 }
