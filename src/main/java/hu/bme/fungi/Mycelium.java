@@ -47,7 +47,20 @@ public class Mycelium<T extends Spore> {
      * Upgrades the mycelium.
      */
     public void upgrade() {
-        upgraded = true;
+        if(currentTekton.getSporeCount() >= 3) {
+            upgraded = true;
+
+            List<Spore> spores = currentTekton.getSpores();
+            Random random = new Random();
+
+            for(int i = 0; i < 3; i++) {
+                if(!spores.isEmpty()) {
+                    spores.remove(random.nextInt(spores.size()));
+                }
+            }
+            System.out.println("Upgraded");
+        }
+        System.out.println("Not Upgraded");
     }
 
     /**

@@ -8,6 +8,8 @@ import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
 import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
 import hu.bme.tests.TestGombaTipusValasztas;
 import hu.bme.tests.TestGombatestElhalSporaSzetszorasUtan;
+import hu.bme.tests.TestGombatestFejleszteseSporaszintEleg;
+import hu.bme.tests.TestGombatestFejleszteseSporaszintNemEleg;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
 import hu.bme.tests.TestSporaGyorsitjaFonalNovekedest;
@@ -83,8 +85,14 @@ public class TestRunner {
                     TestGombaTipusValasztas.test_gomba_tipus_valasztas_sikeres(scanner);
                     waitForEnter(scanner);
                     break;
-                // case 20 -> 
-                // case 21 -> 
+                case 20:
+                    TestGombatestFejleszteseSporaszintEleg.test_gombatest_fejlesztese_megfelelo_sporaszinttel();
+                    waitForEnter(scanner);
+                    break;
+                case 21:
+                    TestGombatestFejleszteseSporaszintNemEleg.test_gombatest_nem_fejlesztheto_nincs_sporaszint();
+                    waitForEnter(scanner);
+                    break;
                 case 22:
                     TestGombatestElhalSporaSzetszorasUtan.TestGombaFonalNovesztesMultiTypeTektonon();
                     waitForEnter(scanner);

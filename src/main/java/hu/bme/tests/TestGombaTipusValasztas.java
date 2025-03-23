@@ -34,7 +34,7 @@ public class TestGombaTipusValasztas {
                 mycelium = new Mycelium<DefensiveSpore>();
                 break;
             case 3:
-                mycelium = new Mycelium<SpeedBoostSpore>()
+                mycelium = new Mycelium<SpeedBoostSpore>();
                 break;
             case 4:
                 mycelium = new Mycelium<SlowingSpore>();
@@ -43,7 +43,5 @@ public class TestGombaTipusValasztas {
                 System.out.println("Invalid choice.");
                 return;  
         }
-
-        
     }
 }
