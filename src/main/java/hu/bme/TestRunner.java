@@ -143,7 +143,7 @@ public class TestRunner {
                     break;
             }
 
-        }while(choice != 24);
+        }while(choice != 0);
         
         scanner.close();
     }
