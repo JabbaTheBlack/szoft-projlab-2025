@@ -88,6 +88,7 @@ public class Mycelium {
             maxSporeRelease--;
 
             if(maxSporeRelease == 0){
+                currentTekton.removeMycelium(this);
                 return;
             }
         }

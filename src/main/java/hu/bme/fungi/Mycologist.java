@@ -31,7 +31,7 @@ public class Mycologist {
         System.out.println("[Mycologist] releaseSpore() -> [" + mycelium + "]");
         mycelium.releaseSpores();
 
-        if(mycelium.getRemainingSporeRealeses() == 0) {
+        if(mycelium.getRemainingSporeReleases() == 0) {
             System.out.println("[Mycologist] setCurrentTekton() -> [" + mycelium + "]");
             mycelium.setCurrentTekton(null);
 
