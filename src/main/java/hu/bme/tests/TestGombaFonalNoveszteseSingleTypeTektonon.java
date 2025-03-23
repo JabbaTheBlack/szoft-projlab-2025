@@ -6,6 +6,20 @@ import hu.bme.fungi.Mycologist;
 import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.SingleTypeTekton;
 
+/**
+ * Tests the growth of a hyphae to a SingleTypeTekton.
+ * This class simulates a scenario where a mycologist grows a hyphae from one tekton to another,
+ * specifically from a MultiTypeTekton to a SingleTypeTekton.
+ * 
+ * The SingleTypeTekton is already ocupied by a hyphae from another mycelium.
+ * 
+ * @see Hyphae
+ * @see Mycelium
+ * @see Mycologist
+ * @see MultiTypeTekton
+ * @see SingleTypeTekton
+ */
+
 public class TestGombaFonalNoveszteseSingleTypeTektonon {
     
     public static void test_gombafonal_novesztese_single_type_tektonon() {

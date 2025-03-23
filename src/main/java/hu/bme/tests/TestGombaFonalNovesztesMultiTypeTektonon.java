@@ -5,6 +5,17 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the growth of a hyphae to a MultiTypeTekton.
+ * 
+ * This class simulates a scenario where a mycologist grows a hyphae from one MultiTypeTekton to another.
+ * 
+ * @see Hyphae
+ * @see Mycelium
+ * @see Mycologist
+ * @see MultiTypeTekton
+ */
+
 public class TestGombaFonalNovesztesMultiTypeTektonon {
         
     public static void test_gombafonal_novesztes_multi_type_tektonon() {

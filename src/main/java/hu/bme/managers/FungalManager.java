@@ -1,5 +1,7 @@
 package hu.bme.managers;
 
+import java.util.List;
+
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
@@ -105,6 +107,14 @@ public class FungalManager {
     }
 
     /**
+     * Returns the number of spores managed.
+     * @return The count of spores.
+     */
+    public int getSporeCount() {
+        return sporeManager.getSporeCount();
+    }
+
+    /**
      * Checks if a specific hyphae is managed.
      * @param hyphae The hyphae to check for.
      * @return True if the hyphae is managed, false otherwise.
@@ -113,14 +123,17 @@ public class FungalManager {
         return hyphaeManager.hasHyphae(hyphae);
     }
 
-    //TODO javadoc
+    /**
+     * Gets a list of spores
+     * @return List of spores
+     */
+    public List<Spore> getSpores() {
+        return sporeManager.getSpores();
+    }
     public List<Hyphae> getHyphaes() {
         return hyphaeManager.getHyphaes();
     }
     public List<Mycelium> getMyceliums() {
         return myceliumManager.getMyceliums();
-    }
-    public List<Spore> getSpores() {
-        return sporeManager.getSpores();
-    }
+    } 
 }

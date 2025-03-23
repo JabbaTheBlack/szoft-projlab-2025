@@ -26,10 +26,27 @@ public class Hyphae{
         ownner = new Mycologist();
     }
 
+    /**
+     * Initializes a new hyphae with the specified Tekton.
+     * @param currentTekton The Tekton to be associated with this hyphae.
+     */
+    public Hyphae(Tekton currenTekton) {
+        this();
+        this.currentTekton.add(currenTekton);
+    }
+
+    /**
+     * Sets the given hyphae's owner.
+     * @param owner
+     */
     public void setOwner(Mycologist owner) {
         this.ownner = owner;
     }
 
+    /**
+     * Returns the owner of this hyphae.
+     * @return The owner of this hyphae.
+     */
     public Mycologist getOwner() {
         return ownner;
     }
@@ -91,6 +108,10 @@ public class Hyphae{
         return Collections.unmodifiableList(connectedMyceliums);
     }
 
+    /**
+     * Returns the current Tekton associated with this hyphae.
+     * @return The current Tekton.
+     */
     public List<Tekton> getCurrentTekton() {
         return currentTekton;
     } 

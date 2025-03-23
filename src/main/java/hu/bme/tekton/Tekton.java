@@ -138,10 +138,12 @@ public abstract class Tekton {
      * Adds a mycelium to this tekton.
      * @param mycelium The mycelium to add.
      */
-    public void addMycelium(Mycelium mycelium) {
-        if(fungalManager.getMyceliumCount() < 1) {
+    public boolean addMycelium(Mycelium mycelium) {
+        if(fungalManager.getMyceliumCount() == 0) {
             fungalManager.addMycelium(mycelium);
-        }        
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -163,6 +165,10 @@ public abstract class Tekton {
         return true;
     }
 
+    /**
+     * Removes a hyphae from this tekton.
+     * @param hyphae The hyphae to remove.
+     */
     public void removeHyphae(Hyphae hyphae) {
         fungalManager.removeHyphae(hyphae);
     }
@@ -206,5 +212,21 @@ public abstract class Tekton {
      */
     public boolean hasHyphae(Hyphae hyphae) {
         return fungalManager.hasHyphae(hyphae);
+    }
+
+    /**
+     * Returns the number of spores on this tekton.
+     * @return The number of spores.
+     */
+    public int getSporeCount() {
+        return fungalManager.getSporeCount();
+    }
+
+    /**
+     * Returns a list of spores on this tekton.
+     * @return The list of spores.
+     */
+    public List<Spore> getSpores(){
+        return fungalManager.getSpores();
     }
 }

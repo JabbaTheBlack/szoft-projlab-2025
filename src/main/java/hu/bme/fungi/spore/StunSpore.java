@@ -22,6 +22,7 @@ public class StunSpore extends Spore {
     @Override
     public void applyEffect(Insect insect) {
         // TODO implemen the function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        System.out.println("[StunSpore] setMovementSpeed(0) -> [" + insect + "]");
+        insect.setMovementSpeed(0);
     }
 }

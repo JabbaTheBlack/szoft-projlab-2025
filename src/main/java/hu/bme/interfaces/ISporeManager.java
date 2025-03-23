@@ -1,6 +1,5 @@
 package hu.bme.interfaces;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 import hu.bme.fungi.spore.Spore;
@@ -27,5 +26,10 @@ public interface ISporeManager {
      * @return The number of spores
      */
     int getSporeCount();
+
+    /**
+     * Gets a list of spores
+     * @return List of spores
+     */
     List<Spore> getSpores();
 }

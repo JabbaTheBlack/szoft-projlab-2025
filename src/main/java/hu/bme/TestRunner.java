@@ -7,12 +7,33 @@ import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
 import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
 import hu.bme.tests.TestGombaFonalFelszivodasa;
+import hu.bme.tests.TestGombaTipusValasztas;
+import hu.bme.tests.TestGombatestElhalSporaSzetszorasUtan;
+import hu.bme.tests.TestGombatestFejleszteseSporaszintEleg;
+import hu.bme.tests.TestGombatestFejleszteseSporaszintNemEleg;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
 import hu.bme.tests.TestGombaFonalNovesztesNemSzomszedosTekton;
 import hu.bme.tests.TestGombafonalElszakadasTektonToresnel;
+import hu.bme.tests.TestSporaGyorsitjaFonalNovekedest;
+import hu.bme.tests.TestSporaKiloveseSzomszedosTektonra;
+import hu.bme.tests.TestSporeKiloveseSzomszeddalSzomszedosTektonra;
+import hu.bme.tests.TestTektonNemTorhetGombaTestMiatt;
+import hu.bme.tests.TestTobbHatasARovaron;
+import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
+
+/**
+ * A class responsible for running various test cases related to fungal networks and interactions.
+ */
 
 public class TestRunner {
+
+    /**
+     * Runs a series of test cases based on user input.
+     * 
+     * This method presents a menu to the user, allowing them to select which test case to run.
+     * It continues to prompt the user until they choose to exit.
+     */
     public void runTests() {
         Scanner scanner = new Scanner(System.in);  
         int choice = 0;
@@ -63,16 +84,46 @@ public class TestRunner {
                 // case 11 -> 
                 // case 12 -> 
                 // case 13 -> 
-                // case 14 -> 
-                // case 15 -> 
-                // case 16 -> 
-                // case 17 -> 
-                // case 18 -> 
-                // case 19 -> 
-                // case 20 -> 
-                // case 21 -> 
-                // case 22 -> 
-                // case 23 -> 
+                case 14 : 
+                    TestUjGombatestNemNoHaMarVan.test_uj_gombatest_nem_no_ha_mar_van();
+                    waitForEnter(scanner);
+                    break;
+                case 15:
+                    TestSporaKiloveseSzomszedosTektonra.test_spora_kilovese_szomszedos_tektonra();
+                    waitForEnter(scanner);
+                    break;
+                case 16:
+                    TestSporeKiloveseSzomszeddalSzomszedosTektonra.test_spora_kilovese_szomszeddal_szomszedos_tektonra();
+                    waitForEnter(scanner);
+                    break;
+                case 17: 
+                    TestSporaGyorsitjaFonalNovekedest.test_spora_gyorsitja_fonal_novekedest();
+                    waitForEnter(scanner);
+                    break;
+                case 18:
+                    TestTektonNemTorhetGombaTestMiatt.test_tekton_nem_torhet_gombatest_miatt();
+                    waitForEnter(scanner);
+                    break;
+                case 19:
+                    TestGombaTipusValasztas.test_gomba_tipus_valasztas_sikeres(scanner);
+                    waitForEnter(scanner);
+                    break;
+                case 20:
+                    TestGombatestFejleszteseSporaszintEleg.test_gombatest_fejlesztese_megfelelo_sporaszinttel();
+                    waitForEnter(scanner);
+                    break;
+                case 21:
+                    TestGombatestFejleszteseSporaszintNemEleg.test_gombatest_nem_fejlesztheto_nincs_sporaszint();
+                    waitForEnter(scanner);
+                    break;
+                case 22:
+                    TestGombatestElhalSporaSzetszorasUtan.TestGombaFonalNovesztesMultiTypeTektonon();
+                    waitForEnter(scanner);
+                    break;
+                case 23:
+                    TestTobbHatasARovaron.test_tobb_hatas_a_rovaron();
+                    waitForEnter(scanner);
+                    break;
                 case 24 : 
                     System.out.println("Kilépés...");
                     break;
@@ -86,11 +137,19 @@ public class TestRunner {
         scanner.close();
     }
 
+    /**
+     * Waits for the user to press Enter before continuing.
+     * 
+     * @param scanner The Scanner object used to read user input.
+     */
     private void waitForEnter(Scanner scanner) {
         System.out.println("\nNyomjon entert a folytatáshoz...");
         scanner.nextLine();
     }
 
+    /**
+     * Prints the available test options to the console.
+     */
     private void printTestOptions() {
         System.out.println("Válasszon egy tesztesetet az alábbi listából:");
         System.out.println("1 - test_gombafonal_elvagasa_nincs_spora_hatas");
