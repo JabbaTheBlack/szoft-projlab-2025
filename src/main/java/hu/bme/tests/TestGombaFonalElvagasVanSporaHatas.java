@@ -6,6 +6,19 @@ import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.insect.Insect;
 import hu.bme.tekton.MultiTypeTekton;
 
+
+/**
+ * Tests the scenario where a fungal network is disrupted by an insect cutting a hyphae,
+ * and there is a defensive spore effect applied to the insect, denies the cut.
+ * THERE IS SPORE EFFECT
+ * 
+ * @see Hyphae
+ * @see Mycelium
+ * @see Insect
+ * @see MultiTypeTekton
+ * @see DefensiveSpore
+ */
+
 public class TestGombaFonalElvagasVanSporaHatas {
     
     public static void test_gombafonal_elvagasa_van_spora_hatas() {

@@ -7,6 +7,18 @@ import hu.bme.managers.MyceliumManager;
 import hu.bme.managers.SporeManager;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the scenario where a mycelium releases spores a number of times, after the releases the Mycelium dies.
+ * 
+ * This class simulates a network of myceliums and MultiTypeTektons, and tests the behavior
+ * when a mycelium releases a spore.
+ * 
+ * @see Mycelium
+ * @see Mycologist
+ * @see DefensiveSpore
+ * @see MultiTypeTekton
+ */
+
 public class TestGombatestElhalSporaSzetszorasUtan {
     public static void TestGombaFonalNovesztesMultiTypeTektonon(){
         Mycelium m1 = new Mycelium();

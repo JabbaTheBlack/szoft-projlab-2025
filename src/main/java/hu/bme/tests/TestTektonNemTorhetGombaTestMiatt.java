@@ -5,6 +5,18 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the scenario where a tekton cannot be broken apart due to fungal presence.
+ * 
+ * This class simulates a network of myceliums, hyphaes, and tektons, and tests the behavior
+ * when attempting to break apart a tekton that contains fungal elements.
+ * 
+ * @see Mycelium
+ * @see Hyphae
+ * @see DefensiveSpore
+ * @see MultiTypeTekton
+ */
+
 public class TestTektonNemTorhetGombaTestMiatt {
     
     public static void test_tekton_nem_torhet_gombatest_miatt() {

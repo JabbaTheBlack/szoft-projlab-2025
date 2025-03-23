@@ -7,6 +7,20 @@ import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.SingleTypeTekton;
 
+/**
+ * Tests the scenario where a new mycelium cannot be grown if there is already one present.
+ * 
+ * This class simulates a network of tektons, myceliums, and hyphaes, and tests the behavior
+ * when a mycologist attempts to grow a new mycelium on a tekton that already contains a mycelium.
+ * 
+ * @see Mycologist
+ * @see Mycelium
+ * @see Hyphae
+ * @see DefensiveSpore
+ * @see MultiTypeTekton
+ * @see SingleTypeTekton
+ */
+
 public class TestUjGombatestNemNoHaMarVan {
     public static void test_uj_gombatest_nem_no_ha_mar_van() {
         SingleTypeTekton t1 = new SingleTypeTekton();

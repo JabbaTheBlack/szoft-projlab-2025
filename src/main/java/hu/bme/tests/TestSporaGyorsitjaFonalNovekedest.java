@@ -4,6 +4,19 @@ import hu.bme.fungi.*;
 import hu.bme.fungi.spore.StunSpore;
 import hu.bme.tekton.MultiTypeTekton;    
 
+/**
+ * Tests the scenario where a spore accelerates the growth of a hyphae on a given tekton.
+ * 
+ * This class simulates a network of myceliums, hyphaes, and tektons, and tests the behavior
+ * when a mycologist grows a hyphae on a tekton in the presence of spores.
+ * 
+ * @see Mycelium
+ * @see Mycologist
+ * @see Hyphae
+ * @see MultiTypeTekton
+ * @see StunSpore
+ */
+
 public class TestSporaGyorsitjaFonalNovekedest {
     public static void test_spora_gyorsitja_fonal_novekedest() {
         Mycelium m1 = new Mycelium();
