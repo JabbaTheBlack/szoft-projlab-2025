@@ -59,11 +59,6 @@ public class Mycologist {
         Hyphae newHyphae = new Hyphae();
         newHyphae.setOwner(hyphae.getOwner());
 
-        if(!hyphae.getCurrentTekton().get(0).isConnectedTo(targetTekton)) {
-            System.out.println("[Mycologist] <- [targetTekton] {fail}");
-            return;
-        }
-
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Tekton]");
         if (!targetTekton.addHyphae(newHyphae)) {
             System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
