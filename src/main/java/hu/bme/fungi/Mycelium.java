@@ -28,11 +28,19 @@ public class Mycelium {
         maxSporeRelease = 1;
     }
 
+    /**
+     * Initializes a new mycelium with the specified Tekton.
+     * @param currentTekton The Tekton to be associated with this mycelium.
+     */
     public Mycelium(Tekton currentTekton) {
         this();
         this.currentTekton = currentTekton;
     }
 
+    /**
+     * Returns the number of possible spore releases, before the mycelium dies.
+     * @return The number of possible spore releases.
+     */
     public int getRemainingSporeReleases(){
         return maxSporeRelease;
     }
@@ -94,6 +102,10 @@ public class Mycelium {
         }
     }
 
+    /**
+     * Sets the given mycelium's current Tekton.
+     * @param tekton The Tekton to be associated with this mycelium.
+     */
     public void setCurrentTekton(Tekton tekton) {
         currentTekton = tekton;
     }
@@ -128,6 +140,9 @@ public class Mycelium {
         hyphaes.remove(hyphae);
     }
 
+    /**
+     * Removes all hyphae from the mycelium.
+     */
     public void removeAllHyphae(){
         for(Hyphae hyphae : hyphaes) {
             hyphae.removeMycelium(this);

@@ -49,12 +49,11 @@ public class Mycologist {
     }
 
     /**
-     * Grows hyphae towards a Tekton.
-     * @param tekton The current Tekton.
-     * @param tekton The target Tekton towards which hyphae are grown.
+     * Grows hyphae from a mycelium towards a Tekton.
+     * @param hyphae The hyphae to be grown.
+     * @param targetTekton The Tekton to grow the hyphae to.
      */
     public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
-        // TODO add javadoc
         
         System.out.println("[Mycologist] new Hyphae() -> [Mycologist]");
         Hyphae newHyphae = new Hyphae();
@@ -119,6 +118,11 @@ public class Mycologist {
         myceliums.remove(mycelium);    
     }
 
+    /**
+     * Grows mycelium from a hyphae on a given Tekton.
+     * @param hyphae The hyphae to be grown.
+     * @param targetTekton The Tekton to grow the mycelium on.
+     */
     public void growMycelium(Hyphae hyphae, Tekton targetTekton) {
         if(hyphae.getCurrentTekton() == targetTekton) {
             Mycelium newMycelium = new Mycelium(targetTekton);
@@ -137,7 +141,6 @@ public class Mycologist {
             System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Hyphae]");
             hyphae.addMycelium(newMycelium);
 
-               
         }
     }
 }

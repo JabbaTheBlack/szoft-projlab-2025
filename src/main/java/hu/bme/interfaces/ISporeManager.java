@@ -27,5 +27,9 @@ public interface ISporeManager {
      */
     int getSporeCount();
 
+    /**
+     * Gets a list of spores
+     * @return List of spores
+     */
     List<Spore> getSpores();
 }

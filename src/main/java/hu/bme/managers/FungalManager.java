@@ -90,6 +90,10 @@ public class FungalManager {
         return hyphaeManager.getHyphaeCount();
     }
 
+    /**
+     * Returns the number of spores managed.
+     * @return The count of spores.
+     */
     public int getSporeCount() {
         return sporeManager.getSporeCount();
     }
@@ -103,6 +107,10 @@ public class FungalManager {
         return hyphaeManager.hasHyphae(hyphae);
     }
 
+    /**
+     * Gets a list of spores
+     * @return List of spores
+     */
     public List<Spore> getSpores() {
         return sporeManager.getSpores();
     }

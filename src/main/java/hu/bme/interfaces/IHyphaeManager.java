@@ -25,5 +25,10 @@ public interface IHyphaeManager {
      */
     int getHyphaeCount();
 
+    /**
+     * Checks if a manager has a given hyphae or not.
+     * @param hyphae The hyphae to be checked.
+     * @return true if the hyphae is managed, false otherwise.
+     */
     boolean hasHyphae(Hyphae hyphae);
 }
