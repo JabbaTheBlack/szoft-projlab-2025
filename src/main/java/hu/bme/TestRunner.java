@@ -6,6 +6,7 @@ import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
 import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
+import hu.bme.tests.TestGombaTipusValasztas;
 import hu.bme.tests.TestGombatestElhalSporaSzetszorasUtan;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
@@ -78,7 +79,10 @@ public class TestRunner {
                     TestTektonNemTorhetGombaTestMiatt.test_tekton_nem_torhet_gombatest_miatt();
                     waitForEnter(scanner);
                     break;
-                // case 19 -> 
+                case 19:
+                    TestGombaTipusValasztas.test_gomba_tipus_valasztas_sikeres(scanner);
+                    waitForEnter(scanner);
+                    break;
                 // case 20 -> 
                 // case 21 -> 
                 case 22:

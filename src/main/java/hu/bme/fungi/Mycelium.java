@@ -9,10 +9,10 @@ import hu.bme.fungi.spore.*;
 /**
  * Represents a mycelium in a fungal network, managing spores and hyphae.
  */
-public class Mycelium {
+public class Mycelium<T extends Spore> {
     
     private boolean upgraded;
-    private List<Spore> spores;
+    private List<T> spores;
     private List<Hyphae> hyphaes;
     private Tekton currentTekton;
     private int maxSporeRelease;
@@ -101,7 +101,7 @@ public class Mycelium {
     /**
      * Increment the spore count of the mycelium by one.
      */
-    public void addSpore(Spore spore) {
+    public void addSpore(T spore) {
         spores.add(spore);
     }
 
