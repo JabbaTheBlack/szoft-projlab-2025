@@ -23,10 +23,6 @@ public class Mycologist {
         myceliums = new ArrayList<>();
     }
 
-    /**
-     * Releases spores from a mycelium.
-     * @param mycelium
-     */
     public void releaseSpore(Mycelium mycelium) {   
         System.out.println("[Mycologist] releaseSpore() -> [" + mycelium + "]");
         mycelium.releaseSpores();
@@ -125,7 +121,7 @@ public class Mycologist {
      * @param targetTekton The Tekton to grow the mycelium on.
      */
     public void growMycelium(Hyphae hyphae, Tekton targetTekton) {
-        if(hyphae.getCurrentTekton() == targetTekton) {
+        if(hyphae.getCurrentTekton().get(0) == targetTekton && hyphae.getCurrentTekton().size() == 1 && hyphae.getCurrentTekton().get(0).getSporeCount() >= 3) {
             Mycelium newMycelium = new Mycelium(targetTekton);
 
             System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Tekton]");
@@ -141,7 +137,6 @@ public class Mycologist {
 
             System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Hyphae]");
             hyphae.addMycelium(newMycelium);
-
         }
     }
 }

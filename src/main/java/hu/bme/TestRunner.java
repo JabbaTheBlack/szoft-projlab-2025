@@ -19,8 +19,11 @@ import hu.bme.tests.TestSporaGyorsitjaFonalNovekedest;
 import hu.bme.tests.TestSporaKiloveseSzomszedosTektonra;
 import hu.bme.tests.TestSporeKiloveseSzomszeddalSzomszedosTektonra;
 import hu.bme.tests.TestTektonNemTorhetGombaTestMiatt;
+import hu.bme.tests.TestTektonToresSzomszedokFrissitese;
 import hu.bme.tests.TestTobbHatasARovaron;
 import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
+import hu.bme.tests.TestUjGombatestNoveszteseSikeres;
+import hu.bme.tests.TestUjGombatestSikeretelenNincsSpora;
 
 /**
  * A class responsible for running various test cases related to fungal networks and interactions.
@@ -80,10 +83,18 @@ public class TestRunner {
                     TestGombafonalElszakadasTektonToresnel.TestGombafonalElszakadasTektonToresnel();
                     waitForEnter(scanner);
                     break;
-                // case 10 -> 
-                // case 11 -> 
-                // case 12 -> 
-                // case 13 -> 
+                case 10: 
+                    TestTektonToresSzomszedokFrissitese.test_tekton_tores_szomszedok_frissitese();
+                    waitForEnter(scanner);
+                    break;
+                case 11:
+                    TestUjGombatestNoveszteseSikeres.test_uj_gombatest_novesztese_sikeres();
+                    waitForEnter(scanner);
+                    break;
+                case 12: 
+                    TestUjGombatestSikeretelenNincsSpora.test_uj_gombatest_novesztese_sikertelen_nincs_spora();
+                    waitForEnter(scanner);
+                    break;
                 case 14 : 
                     TestUjGombatestNemNoHaMarVan.test_uj_gombatest_nem_no_ha_mar_van();
                     waitForEnter(scanner);
@@ -164,7 +175,6 @@ public class TestRunner {
         System.out.println("10 - test_tekton_tores_szomszedok_frissitese");
         System.out.println("11 - test_uj_gombatest_novesztese_sikeres");
         System.out.println("12 - test_uj_gombatest_novesztese_sikertelen_nincs_spora");
-        System.out.println("13 - test_uj_gombatest_novesztese_nincs_fonal");
         System.out.println("14 - test_uj_gombatest_nem_no_ha_mar_van");
         System.out.println("15 - test_spora_kilovese_szomszedos_tektonra");
         System.out.println("16 - test_spora_kilovese_szomszeddal_szomszedos_tektonra");
