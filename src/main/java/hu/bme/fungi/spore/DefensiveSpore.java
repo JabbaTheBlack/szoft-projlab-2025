@@ -1,5 +1,6 @@
 package hu.bme.fungi.spore;
 
+import hu.bme.fungi.Hyphae;
 import hu.bme.insect.Insect;
 
 /**
@@ -21,6 +22,7 @@ public class DefensiveSpore extends Spore{
      */
     @Override
     public void applyEffect(Insect insect) {
+        System.out.println("[DefensiveSpore] setCanCutHyphae(false) -> [" + insect + "]");
         insect.setCanCutHyphae(false);
     }
 }
