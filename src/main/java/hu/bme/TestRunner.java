@@ -95,47 +95,47 @@ public class TestRunner {
                     TestUjGombatestSikeretelenNincsSpora.test_uj_gombatest_novesztese_sikertelen_nincs_spora();
                     waitForEnter(scanner);
                     break;
-                case 14 : 
+                case 13 : 
                     TestUjGombatestNemNoHaMarVan.test_uj_gombatest_nem_no_ha_mar_van();
                     waitForEnter(scanner);
                     break;
-                case 15:
+                case 14:
                     TestSporaKiloveseSzomszedosTektonra.test_spora_kilovese_szomszedos_tektonra();
                     waitForEnter(scanner);
                     break;
-                case 16:
+                case 15:
                     TestSporeKiloveseSzomszeddalSzomszedosTektonra.test_spora_kilovese_szomszeddal_szomszedos_tektonra();
                     waitForEnter(scanner);
                     break;
-                case 17: 
+                case 16: 
                     TestSporaGyorsitjaFonalNovekedest.test_spora_gyorsitja_fonal_novekedest();
                     waitForEnter(scanner);
                     break;
-                case 18:
+                case 17:
                     TestTektonNemTorhetGombaTestMiatt.test_tekton_nem_torhet_gombatest_miatt();
                     waitForEnter(scanner);
                     break;
-                case 19:
+                case 18:
                     TestGombaTipusValasztas.test_gomba_tipus_valasztas_sikeres(scanner);
                     waitForEnter(scanner);
                     break;
-                case 20:
+                case 19:
                     TestGombatestFejleszteseSporaszintEleg.test_gombatest_fejlesztese_megfelelo_sporaszinttel();
                     waitForEnter(scanner);
                     break;
-                case 21:
+                case 20:
                     TestGombatestFejleszteseSporaszintNemEleg.test_gombatest_nem_fejlesztheto_nincs_sporaszint();
                     waitForEnter(scanner);
                     break;
-                case 22:
+                case 21:
                     TestGombatestElhalSporaSzetszorasUtan.TestGombaFonalNovesztesMultiTypeTektonon();
                     waitForEnter(scanner);
                     break;
-                case 23:
+                case 22:
                     TestTobbHatasARovaron.test_tobb_hatas_a_rovaron();
                     waitForEnter(scanner);
                     break;
-                case 24 : 
+                case 0 : 
                     System.out.println("Kilépés...");
                     break;
                 default:
@@ -175,16 +175,17 @@ public class TestRunner {
         System.out.println("10 - test_tekton_tores_szomszedok_frissitese");
         System.out.println("11 - test_uj_gombatest_novesztese_sikeres");
         System.out.println("12 - test_uj_gombatest_novesztese_sikertelen_nincs_spora");
-        System.out.println("14 - test_uj_gombatest_nem_no_ha_mar_van");
-        System.out.println("15 - test_spora_kilovese_szomszedos_tektonra");
-        System.out.println("16 - test_spora_kilovese_szomszeddal_szomszedos_tektonra");
-        System.out.println("17 - test_spora_gyorsitja_fonal_novekedest");
-        System.out.println("18 - test_tekton_nem_torhet_gombatest_miatt");
-        System.out.println("19 - test_gomba_tipus_valasztas_sikeres");
-        System.out.println("20 - test_gombatest_fejlesztese_megfelelo_sporaszinttel");
-        System.out.println("21 - test_gombatest_nem_fejlesztheto_nincs_sporaszint");
-        System.out.println("22 - test_gombatest_elhal_spora_szetszoras_utan");
-        System.out.println("23 - test_tobb_hatas_a_rovaron");
-        System.out.println("24 - Kilépés");
+        //previous TEST 13 Removed - 
+        System.out.println("13 - test_uj_gombatest_nem_no_ha_mar_van");
+        System.out.println("14 - test_spora_kilovese_szomszedos_tektonra");
+        System.out.println("15 - test_spora_kilovese_szomszeddal_szomszedos_tektonra");
+        System.out.println("16 - test_spora_gyorsitja_fonal_novekedest");
+        System.out.println("17 - test_tekton_nem_torhet_gombatest_miatt");
+        System.out.println("18 - test_gomba_tipus_valasztas_sikeres");
+        System.out.println("19 - test_gombatest_fejlesztese_megfelelo_sporaszinttel");
+        System.out.println("20 - test_gombatest_nem_fejlesztheto_nincs_sporaszint");
+        System.out.println("21 - test_gombatest_elhal_spora_szetszoras_utan");
+        System.out.println("22 - test_tobb_hatas_a_rovaron");
+        System.out.println("0 - Kilépés");
     }
 }
