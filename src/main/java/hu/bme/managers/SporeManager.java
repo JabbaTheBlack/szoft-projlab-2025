@@ -46,4 +46,9 @@ public class SporeManager implements ISporeManager{
     public int getSporeCount() {
         return spores.size();
     }
+
+    @Override
+    public List<Spore> getSpores() {
+        return spores;
+    }
 }

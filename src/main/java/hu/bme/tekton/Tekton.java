@@ -166,4 +166,12 @@ public abstract class Tekton {
     public boolean hasHyphae(Hyphae hyphae) {
         return fungalManager.hasHyphae(hyphae);
     }
+
+    public int getSporeCount() {
+        return fungalManager.getSporeCount();
+    }
+
+    public List<Spore> getSpores(){
+        return fungalManager.getSpores();
+    }
 }
