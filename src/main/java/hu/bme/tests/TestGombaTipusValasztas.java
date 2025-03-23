@@ -32,25 +32,8 @@ public class TestGombaTipusValasztas {
         System.out.println("4. SlowingSpore");
 
         int choice = scanner.nextInt();
+        System.out.println("[Tester] chooseSpore("+choice+") -> [Mycologist]");
+        mycologist.chooseSpore(choice);
 
-           Mycelium<? extends Spore> mycelium = null;  // Declare a common variable for mycelium
-
-        switch (choice) {
-            case 1:
-                mycelium = new Mycelium<StunSpore>();    
-                break;
-            case 2:
-                mycelium = new Mycelium<DefensiveSpore>();
-                break;
-            case 3:
-                mycelium = new Mycelium<SpeedBoostSpore>();
-                break;
-            case 4:
-                mycelium = new Mycelium<SlowingSpore>();
-                break;
-            default:
-                System.out.println("Invalid choice.");
-                return;  
-        }
     }
 }

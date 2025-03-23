@@ -100,7 +100,7 @@ public class TestGombaFonalElvagasaNincsSporaHatas {
         h7.addMycelium(m2);
 
         System.out.println("[Tester] cutHyphae(" + h2 + ") -> [Insect]");
-        insect.cutHyphae(h2);
+        insect.cutHyphae(h4);
         
     }
 }

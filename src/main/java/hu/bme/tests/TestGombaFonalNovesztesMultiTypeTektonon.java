@@ -43,7 +43,7 @@ public class TestGombaFonalNovesztesMultiTypeTektonon {
 
         h2.addHyphae(h1);
 
-        System.out.println("[Tester] growHyphaeToTekton(" + h1 + t1 + ") -> [Mycologist]");
+        System.out.println("[Tester] growHyphaeToTekton(" + h1 +", "+ t1 + ") -> [Mycologist]");
         mycologist.growHyphaeToTekton(h1, t1);
     }
 }

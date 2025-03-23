@@ -87,6 +87,7 @@ public class FungalManager {
      * @param spore The spore to be removed.
      */
     public void removeSpore(Spore spore) {
+        System.out.println("[FungalManager] removeSpore("+ spore +") -> [SporeManager]");
         sporeManager.removeSpore(spore);    
     }
 

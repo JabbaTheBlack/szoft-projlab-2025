@@ -1,5 +1,6 @@
 package hu.bme.tests;
 
+import hu.bme.managers.TektonManager;
 import hu.bme.tekton.MultiTypeTekton;
 
 /**
@@ -16,12 +17,17 @@ public class TestTektonToresSzomszedokFrissitese {
         MultiTypeTekton t1 = new MultiTypeTekton();
         MultiTypeTekton t2 = new MultiTypeTekton();
         MultiTypeTekton t3 = new MultiTypeTekton();
+        TektonManager tm = new TektonManager();
 
+
+        tm.addTekton(t1);
+        tm.addTekton(t2);
+        tm.addTekton(t3);
         t1.addNeighbour(t2);
         t2.addNeighbour(t1);
         t2.addNeighbour(t3);
         t3.addNeighbour(t2);
 
-        t2.breakApart();
+        tm.breakApart(t2);
     }
 }

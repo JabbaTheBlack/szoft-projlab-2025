@@ -75,7 +75,7 @@ public abstract class Tekton {
             List<Tekton> newTektons = new ArrayList<>();
             newTektons.add(newTekton1);
             newTektons.add(newTekton2);
-                
+
             return newTektons;
         }
         return null;
@@ -143,6 +143,7 @@ public abstract class Tekton {
             fungalManager.addMycelium(mycelium);
             return true;
         }
+        System.out.println("[Mycoligist] <- addMycelium("+mycelium+") {false}");
         return false;
     }
 
@@ -170,6 +171,7 @@ public abstract class Tekton {
      * @param hyphae The hyphae to remove.
      */
     public void removeHyphae(Hyphae hyphae) {
+        System.out.println("["+this+"] removeHyphae("+hyphae+") -> [FungalManager]");
         fungalManager.removeHyphae(hyphae);
     }
 
@@ -186,6 +188,7 @@ public abstract class Tekton {
      * @param spore The spore to remove.
      */
     public void removeSpore(Spore spore) {
+        System.out.println("["+this+"] removeSpore("+spore+") -> [FungalManager]");
         fungalManager.removeSpore(spore);
     }
 

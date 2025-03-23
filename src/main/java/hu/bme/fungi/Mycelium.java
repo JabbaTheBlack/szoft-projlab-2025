@@ -67,8 +67,9 @@ public class Mycelium<T extends Spore> {
                 }
             }
             System.out.println("Upgraded");
+        } else{
+            System.out.println("Not Upgraded");
         }
-        System.out.println("Not Upgraded");
     }
 
     /**
@@ -104,7 +105,7 @@ public class Mycelium<T extends Spore> {
             System.out.println("[Mycelium] addSpore(" + spores.get(0) + ") -> [" + randomTekton + "]");
                 randomTekton.addSpore(spores.get(0));
 
-            System.out.println("[Mycelium] removeSpore(" + spores.get(0) + ") -> [" + this + "]");
+            System.out.println("[Mycelium] removeSpore(" + spores.get(0) + ") -> [Myceium]");
             removeSpore(spores.get(0));
             maxSporeRelease--;
 

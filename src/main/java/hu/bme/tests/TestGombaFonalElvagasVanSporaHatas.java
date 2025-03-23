@@ -36,7 +36,7 @@ public class TestGombaFonalElvagasVanSporaHatas {
         Hyphae h3 = new Hyphae();
 
         //Connect everything
-        h1.addHyphae(h1);
+        h1.addHyphae(h2);
         h1.addMycelium(m1);
 
         h2.addHyphae(h1);
@@ -49,7 +49,7 @@ public class TestGombaFonalElvagasVanSporaHatas {
 
         t2.addMycelium(m1);
         t2.addNeighbour(t1);
-        t2.connectToTekton(t2);
+        t2.connectToTekton(t1);
 
         t1.addNeighbour(t2);
         t1.connectToTekton(t2);

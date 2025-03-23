@@ -39,10 +39,10 @@ public class TestTektonNemTorhetGombaTestMiatt {
         h1.addCurrentTekton(t2);
         t1.addSpore(s2);
 
-        System.out.println("[Tester] breakApart(" + h1 + "," + t2 +") -> [" + t1 + "]");
-        t1.breakApart();
-        
-        System.out.println("[Tester] breakApart(" + h1 + "," + t2 +") -> [" + t2 + "]");
+        System.out.println("[Tester] breakApart() -> [" + t2 + "]");
         t2.breakApart();
+        
+        System.out.println("[Tester] breakApart() -> [" + t1 + "]");
+        t1.breakApart();
     }
 }

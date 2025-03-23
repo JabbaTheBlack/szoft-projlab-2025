@@ -128,7 +128,7 @@ public class TestRunner {
                     waitForEnter(scanner);
                     break;
                 case 21:
-                    TestGombatestElhalSporaSzetszorasUtan.TestGombaFonalNovesztesMultiTypeTektonon();
+                    TestGombatestElhalSporaSzetszorasUtan.TestGombatestElhalSporaSzetszorasUtan();
                     waitForEnter(scanner);
                     break;
                 case 22:

@@ -46,6 +46,7 @@ public class TestRovarAtlepMasikTektonra {
         h2.addHyphae(h1);
 
         m1.addHyphae(h1);
+        m1.setCurrentTekton(t1);
 
         System.out.println("Are the 2 Tektons connected? (yes/no)");
         String input = scanner.nextLine().trim().toLowerCase();

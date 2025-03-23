@@ -20,7 +20,7 @@ import hu.bme.tekton.MultiTypeTekton;
  */
 
 public class TestGombatestElhalSporaSzetszorasUtan {
-    public static void TestGombaFonalNovesztesMultiTypeTektonon(){
+    public static void TestGombatestElhalSporaSzetszorasUtan(){
         Mycelium m1 = new Mycelium();
         Mycologist myc = new Mycologist();
         MultiTypeTekton t1 = new MultiTypeTekton();

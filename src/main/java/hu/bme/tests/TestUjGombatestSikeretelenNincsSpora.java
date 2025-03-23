@@ -56,6 +56,10 @@ public class TestUjGombatestSikeretelenNincsSpora {
         t1.connectToTekton(t2);
         t2.connectToTekton(t1);
 
+        System.out.println("[Tester] growMycelium("+h3+", "+t1+") ->  [Mycologist].");
         mycologist.growMycelium(h3, t1);
+
+        // sys print vagy mi legyen?
+        
     }
 }

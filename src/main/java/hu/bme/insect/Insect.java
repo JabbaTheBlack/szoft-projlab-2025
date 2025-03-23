@@ -79,25 +79,23 @@ public class Insect {
      */
     public void cutHyphae(Hyphae hyphae) {
         if(canCutHyphae) {
+            System.out.println("[Insect] canCutHyphae() -> [Insect] ");
+            System.out.println("[Insect] canCutHyphae() <- [Insect] {true}");
             for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
                 if(tekton.hasHyphae(hyphae)) {
+                    System.out.println("[Insect] removeHyphae(" + hyphae + ") -> ["+ tekton +"]");
                     tekton.removeHyphae(hyphae);
                     tekton.breakConnectionTo(currentTekton);
                     currentTekton.breakConnectionTo(tekton);
                     break;
                 }
             }
-
-            for(Hyphae h : hyphae.getConnectedHyphae()) {
-                System.out.println("[Insect] removeConnectedHyphae(" + h + ") -> [Hyphae]");
-                h.removeHyphae(hyphae);
-            }
-
-            for(Mycelium mycelium : hyphae.getConnectedMyceliums()) {
-                mycelium.removeHyphae(hyphae);
-            }
-
+            
             currentTekton.removeHyphae(hyphae);
+        }
+        else {
+            System.out.println("[Insect] canCutHyphae() -> [Insect] ");
+            System.out.println("[Insect] canCutHyphae() <- [Insect] {false}");
         }
     }
 
