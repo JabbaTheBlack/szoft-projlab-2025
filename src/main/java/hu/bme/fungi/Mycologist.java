@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-
+import hu.bme.fungi.spore.DefensiveSpore;
+import hu.bme.fungi.spore.SlowingSpore;
+import hu.bme.fungi.spore.SpeedBoostSpore;
 import hu.bme.fungi.spore.Spore;
+import hu.bme.fungi.spore.StunSpore;
 import hu.bme.tekton.Tekton;
 
 /**
@@ -50,7 +53,19 @@ public class Mycologist {
      * @param targetTekton The Tekton to grow the hyphae to.
      */
     public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
-        
+        //szomszédosak e a tektonok?
+        boolean isNeighbour = false;
+        for(Tekton tekton : hyphae.getCurrentTekton()) {
+            if(tekton.getNeighbours().contains(targetTekton)) {
+                isNeighbour = true;
+            }
+        }
+        if(isNeighbour == false) {
+            System.out.println("[Mycologist] Failed to grow hyphae: Tekton is not a neighbour.");
+            return;
+        }
+
+        //szomszédosak e a tektonok
         System.out.println("[Mycologist] new Hyphae() -> [Mycologist]");
         Hyphae newHyphae = new Hyphae();
         newHyphae.setOwner(hyphae.getOwner());
@@ -74,6 +89,7 @@ public class Mycologist {
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Hyphae]");
         hyphae.addHyphae(newHyphae);        
 
+        //spore on the tekton, bc that it grows faster
         if(hyphae.getCurrentTekton().get(0).getSporeCount() >= 4) {
             Hyphae newHyphae2 = new Hyphae(targetTekton);
             
@@ -104,6 +120,7 @@ public class Mycologist {
      * @param mycelium The mycelium to be added.
      */
     public void addMycelium(Mycelium mycelium) {
+        System.out.println("[Mycologist] addMycelium(" + mycelium + ") -> [Mycologist]");
         myceliums.add(mycelium);
     }
 
@@ -122,11 +139,20 @@ public class Mycologist {
      */
     public void growMycelium(Hyphae hyphae, Tekton targetTekton) {
         if(hyphae.getCurrentTekton().get(0) == targetTekton && hyphae.getCurrentTekton().size() == 1 && hyphae.getCurrentTekton().get(0).getSporeCount() >= 3) {
+            System.out.println("[Mycologist] new Mycelium("+targetTekton+") -> [Mycelium]");
             Mycelium newMycelium = new Mycelium(targetTekton);
-
+            System.out.println("[Mycologist] setCurrentTekton("+targetTekton+") -> ["+newMycelium+"]");
+            
             System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Tekton]");
             if(!targetTekton.addMycelium(newMycelium)) {
                 return;
+            }
+
+            //remove spores
+            for(int i = 0; i < 3; i++) {
+                Spore spore = targetTekton.getSpores().get(0);
+                System.out.println("[Mycologist] removeSpore(" + spore + ") -> [Tekton]");
+                targetTekton.removeSpore(spore);
             }
 
             System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Mycologist]");
@@ -137,6 +163,36 @@ public class Mycologist {
 
             System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Hyphae]");
             hyphae.addMycelium(newMycelium);
+        } else {
+            System.out.println("[Mycologist] Failed to grow mycelium: Hyphae is not on the target Tekton or there are not enough spores.");
         }
+    }
+
+    /**
+     * Simulates the selection of a spore type by the user.
+     * @param choice The choice of the user.
+     */
+    public void chooseSpore(int choice){
+        System.out.println("[Mycoligist] new Mycelium() -> [Mycelium]");
+        Mycelium<? extends Spore> mycelium = null;
+        switch (choice) {
+            case 1:
+                System.out.println("");
+                mycelium = new Mycelium<StunSpore>();    
+                break;
+            case 2:
+                mycelium = new Mycelium<DefensiveSpore>();
+                break;
+            case 3:
+                mycelium = new Mycelium<SpeedBoostSpore>();
+                break;
+            case 4:
+                mycelium = new Mycelium<SlowingSpore>();
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                return;  
+        }
+        this.addMycelium(mycelium);
     }
 }
