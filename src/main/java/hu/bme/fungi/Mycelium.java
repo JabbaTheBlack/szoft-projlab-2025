@@ -9,10 +9,10 @@ import hu.bme.fungi.spore.*;
 /**
  * Represents a mycelium in a fungal network, managing spores and hyphae.
  */
-public class Mycelium {
+public class Mycelium<T extends Spore> {
     
     private boolean upgraded;
-    private List<Spore> spores;
+    private List<T> spores;
     private List<Hyphae> hyphaes;
     private Tekton currentTekton;
     private int maxSporeRelease;
@@ -55,7 +55,20 @@ public class Mycelium {
      * Upgrades the mycelium.
      */
     public void upgrade() {
-        upgraded = true;
+        if(currentTekton.getSporeCount() >= 3) {
+            upgraded = true;
+
+            List<Spore> spores = currentTekton.getSpores();
+            Random random = new Random();
+
+            for(int i = 0; i < 3; i++) {
+                if(!spores.isEmpty()) {
+                    spores.remove(random.nextInt(spores.size()));
+                }
+            }
+            System.out.println("Upgraded");
+        }
+        System.out.println("Not Upgraded");
     }
 
     /**
@@ -113,7 +126,7 @@ public class Mycelium {
     /**
      * Increment the spore count of the mycelium by one.
      */
-    public void addSpore(Spore spore) {
+    public void addSpore(T spore) {
         spores.add(spore);
     }
 
