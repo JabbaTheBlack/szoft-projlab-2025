@@ -6,6 +6,17 @@ import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the successful growth of a new mycelium, on a tekton.
+ * This test case simulates the interaction between mycelium, hyphae, a mycologist, and tekton structures.
+ * 
+ * @see Mycelium
+ * @see Hyphae
+ * @see Mycologist
+ * @see DefensiveSpore
+ * @see MultiTypeTekton
+ */
+
 public class TestUjGombatestNoveszteseSikeres {
     public static void test_uj_gombatest_novesztese_sikeres() {
         Mycelium m1 = new Mycelium();
