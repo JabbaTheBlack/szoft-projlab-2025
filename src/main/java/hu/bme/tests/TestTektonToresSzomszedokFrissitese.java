@@ -28,6 +28,7 @@ public class TestTektonToresSzomszedokFrissitese {
         t2.addNeighbour(t3);
         t3.addNeighbour(t2);
 
+        System.out.println("[Tester] breakApart(" + t2 + ") -> [TektonManager]");
         tm.breakApart(t2);
     }
 }

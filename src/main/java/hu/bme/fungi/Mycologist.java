@@ -71,7 +71,7 @@ public class Mycologist {
         }
 
         //szomszédosak e a tektonok
-        System.out.println("[Mycologist] new Hyphae() -> [Mycologist]");
+        System.out.println("[Mycologist] new Hyphae() -> [Hyphae]");
         Hyphae newHyphae = new Hyphae();
         newHyphae.setOwner(hyphae.getOwner());
 
