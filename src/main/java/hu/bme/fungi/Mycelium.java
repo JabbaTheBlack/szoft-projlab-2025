@@ -33,6 +33,10 @@ public class Mycelium {
         this.currentTekton = currentTekton;
     }
 
+    public int getRemainingSporeRealeses(){
+        return maxSporeRelease;
+    }
+
     /**
      * Checks if the mycelium is upgraded.
      * @return true if the mycelium is upgraded, false otherwise.
@@ -82,6 +86,10 @@ public class Mycelium {
             System.out.println("[Mycelium] removeSpore(" + spores.get(0) + ") -> [" + this + "]");
             removeSpore(spores.get(0));
             maxSporeRelease--;
+
+            if(maxSporeRelease == 0){
+                return;
+            }
         }
     }
 
@@ -117,5 +125,11 @@ public class Mycelium {
      */
     public void removeHyphae(Hyphae hyphae) {
         hyphaes.remove(hyphae);
+    }
+
+    public void removeAllHyphae(){
+        for(Hyphae hyphae : hyphaes) {
+            hyphae.removeMycelium(this);
+        }
     }
 }
