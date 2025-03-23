@@ -33,7 +33,7 @@ public class TestUjGombatestNoveszteseSikeres {
         m1.setCurrentTekton(t2);
         m1.addHyphae(h1);
 
-        mycologist.addMycelium(m1);
+        //mycologist.addMycelium(m1);
 
         t2.addMycelium(m1);
         t2.addHyphae(h1);
@@ -58,6 +58,7 @@ public class TestUjGombatestNoveszteseSikeres {
         t1.connectToTekton(t2);
         t2.connectToTekton(t1);
 
+        System.out.println("[Tester] growMycelium(" + h3 + ", " + t1 + ") -> [Mycologist]");
         mycologist.growMycelium(h3, t1);
 
     }

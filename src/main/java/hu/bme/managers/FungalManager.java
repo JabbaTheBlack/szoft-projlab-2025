@@ -74,11 +74,13 @@ public class FungalManager {
             System.out.println("[HyphaeManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
         }
+        System.out.println("[FungalManager] removeHyphae("+ hyphae +") -> [MyceliumManager]");
         for (Mycelium rmv : getMyceliums()) {
             System.out.println("[MyceliumManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
             
         }
+        
         hyphaeManager.removeHyphae(hyphae);
     }
 

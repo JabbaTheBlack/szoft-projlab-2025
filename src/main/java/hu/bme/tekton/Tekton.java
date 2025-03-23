@@ -106,7 +106,7 @@ public abstract class Tekton {
      */
     public void refreshNeighbours(){
         // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'refreshNeighbours'");
+        
     }
 
     /**

@@ -71,7 +71,7 @@ public class Mycologist {
         }
 
         //szomszédosak e a tektonok
-        System.out.println("[Mycologist] new Hyphae() -> [Mycologist]");
+        System.out.println("[Mycologist] new Hyphae() -> [Hyphae]");
         Hyphae newHyphae = new Hyphae();
         newHyphae.setOwner(hyphae.getOwner());
 
@@ -147,7 +147,6 @@ public class Mycologist {
                 targetTekton.removeSpore(spore);
             }
 
-            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Mycologist]");
             addMycelium(newMycelium);
 
             System.out.println("[Mycologist] addHyphae(" + hyphae + ") -> [Mycelium]");

@@ -58,12 +58,14 @@ public class Mycelium<T extends Spore> {
         if(currentTekton.getSporeCount() >= 3) {
             upgraded = true;
 
-            List<Spore> spores = currentTekton.getSpores();
+            List<Spore> tektonspores = currentTekton.getSpores();
             Random random = new Random();
 
             for(int i = 0; i < 3; i++) {
-                if(!spores.isEmpty()) {
-                    spores.remove(random.nextInt(spores.size()));
+                if(!tektonspores.isEmpty()) {
+                    Spore randomSpore = tektonspores.get(random.nextInt(tektonspores.size()));
+                    System.out.println("[Mycelium] removeSpore("+randomSpore+") -> [" + currentTekton + "]");
+                    currentTekton.removeSpore(randomSpore);
                 }
             }
             System.out.println("Upgraded");
