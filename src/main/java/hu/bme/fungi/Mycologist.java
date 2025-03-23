@@ -106,29 +106,6 @@ public class Mycologist {
             }
         }
 
-        if(hyphae.getCurrentTekton().get(0).getSporeCount() >= 4) {
-            Hyphae newHyphae2 = new Hyphae(targetTekton);
-            
-            System.out.println("[Mycologist]  addHyphae(" + newHyphae2 + ") -> [" + targetTekton + "]");
-            if(targetTekton.addHyphae(newHyphae2)) {
-                System.out.println("[Mycologist]  addHyphae(" + newHyphae2 + ") -> [" + newHyphae + "]");
-                newHyphae.addHyphae(newHyphae2);
-                Random random = new Random();
-                List<Spore> spores = new ArrayList<>(hyphae.getCurrentTekton().get(0).getSpores());
-                
-                Collections.shuffle(spores, random);
-
-                for(int i = 0; i < 4; i++) {
-                    Spore spore = spores.get(i);  
-                    System.out.println("[Mycologist]  getCurrentTekton() -> [" + hyphae + "]");
-                    System.out.println("[Mycologist]  getCurrentTekton() <- [" + hyphae + "]{" + hyphae.getCurrentTekton() + "}");
-                    System.out.println("[Hyphae]  removeSpore() -> [" + spore + "]");
-                    
-                    hyphae.getCurrentTekton().get(0).removeSpore(spore);             
-                }
-            }
-        }
-
     }
 
     /**
