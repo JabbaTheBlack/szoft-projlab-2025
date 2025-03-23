@@ -33,7 +33,7 @@ public class Mycelium {
         this.currentTekton = currentTekton;
     }
 
-    public int getRemainingSporeRealeses(){
+    public int getRemainingSporeReleases(){
         return maxSporeRelease;
     }
 

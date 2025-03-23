@@ -28,7 +28,16 @@ public class Mycologist {
      * @param mycelium
      */
     public void releaseSpore(Mycelium mycelium) {   
+        System.out.println("[Mycologist] releaseSpore() -> [" + mycelium + "]");
         mycelium.releaseSpores();
+
+        if(mycelium.getRemainingSporeRealeses() == 0) {
+            System.out.println("[Mycologist] setCurrentTekton() -> [" + mycelium + "]");
+            mycelium.setCurrentTekton(null);
+
+            System.out.println("[Mycologist] removeAllHyphae() -> [" + mycelium + "]");
+            mycelium.removeAllHyphae();
+        }
     }
 
     /**
