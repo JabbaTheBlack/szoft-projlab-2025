@@ -29,8 +29,9 @@ public class TestGombaFonalNovesztesNemSzomszedosTekton {
         h1.addMycelium(m1);
         h1.addCurrentTekton(t2);
         t2.addMycelium(m1);
+        t2.addHyphae(h1);
 
-        //null a target tekton ha nem szomszedos a 
+        
         System.out.println("[Tester] growHyphaeToTekton("+h1+", "+t1+") -> [Mycologist]");
         myc1.growHyphaeToTekton(h1, t1);
     }

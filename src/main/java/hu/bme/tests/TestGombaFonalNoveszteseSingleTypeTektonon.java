@@ -50,6 +50,8 @@ public class TestGombaFonalNoveszteseSingleTypeTektonon {
         m2.addHyphae(h2);
         t2.addHyphae(h2);
 
+        t1.addNeighbour(t2);
+        t2.addNeighbour(t1);
 
         System.out.println("[Tester] growHyphaeToTekton(" + h2 + ", " + t1 + ") -> [Mycologist]");
         myc2.growHyphaeToTekton(h2, t1);
