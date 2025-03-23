@@ -33,7 +33,7 @@ public class TestUjGombatestNoveszteseSikeres {
         m1.setCurrentTekton(t2);
         m1.addHyphae(h1);
 
-        mycologist.addMycelium(m1);
+        //mycologist.addMycelium(m1);
 
         t2.addMycelium(m1);
         t2.addHyphae(h1);
