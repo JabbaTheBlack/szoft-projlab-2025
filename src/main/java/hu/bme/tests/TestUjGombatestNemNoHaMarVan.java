@@ -23,7 +23,7 @@ import hu.bme.tekton.SingleTypeTekton;
 
 public class TestUjGombatestNemNoHaMarVan {
     public static void test_uj_gombatest_nem_no_ha_mar_van() {
-        SingleTypeTekton t1 = new SingleTypeTekton();
+        MultiTypeTekton t1 = new MultiTypeTekton();
         MultiTypeTekton t2 = new MultiTypeTekton();
 
         Mycologist myc = new Mycologist();
@@ -42,8 +42,7 @@ public class TestUjGombatestNemNoHaMarVan {
         t2.addMycelium(m2);
         t2.addHyphae(h3);
         t2.addHyphae(h2);
-        ///
-        //h1.addMycelium(m1);
+        
         h1.addCurrentTekton(t1);
         h1.addHyphae(h2);
 
@@ -56,6 +55,7 @@ public class TestUjGombatestNemNoHaMarVan {
         h3.addMycelium(m2);
         h3.addCurrentTekton(t2);
 
+        //
         m2.addHyphae(h3);
 
         t1.addHyphae(h1);
@@ -65,7 +65,6 @@ public class TestUjGombatestNemNoHaMarVan {
         t1.addSpore(s3);
         t1.addMycelium(m1);
 
-        //m1.addHyphae(h1);
         m1.setCurrentTekton(t1);
 
         System.out.println("[Tester] growMycelium(" + h2 + t1 + ") -> [Mycologist]");
