@@ -147,7 +147,6 @@ public class Mycologist {
                 targetTekton.removeSpore(spore);
             }
 
-            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Mycologist]");
             addMycelium(newMycelium);
 
             System.out.println("[Mycologist] addHyphae(" + hyphae + ") -> [Mycelium]");
@@ -166,14 +165,14 @@ public class Mycologist {
      */
     public void chooseSpore(int choice){
         System.out.println("[Mycoligist] new Mycelium() -> [Mycelium]");
-        Mycelium<? extends Spore> mycelium = null;
+        Mycelium<? extends Spore> mycelium;
         switch (choice) {
             case 1:
-                System.out.println("");
                 mycelium = new Mycelium<StunSpore>();    
                 break;
             case 2:
                 mycelium = new Mycelium<DefensiveSpore>();
+                // ((Mycelium<DefensiveSpore>) mycelium).addSpore(new DefensiveSpore());
                 break;
             case 3:
                 mycelium = new Mycelium<SpeedBoostSpore>();

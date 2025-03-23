@@ -43,30 +43,34 @@ public class TestUjGombatestNemNoHaMarVan {
         t2.addMycelium(m2);
         t2.addHyphae(h3);
         t2.addHyphae(h2);
-
-        h1.addMycelium(m1);
+        ///
+        //h1.addMycelium(m1);
         h1.addCurrentTekton(t1);
+        h1.addHyphae(h2);
 
         h2.addHyphae(h3);
         h2.addCurrentTekton(t1);
+        h2.addCurrentTekton(t2);
+        h2.addHyphae(h1);
 
         h3.addHyphae(h2);
         h3.addMycelium(m2);
+        h3.addCurrentTekton(t2);
 
         m2.addHyphae(h3);
-        m2.addHyphae(h2);
 
         t1.addHyphae(h1);
+        t1.addHyphae(h2);
         t1.addSpore(s1);
         t1.addSpore(s2);
         t1.addSpore(s3);
         t1.addMycelium(m1);
 
-        m1.addHyphae(h1);
+        //m1.addHyphae(h1);
         m1.setCurrentTekton(t1);
 
         System.out.println("[Tester] growMycelium(" + h2 + t1 + ") -> [Mycologist]");
-        myc.growMycelium(h2, t1);
+        myc.growMycelium(h1, t1);
 
     }
 }
