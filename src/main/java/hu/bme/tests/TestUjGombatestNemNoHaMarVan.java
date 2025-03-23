@@ -38,7 +38,7 @@ public class TestUjGombatestNemNoHaMarVan {
         DefensiveSpore s2 = new DefensiveSpore();
         DefensiveSpore s3 = new DefensiveSpore();
 
-        myc.addMycelium(m2);
+        
 
         t2.addMycelium(m2);
         t2.addHyphae(h3);

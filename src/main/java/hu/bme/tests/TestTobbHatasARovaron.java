@@ -41,10 +41,10 @@ public class TestTobbHatasARovaron {
         i1.eatSpore(ds1);
         System.out.println("[Tester] cutHyphae(" + h1 + ") -> [" + i1 + "]");
         i1.cutHyphae(h1);        
-        i1.move(t2);
-        i1.move(t1);
-
+      
+        
         System.out.println("[Tester] eatSpore(" + s1 + ") -> [" + i1 + "]");
         i1.eatSpore(s1);
+        i1.move(t1);
     }
 }
