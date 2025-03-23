@@ -1,8 +1,12 @@
 package hu.bme.fungi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
+
+import hu.bme.fungi.spore.Spore;
 import hu.bme.tekton.Tekton;
 
 /**
@@ -45,16 +49,16 @@ public class Mycologist {
         
         System.out.println("[Mycologist] new Hyphae() -> [Mycologist]");
         Hyphae newHyphae = new Hyphae();
-        newHyphae.setOwner(hyphae.getOwner()); // Ensure owner consistency
+        newHyphae.setOwner(hyphae.getOwner()); 
 
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Tekton]");
         if (!targetTekton.addHyphae(newHyphae)) {
             System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
-            return;  // Stop execution if adding hyphae fails
+            return;  
         }
 
         System.out.println("[Mycologist] setCurrentTekton(" + targetTekton + ") -> [Hyphae]");
-        newHyphae.setCurrentTekton(targetTekton);
+        newHyphae.setCurrentTekton(null);
 
         System.out.println("[Mycologist] connectToTekton(" + targetTekton + ") -> [Tekton]");
         hyphae.getCurrentTekton().connectToTekton(targetTekton);
@@ -64,6 +68,29 @@ public class Mycologist {
 
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Hyphae]");
         hyphae.addHyphae(newHyphae);
+
+        if(hyphae.getCurrentTekton().getSporeCount() >= 4) {
+            Hyphae newHyphae2 = new Hyphae(targetTekton);
+            
+            System.out.println("[Mycologist]  addHyphae(" + newHyphae2 + ") -> [" + targetTekton + "]");
+            if(targetTekton.addHyphae(newHyphae2)) {
+                System.out.println("[Mycologist]  addHyphae(" + newHyphae2 + ") -> [" + newHyphae + "]");
+                newHyphae.addHyphae(newHyphae2);
+                Random random = new Random();
+                List<Spore> spores = new ArrayList<>(hyphae.getCurrentTekton().getSpores());
+                
+                Collections.shuffle(spores, random);
+
+                for(int i = 0; i < 4; i++) {
+                    Spore spore = spores.get(i);  
+                    System.out.println("[Mycologist]  getCurrentTekton() -> [" + hyphae + "]");
+                    System.out.println("[Mycologist]  getCurrentTekton() <- [" + hyphae + "]{" + hyphae.getCurrentTekton() + "}");
+                    System.out.println("[Hyphae]  removeSpore() -> [" + spore + "]");
+                    
+                    hyphae.getCurrentTekton().removeSpore(spore);             
+                }
+            }
+        }
 
     }
 
