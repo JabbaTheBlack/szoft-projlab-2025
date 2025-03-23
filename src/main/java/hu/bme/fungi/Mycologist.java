@@ -23,10 +23,6 @@ public class Mycologist {
         myceliums = new ArrayList<>();
     }
 
-    /**
-     * Releases spores from a mycelium.
-     * @param mycelium
-     */
     public void releaseSpore(Mycelium mycelium) {   
         System.out.println("[Mycologist] releaseSpore() -> [" + mycelium + "]");
         mycelium.releaseSpores();
