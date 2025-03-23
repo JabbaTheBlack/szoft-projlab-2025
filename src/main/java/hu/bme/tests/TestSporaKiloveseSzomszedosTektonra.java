@@ -5,6 +5,16 @@ import hu.bme.fungi.spore.StunSpore;
 import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.Tekton;
 
+/**
+ * Tests the scenario where spores are released from an unupgraded mycelium to neighboring tektons.
+ * 
+ * This class simulates a network of myceliums and tektons, and tests the behavior when an unupgraded mycelium releases spores.
+ * 
+ * @see Mycelium
+ * @see StunSpore
+ * @see MultiTypeTekton
+ */
+
 public class TestSporaKiloveseSzomszedosTektonra {
     public static void test_spora_kilovese_szomszedos_tektonra() {
         Mycelium m1 = new Mycelium();

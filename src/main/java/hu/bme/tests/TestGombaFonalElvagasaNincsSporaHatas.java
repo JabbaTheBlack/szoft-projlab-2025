@@ -5,6 +5,16 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.insect.Insect;
 import hu.bme.tekton.MultiTypeTekton;
 
+
+/**
+ * Tests the scenario where a fungal network is disrupted by an insect cutting a hyphae, able to do it.
+ * THERE IS NO SPORE EFFECT
+ * 
+ * @see Hyphae
+ * @see Mycelium
+ * @see Insect
+ * @see MultiTypeTekton
+ */
 public class TestGombaFonalElvagasaNincsSporaHatas {
     public static void test_gombafonal_elvagasa_nincs_spora_hatas() {
         // Create the Tektons

@@ -6,6 +6,19 @@ import hu.bme.fungi.spore.StunSpore;
 import hu.bme.insect.Insect;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the scenario where multiple effects are applied to an insect.
+ * 
+ * This class simulates a network of tektons, hyphaes, and spores, and tests the behavior
+ * when an insect experiences multiple effects from eating different types of spores.
+ * 
+ * @see Insect
+ * @see DefensiveSpore
+ * @see StunSpore
+ * @see Hyphae
+ * @see MultiTypeTekton
+ */
+
 public class TestTobbHatasARovaron {
     public static void test_tobb_hatas_a_rovaron() {
         MultiTypeTekton t1 = new MultiTypeTekton();

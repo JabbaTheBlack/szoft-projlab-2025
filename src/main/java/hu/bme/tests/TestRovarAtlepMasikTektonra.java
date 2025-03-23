@@ -7,6 +7,18 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.insect.Insect;
 import hu.bme.tekton.MultiTypeTekton;
 
+/**
+ * Tests the scenario where an insect moves to another connected tekton, through a hyphae.
+ * 
+ * This class simulates a network of tektons, myceliums, and hyphaes, and tests the behavior
+ * when an insect moves from one tekton to another.
+ * 
+ * @see Insect
+ * @see Mycelium
+ * @see Hyphae
+ * @see MultiTypeTekton
+ */
+
 public class TestRovarAtlepMasikTektonra {
     
     public static void test_rovar_atlep_masik_tektonra(Scanner scanner) {

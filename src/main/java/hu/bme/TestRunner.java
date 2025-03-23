@@ -16,7 +16,18 @@ import hu.bme.tests.TestTektonNemTorhetGombaTestMiatt;
 import hu.bme.tests.TestTobbHatasARovaron;
 import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
 
+/**
+ * A class responsible for running various test cases related to fungal networks and interactions.
+ */
+
 public class TestRunner {
+
+    /**
+     * Runs a series of test cases based on user input.
+     * 
+     * This method presents a menu to the user, allowing them to select which test case to run.
+     * It continues to prompt the user until they choose to exit.
+     */
     public void runTests() {
         Scanner scanner = new Scanner(System.in);  
         int choice = 0;
@@ -102,11 +113,19 @@ public class TestRunner {
         scanner.close();
     }
 
+    /**
+     * Waits for the user to press Enter before continuing.
+     * 
+     * @param scanner The Scanner object used to read user input.
+     */
     private void waitForEnter(Scanner scanner) {
         System.out.println("\nNyomjon entert a folytatáshoz...");
         scanner.nextLine();
     }
 
+    /**
+     * Prints the available test options to the console.
+     */
     private void printTestOptions() {
         System.out.println("Válasszon egy tesztesetet az alábbi listából:");
         System.out.println("1 - test_gombafonal_elvagasa_nincs_spora_hatas");
