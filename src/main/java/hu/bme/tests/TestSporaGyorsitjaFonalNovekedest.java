@@ -33,6 +33,8 @@ public class TestSporaGyorsitjaFonalNovekedest {
         h1.setCurrentTekton(t1);
 
         myc.addMycelium(m1);
+
+        System.out.println("[Tester] growHyphaeToTekton(" + h1 + "," + t2 +") -> [Mycologist]");
         myc.growHyphaeToTekton(h1, t2);
     }
 }

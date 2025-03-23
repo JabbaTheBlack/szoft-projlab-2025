@@ -11,6 +11,7 @@ import hu.bme.tests.TestRovarElfogyasztSporat;
 import hu.bme.tests.TestSporaGyorsitjaFonalNovekedest;
 import hu.bme.tests.TestSporaKiloveseSzomszedosTektonra;
 import hu.bme.tests.TestSporeKiloveseSzomszeddalSzomszedosTektonra;
+import hu.bme.tests.TestTektonNemTorhetGombaTestMiatt;
 import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
 
 public class TestRunner {
@@ -71,7 +72,10 @@ public class TestRunner {
                     TestSporaGyorsitjaFonalNovekedest.test_spora_gyorsitja_fonal_novekedest();
                     waitForEnter(scanner);
                     break;
-                // case 18 -> 
+                case 18:
+                    TestTektonNemTorhetGombaTestMiatt.test_tekton_nem_torhet_gombatest_miatt();
+                    waitForEnter(scanner);
+                    break;
                 // case 19 -> 
                 // case 20 -> 
                 // case 21 -> 
