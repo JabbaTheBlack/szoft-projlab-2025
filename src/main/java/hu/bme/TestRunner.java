@@ -6,12 +6,14 @@ import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
 import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
+import hu.bme.tests.TestGombatestElhalSporaSzetszorasUtan;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
 import hu.bme.tests.TestSporaGyorsitjaFonalNovekedest;
 import hu.bme.tests.TestSporaKiloveseSzomszedosTektonra;
 import hu.bme.tests.TestSporeKiloveseSzomszeddalSzomszedosTektonra;
 import hu.bme.tests.TestTektonNemTorhetGombaTestMiatt;
+import hu.bme.tests.TestTobbHatasARovaron;
 import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
 
 public class TestRunner {
@@ -79,8 +81,14 @@ public class TestRunner {
                 // case 19 -> 
                 // case 20 -> 
                 // case 21 -> 
-                // case 22 -> 
-                // case 23 -> 
+                case 22:
+                    TestGombatestElhalSporaSzetszorasUtan.TestGombaFonalNovesztesMultiTypeTektonon();
+                    waitForEnter(scanner);
+                    break;
+                case 23:
+                    TestTobbHatasARovaron.test_tobb_hatas_a_rovaron();
+                    waitForEnter(scanner);
+                    break;
                 case 24 : 
                     System.out.println("Kilépés...");
                     break;

@@ -15,6 +15,7 @@ public class Mycelium {
     private List<Spore> spores;
     private List<Hyphae> hyphaes;
     private Tekton currentTekton;
+    private int maxSporeRelease;
 
     /**
      * Initializes a new mycelium with empty lists for spores, hyphae, unupgraded.
@@ -24,11 +25,16 @@ public class Mycelium {
         spores = new ArrayList<>();
         hyphaes = new ArrayList<>();
         currentTekton = null;
+        maxSporeRelease = 1;
     }
 
     public Mycelium(Tekton currentTekton) {
         this();
         this.currentTekton = currentTekton;
+    }
+
+    public int getRemainingSporeReleases(){
+        return maxSporeRelease;
     }
 
     /**
@@ -79,12 +85,15 @@ public class Mycelium {
 
             System.out.println("[Mycelium] removeSpore(" + spores.get(0) + ") -> [" + this + "]");
             removeSpore(spores.get(0));
+            maxSporeRelease--;
+
+            if(maxSporeRelease == 0){
+                currentTekton.removeMycelium(this);
+                return;
+            }
         }
     }
 
-    /**
-     * Sets the current tekton of the mycelium.
-     */
     public void setCurrentTekton(Tekton tekton) {
         currentTekton = tekton;
     }
@@ -117,5 +126,11 @@ public class Mycelium {
      */
     public void removeHyphae(Hyphae hyphae) {
         hyphaes.remove(hyphae);
+    }
+
+    public void removeAllHyphae(){
+        for(Hyphae hyphae : hyphaes) {
+            hyphae.removeMycelium(this);
+        }
     }
 }
