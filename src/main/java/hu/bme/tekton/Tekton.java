@@ -27,10 +27,59 @@ public abstract class Tekton {
     }
 
     /**
-     * Breaks the tekton apart, refreshing all connections of the tektons.
-     * Abtract method, implemented in subclasses.
+     * Abstract function returning the instance of the tekton
+     * @return Subclass of Tekton
      */
-    public abstract List<Tekton> breakApart();
+    public abstract Tekton createTekton();
+
+    /**
+     * Breaks the tekton apart, refreshing all connections of the tektons.
+     */
+    public List<Tekton> breakApart() {
+      
+        if(this.fungalManager.getMyceliumCount() == 0){
+                
+            Tekton newTekton1 = createTekton();
+            System.out.println("["+this+"] new() - -> ["+newTekton1+"]");
+            Tekton newTekton2 = createTekton();
+            System.out.println("["+this+"] new() - -> ["+newTekton2+"]");
+    
+    
+            newTekton1.addNeighbour(newTekton2);
+            newTekton2.addNeighbour(newTekton1);
+    
+            this.fungalManager.getHyphaes().forEach(hyphae -> {
+                if(hyphae.getCurrentTekton().size() >= 2){
+                    //hyphea a két tekton között
+                    System.out.println("["+this+"] addHyphea("+hyphae+") -> ["+newTekton1+"]");
+                    newTekton1.addHyphae(hyphae);
+                    System.out.println("["+this+"] addCurrentTekton("+newTekton1+") -> ["+hyphae+"]");
+                    hyphae.addCurrentTekton(newTekton1);
+                    System.out.println("["+this+"] removeCurrentTekton("+this+") -> ["+hyphae+"]");
+                    hyphae.removeCurrentTekton(this);
+                } else{
+                    //hyphea a tektonon belül
+                    hyphae.getConnectedHyphae().forEach(nghHyphae -> {
+                        System.out.println("["+this+"] removeHyphae("+hyphae+") -> ["+nghHyphae+"]");
+                    nghHyphae.removeHyphae(hyphae);
+                    });
+                }
+            });
+            
+            this.fungalManager.getSpores().forEach(spore -> {
+                System.out.println("["+this+"] addSpore("+spore+") -> ["+newTekton1+"]");
+                newTekton1.addSpore(spore);
+                
+            });
+    
+            List<Tekton> newTektons = new ArrayList<>();
+            newTektons.add(newTekton1);
+            newTektons.add(newTekton2);
+                
+            return newTektons;
+        }
+        return null;
+    }
 
     /**
      * Connects the tekton to another tekton.

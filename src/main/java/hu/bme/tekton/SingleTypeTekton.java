@@ -43,35 +43,9 @@ public class SingleTypeTekton extends Tekton {
         return false;
     }
 
+    
     @Override
-    public List<Tekton> breakApart(){
-        if(this.fungalManager.getMyceliumCount() == 0){
-            SingleTypeTekton newTekton1 = new SingleTypeTekton();
-            SingleTypeTekton newTekton2 = new SingleTypeTekton();
-
-            newTekton1.addNeighbour(newTekton2);
-            newTekton2.addNeighbour(newTekton1);
-            this.fungalManager.getHyphaes().forEach(hyphae -> {
-                if(hyphae.getCurrentTekton().size() >= 2){
-                    newTekton1.addHyphae(hyphae);
-                    hyphae.addCurrentTekton(newTekton1);
-                    hyphae.removeCurrentTekton(this);
-                } else{
-                    hyphae.getConnectedHyphae().forEach(nghHyphae -> {
-                        nghHyphae.removeHyphae(hyphae);
-                    });
-                }
-            });
-            this.fungalManager.getSpores().forEach(spore -> {
-                newTekton1.addSpore(spore);
-            });
-
-            List<Tekton> newTektons = new ArrayList<>();
-            newTektons.add(newTekton1);
-            newTektons.add(newTekton2);
-            
-            return newTektons;
-        }
-        return null;
+    public Tekton createTekton() {
+        return new SingleTypeTekton();
     }
 }
