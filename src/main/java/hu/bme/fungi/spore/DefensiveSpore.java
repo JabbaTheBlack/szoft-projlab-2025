@@ -8,13 +8,19 @@ import hu.bme.insect.Insect;
  */
 public class DefensiveSpore extends Spore{
 
+    /**
+     * Initializes a DefensiveSpore.
+     */
     public DefensiveSpore() {
         super();
     }
 
+    /**
+     * Applies the effect of the DefensiveSpore on an {@link Insect}.
+     * @param insect the insect to apply the effect on
+     */
     @Override
     public void applyEffect(Insect insect) {
-        // TODO add javadoc
         insect.setCanCutHyphae(false);
     }
 }

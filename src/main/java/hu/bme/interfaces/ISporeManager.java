@@ -1,5 +1,7 @@
 package hu.bme.interfaces;
 
+import java.util.List;
+
 import hu.bme.fungi.spore.Spore;
 
 /**
@@ -19,5 +21,11 @@ public interface ISporeManager {
      */
     void removeSpore(Spore spore);
 
+    /**
+     * Returns the number of spores
+     * @return The number of spores
+     */
     int getSporeCount();
+
+    List<Spore> getSpores();
 }

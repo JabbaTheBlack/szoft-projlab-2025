@@ -4,7 +4,16 @@ import java.util.Scanner;
 
 import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
+import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
+import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
+import hu.bme.tests.TestGombatestElhalSporaSzetszorasUtan;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
+import hu.bme.tests.TestRovarElfogyasztSporat;
+import hu.bme.tests.TestSporaGyorsitjaFonalNovekedest;
+import hu.bme.tests.TestSporaKiloveseSzomszedosTektonra;
+import hu.bme.tests.TestSporeKiloveseSzomszeddalSzomszedosTektonra;
+import hu.bme.tests.TestTektonNemTorhetGombaTestMiatt;
+import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
 
 public class TestRunner {
     public void runTests() {
@@ -29,9 +38,18 @@ public class TestRunner {
                     TestRovarAtlepMasikTektonra.test_rovar_atlep_masik_tektonra(scanner);
                     waitForEnter(scanner);
                     break;
-                // case 4 -> 
-                // case 5 -> 
-                // case 6 -> 
+                case 4: 
+                    TestGombaFonalNovesztesMultiTypeTektonon.test_gombafonal_novesztes_multi_type_tektonon();
+                    waitForEnter(scanner);
+                    break;
+                case 5:
+                    TestGombaFonalNoveszteseSingleTypeTektonon.test_gombafonal_novesztese_single_type_tektonon();
+                    waitForEnter(scanner);
+                    break;
+                case 6 :
+                    TestRovarElfogyasztSporat.test_rovar_elfogyaszt_sporat_es_megkapja_hatasat();
+                    waitForEnter(scanner);
+                    break; 
                 // case 7 -> 
                 // case 8 -> 
                 // case 9 -> 
@@ -39,15 +57,33 @@ public class TestRunner {
                 // case 11 -> 
                 // case 12 -> 
                 // case 13 -> 
-                // case 14 -> 
-                // case 15 -> 
-                // case 16 -> 
-                // case 17 -> 
-                // case 18 -> 
+                case 14 : 
+                    TestUjGombatestNemNoHaMarVan.test_uj_gombatest_nem_no_ha_mar_van();
+                    waitForEnter(scanner);
+                    break;
+                case 15:
+                    TestSporaKiloveseSzomszedosTektonra.test_spora_kilovese_szomszedos_tektonra();
+                    waitForEnter(scanner);
+                    break;
+                case 16:
+                    TestSporeKiloveseSzomszeddalSzomszedosTektonra.test_spora_kilovese_szomszeddal_szomszedos_tektonra();
+                    waitForEnter(scanner);
+                    break;
+                case 17: 
+                    TestSporaGyorsitjaFonalNovekedest.test_spora_gyorsitja_fonal_novekedest();
+                    waitForEnter(scanner);
+                    break;
+                case 18:
+                    TestTektonNemTorhetGombaTestMiatt.test_tekton_nem_torhet_gombatest_miatt();
+                    waitForEnter(scanner);
+                    break;
                 // case 19 -> 
                 // case 20 -> 
                 // case 21 -> 
-                // case 22 -> 
+                case 22:
+                    TestGombatestElhalSporaSzetszorasUtan.TestGombaFonalNovesztesMultiTypeTektonon();
+                    waitForEnter(scanner);
+                    break;
                 // case 23 -> 
                 case 24 : 
                     System.out.println("Kilépés...");
