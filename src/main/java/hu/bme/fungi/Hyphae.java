@@ -26,6 +26,11 @@ public class Hyphae{
         ownner = new Mycologist();
     }
 
+    public Hyphae(Tekton currenTekton) {
+        this();
+        this.currentTekton = currenTekton;
+    }
+
     public void setOwner(Mycologist owner) {
         this.ownner = owner;
     }
