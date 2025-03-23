@@ -10,7 +10,7 @@ import hu.bme.interfaces.IMyceliumManager;
  * Manages a collection of myceliums, providing methods for adding, removing, and counting them.
  */
 public class MyceliumManager implements IMyceliumManager{
-    private List<Mycelium> myceliums;
+    private ArrayList<Mycelium> myceliums;
 
     /**
      * Initializes a new mycelium manager with an empty list of myceliums.
@@ -44,5 +44,10 @@ public class MyceliumManager implements IMyceliumManager{
     @Override
     public int getMyceliumCount() {
         return myceliums.size();
+    }
+
+    @Override
+    public List<Mycelium> getMyceliums() {
+        return myceliums;
     }
 }

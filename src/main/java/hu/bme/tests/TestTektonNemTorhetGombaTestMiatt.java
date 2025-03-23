@@ -30,13 +30,13 @@ public class TestTektonNemTorhetGombaTestMiatt {
 
 
         t1.addHyphae(h2);
-        h2.setCurrentTekton(t2);
+        h2.addCurrentTekton(t2);
         t1.addSpore(s1);
 
         m1.setCurrentTekton(t2);
         t2.addMycelium(m1);
         t2.addHyphae(h1);
-        h1.setCurrentTekton(t2);
+        h1.addCurrentTekton(t2);
         t1.addSpore(s2);
 
         System.out.println("[Tester] breakApart(" + h1 + "," + t2 +") -> [" + t1 + "]");

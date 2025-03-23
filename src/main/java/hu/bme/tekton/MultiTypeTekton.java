@@ -1,5 +1,8 @@
 package hu.bme.tekton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.bme.fungi.Hyphae;
 
 /**
@@ -25,5 +28,10 @@ public class MultiTypeTekton extends Tekton {
             return true;
         }
         return false;   
+    }
+
+    @Override
+    public Tekton createTekton() {
+        return new MultiTypeTekton();
     }
 }

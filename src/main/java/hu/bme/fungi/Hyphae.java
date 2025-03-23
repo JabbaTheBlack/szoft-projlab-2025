@@ -13,7 +13,7 @@ import hu.bme.tekton.Tekton;
 public class Hyphae{
     private List<Hyphae> connectedHyphae;
     private List<Mycelium> connectedMyceliums;
-    private Tekton currentTekton;
+    private List<Tekton> currentTekton;
     private Mycologist ownner;
 
     /**
@@ -22,7 +22,7 @@ public class Hyphae{
     public Hyphae() {
         connectedHyphae = new ArrayList<>();
         connectedMyceliums = new ArrayList<>();
-        currentTekton = null;
+        currentTekton = new ArrayList<>();
         ownner = new Mycologist();
     }
 
@@ -32,7 +32,7 @@ public class Hyphae{
      */
     public Hyphae(Tekton currenTekton) {
         this();
-        this.currentTekton = currenTekton;
+        this.currentTekton.add(currenTekton);
     }
 
     /**
@@ -112,15 +112,14 @@ public class Hyphae{
      * Returns the current Tekton associated with this hyphae.
      * @return The current Tekton.
      */
-    public Tekton getCurrentTekton() {
+    public List<Tekton> getCurrentTekton() {
         return currentTekton;
     } 
 
-    /**
-     * Sets the current Tekton associated with this hyphae.
-     * @param currentTekton The Tekton to be associated with this hyphae.
-     */
-    public void setCurrentTekton(Tekton currentTekton) {
-        this.currentTekton = currentTekton;
+    public void addCurrentTekton(Tekton tekton) {
+        currentTekton.add(tekton);
     }
+    public void removeCurrentTekton(Tekton tekton) {
+        currentTekton.remove(tekton);
+    }   
 }

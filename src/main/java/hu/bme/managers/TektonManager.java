@@ -42,4 +42,14 @@ public class TektonManager {
     public List<Tekton> getTektons() {
         return tektons;
     }
+
+    public void breakApart(Tekton tekton) {
+        System.out.println("[TektonManager] breakApart() -> ["+tekton+"]");
+        List<Tekton> newTektons = tekton.breakApart();
+        for (Tekton newTekton : newTektons) {
+            //newTekton.refreshNeighbours();
+            addTekton(newTekton);
+        }
+        removeTekton(tekton);
+    }
 }

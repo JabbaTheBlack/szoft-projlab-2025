@@ -45,10 +45,10 @@ public class TestUjGombatestNemNoHaMarVan {
         t2.addHyphae(h2);
 
         h1.addMycelium(m1);
-        h1.setCurrentTekton(t1);
+        h1.addCurrentTekton(t1);
 
         h2.addHyphae(h3);
-        h2.setCurrentTekton(t1);
+        h2.addCurrentTekton(t1);
 
         h3.addHyphae(h2);
         h3.addMycelium(m2);

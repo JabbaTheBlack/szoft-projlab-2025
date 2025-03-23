@@ -1,5 +1,8 @@
 package hu.bme.tekton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycologist;
 
@@ -38,5 +41,11 @@ public class SingleTypeTekton extends Tekton {
         
         System.out.println("False");
         return false;
+    }
+
+    
+    @Override
+    public Tekton createTekton() {
+        return new SingleTypeTekton();
     }
 }

@@ -43,7 +43,7 @@ public class TestSporaGyorsitjaFonalNovekedest {
         t2.addNeighbour(t2);
 
         h1.addMycelium(m1);
-        h1.setCurrentTekton(t1);
+        h1.addCurrentTekton(t1);
 
         myc.addMycelium(m1);
 

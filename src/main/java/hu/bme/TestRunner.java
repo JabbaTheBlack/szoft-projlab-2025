@@ -6,12 +6,15 @@ import hu.bme.tests.TestGombaFonalElvagasVanSporaHatas;
 import hu.bme.tests.TestGombaFonalElvagasaNincsSporaHatas;
 import hu.bme.tests.TestGombaFonalNovesztesMultiTypeTektonon;
 import hu.bme.tests.TestGombaFonalNoveszteseSingleTypeTektonon;
+import hu.bme.tests.TestGombaFonalFelszivodasa;
 import hu.bme.tests.TestGombaTipusValasztas;
 import hu.bme.tests.TestGombatestElhalSporaSzetszorasUtan;
 import hu.bme.tests.TestGombatestFejleszteseSporaszintEleg;
 import hu.bme.tests.TestGombatestFejleszteseSporaszintNemEleg;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
+import hu.bme.tests.TestGombaFonalNovesztesNemSzomszedosTekton;
+import hu.bme.tests.TestGombafonalElszakadasTektonToresnel;
 import hu.bme.tests.TestSporaGyorsitjaFonalNovekedest;
 import hu.bme.tests.TestSporaKiloveseSzomszedosTektonra;
 import hu.bme.tests.TestSporeKiloveseSzomszeddalSzomszedosTektonra;
@@ -65,9 +68,18 @@ public class TestRunner {
                     TestRovarElfogyasztSporat.test_rovar_elfogyaszt_sporat_es_megkapja_hatasat();
                     waitForEnter(scanner);
                     break; 
-                // case 7 -> 
-                // case 8 -> 
-                // case 9 -> 
+                case 7 :
+                    TestGombaFonalNovesztesNemSzomszedosTekton.TestGombaFonalNovesztesNemSzomszedosTekton();
+                    waitForEnter(scanner);
+                    break;
+                case 8 :
+                    TestGombaFonalFelszivodasa.test_gombafonal_felszivodasa();
+                    waitForEnter(scanner);
+                    break;
+                case 9 :
+                    TestGombafonalElszakadasTektonToresnel.TestGombafonalElszakadasTektonToresnel();
+                    waitForEnter(scanner);
+                    break;
                 // case 10 -> 
                 // case 11 -> 
                 // case 12 -> 

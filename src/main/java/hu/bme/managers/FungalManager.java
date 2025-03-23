@@ -9,6 +9,12 @@ import hu.bme.interfaces.IHyphaeManager;
 import hu.bme.interfaces.IMyceliumManager;
 import hu.bme.interfaces.ISporeManager;
 
+
+import java.util.List;
+
+
+
+
 /**
  * Manages fungal components such as myceliums, hyphae, and spores.
  */
@@ -63,6 +69,16 @@ public class FungalManager {
      * @param hyphae The hyphae to be removed.
      */
     public void removeHyphae(Hyphae hyphae) {
+        System.out.println("[FungalManager] removeHyphae("+ hyphae +") -> [HyphaeManager]");
+        for (Hyphae rmv : getHyphaes()) {
+            System.out.println("[HyphaeManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
+            rmv.removeHyphae(hyphae);
+        }
+        for (Mycelium rmv : getMyceliums()) {
+            System.out.println("[MyceliumManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
+            rmv.removeHyphae(hyphae);
+            
+        }
         hyphaeManager.removeHyphae(hyphae);
     }
 
@@ -114,4 +130,10 @@ public class FungalManager {
     public List<Spore> getSpores() {
         return sporeManager.getSpores();
     }
+    public List<Hyphae> getHyphaes() {
+        return hyphaeManager.getHyphaes();
+    }
+    public List<Mycelium> getMyceliums() {
+        return myceliumManager.getMyceliums();
+    } 
 }

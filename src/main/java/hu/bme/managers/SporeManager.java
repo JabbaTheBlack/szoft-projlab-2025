@@ -11,7 +11,7 @@ import hu.bme.fungi.spore.*;
  * Manages a collection of spores, providing methods for adding, removing, and counting them.
  */
 public class SporeManager implements ISporeManager{
-    private List<Spore> spores;
+    private ArrayList<Spore> spores;
 
     /**
      * Initializes a new spore manager with an empty list of spores.

@@ -11,7 +11,7 @@ import hu.bme.interfaces.IHyphaeManager;
  */
 public class HyphaeManager implements IHyphaeManager {
     
-    private List<Hyphae> hyphaes;
+    private ArrayList<Hyphae> hyphaes;
 
     /**
      * Initializes a new hyphae manager with an empty list of hyphae.
@@ -55,5 +55,10 @@ public class HyphaeManager implements IHyphaeManager {
     @Override
     public boolean hasHyphae(Hyphae hyphae) {
         return hyphaes.contains(hyphae);
+    }
+
+    @Override
+    public List<Hyphae> getHyphaes() {
+        return hyphaes;
     }
 }

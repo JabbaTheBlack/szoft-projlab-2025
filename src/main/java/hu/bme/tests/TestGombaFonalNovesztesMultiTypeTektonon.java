@@ -39,7 +39,7 @@ public class TestGombaFonalNovesztesMultiTypeTektonon {
 
         h1.addMycelium(m1);
         h1.addHyphae(h2);
-        h1.setCurrentTekton(t2);
+        h1.addCurrentTekton(t2);
 
         h2.addHyphae(h1);
 

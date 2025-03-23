@@ -1,5 +1,7 @@
 package hu.bme.interfaces;
 
+import java.util.List;
+
 import hu.bme.fungi.Hyphae;
 
 /**
@@ -31,4 +33,6 @@ public interface IHyphaeManager {
      * @return true if the hyphae is managed, false otherwise.
      */
     boolean hasHyphae(Hyphae hyphae);
+
+    List<Hyphae> getHyphaes();
 }
