@@ -30,10 +30,7 @@ public abstract class Tekton {
      * Breaks the tekton apart, refreshing all connections of the tektons.
      * Abtract method, implemented in subclasses.
      */
-    public void breakApart() {
-        // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'breakApart'");
-    }
+    public abstract List<Tekton> breakApart();
 
     /**
      * Connects the tekton to another tekton.
