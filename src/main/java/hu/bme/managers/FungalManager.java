@@ -113,10 +113,14 @@ public class FungalManager {
         return hyphaeManager.hasHyphae(hyphae);
     }
 
+    //TODO javadoc
     public List<Hyphae> getHyphaes() {
         return hyphaeManager.getHyphaes();
     }
     public List<Mycelium> getMyceliums() {
         return myceliumManager.getMyceliums();
+    }
+    public List<Spore> getSpores() {
+        return sporeManager.getSpores();
     }
 }

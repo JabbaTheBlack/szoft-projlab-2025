@@ -10,6 +10,7 @@ import hu.bme.tests.TestGombaFonalFelszivodasa;
 import hu.bme.tests.TestRovarAtlepMasikTektonra;
 import hu.bme.tests.TestRovarElfogyasztSporat;
 import hu.bme.tests.TestGombaFonalNovesztesNemSzomszedosTekton;
+import hu.bme.tests.TestGombafonalElszakadasTektonToresnel;
 
 public class TestRunner {
     public void runTests() {
@@ -54,7 +55,10 @@ public class TestRunner {
                     TestGombaFonalFelszivodasa.test_gombafonal_felszivodasa();
                     waitForEnter(scanner);
                     break;
-                // case 9 -> 
+                case 9 :
+                    TestGombafonalElszakadasTektonToresnel.TestGombafonalElszakadasTektonToresnel();
+                    waitForEnter(scanner);
+                    break;
                 // case 10 -> 
                 // case 11 -> 
                 // case 12 -> 

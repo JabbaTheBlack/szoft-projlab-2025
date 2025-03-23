@@ -45,6 +45,7 @@ public class MultiTypeTekton extends Tekton {
 
             this.fungalManager.getHyphaes().forEach(hyphae -> {
                 if(hyphae.getCurrentTekton().size() >= 2){
+                    //hyphea a két tekton között
                     System.out.println("["+this+"] addHyphea("+hyphae+") -> ["+newTekton1+"]");
                     newTekton1.addHyphae(hyphae);
                     System.out.println("["+this+"] addCurrentTekton("+newTekton1+") -> ["+hyphae+"]");
@@ -52,6 +53,7 @@ public class MultiTypeTekton extends Tekton {
                     System.out.println("["+this+"] removeCurrentTekton("+this+") -> ["+hyphae+"]");
                     hyphae.removeCurrentTekton(this);
                 } else{
+                    //hyphea a tektonon belül
                     hyphae.getConnectedHyphae().forEach(nghHyphae -> {
                         System.out.println("["+this+"] removeHyphae("+hyphae+") -> ["+nghHyphae+"]");
                         nghHyphae.removeHyphae(hyphae);
