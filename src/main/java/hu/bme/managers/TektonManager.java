@@ -46,14 +46,13 @@ public class TektonManager {
     public void breakApart(Tekton tekton) {
         System.out.println("[TektonManager] breakApart() -> ["+tekton+"]");
         List<Tekton> newTektons = tekton.breakApart();
-<<<<<<< HEAD
+
         
-=======
+
         if(newTektons == null) {
             System.out.println("[TektonManager] breakApart() <- ["+tekton+"] {fail}");
             return;
         }
->>>>>>> 8599061c72e1968a03f143b2970beacad44a323b
         for (Tekton newTekton : newTektons) {
             System.out.println("[TektonManager] refreshNeighbour() -> ["+newTekton+"]");
             newTekton.refreshNeighbours();
