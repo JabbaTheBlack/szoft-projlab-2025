@@ -2,7 +2,11 @@ package hu.bme.fungi;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 import hu.bme.tekton.Tekton;
 
@@ -56,8 +60,33 @@ public class Hyphae{
      * @return true if connected to at least one mycelium, false otherwise.
      */
     public boolean isConnectedToMycelium() {
-        // TODO implement function
-        throw new UnsupportedOperationException("Unimplemented method 'isConnectedToMycelium'");
+        
+        if(!connectedMyceliums.isEmpty()) {
+            return true;
+        }
+
+        Set<Hyphae> visited = new HashSet<>();
+        Queue<Hyphae> queue = new LinkedList<>();
+
+        queue.add(this);
+        visited.add(this);
+
+        while(!queue.isEmpty()) {
+            Hyphae current = queue.poll();
+
+            if(!current.connectedMyceliums.isEmpty()){
+                return true;
+            }
+
+            for(Hyphae neighbour : current.connectedHyphae) {
+                if(!visited.contains(neighbour)) {
+                    visited.add(neighbour);
+                    queue.add(neighbour);
+                }
+            }
+        }
+         
+        return false;
     }
 
     /**
