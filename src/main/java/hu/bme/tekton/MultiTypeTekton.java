@@ -17,19 +17,6 @@ public class MultiTypeTekton extends Tekton {
         super();
     }
 
-    /**
-     * Adds a hyphae to the fungal manager associated with this tekton.
-     * @param hyphae The hyphae to add.
-     */
-    @Override
-    public boolean addHyphae(Hyphae hyphae) {
-        if(!hasHyphae(hyphae)) {
-            fungalManager.addHyphae(hyphae);
-            return true;
-        }
-        return false;   
-    }
-
     @Override
     public Tekton createTekton() {
         return new MultiTypeTekton();

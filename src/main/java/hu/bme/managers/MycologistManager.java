@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.bme.fungi.Mycologist;
+import hu.bme.interfaces.ITickable;
 
 /**
  * Manages a collection of mycologists using the singleton pattern.
  */
-public class MycologistManager {
+public class MycologistManager implements ITickable{
     private static volatile MycologistManager instance;
     private List<Mycologist> mycologists;
 
@@ -17,6 +18,12 @@ public class MycologistManager {
      */
     private MycologistManager() {
         mycologists = new ArrayList<>();
+    }
+
+    public void tick() {
+        for(Mycologist mycologist : mycologists) {
+            mycologist.tick();
+        }
     }
 
     /**

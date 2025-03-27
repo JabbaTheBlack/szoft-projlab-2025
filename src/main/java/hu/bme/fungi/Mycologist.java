@@ -10,6 +10,8 @@ import hu.bme.fungi.spore.SlowingSpore;
 import hu.bme.fungi.spore.SpeedBoostSpore;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.fungi.spore.StunSpore;
+import hu.bme.insect.Entomologist;
+import hu.bme.insect.Insect;
 import hu.bme.tekton.Tekton;
 
 /**
@@ -18,12 +20,14 @@ import hu.bme.tekton.Tekton;
 public class Mycologist {
 
     private List<Mycelium> myceliums;
+    private List<Hyphae> hyphaes;
 
     /**
      * Initializes a new mycologist with an empty list of myceliums.
      */
     public Mycologist() {
         myceliums = new ArrayList<>();
+        hyphaes = new ArrayList<>();
     }
 
     public void releaseSpore(Mycelium mycelium) {   
@@ -92,7 +96,9 @@ public class Mycologist {
         targetTekton.connectToTekton(neighbourTekton);
 
         System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Hyphae]");
-        hyphae.addHyphae(newHyphae);        
+        hyphae.addHyphae(newHyphae);   
+        
+        hyphaes.add(newHyphae);
 
         //spore on the tekton, bc that it grows faster
         if(neighbourTekton.getSporeCount() >= 4) {
@@ -185,5 +191,51 @@ public class Mycologist {
                 return;  
         }
         this.addMycelium(mycelium);
+    }
+
+    /**
+     * Grows a hyphae onto a Tetkton.
+     * @param hyphae The hyphae from which the new will grow from
+     * @param targetTekton The tekton on which the new hyphae will grow on
+     */
+    public void growHyphaeOnTekton(Hyphae hyphae, Tekton targetTekton) {
+        if(hyphae.getCurrentTekton().size() != 2 || !hyphae.getCurrentTekton().contains(targetTekton)) {
+            return;
+        }
+        
+        Hyphae newHyphae = new Hyphae();
+        if(targetTekton.addHyphae(newHyphae)) {
+            newHyphae.addCurrentTekton(targetTekton);
+            newHyphae.addHyphae(hyphae);
+            newHyphae.setOwner(hyphae.getOwner());
+            hyphae.addHyphae(newHyphae);
+        }
+    }
+
+    public void eatInsect(Insect insect) {
+        if(!insect.getCanCutHyphae() && insect.getCurrentTekton() != null) {
+            Entomologist entomologist = insect.getEntomologist();
+            entomologist.removeInsect(insect);
+
+            Tekton insectTekton = insect.getCurrentTekton();
+            insectTekton.addMycelium(myceliums.get(0).clone());
+
+            insect.setCurrentTekton(null); 
+        }
+    }
+
+    public void removeHyphae(Hyphae hyphae) {
+        hyphae.removeHyphae(hyphae);
+        hyphaes.remove(hyphae);
+    }
+
+    public void tick(){
+        for(Hyphae hyphae : hyphaes) {
+            hyphae.tick();
+        }
+    }
+
+    public List<Mycelium> getMyceliums(){
+        return myceliums;
     }
 }

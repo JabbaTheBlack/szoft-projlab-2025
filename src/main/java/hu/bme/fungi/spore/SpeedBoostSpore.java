@@ -16,6 +16,15 @@ public class SpeedBoostSpore extends Spore {
     }
 
     /**
+     * Initializes a SpeedBoostSpore with the given arguments
+     * @param nutrition Nutritional value of the spore
+     * @param effectRate Effect Rate of the spore
+     */
+    public SpeedBoostSpore(float nutrition, float effectRate){
+        super(nutrition, effectRate);
+    }
+
+    /**
      * Applies the effect of the SpeedBoostSpore on an {@link Insect}.
      * @param insect the insect to apply the effect on
      */
