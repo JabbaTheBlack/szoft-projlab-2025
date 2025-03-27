@@ -10,6 +10,7 @@ import hu.bme.fungi.spore.SlowingSpore;
 import hu.bme.fungi.spore.SpeedBoostSpore;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.fungi.spore.StunSpore;
+import hu.bme.insect.Insect;
 import hu.bme.tekton.Tekton;
 
 /**
@@ -203,6 +204,12 @@ public class Mycologist {
             newHyphae.addHyphae(hyphae);
             newHyphae.setOwner(hyphae.getOwner());
             hyphae.addHyphae(newHyphae);
+        }
+    }
+
+    public void eatInsect(Insect insect) {
+        if(!insect.getCanCutHyphae()) {
+            insect.setCurrentTekton(null); 
         }
     }
 }

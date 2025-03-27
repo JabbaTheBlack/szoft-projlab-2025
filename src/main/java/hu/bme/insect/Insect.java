@@ -3,16 +3,19 @@ package hu.bme.insect;
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
+import hu.bme.interfaces.ITickable;
 import hu.bme.tekton.Tekton;
 
 /**
  * Represents an insect that can move between Tektons on hyphae and interact with fungi.
  */
-public class Insect {
+public class Insect implements ITickable{
+    private int effectDuration;
     private float nutrition;
     private Tekton currentTekton;
     private float movementSpeed;
     private boolean canCutHyphae;
+    private Entomologist owner;
 
     /**
      * Initializes an insect at a specified Tekton with a given movement speed.
@@ -22,6 +25,8 @@ public class Insect {
     public Insect(Tekton currentTekton, float movementSpeed) {
         this.currentTekton = currentTekton;
         this.movementSpeed = movementSpeed;
+        effectDuration = -1;
+        owner = null;
     }
 
     /**
@@ -31,6 +36,18 @@ public class Insect {
         this(null, 1);
         nutrition = 0;
         canCutHyphae = true;
+    }
+
+    public void setEntomologist(Entomologist owner) {
+        this.owner = owner;
+    }
+ 
+    public void tick() {
+        effectDuration--;
+        if(effectDuration == 0) {
+            movementSpeed = 1;
+            canCutHyphae = true;
+        }
     }
 
     /**
@@ -78,29 +95,32 @@ public class Insect {
      * @param hyphae The hyphae that the insect cuts.
      */
     public void cutHyphae(Hyphae hyphae) {
-        if(canCutHyphae) {
-            System.out.println("[" + this + "] canCutHyphae() -> [" + this + "] ");
-            System.out.println("[" + this + "] canCutHyphae() <- [" + this + "] {true}");
-            System.out.println("[" + this + "] getConnectedNeighbours() -> [" + currentTekton + "]");
-            for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
-                if(tekton.hasHyphae(hyphae)) {
-                    System.out.println("[" + this + "] removeHyphae(" + hyphae + ") -> ["+ tekton +"]");
-                    tekton.removeHyphae(hyphae);
+        // if(canCutHyphae) {
+        //     System.out.println("[" + this + "] canCutHyphae() -> [" + this + "] ");
+        //     System.out.println("[" + this + "] canCutHyphae() <- [" + this + "] {true}");
+        //     System.out.println("[" + this + "] getConnectedNeighbours() -> [" + currentTekton + "]");
+        //     for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
+        //         if(tekton.hasHyphae(hyphae)) {
+        //             System.out.println("[" + this + "] removeHyphae(" + hyphae + ") -> ["+ tekton +"]");
+        //             tekton.removeHyphae(hyphae);
 
-                    System.out.println("[" + tekton + "] breakConnectionTo() -> [" + currentTekton + "]");
-                    tekton.breakConnectionTo(currentTekton);
+        //             System.out.println("[" + tekton + "] breakConnectionTo() -> [" + currentTekton + "]");
+        //             tekton.breakConnectionTo(currentTekton);
                     
-                    System.out.println("[" + currentTekton + "] breakConnectionTo() -> [" + tekton + "]");
-                    currentTekton.breakConnectionTo(tekton);
-                    break;
-                }
-            }
+        //             System.out.println("[" + currentTekton + "] breakConnectionTo() -> [" + tekton + "]");
+        //             currentTekton.breakConnectionTo(tekton);
+        //             break;
+        //         }
+        //     }
             
-            currentTekton.removeHyphae(hyphae);
-        }
-        else {
-            System.out.println("[Insect] canCutHyphae() -> [Insect] ");
-            System.out.println("[Insect] canCutHyphae() <- [Insect] {false}");
+        //     currentTekton.removeHyphae(hyphae);
+        // }
+        // else {
+        //     System.out.println("[Insect] canCutHyphae() -> [Insect] ");
+        //     System.out.println("[Insect] canCutHyphae() <- [Insect] {false}");
+        // }
+        if(canCutHyphae){
+            hyphae.setTimeToLive(1);
         }
     }
 

@@ -8,17 +8,20 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+import hu.bme.interfaces.ITickable;
 import hu.bme.tekton.Tekton;
 
 
 /**
  * Represents a hyphae in a fungal network, managing connections to other hyphae and myceliums.
  */
-public class Hyphae{
+public class Hyphae implements ITickable{
+    private int timeToLive;
     private List<Hyphae> connectedHyphae;
     private List<Mycelium> connectedMyceliums;
     private List<Tekton> currentTekton;
     private Mycologist ownner;
+    private boolean isOnKeeperTekton;
 
     /**
      * Initializes a new hyphae with empty lists for connected hyphae and myceliums.
@@ -28,6 +31,57 @@ public class Hyphae{
         connectedMyceliums = new ArrayList<>();
         currentTekton = new ArrayList<>();
         ownner = new Mycologist();
+        timeToLive = -1;
+        isOnKeeperTekton = false;
+    }
+
+    /**
+     * Start of the round 
+     */
+    public void tick() {
+        timeToLive--;
+        if(timeToLive == 0){
+
+            for(Tekton tekton : currentTekton) {
+                tekton.removeHyphae(this);
+            }
+            currentTekton = null;
+                
+            for(Hyphae neighour : getConnectedHyphae()) {
+                neighour.removeHyphae(this);
+            }
+
+            for(Mycelium neighbour : getConnectedMyceliums()) {
+                neighbour.removeHyphae(this);
+            }
+
+            connectedHyphae.clear();
+            connectedMyceliums.clear();
+        }   
+    }
+
+    public void setIsOnKeeperTekton(boolean value) {
+        isOnKeeperTekton = value;
+    }
+
+    public boolean isOnKeeperTekton() {
+        return isOnKeeperTekton;
+    }
+
+    /**
+     * Sets the rounds left of the Hyphae's life
+     * @param timeToLive Number of rounds the Hyphae will still lve
+     */
+    public void setTimeToLive(int timeToLive) {
+        this.timeToLive = timeToLive;
+    }
+
+    /**
+     * Gets the number of rounds left from the Hyphae's life
+     * @return Number of rounds left from the Hyphae's life
+     */
+    public int getTimeToLive() {
+        return timeToLive;
     }
 
     /**
@@ -119,6 +173,13 @@ public class Hyphae{
      */
     public void removeHyphae(Hyphae hyphae) {
         connectedHyphae.remove(hyphae);
+        hyphae.connectedHyphae.remove(this);
+
+        if(!hyphae.isConnectedToMycelium() && !isOnKeeperTekton) {
+            hyphae.setTimeToLive(2);
+        } else if(isOnKeeperTekton) {
+            hyphae.setTimeToLive(-1);
+        }
     }
 
      /**
