@@ -186,4 +186,23 @@ public class Mycologist {
         }
         this.addMycelium(mycelium);
     }
+
+    /**
+     * Grows a hyphae onto a Tetkton.
+     * @param hyphae The hyphae from which the new will grow from
+     * @param targetTekton The tekton on which the new hyphae will grow on
+     */
+    public void growHyphaeOnTekton(Hyphae hyphae, Tekton targetTekton) {
+        if(hyphae.getCurrentTekton().size() != 2 || !hyphae.getCurrentTekton().contains(targetTekton)) {
+            return;
+        }
+        
+        Hyphae newHyphae = new Hyphae();
+        if(targetTekton.addHyphae(newHyphae)) {
+            newHyphae.addCurrentTekton(targetTekton);
+            newHyphae.addHyphae(hyphae);
+            newHyphae.setOwner(hyphae.getOwner());
+            hyphae.addHyphae(newHyphae);
+        }
+    }
 }

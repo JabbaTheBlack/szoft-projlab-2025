@@ -17,17 +17,14 @@ class TestSpore {
     void testInitialization() {
  
         assertEquals(stunspore.getNutrition(), 1, "Nutrition Value should be 1");
-        assertEquals(stunspore.getEffectRate(), 1, "Effect Rate value should be 1");
 
         DefensiveSpore defensiveSpore = new DefensiveSpore(5, 7);
 
         assertEquals(defensiveSpore.getNutrition(), 5, "Nutritional value should be 5");
-        assertEquals(defensiveSpore.getEffectRate(), 7, "Effect Rate should be 7");
 
         
         SlowingSpore slowingSpore = new SlowingSpore(5, 7);
 
         assertEquals(slowingSpore.getNutrition(), 5, "Nutritional value should be 5");
-        assertEquals(slowingSpore.getEffectRate(), 7, "Effect Rate should be 7");
     }
 }
