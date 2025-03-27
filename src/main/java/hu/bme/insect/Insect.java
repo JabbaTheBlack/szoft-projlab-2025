@@ -41,7 +41,11 @@ public class Insect implements ITickable{
     public void setEntomologist(Entomologist owner) {
         this.owner = owner;
     }
- 
+    
+    public Entomologist getEntomologist() {
+        return owner;
+    }
+
     public void tick() {
         effectDuration--;
         if(effectDuration == 0) {

@@ -1,110 +1,64 @@
 package hu.bme.fungi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
+import hu.bme.insect.Entomologist;
+import hu.bme.insect.Insect;
+import hu.bme.tekton.Tekton;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
+import java.util.ArrayList;
+import java.util.List;
+import static org.mockito.Mockito.*;
 
-import hu.bme.fungi.spore.DefensiveSpore;
-import hu.bme.fungi.spore.Spore;
-import hu.bme.tekton.Tekton;
 
-class TestMycologist {
-    
+class MycologistTest {
+
     private Mycologist mycologist;
-
-    @Mock 
-    private Hyphae hyphae;
-    @Mock
-    private Mycelium mycelium;
-
-    @Mock
-    private Tekton tekton, neighbourTekton;
-
+    private Insect mockInsect;
+    private Entomologist mockEntomologist;
+    private Tekton mockTekton;
+    private Mycelium mockMycelium;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         mycologist = new Mycologist();
+        mockInsect = mock(Insect.class);
+        mockEntomologist = mock(Entomologist.class);
+        mockTekton = mock(Tekton.class);
+        mockMycelium = mock(Mycelium.class);
+
+        // Add a mock mycelium to the mycologist's list
+        List<Mycelium> myceliums = new ArrayList<>();
+        myceliums.add(mockMycelium);
+        mycologist.getMyceliums().addAll(myceliums);
     }
 
     @Test
-    public void testGrowHyphaeToTektonSucess(){
-        when(hyphae.getCurrentTekton()).thenReturn(Collections.singletonList(tekton));
-        when(tekton.getNeighbours()).thenReturn(Collections.singletonList(neighbourTekton));
-        when(neighbourTekton.addHyphae(any(Hyphae.class))).thenReturn(true);
+    void testEatInsect_SuccessfulCase() {
+        // Arrange
+        when(mockInsect.getCanCutHyphae()).thenReturn(false);
+        when(mockInsect.getCurrentTekton()).thenReturn(mockTekton);
+        when(mockInsect.getEntomologist()).thenReturn(mockEntomologist);
+        when(mockMycelium.clone()).thenReturn(mockMycelium);
 
-        mycologist.growHyphaeToTekton(hyphae, neighbourTekton);
+        // Act
+        mycologist.eatInsect(mockInsect);
 
-        verify(neighbourTekton).addHyphae(any(Hyphae.class));
+        // Assert
+        verify(mockEntomologist).removeInsect(mockInsect);
+        verify(mockTekton).addMycelium(mockMycelium);
+        verify(mockInsect).setCurrentTekton(null);
     }
 
     @Test
-    public void testGrowHyphaeToTekton_Failure_NotNeighbor() {
-        when(hyphae.getCurrentTekton()).thenReturn(Collections.singletonList(tekton));
-        when(tekton.getNeighbours()).thenReturn(Collections.emptyList());
+    void testEatInsect_InsectCanCutHyphae() {
+        // Arrange
+        when(mockInsect.getCanCutHyphae()).thenReturn(true);
 
-        mycologist.growHyphaeToTekton(hyphae, neighbourTekton);
+        // Act
+        mycologist.eatInsect(mockInsect);
 
-        verify(neighbourTekton, never()).addHyphae(any(Hyphae.class));
+        // Assert
+        verifyNoInteractions(mockEntomologist, mockTekton, mockMycelium);
     }
-
-    @Test
-    public void testReleaseSpores() {
-        when(mycelium.getRemainingSporeReleases()).thenReturn(0);
-
-        mycologist.releaseSpore(mycelium);
-
-        verify(mycelium).setCurrentTekton(null);
-        verify(mycelium).removeAllHyphae();
-    }
-
-    @Test
-    public void testGrowMycelium_Sucess() {
-        when(hyphae.getCurrentTekton()).thenReturn(Collections.singletonList(tekton));
-        when(tekton.getSporeCount()).thenReturn(3);
-        when(tekton.addMycelium(any(Mycelium.class))).thenReturn(true);
-        when(tekton.getSpores()).thenReturn(Arrays.asList(mock(DefensiveSpore.class), mock(DefensiveSpore.class), mock(DefensiveSpore.class)));
-
-        mycologist.growMycelium(hyphae, tekton);
-
-        verify(tekton, times(3)).removeSpore(any(Spore.class));
-    }
-
-    @Test
-    public void testGrowMycelium_Fail() {
-        when(hyphae.getCurrentTekton()).thenReturn(Collections.singletonList(tekton));
-        when(tekton.getSporeCount()).thenReturn(2);
-        when(tekton.addMycelium(any(Mycelium.class))).thenReturn(true);
-        when(tekton.getSpores()).thenReturn(Arrays.asList(mock(DefensiveSpore.class), mock(DefensiveSpore.class), mock(DefensiveSpore.class)));
-
-        mycologist.growMycelium(hyphae, tekton);
-
-        verify(tekton, times(0)).removeSpore(any(Spore.class));
-    }
-
-    @Test
-    public void testGrowHyphaeOnTekton_Success() {
-        when(hyphae.getCurrentTekton()).thenReturn(Arrays.asList(tekton, neighbourTekton));
-        when(neighbourTekton.addHyphae(any(Hyphae.class))).thenReturn(true);
-        when(hyphae.isConnectedToMycelium()).thenReturn(true);
-
-        mycologist.growHyphaeOnTekton(hyphae, neighbourTekton);
-
-        verify(neighbourTekton).addHyphae(any(Hyphae.class));
-    }
-
 }

@@ -37,6 +37,11 @@ public class Mycelium<T extends Spore> {
         this.currentTekton = currentTekton;
     }
 
+    public Mycelium<T> clone(){
+        Mycelium<T> cloned = new Mycelium<>();
+        return cloned;
+    }
+
     /**
      * Returns the number of possible spore releases, before the mycelium dies.
      * @return The number of possible spore releases.

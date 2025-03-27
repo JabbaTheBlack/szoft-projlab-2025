@@ -3,6 +3,7 @@ package hu.bme.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 
 /**
@@ -11,13 +12,13 @@ import hu.bme.insect.Insect;
 public class InsectManager {
     
     private static volatile InsectManager instance;
-    private List<Insect> insects;
+    private List<Entomologist> entomologists;
     
     /**
      * Private constructor.
      */
     private InsectManager() {
-        insects = new ArrayList<>();
+        entomologists = new ArrayList<>();
     }
 
     /**
@@ -42,16 +43,16 @@ public class InsectManager {
      * Adds an insect to the manager's collection.
      * @param insect The insect to be added.
      */
-    public void addInsect(Insect insect) {
-        insects.add(insect);
+    public void addEntomologist(Entomologist entomologist) {
+        entomologists.add(entomologist);
     }
 
     /**
      * Removes an insect from the manager's collection.
      * @param insect The insect to be removed.
      */
-    public void removeInsect(Insect insect) {
-        insects.remove(insect);
+    public void removeEntomologist(Entomologist entomologist) {
+        entomologists.remove(entomologist);
     }
 
     /**
@@ -59,6 +60,6 @@ public class InsectManager {
      * @return The count of insects.
      */
     public int getInsectCount() {
-        return insects.size();
+        return entomologists.size();
     }
 }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.never;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import hu.bme.tekton.Tekton;
 
-public class TestHyphae {
+class TestHyphae {
     private Hyphae hyphae;
 
     @Mock
@@ -155,4 +154,36 @@ public class TestHyphae {
         h1.addHyphae(isolatedHyphae);
         assertTrue(isolatedHyphae.isConnectedToMycelium());
     }
+
+    @Test
+    void testTickDecrementsTimeToLive() {
+        hyphae.setTimeToLive(3);
+        hyphae.tick();
+        assertEquals(2, hyphae.getTimeToLive());
+    }
+
+    @Test
+    void testTickRemovesHyphaeWhenTimeToLiveExpires(){
+        Hyphae neighbour = new Hyphae();
+        Mycelium mycelium = new Mycelium<>();
+
+        hyphae.addHyphae(neighbour);
+        neighbour.addHyphae(neighbour);
+        hyphae.addMycelium(mycelium);
+
+        hyphae.setTimeToLive(1);
+        hyphae.tick();
+    
+        assertFalse(neighbour.getConnectedHyphae().contains(hyphae));
+    }
+
+    @Test
+    void testAddRemoveTekton() {
+        hyphae.addCurrentTekton(tekotn1);
+        assertTrue(hyphae.getCurrentTekton().contains(tekotn1));
+
+        hyphae.removeCurrentTekton(tekotn1);
+        assertFalse(hyphae.getCurrentTekton().contains(tekotn1));
+    }
+
 }

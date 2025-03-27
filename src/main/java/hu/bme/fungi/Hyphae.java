@@ -15,7 +15,7 @@ import hu.bme.tekton.Tekton;
 /**
  * Represents a hyphae in a fungal network, managing connections to other hyphae and myceliums.
  */
-public class Hyphae implements ITickable{
+public class Hyphae{
     private int timeToLive;
     private List<Hyphae> connectedHyphae;
     private List<Mycelium> connectedMyceliums;
@@ -42,16 +42,16 @@ public class Hyphae implements ITickable{
         timeToLive--;
         if(timeToLive == 0){
 
-            for(Tekton tekton : currentTekton) {
+            for(Tekton tekton : new ArrayList<>(currentTekton)) {
                 tekton.removeHyphae(this);
             }
             currentTekton = null;
                 
-            for(Hyphae neighour : getConnectedHyphae()) {
-                neighour.removeHyphae(this);
+            for (Hyphae neighbour : new ArrayList<>(getConnectedHyphae())) {
+                neighbour.removeHyphae(this);
             }
 
-            for(Mycelium neighbour : getConnectedMyceliums()) {
+            for (Mycelium neighbour : new ArrayList<>(getConnectedMyceliums())) {
                 neighbour.removeHyphae(this);
             }
 

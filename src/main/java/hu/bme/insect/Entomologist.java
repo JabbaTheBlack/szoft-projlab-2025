@@ -21,4 +21,16 @@ public class Entomologist {
     public int getInsectCount() {
         return insects.size();
     }
+
+    public void tick() {
+        for(Insect insect : insects) {
+            insect.tick();
+        }
+    }
+
+    public void clone(Insect insect){
+        Insect newInsect = new Insect();
+        newInsect.setCurrentTekton(insect.getCurrentTekton());
+        insects.add(newInsect);
+    }
 }
