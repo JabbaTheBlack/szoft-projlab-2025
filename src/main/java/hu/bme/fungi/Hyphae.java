@@ -175,10 +175,10 @@ public class Hyphae{
         connectedHyphae.remove(hyphae);
         hyphae.connectedHyphae.remove(this);
 
-        if(!hyphae.isConnectedToMycelium() && !isOnKeeperTekton) {
-            hyphae.setTimeToLive(2);
+        if(!isConnectedToMycelium() && !isOnKeeperTekton) {
+            setTimeToLive(2);
         } else if(isOnKeeperTekton) {
-            hyphae.setTimeToLive(-1);
+            setTimeToLive(-1);
         }
     }
 
