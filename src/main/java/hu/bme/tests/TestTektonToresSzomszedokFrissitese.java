@@ -17,7 +17,7 @@ public class TestTektonToresSzomszedokFrissitese {
         MultiTypeTekton t1 = new MultiTypeTekton();
         MultiTypeTekton t2 = new MultiTypeTekton();
         MultiTypeTekton t3 = new MultiTypeTekton();
-        TektonManager tm = new TektonManager();
+        TektonManager tm = TektonManager.getInstance();
 
 
         tm.addTekton(t1);

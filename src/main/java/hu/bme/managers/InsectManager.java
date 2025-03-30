@@ -5,11 +5,12 @@ import java.util.List;
 
 import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
+import hu.bme.interfaces.ITickable;
 
 /**
  * Manages a collection of insects using the singleton pattern.
  */
-public class InsectManager {
+public class InsectManager implements ITickable{
     
     private static volatile InsectManager instance;
     private List<Entomologist> entomologists;
@@ -59,7 +60,14 @@ public class InsectManager {
      * Returns the number of insects managed.
      * @return The count of insects.
      */
-    public int getInsectCount() {
+    public int getEntomologistCount() {
         return entomologists.size();
+    }
+
+    @Override
+    public void tick() {
+        for(Entomologist entomologist : entomologists){
+            entomologist.tick();
+        }
     }
 }

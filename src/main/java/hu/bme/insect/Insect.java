@@ -9,7 +9,7 @@ import hu.bme.tekton.Tekton;
 /**
  * Represents an insect that can move between Tektons on hyphae and interact with fungi.
  */
-public class Insect implements ITickable{
+public class Insect {
     private int effectDuration;
     private float nutrition;
     private Tekton currentTekton;

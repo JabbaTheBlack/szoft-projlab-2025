@@ -20,17 +20,11 @@ public class MycologistManager implements ITickable{
         mycologists = new ArrayList<>();
     }
 
-    public void tick() {
-        for(Mycologist mycologist : mycologists) {
-            mycologist.tick();
-        }
-    }
-
     /**
      * Returns the singleton instance of the MycologistManager.
      * @return The instance of MycologistManager.
      */
-    public MycologistManager getInstance() {
+    public static MycologistManager getInstance() {
         MycologistManager result = instance;
 
         if(result == null) {
@@ -42,6 +36,13 @@ public class MycologistManager implements ITickable{
             }
         }
         return result;
+    }
+
+    //TODO javadoc
+    public void tick() {
+        for(Mycologist mycologist : mycologists) {
+            mycologist.tick();
+        }
     }
 
     /**
