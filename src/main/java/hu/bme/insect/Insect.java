@@ -167,4 +167,15 @@ public class Insect {
     public Tekton getCurrentTekton() {
         return currentTekton;
     }
+
+    /**
+     * Copy constructor for the Insect class.
+     * @param insect The insect to copy.
+     */
+    public Insect(Insect insect) {
+        Insect copy = new Insect(insect.currentTekton, insect.movementSpeed);
+        copy.owner = insect.owner;
+        insect.getEntomologist().addInsect(copy);
+        copy.nutrition = 0;
+    }
 }
