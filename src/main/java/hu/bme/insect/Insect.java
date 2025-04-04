@@ -189,4 +189,15 @@ public class Insect {
         insect.getEntomologist().addInsect(copy);
         copy.nutrition = 0;
     }
+
+    /**
+     * Checks if the insect is stunned.
+     * @return True if the insect is stunned, false otherwise.
+     */
+    public boolean isStunned() {
+        if(movementSpeed == 0){
+            return true;
+        }
+        return false;
+    }
 }
