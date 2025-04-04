@@ -11,22 +11,28 @@ public class GameController {
     private TektonManager tektonManager;
     private InsectManager insectManager;
     private MycologistManager mycologistManager;
+    private Ticker ticker;
+
     
     /**
      * Initializes the game controller with necessary managers.
      */
     public GameController() {
-        tektonManager = new TektonManager();
-        //insectManager = new InsectManager();
-        //mycologistManager = new MycologistManager();
+        tektonManager = TektonManager.getInstance();
+        insectManager = InsectManager.getInstance();
+        mycologistManager = MycologistManager.getInstance();
+        ticker = Ticker.getInstance();
+        ticker.addObserver(mycologistManager);
+        ticker.addObserver(insectManager);
     }
 
     /**
      * Contols the game loop by running the game components.
      */
     public void runGameLoop(){
-        // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'runGameLoop' in GameController class");
+        while(true){
+            ticker.tick();
+        }       
     }
 
     /**
@@ -50,7 +56,6 @@ public class GameController {
      * @return the number of players in the game
      */
     public int getPlayerCount() {
-        // TODO add javadoc
-        return insectManager.getInsectCount() + mycologistManager.getMycologistCount();
+        return insectManager.getEntomologistCount() + mycologistManager.getMycologistCount();
     }
 }

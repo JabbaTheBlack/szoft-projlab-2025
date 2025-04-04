@@ -28,7 +28,7 @@ public class TestTektonNemTorhetGombaTestMiatt {
         DefensiveSpore s2 = new DefensiveSpore();
         Hyphae h1 = new Hyphae();
         Hyphae h2 = new Hyphae();
-        TektonManager tm = new TektonManager();
+        TektonManager tm = TektonManager.getInstance();
 
         tm.addTekton(t1);
         tm.addTekton(t2);

@@ -20,7 +20,7 @@ import hu.bme.tekton.Tekton;
 
 public class TestGombafonalElszakadasTektonToresnel {
     public static void TestGombafonalElszakadasTektonToresnel() {
-        TektonManager TM = new TektonManager();
+        TektonManager TM = TektonManager.getInstance();
         MultiTypeTekton t2 = new MultiTypeTekton();
         MultiTypeTekton t1 = new MultiTypeTekton();
         Mycelium m2 = new Mycelium();

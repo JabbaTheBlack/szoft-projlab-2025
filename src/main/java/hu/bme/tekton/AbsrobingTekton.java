@@ -11,8 +11,6 @@ import java.util.Iterator;
  * Represents a tekton that can absorb hyphae, subclass of Tekton.
  */
 public class AbsrobingTekton extends Tekton {
-    
-    private float absrobingRate;
 
     /**
      * Initializes a new AbsrobingTekton with an empty list of neighbours and connected neighbours.
@@ -35,6 +33,10 @@ public class AbsrobingTekton extends Tekton {
         // TODO add javadoc
     }
 
+    /**
+     * Creates new AbsrobingTekton instances using Prototype pattern.
+     * @return Fresh AbsrobingTekton instance with default configuration
+     */
     @Override
     public Tekton createTekton() {
         return new AbsrobingTekton();
