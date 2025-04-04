@@ -2,6 +2,7 @@ package hu.bme.fungi;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -213,7 +214,14 @@ public class Mycologist {
     }
 
     public void eatInsect(Insect insect) {
-        if(!insect.getCanCutHyphae() && insect.getCurrentTekton() != null) {
+        HashSet<Tekton> tektons = new HashSet<>();
+        for(Hyphae hyphae : hyphaes) {
+            if(hyphae.getCurrentTekton().size() == 1) {
+                tektons.add(hyphae.getCurrentTekton().get(0));
+            }
+        }
+
+        if(insect.getCurrentTekton() != null && insect.isStunned() && tektons.contains(insect.getCurrentTekton())) {
             Entomologist entomologist = insect.getEntomologist();
             entomologist.removeInsect(insect);
 
@@ -238,4 +246,6 @@ public class Mycologist {
     public List<Mycelium> getMyceliums(){
         return myceliums;
     }
+
+
 }

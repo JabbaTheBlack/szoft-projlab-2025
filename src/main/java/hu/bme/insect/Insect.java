@@ -178,4 +178,11 @@ public class Insect {
         insect.getEntomologist().addInsect(copy);
         copy.nutrition = 0;
     }
+
+    public boolean isStunned() {
+        if(movementSpeed == 0){
+            return true;
+        }
+        return false;
+    }
 }
