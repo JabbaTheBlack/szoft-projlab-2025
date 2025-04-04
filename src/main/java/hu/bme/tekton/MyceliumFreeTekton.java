@@ -26,6 +26,9 @@ public class MyceliumFreeTekton extends Tekton{
         return false;
     }
 
+    /**
+     * Creates a new MyceliumFreeTekton
+     */
     @Override
     public Tekton createTekton() {
         return new MyceliumFreeTekton();

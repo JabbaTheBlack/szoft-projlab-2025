@@ -133,9 +133,19 @@ public class FungalManager {
     public List<Spore> getSpores() {
         return sporeManager.getSpores();
     }
+
+    /**
+     * Gets a list of hyphaes
+     * @return List of hyphaes
+     */
     public List<Hyphae> getHyphaes() {
         return hyphaeManager.getHyphaes();
     }
+
+    /**
+     * Gets a list of myceliums
+     * @return List of myceliums
+     */
     public List<Mycelium> getMyceliums() {
         return myceliumManager.getMyceliums();
     } 

@@ -34,5 +34,9 @@ public interface IHyphaeManager {
      */
     boolean hasHyphae(Hyphae hyphae);
 
+    /**
+     * Returns a list of all managed hyphaes.
+     * @return The list of managed hyphaes.
+     */
     List<Hyphae> getHyphaes();
 }

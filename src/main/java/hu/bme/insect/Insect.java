@@ -38,14 +38,25 @@ public class Insect {
         canCutHyphae = true;
     }
 
+    /**
+     * Associates with an entomologist for population tracking.
+     * @param owner Entomologist managing this insect
+     */
     public void setEntomologist(Entomologist owner) {
         this.owner = owner;
     }
     
+    /**
+     * Gets managing entomologist.
+     * @return Associated population controller
+     */
     public Entomologist getEntomologist() {
         return owner;
     }
 
+    /**
+     * Updates insect state each simulation round.
+     */
     public void tick() {
         effectDuration--;
         if(effectDuration == 0) {

@@ -59,6 +59,11 @@ public class TektonManager {
         return tektons;
     }
 
+    /**
+     * This method creates new tektons from the original one and adds them to the manager's collection.
+     * After that refreshes the neighbours of the new tektons and removes the original tekton from the collection.
+     * @param tekton to be broken apart.
+     */
     public void breakApart(Tekton tekton) {
         System.out.println("[TektonManager] breakApart() -> ["+tekton+"]");
         List<Tekton> newTektons = tekton.breakApart();

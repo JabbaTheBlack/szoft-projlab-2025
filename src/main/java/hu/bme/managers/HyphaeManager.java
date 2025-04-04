@@ -57,6 +57,10 @@ public class HyphaeManager implements IHyphaeManager {
         return hyphaes.contains(hyphae);
     }
 
+    /**
+     * Returns a list of all managed hyphae.
+     * @return The list of managed hyphae.
+     */
     @Override
     public List<Hyphae> getHyphaes() {
         return hyphaes;

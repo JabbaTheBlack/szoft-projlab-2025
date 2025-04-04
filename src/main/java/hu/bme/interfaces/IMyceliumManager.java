@@ -28,5 +28,9 @@ public interface IMyceliumManager {
      */
     int getMyceliumCount();
 
+    /**
+     * Returns the myceliums in a List.
+     * @return The list of myceliums.
+     */
     List<Mycelium> getMyceliums();
 }
