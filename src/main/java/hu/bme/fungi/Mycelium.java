@@ -130,6 +130,9 @@ public class Mycelium<T extends Spore> {
     public void setCurrentTekton(Tekton tekton) {
         currentTekton = tekton;
     }
+    public Tekton getCurrentTekton() {
+        return currentTekton;
+    }
 
     /**
      * Increment the spore count of the mycelium by one.

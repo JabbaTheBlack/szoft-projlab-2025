@@ -213,6 +213,15 @@ public class Mycologist {
         }
     }
 
+    public void growHyphaeOnTekton(Mycelium mycelium) {
+        Hyphae newHyphae = new Hyphae(mycelium.getCurrentTekton());
+        if(mycelium.getCurrentTekton().addHyphae(newHyphae)){
+            newHyphae.setOwner(this);
+            mycelium.addHyphae(newHyphae);
+        }
+        
+    }
+
     public void eatInsect(Insect insect) {
         HashSet<Tekton> tektons = new HashSet<>();
         for(Hyphae hyphae : hyphaes) {
@@ -220,7 +229,7 @@ public class Mycologist {
                 tektons.add(hyphae.getCurrentTekton().get(0));
             }
         }
-
+         
         if(insect.getCurrentTekton() != null && insect.isStunned() && tektons.contains(insect.getCurrentTekton())) {
             Entomologist entomologist = insect.getEntomologist();
             entomologist.removeInsect(insect);
