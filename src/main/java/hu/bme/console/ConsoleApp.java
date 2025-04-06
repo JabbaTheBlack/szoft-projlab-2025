@@ -182,7 +182,7 @@ public class ConsoleApp {
 
     private void growHyphaeFromHyphae(String tektronid, String sporeid, String mycologistid, String hyphaeId) {
         int id = Integer.parseInt(tektronid);
-        int sporeId = Integer.parseInt(sporeid);
+    
         Tekton tekton = tektonManager.getTektons().get(id);
         Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
         Hyphae hyphae = tekton.getHyphaes().get(Integer.parseInt(hyphaeId));
@@ -191,8 +191,8 @@ public class ConsoleApp {
 
        private void growHyphaefromMycelium(String tektronid, String sporeid, String mycologistid, String myceliumId) {
         int id = Integer.parseInt(tektronid);
-        int sporeId = Integer.parseInt(sporeid);
-        Tekton tekton = tektonManager.getTektons().get(id);
+       
+        
         Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
         Mycelium mycelium = mycologist.getMyceliums().get(Integer.parseInt(myceliumId));
         mycologist.growHyphaeOnTekton(mycelium);
