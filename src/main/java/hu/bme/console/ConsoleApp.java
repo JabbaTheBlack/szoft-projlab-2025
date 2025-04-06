@@ -7,11 +7,14 @@ import java.util.Scanner;
 
 import hu.bme.core.GameController;
 import hu.bme.core.Ticker;
+import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycologist;
 import hu.bme.insect.Entomologist;
+import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
+import hu.bme.tekton.Tekton;
 
 public class ConsoleApp {
     int id;
@@ -20,6 +23,7 @@ public class ConsoleApp {
     private static MycologistManager mycologistManager = MycologistManager.getInstance();
     private static HashMap<Integer, Entomologist> entomologistWithIds = new HashMap<>();
     private static HashMap<Integer, Mycologist> mycologistWithIds = new HashMap<>();
+    private static HashMap<Integer, Tekton> tektonIds = new HashMap<>();
     private static TektonManager tektonManager = TektonManager.getInstance();
     private static Ticker ticker = Ticker.getInstance();
     
@@ -87,6 +91,24 @@ public class ConsoleApp {
             });
         }); 
     }
+
+    private void listSpore(String tektronid) {
+        int id = Integer.parseInt(tektronid);
+        Tekton tekton = tektonManager.getTektons().get(id);
+        System.out.println(tekton.getSporeCount());
+        tekton.getSpores().forEach(spore -> {
+            System.out.println(spore);
+        });
+    }
+
+    private void growHyphae(String tektronid, String sporeid, String mycologistid, String hyphaeId) {
+        int id = Integer.parseInt(tektronid);
+        int sporeId = Integer.parseInt(sporeid);
+        Tekton tekton = tektonManager.getTektons().get(id);
+        Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
+    
+        mycologist.growHyphaeToTekton(null, tekton);
+       }
     
     public void run(){
         System.out.println("Baszodj meg");
@@ -112,6 +134,12 @@ public class ConsoleApp {
                 // Jani csinálta: 
                 case "printMap":
                     printMap();
+                    break;
+                case "listSpore":
+                    listSpore(intputStrings[1]);
+                    break;
+                case "growHyphae":
+                    growHyphae(intputStrings[1], intputStrings[2], intputStrings[3], intputStrings[4]);
                     break;
                 default:
                     break;
