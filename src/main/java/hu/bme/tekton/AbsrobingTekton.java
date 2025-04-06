@@ -30,7 +30,6 @@ public class AbsrobingTekton extends Tekton {
             iterator.remove();
             removeHyphae(hyphae);
         }
-        // TODO add javadoc
     }
 
     @Override
