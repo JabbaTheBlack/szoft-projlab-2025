@@ -241,13 +241,20 @@ public class Mycologist {
             }
         }
          
-        if(insect.getCurrentTekton() != null && insect.isStunned() && tektons.contains(insect.getCurrentTekton())) {
-            Entomologist entomologist = insect.getEntomologist();
-            entomologist.removeInsect(insect);
-
+        if(insect.isStunned() && tektons.contains(insect.getCurrentTekton())) {
+            
             Tekton insectTekton = insect.getCurrentTekton();
-            insectTekton.addMycelium(myceliums.get(0).clone());
+            Mycelium newMycelium = myceliums.get(0).clone();
+            insectTekton.addMycelium(newMycelium);
 
+            for(Hyphae hyphae : insectTekton.getHyphaes()){
+                if(hyphae.getCurrentTekton().size() == 1) {
+                    hyphae.addMycelium(newMycelium);
+                    newMycelium.addHyphae(hyphae);
+                }
+            }
+            
+            insect.getEntomologist().removeInsect(insect);
             insect.setCurrentTekton(null); 
         }
     }
@@ -278,6 +285,10 @@ public class Mycologist {
      */
     public List<Mycelium> getMyceliums(){
         return myceliums;
+    }
+
+    public List<Hyphae> getHyphaes() {
+        return hyphaes;
     }
 
 

@@ -5,6 +5,8 @@ import hu.bme.insect.Insect;
 import hu.bme.tekton.Tekton;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
@@ -17,6 +19,7 @@ class MycologistTest {
     private Entomologist mockEntomologist;
     private Tekton mockTekton;
     private Mycelium mockMycelium;
+    private Hyphae mockHyphae;
 
     @BeforeEach
     void setUp() {
@@ -25,6 +28,7 @@ class MycologistTest {
         mockEntomologist = mock(Entomologist.class);
         mockTekton = mock(Tekton.class);
         mockMycelium = mock(Mycelium.class);
+        mockHyphae = mock(Hyphae.class);
 
         // Add a mock mycelium to the mycologist's list
         List<Mycelium> myceliums = new ArrayList<>();
@@ -34,18 +38,21 @@ class MycologistTest {
 
     @Test
     void testEatInsect_SuccessfulCase() {
-        // Arrange
-        when(mockInsect.getCanCutHyphae()).thenReturn(false);
+        when(mockInsect.isStunned()).thenReturn(true);
         when(mockInsect.getCurrentTekton()).thenReturn(mockTekton);
         when(mockInsect.getEntomologist()).thenReturn(mockEntomologist);
+        when(mockHyphae.getCurrentTekton()).thenReturn(List.of(mockTekton));
+        when(mockTekton.getHyphaes()).thenReturn(List.of(mockHyphae));
         when(mockMycelium.clone()).thenReturn(mockMycelium);
+        mycologist.getHyphaes().add(mockHyphae);
+        mycologist.getMyceliums().add(mockMycelium);
 
-        // Act
         mycologist.eatInsect(mockInsect);
 
-        // Assert
-        verify(mockEntomologist).removeInsect(mockInsect);
         verify(mockTekton).addMycelium(mockMycelium);
+        verify(mockHyphae).addMycelium(mockMycelium);
+        verify(mockMycelium).addHyphae(mockHyphae);
+        verify(mockEntomologist).removeInsect(mockInsect);
         verify(mockInsect).setCurrentTekton(null);
     }
 
@@ -59,5 +66,14 @@ class MycologistTest {
 
         // Assert
         verifyNoInteractions(mockEntomologist, mockTekton, mockMycelium);
+    }
+
+    @Test
+    void insectNotOnSameTekton() {
+        when(mockInsect.isStunned()).thenReturn(true);
+        when(mockInsect.getCurrentTekton()).thenReturn(mockTekton);
+
+        verifyNoInteractions(mockTekton, mockMycelium);
+        verifyNoInteractions(mockEntomologist, mockInsect);
     }
 }

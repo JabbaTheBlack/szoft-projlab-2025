@@ -232,4 +232,8 @@ public abstract class Tekton {
     public List<Spore> getSpores(){
         return fungalManager.getSpores();
     }
+
+    public List<Hyphae> getHyphaes() {
+        return fungalManager.getHyphaes();
+    }
 }
