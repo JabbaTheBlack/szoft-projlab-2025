@@ -10,7 +10,12 @@ import hu.bme.fungi.Hyphae;
 import hu.bme.core.Ticker;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
+import hu.bme.fungi.spore.CloneSpore;
+import hu.bme.fungi.spore.DefensiveSpore;
+import hu.bme.fungi.spore.SlowingSpore;
+import hu.bme.fungi.spore.SpeedBoostSpore;
 import hu.bme.fungi.spore.Spore;
+import hu.bme.fungi.spore.StunSpore;
 import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
@@ -30,6 +35,8 @@ public class ConsoleApp {
     private static HashMap<Integer, Mycelium> myceliumsWithIds = new HashMap<>();
     private static HashMap<Integer, Insect> insectsWithIds = new HashMap<>();
     private static TektonManager tektonManager = TektonManager.getInstance();
+    private static HashMap<Integer, Spore> sporesWithIds = new HashMap<>();
+    private static HashMap<Integer, Hyphae> hyphaesWithIds = new HashMap<>();
     private static Ticker ticker = Ticker.getInstance();
     
     public ConsoleApp() {
@@ -142,6 +149,70 @@ public class ConsoleApp {
         }
     }
 
+    private void addSpore(int tektonId, String sporeType) {
+        Tekton tekton = tektonsWithIds.get(tektonId);
+
+        switch (sporeType) {
+            case "DefensiveSpore":
+                DefensiveSpore spore = new DefensiveSpore();
+                tekton.addSpore(spore);
+                sporesWithIds.put(id++, spore);
+                break;
+            case "StunSpore":
+                StunSpore stunSpore = new StunSpore();
+                tekton.addSpore(stunSpore);
+                sporesWithIds.put(id++, stunSpore);
+                break;
+            case "SlowingSpore":
+                SlowingSpore slowingSpore = new SlowingSpore();
+                tekton.addSpore(slowingSpore);
+                sporesWithIds.put(id++, slowingSpore);
+                break;
+            case "SpeedBoostSpore":
+                SpeedBoostSpore speedBoostSpore = new SpeedBoostSpore();
+                tekton.addSpore(speedBoostSpore);
+                sporesWithIds.put(id++, speedBoostSpore);
+                break;
+            case "CloneSpore":
+                CloneSpore cloneSpore = new CloneSpore();
+                tekton.addSpore(cloneSpore);
+                sporesWithIds.put(id++, cloneSpore);
+                break;
+            default:
+                break;
+        }
+
+        System.out.println(id++ + " spore added to " + tektonId + " tekton");
+    }
+
+    private void addHyphae(int hyphaeOrMyceliumId, int tektonId, int mycologistId) {
+        Mycologist mycologist = mycologistWithIds.get(mycologistId);
+        if (mycologist == null) {
+            System.out.println("Mycologist with ID " + mycologistId + " not found.");
+            return;
+        }
+        
+        Tekton tekton = tektonsWithIds.get(tektonId);
+        if (tekton == null) {
+            System.out.println("Tekton with ID " + tektonId + " not found.");
+            return;
+        }
+
+        Hyphae hyphae = hyphaesWithIds.get(hyphaeOrMyceliumId);
+        if (hyphae != null) {
+            mycologist.growHyphaeToTekton(hyphae, tekton);
+            System.out.println("Hyphae with ID " + hyphaeOrMyceliumId + " added to Tekton with ID " + tektonId);
+        } else {
+            Mycelium mycelium = myceliumsWithIds.get(hyphaeOrMyceliumId);
+            if (mycelium != null) {
+                mycologist.growHyphaeOnTekton(mycelium);
+                System.out.println("Mycelium with ID " + hyphaeOrMyceliumId + " added to Tekton with ID " + tektonId);
+            } else {
+                System.out.println("No Hyphae or Mycelium found with ID " + hyphaeOrMyceliumId);
+            }
+        }
+    }
+
     private void listHyphae(String string) {
         switch(string){
             case "all":
@@ -179,7 +250,7 @@ public class ConsoleApp {
                     addPlayer(getInput());
                     break;
                 case "roundElapsed":
-
+                    roundElapsed();
                     break;
                 case "addInsect":
                     addInsect(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]));
@@ -195,6 +266,12 @@ public class ConsoleApp {
                     break;
                 case "listHyphae":
                     listHyphae(inputStrings[1]);
+                    break;
+                case "addSpore":
+                    addSpore(Integer.parseInt(inputStrings[1]), inputStrings[2]);
+                    break;
+                case "addHyphae":
+                    addHyphae(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]), Integer.parseInt(inputStrings[3]));
                     break;
                 default:
                     break;
