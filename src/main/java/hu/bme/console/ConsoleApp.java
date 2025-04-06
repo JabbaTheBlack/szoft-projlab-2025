@@ -2,6 +2,7 @@ package hu.bme.console;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 import hu.bme.core.GameController;
@@ -79,6 +80,20 @@ public class ConsoleApp {
             insect.move(tekton);
         }
     }
+
+    private void listInsects(String entomologistID){
+        if(!entomologistWithIds.containsKey(Integer.parseInt(entomologistID))){
+            System.out.println("Invalid entomologist ID");
+
+        } else {
+            Entomologist entomologist = entomologistWithIds.get(Integer.parseInt(entomologistID));
+            List<Insect> insects = entomologist.getInsects();
+            for(Insect insect : insects){
+                System.out.println(insect);
+            }
+        }
+    }
+
 
     public void run(){
         System.out.println("Baszodj meg");
