@@ -78,6 +78,15 @@ public class ConsoleApp {
     private void addInsect(int tektonId, int entomologistId) {
         // Tekton tekton = tektonManager.getTektons().get(tektonId);
     }
+
+    private void printMap(){
+        gameController.getTektonManager().getTektons().forEach(tekton -> {
+            System.out.println(tekton);
+            tekton.getConnectedNeighbours().forEach(neighbour -> {
+                System.out.println("  " + neighbour);
+            });
+        }); 
+    }
     
     public void run(){
         System.out.println("Baszodj meg");
@@ -99,6 +108,10 @@ public class ConsoleApp {
                     break;
                 case "addInsect":
                     addInsect(id, id);
+                    break;
+                // Jani csinálta: 
+                case "printMap":
+                    printMap();
                     break;
                 default:
                     break;
