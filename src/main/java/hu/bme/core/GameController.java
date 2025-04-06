@@ -27,6 +27,13 @@ public class GameController {
     }
 
     /**
+     * Returns the tekton manager instance.
+     * @return the tekton manager instance
+     */
+    public TektonManager getTektonManager() {
+        return tektonManager;   }
+
+    /**
      * Contols the game loop by running the game components.
      */
     public void runGameLoop(){

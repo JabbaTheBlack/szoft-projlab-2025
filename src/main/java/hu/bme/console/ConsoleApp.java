@@ -3,6 +3,7 @@ package hu.bme.console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 import hu.bme.core.GameController;
@@ -10,7 +11,7 @@ import hu.bme.fungi.Mycologist;
 import hu.bme.insect.Entomologist;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
-import hu.bme.managers.TektonManager;
+import hu.bme.insect.Insect;
 import hu.bme.tekton.Tekton;
 
 public class ConsoleApp {
@@ -20,7 +21,8 @@ public class ConsoleApp {
     private static MycologistManager mycologistManager = MycologistManager.getInstance();
     private static HashMap<Integer, Entomologist> entomologistWithIds = new HashMap<>();
     private static HashMap<Integer, Mycologist> mycologistWithIds = new HashMap<>();
-    private static HashMap<Integer, Tekton> tektonIds = new HashMap<>();
+    private static HashMap<Integer, Insect> insectsWithIds = new HashMap<>();
+    private static HashMap<Integer, Tekton> tektonsWithIds = new HashMap<>();
     int playerId = 0;
 
     private String getInput(){
@@ -68,6 +70,33 @@ public class ConsoleApp {
         
     }
 
+    private void moveInsect(Integer insectId, Integer tektonId){
+        if(!(insectsWithIds.containsKey(insectId) && tektonsWithIds.containsKey(tektonId))){
+            System.out.println("Invalid insect or tekton ID");
+            return;
+        } else {
+
+            Insect insect = insectsWithIds.get(insectId);
+            Tekton tekton = tektonsWithIds.get(tektonId);
+            insect.move(tekton);
+        }
+    }
+
+    private void listInsects(String entomologistID){
+        if(!entomologistWithIds.containsKey(Integer.parseInt(entomologistID))){
+            System.out.println("Invalid entomologist ID");
+
+        } else {
+            Entomologist entomologist = entomologistWithIds.get(Integer.parseInt(entomologistID));
+            List<Insect> insects = entomologist.getInsects();
+            for(Insect insect : insects){
+                System.out.println(insect);
+            }
+        }
+    }
+
+
+
     private Integer getTektonId(Tekton tekton) {
         for (HashMap.Entry<Integer, Tekton> entry : tektonIds.entrySet()) {
             if (entry.getValue().equals(tekton)) {
@@ -97,10 +126,10 @@ public class ConsoleApp {
     
     public void run(){
         System.out.println("Baszodj meg");
-        String input = "";
+        String[] inputStrings;
         do {
-            input = getInput();
-            switch (input) {
+            inputStrings = getInput().split(" ");
+            switch (inputStrings[0]) {
                 case "":
                     
                     break;
@@ -113,6 +142,15 @@ public class ConsoleApp {
                 case "roundElapsed":
 
                     break;
+                
+                case "moveInsect":
+                    moveInsect(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]));
+
+                    break;
+                case "listInsects":
+                    listInsects(inputStrings[1]);
+                    break;
+
                 case "listNeighbour":
 
                     break;
@@ -120,6 +158,6 @@ public class ConsoleApp {
                     break;
             }
                
-        } while (!input.equals("Exit"));
+        } while (!inputStrings[0].equals("Exit"));
     }
 }
