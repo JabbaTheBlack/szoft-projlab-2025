@@ -63,6 +63,15 @@ public class ConsoleApp {
     private void roundElapsed(){
         
     }
+
+    private void printMap(){
+        gameController.getTektonManager().getTektons().forEach(tekton -> {
+            System.out.println(tekton);
+            tekton.getConnectedNeighbours().forEach(neighbour -> {
+                System.out.println("  " + neighbour);
+            });
+        }); 
+    }
     
     public void run(){
         System.out.println("Baszodj meg");
@@ -81,6 +90,10 @@ public class ConsoleApp {
                     break;
                 case "roundElapsed":
 
+                    break;
+                // Jani csinálta: 
+                case "printMap":
+                    printMap();
                     break;
                 default:
                     break;
