@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import hu.bme.core.GameController;
 import hu.bme.fungi.Mycologist;
+import hu.bme.fungi.spore.Spore;
 import hu.bme.insect.Entomologist;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
@@ -23,6 +24,7 @@ public class ConsoleApp {
     private static HashMap<Integer, Mycologist> mycologistWithIds = new HashMap<>();
     private static HashMap<Integer, Insect> insectsWithIds = new HashMap<>();
     private static HashMap<Integer, Tekton> tektonsWithIds = new HashMap<>();
+    private static HashMap<Integer, Spore> sporesWithIds = new HashMap<>(); 
     int playerId = 0;
 
     private String getInput(){
@@ -94,11 +96,27 @@ public class ConsoleApp {
             }
         }
     }
+    private void eatSpore(Integer entimologistID, Integer insectId, Integer sporeId){
+        if(!insectsWithIds.containsKey(insectId)){
+            System.out.println("Invalid insect ID");
+            return;
+        } else {
+            Insect insect = insectsWithIds.get(insectId);
+            Entomologist entomologist = entomologistWithIds.get(entimologistID);
+            Spore spore = sporesWithIds.get(sporeId);
+            if(entomologist.getInsects().contains(spore)){
+                insect.eatSpore(spore);
+                System.out.println(insectId + " insect ate " + sporeId+" spore, effect applied");
+            } else {
+                System.out.println("Insect " + insectId + " does not belong to entomologist " + entimologistID);
+            }
+        }
+    }
 
 
 
     private Integer getTektonId(Tekton tekton) {
-        for (HashMap.Entry<Integer, Tekton> entry : tektonIds.entrySet()) {
+        for (HashMap.Entry<Integer, Tekton> entry : tektonsWithIds.entrySet()) {
             if (entry.getValue().equals(tekton)) {
                 return entry.getKey(); // Return the ID if the Tekton matches
             }
@@ -107,7 +125,7 @@ public class ConsoleApp {
     }
 
     private void listNeighbour(int id){
-        Tekton tekton = tektonIds.get(id);
+        Tekton tekton = tektonsWithIds.get(id);
         if(tekton == null){
             System.out.println("No tekton with this ID");
             return;
@@ -152,7 +170,10 @@ public class ConsoleApp {
                     break;
 
                 case "listNeighbour":
-
+                    listNeighbour(Integer.parseInt(inputStrings[1]));
+                    break;
+                case "eatSpore":
+                    eatSpore(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]), Integer.parseInt(inputStrings[3]));
                     break;
                 default:
                     break;
