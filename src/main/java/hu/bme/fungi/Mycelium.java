@@ -38,6 +38,15 @@ public class Mycelium<T extends Spore> {
     }
 
     /**
+     * Creates a shallow copy without spore/hyphae connections.
+     * @return New Mycelium instance with default configuration
+     */
+    public Mycelium<T> clone(){
+        Mycelium<T> cloned = new Mycelium<>();
+        return cloned;
+    }
+
+    /**
      * Returns the number of possible spore releases, before the mycelium dies.
      * @return The number of possible spore releases.
      */
@@ -124,6 +133,9 @@ public class Mycelium<T extends Spore> {
      */
     public void setCurrentTekton(Tekton tekton) {
         currentTekton = tekton;
+    }
+    public Tekton getCurrentTekton() {
+        return currentTekton;
     }
 
     /**

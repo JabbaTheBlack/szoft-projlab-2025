@@ -17,6 +17,15 @@ public class DefensiveSpore extends Spore{
     }
 
     /**
+     * Initializes a DefensiveSpore with the given arguments
+     * @param nutrition Nutritional value of the spore
+     * @param effectRate Effect Rate of the spore
+     */
+    public DefensiveSpore(float nutrition, float effectRate){
+        super(nutrition, effectRate);
+    }
+
+    /**
      * Applies the effect of the DefensiveSpore on an {@link Insect}.
      * @param insect the insect to apply the effect on
      */

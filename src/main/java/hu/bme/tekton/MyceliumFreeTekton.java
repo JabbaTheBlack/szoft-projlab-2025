@@ -1,8 +1,5 @@
 package hu.bme.tekton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hu.bme.fungi.Mycelium;
 
 /**
@@ -23,10 +20,12 @@ public class MyceliumFreeTekton extends Tekton{
      */
     @Override
     public boolean addMycelium(Mycelium mycelium) {
-        // TODO implement function, add javadoc
-        throw new UnsupportedOperationException("Unimplemented method 'addMycelium' in MyceliumFreeTekton class");
+        return false;
     }
 
+    /**
+     * Creates a new MyceliumFreeTekton
+     */
     @Override
     public Tekton createTekton() {
         return new MyceliumFreeTekton();

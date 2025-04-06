@@ -24,6 +24,7 @@ import hu.bme.tests.TestTobbHatasARovaron;
 import hu.bme.tests.TestUjGombatestNemNoHaMarVan;
 import hu.bme.tests.TestUjGombatestNoveszteseSikeres;
 import hu.bme.tests.TestUjGombatestSikeretelenNincsSpora;
+import hu.bme.tests.alma;
 
 /**
  * A class responsible for running various test cases related to fungal networks and interactions.
@@ -134,6 +135,10 @@ public class TestRunner {
                 case 22:
                     TestTobbHatasARovaron.test_tobb_hatas_a_rovaron();
                     waitForEnter(scanner);
+                    break;
+                case 23:
+                    alma.test_uj_gombatest_novesztese_sikertelen_nincs_spora();
+                    
                     break;
                 case 0 : 
                     System.out.println("Kilépés...");

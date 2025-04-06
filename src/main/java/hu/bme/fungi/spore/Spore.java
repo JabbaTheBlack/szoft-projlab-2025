@@ -9,7 +9,6 @@ import hu.bme.insect.Insect;
 public abstract class Spore {
 
     private float nutrition;
-    private float effectRate;
 
     /**
      * Constructs a spore with specified nutrition and effect rate.
@@ -19,7 +18,6 @@ public abstract class Spore {
      */
     protected Spore(float nutrition, float effectRate) {
         this.nutrition = nutrition;
-        this.effectRate = effectRate;
     }
 
     /**
@@ -34,12 +32,6 @@ public abstract class Spore {
      * @return The nutritional value.
      */
     public float getNutrition() { return nutrition; }
-
-    /**
-     * Gets the effect rate of the spore.
-     * @return The effect rate.
-     */
-    public float getEffectRate() { return effectRate; }
     
     /**
      * Applies the spore's effect to a given insect.

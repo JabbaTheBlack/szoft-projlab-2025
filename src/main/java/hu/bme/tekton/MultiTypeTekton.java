@@ -1,10 +1,5 @@
 package hu.bme.tekton;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import hu.bme.fungi.Hyphae;
-
 /**
  * Represents a tekton where multiple hyphae can grow, subclass of Tekton.
  */
@@ -18,18 +13,8 @@ public class MultiTypeTekton extends Tekton {
     }
 
     /**
-     * Adds a hyphae to the fungal manager associated with this tekton.
-     * @param hyphae The hyphae to add.
-     */
-    @Override
-    public boolean addHyphae(Hyphae hyphae) {
-        if(!hasHyphae(hyphae)) {
-            fungalManager.addHyphae(hyphae);
-            return true;
-        }
-        return false;   
-    }
-
+     * Creates a new MulytiTypeTekton. 
+    */
     @Override
     public Tekton createTekton() {
         return new MultiTypeTekton();
