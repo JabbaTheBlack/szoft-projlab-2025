@@ -73,4 +73,8 @@ public class InsectManager implements ITickable{
             entomologist.tick();
         }
     }
+
+    public List<Entomologist> geEntomologists() {
+        return entomologists;
+    }
 }

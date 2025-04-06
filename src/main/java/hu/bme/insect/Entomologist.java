@@ -60,4 +60,8 @@ public class Entomologist {
         newInsect.setCurrentTekton(insect.getCurrentTekton());
         insects.add(newInsect);
     }
+
+    public List<Insect> getInsects() {
+        return insects;
+    }
 }
