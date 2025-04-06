@@ -1,44 +1,54 @@
 package hu.bme.console;
 
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
 import hu.bme.core.GameController;
+import hu.bme.core.Ticker;
 import hu.bme.fungi.Mycologist;
 import hu.bme.insect.Entomologist;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
+import hu.bme.managers.TektonManager;
 
 public class ConsoleApp {
-    
+    int id;
     private static GameController gameController = new GameController(); 
     private static InsectManager insectManager = InsectManager.getInstance();
     private static MycologistManager mycologistManager = MycologistManager.getInstance();
     private static HashMap<Integer, Entomologist> entomologistWithIds = new HashMap<>();
     private static HashMap<Integer, Mycologist> mycologistWithIds = new HashMap<>();
-    int playerId = 0;
+    private static TektonManager tektonManager = TektonManager.getInstance();
+    private static Ticker ticker = Ticker.getInstance();
+    
+    public ConsoleApp() {
+        id = 0;
+    }
+    
+    
 
     private String getInput(){
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    private void addPlayer(String player) {
-        if(player.toLowerCase().equals("entomologist")){
+    private void addPlayer(String player) { 
+        if(player.equalsIgnoreCase("entomologist")){
             Entomologist entomologist = new Entomologist();
             insectManager.addEntomologist(entomologist);
 
-            entomologistWithIds.put(playerId, entomologist);
+            entomologistWithIds.put(id, entomologist);
 
-            System.out.println("ID: " + playerId++ + " entomologist added");
-        } else if(player.toLowerCase().equals("mycologist")){
+            System.out.println("ID: " + id++ + " entomologist added");
+        } else if(player.equalsIgnoreCase("mycologist")){
             Mycologist mycologist = new Mycologist();
             mycologistManager.addMycologist(mycologist);
             
-            mycologistWithIds.put(playerId, mycologist);
+            mycologistWithIds.put(id, mycologist);
 
-            System.out.println("ID: " + playerId++ + " mycologist added");
+            System.out.println("ID: " + id++ + " mycologist added");
         }
     }
 
@@ -60,16 +70,21 @@ public class ConsoleApp {
         }
     }
 
-    private void roundElapsed(){
-        
+    private void roundElapsed() {
+        ticker.tick();
+        System.out.println("1 round has passed");
+    }
+
+    private void addInsect(int tektonId, int entomologistId) {
+        // Tekton tekton = tektonManager.getTektons().get(tektonId);
     }
     
     public void run(){
         System.out.println("Baszodj meg");
-        String input = "";
+        String[] intputStrings;
         do {
-            input = getInput();
-            switch (input) {
+            intputStrings = getInput().split(" ");
+            switch (intputStrings[0]) {
                 case "":
                     
                     break;
@@ -80,12 +95,15 @@ public class ConsoleApp {
                     addPlayer(getInput());
                     break;
                 case "roundElapsed":
-
+                    roundElapsed();
+                    break;
+                case "addInsect":
+                    addInsect(id, id);
                     break;
                 default:
                     break;
             }
                
-        } while (!input.equals("Exit"));
+        } while(!intputStrings[0].equals("Exit"));
     }
 }
