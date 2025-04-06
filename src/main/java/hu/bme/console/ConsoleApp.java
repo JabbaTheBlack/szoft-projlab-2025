@@ -7,11 +7,15 @@ import java.util.Scanner;
 
 import hu.bme.core.GameController;
 import hu.bme.core.Ticker;
+import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
+import hu.bme.fungi.spore.Spore;
 import hu.bme.insect.Entomologist;
+import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
+import hu.bme.tekton.*;
 
 public class ConsoleApp {
     int id;
@@ -20,7 +24,9 @@ public class ConsoleApp {
     private static MycologistManager mycologistManager = MycologistManager.getInstance();
     private static HashMap<Integer, Entomologist> entomologistWithIds = new HashMap<>();
     private static HashMap<Integer, Mycologist> mycologistWithIds = new HashMap<>();
-    private static TektonManager tektonManager = TektonManager.getInstance();
+    private static HashMap<Integer, Tekton> tektonsWithId = new HashMap<>();
+    private static HashMap<Integer, Mycelium> myceliumsWithId = new HashMap<>();
+    private static HashMap<Integer, Insect> insectsWithId = new HashMap<>();
     private static Ticker ticker = Ticker.getInstance();
     
     public ConsoleApp() {
@@ -76,7 +82,37 @@ public class ConsoleApp {
     }
 
     private void addInsect(int tektonId, int entomologistId) {
-        // Tekton tekton = tektonManager.getTektons().get(tektonId);
+        Tekton tekton = tektonsWithId.get(tektonId);
+        Entomologist entomologist = entomologistWithIds.get(entomologistId);
+
+        if(entomologist == null || tekton == null) {
+            System.out.println("Entomologist or Tekton doesn't exist");
+        }
+        Insect insect = new Insect();
+        insect.setEntomologist(entomologist);
+        insect.setCurrentTekton(tekton);
+        entomologist.addInsect(insect);
+        insectsWithId.put(id, insect);
+
+        System.out.println(id++ + " insect added to " + entomologistId + " entomologist and to " + tektonId + " tekton");
+    }
+
+    private void addMycelium(int tektonId, int mycologistId) {
+        Mycelium<? extends Spore> mycelium = myceliumsWithId.get(mycologistId);
+        Mycelium<? extends Spore> clone = mycelium.clone();
+        Tekton tekton = tektonsWithId.get(tektonId);
+        Mycologist mycologist = mycologistWithIds.get(mycologistId);
+
+        if(tekton != null && clone != null && mycelium != null) {
+            System.out.println("Tekton with ID: " + tektonId + " or myceium with ID");
+        }
+
+        tekton.addMycelium(clone);
+        mycelium.setCurrentTekton(tekton);
+        mycologist.addMycelium(mycelium);
+
+        mycologistWithIds.put(id, mycologist);
+        System.out.println(id++ + "mycelium added to " + mycologistId + " mycologist and to " + tektonId + " tekton");
     }
 
     private void printMap(){
@@ -107,7 +143,10 @@ public class ConsoleApp {
                     roundElapsed();
                     break;
                 case "addInsect":
-                    addInsect(id, id);
+                    addInsect(Integer.parseInt(intputStrings[1]), Integer.parseInt(intputStrings[2]));
+                    break;
+                case "addMycelium":
+                    addMycelium(Integer.parseInt(intputStrings[1]), Integer.parseInt(intputStrings[2]));
                     break;
                 // Jani csinálta: 
                 case "printMap":
