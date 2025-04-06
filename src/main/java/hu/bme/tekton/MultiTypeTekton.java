@@ -1,10 +1,5 @@
 package hu.bme.tekton;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import hu.bme.fungi.Hyphae;
-
 /**
  * Represents a tekton where multiple hyphae can grow, subclass of Tekton.
  */

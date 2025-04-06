@@ -3,10 +3,7 @@ package hu.bme.fungi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -15,9 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import hu.bme.fungi.spore.DefensiveSpore;
-import hu.bme.fungi.spore.SlowingSpore;
-import hu.bme.fungi.spore.Spore;
-import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 

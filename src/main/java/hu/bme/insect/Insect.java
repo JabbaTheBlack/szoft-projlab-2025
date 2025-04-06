@@ -1,9 +1,7 @@
 package hu.bme.insect;
 
 import hu.bme.fungi.Hyphae;
-import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
-import hu.bme.interfaces.ITickable;
 import hu.bme.tekton.Tekton;
 
 /**

@@ -12,13 +12,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import hu.bme.fungi.spore.DefensiveSpore;
+import hu.bme.fungi.spore.Spore;
+import hu.bme.tekton.KeeperTekton;
 import hu.bme.tekton.Tekton;
 
 class TestHyphae {
     private Hyphae hyphae;
 
     @Mock
-    private Mycelium mycelium1, mycelium2;
+    private Mycelium<? extends Spore> mycelium1, mycelium2;
 
     @Mock
     private Tekton tekotn1, tekton2;
@@ -162,19 +165,70 @@ class TestHyphae {
         assertEquals(2, hyphae.getTimeToLive());
     }
 
+    void setUpTickTest(Hyphae h1, Hyphae h2, Hyphae h3, Mycelium m1) {
+        h3.addMycelium(m1);
+        m1.addHyphae(h3);
+
+        h1.addHyphae(h2);
+        h1.addHyphae(h3);
+        h2.addHyphae(h1);
+        h3.addHyphae(h1);
+
+        h1.setTimeToLive(1);
+    }
     @Test
     void testTickRemovesHyphaeWhenTimeToLiveExpires(){
-        Hyphae neighbour = new Hyphae();
-        Mycelium mycelium = new Mycelium<>();
+        Hyphae h1 = new Hyphae();
+        Hyphae h2 = new Hyphae();
+        Hyphae h3 = new Hyphae();
 
-        hyphae.addHyphae(neighbour);
-        neighbour.addHyphae(neighbour);
-        hyphae.addMycelium(mycelium);
+        Mycelium<DefensiveSpore> m1 = new Mycelium<>();
 
-        hyphae.setTimeToLive(1);
-        hyphae.tick();
-    
-        assertFalse(neighbour.getConnectedHyphae().contains(hyphae));
+        setUpTickTest(h1, h2, h3, m1);
+
+        assertTrue(h1.getConnectedHyphae().contains(h2));
+        assertTrue(h1.getConnectedHyphae().contains(h3));
+        assertTrue(h2.getConnectedHyphae().contains(h1));
+        assertTrue(h3.getConnectedHyphae().contains(h1));
+
+        assertEquals(-1, h2.getTimeToLive());
+
+        assertTrue(h1.isConnectedToMycelium());
+        assertTrue(h2.isConnectedToMycelium());
+        assertTrue(h3.isConnectedToMycelium());
+        
+        h1.tick();
+
+        assertFalse(h2.getConnectedHyphae().contains(h1));
+        assertFalse(h3.getConnectedHyphae().contains(h1));
+        assertTrue(h1.getConnectedHyphae().isEmpty());
+
+        assertFalse(h1.isConnectedToMycelium());
+        assertFalse(h2.isConnectedToMycelium());
+        assertTrue(h3.isConnectedToMycelium());
+        
+        assertEquals(2, h2.getTimeToLive());
+    }
+
+    @Test
+    void testTickOnKeeperTekton() {
+
+        Hyphae h1 = new Hyphae();
+        Hyphae h2 = new Hyphae();
+        Hyphae h3 = new Hyphae();
+
+        Mycelium<DefensiveSpore> m1 = new Mycelium<>();
+
+        setUpTickTest(h1, h2, h3, m1);
+
+        KeeperTekton k1 = new KeeperTekton();
+        k1.addHyphae(h2);
+        h2.addCurrentTekton(k1);
+
+        assertEquals(1, h1.getTimeToLive());
+        h1.tick();
+
+        assertEquals(-1, h2.getTimeToLive());
     }
 
     @Test
@@ -186,4 +240,5 @@ class TestHyphae {
         assertFalse(hyphae.getCurrentTekton().contains(tekotn1));
     }
 
+    
 }

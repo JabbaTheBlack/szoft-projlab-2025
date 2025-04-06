@@ -1,9 +1,7 @@
 package hu.bme.fungi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.fungi.spore.SlowingSpore;
@@ -199,7 +197,7 @@ public class Mycologist {
      * @param targetTekton The tekton on which the new hyphae will grow on
      */
     public void growHyphaeOnTekton(Hyphae hyphae, Tekton targetTekton) {
-        if(hyphae.getCurrentTekton().size() != 2 || !hyphae.getCurrentTekton().contains(targetTekton)) {
+        if(hyphae.getCurrentTekton().size() != 2 || !hyphae.getCurrentTekton().contains(targetTekton) || targetTekton != null) {
             return;
         }
         
@@ -209,6 +207,16 @@ public class Mycologist {
             newHyphae.addHyphae(hyphae);
             newHyphae.setOwner(hyphae.getOwner());
             hyphae.addHyphae(newHyphae);
+        }
+    }
+
+    public void growHyphaeOnTekton(Mycelium mycelium, Tekton targetTekton) {
+        Hyphae newHyphae = new Hyphae();
+
+        if(targetTekton.addHyphae(newHyphae)) {
+            newHyphae.addCurrentTekton(targetTekton);
+            newHyphae.setOwner(this);
+            mycelium.addHyphae(newHyphae);
         }
     }
 

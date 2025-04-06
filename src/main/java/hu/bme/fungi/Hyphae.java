@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import hu.bme.interfaces.ITickable;
 import hu.bme.tekton.Tekton;
-
+import hu.bme.fungi.spore.*;
 
 /**
  * Represents a hyphae in a fungal network, managing connections to other hyphae and myceliums.
@@ -18,7 +17,7 @@ import hu.bme.tekton.Tekton;
 public class Hyphae{
     private int timeToLive;
     private List<Hyphae> connectedHyphae;
-    private List<Mycelium> connectedMyceliums;
+    private List<Mycelium<? extends Spore>> connectedMyceliums;
     private List<Tekton> currentTekton;
     private Mycologist ownner;
     private boolean isOnKeeperTekton;
@@ -147,7 +146,7 @@ public class Hyphae{
      * Adds a mycelium to the list of connected myceliums.
      * @param mycelium The mycelium to be added.
      */
-    public void addMycelium(Mycelium mycelium) {
+    public void addMycelium(Mycelium<? extends Spore> mycelium) {
         connectedMyceliums.add(mycelium);
     }
 

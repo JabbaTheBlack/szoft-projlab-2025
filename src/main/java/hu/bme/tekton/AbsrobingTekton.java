@@ -1,8 +1,5 @@
 package hu.bme.tekton;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import hu.bme.fungi.Hyphae;
 import java.util.Iterator;
 

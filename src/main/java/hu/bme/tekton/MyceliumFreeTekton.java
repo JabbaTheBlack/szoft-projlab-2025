@@ -1,8 +1,5 @@
 package hu.bme.tekton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hu.bme.fungi.Mycelium;
 
 /**
