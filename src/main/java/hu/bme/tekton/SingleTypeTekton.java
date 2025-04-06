@@ -43,7 +43,9 @@ public class SingleTypeTekton extends Tekton {
         return false;
     }
 
-    
+    /**
+     * Creates a new SingleTypeTekton
+     */
     @Override
     public Tekton createTekton() {
         return new SingleTypeTekton();

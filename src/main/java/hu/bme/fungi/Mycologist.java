@@ -31,6 +31,12 @@ public class Mycologist {
         hyphaes = new ArrayList<>();
     }
 
+    /**
+     * Releases spores from the specified mycelium and manages its lifecycle.
+     * If the mycelium exhausts its spore releases, it is disconnected from Tekton and its hyphae are removed.
+     *
+     * @param mycelium The mycelium to release spores from.
+     */
     public void releaseSpore(Mycelium mycelium) {   
         System.out.println("[Mycologist] releaseSpore() -> [" + mycelium + "]");
         mycelium.releaseSpores();
@@ -222,6 +228,14 @@ public class Mycologist {
         
     }
 
+    
+
+    /**
+     * Simulates the consumption of an insect by the fungal network. If conditions are met,
+     * adds a new Mycelium onto the insect's current Tekton and removes the insect from its environment.
+     *
+     * @param insect The insect to be consumed by the fungal network.
+     */
     public void eatInsect(Insect insect) {
         HashSet<Tekton> tektons = new HashSet<>();
         for(Hyphae hyphae : hyphaes) {
@@ -241,17 +255,30 @@ public class Mycologist {
         }
     }
 
+    /**
+     * Removes a specific hyphae from the fungal network managed by this Mycologist.
+     *
+     * @param hyphae The hyphae to be removed.
+     */
     public void removeHyphae(Hyphae hyphae) {
         hyphae.removeHyphae(hyphae);
         hyphaes.remove(hyphae);
     }
 
+    /**
+     * Executes lifecycle management for all managed hyphaes. 
+     */
     public void tick(){
         for(Hyphae hyphae : hyphaes) {
             hyphae.tick();
         }
     }
 
+    /**
+     * Retrieves all managed Myceliums in the fungal network.
+     *
+     * @return A list of all active Myceliums managed by this Mycologist.
+     */
     public List<Mycelium> getMyceliums(){
         return myceliums;
     }
