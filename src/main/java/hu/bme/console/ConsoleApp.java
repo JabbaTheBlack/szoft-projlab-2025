@@ -233,6 +233,40 @@ public class ConsoleApp {
                 break;
         }
     }
+    private void printMap(){
+        gameController.getTektonManager().getTektons().forEach(tekton -> {
+            System.out.println(tekton);
+            tekton.getConnectedNeighbours().forEach(neighbour -> {
+                System.out.println("  " + neighbour);
+            });
+        }); 
+    }
+    private void listSpore(String tektronid) {
+        int id = Integer.parseInt(tektronid);
+        Tekton tekton = tektonManager.getTektons().get(id);
+        System.out.println(tekton.getSporeCount());
+        tekton.getSpores().forEach(spore -> {
+            System.out.println(spore);
+        });
+    }
+
+    private void growHyphaeFromHyphae(String tektronid, String sporeid, String mycologistid, String hyphaeId) {
+        int id = Integer.parseInt(tektronid);
+    
+        Tekton tekton = tektonManager.getTektons().get(id);
+        Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
+        Hyphae hyphae = tekton.getHyphaes().get(Integer.parseInt(hyphaeId));
+        mycologist.growHyphaeToTekton(hyphae, tekton);
+       }
+
+       private void growHyphaefromMycelium(String tektronid, String sporeid, String mycologistid, String myceliumId) {
+        int id = Integer.parseInt(tektronid);
+       
+        
+        Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
+        Mycelium mycelium = mycologist.getMyceliums().get(Integer.parseInt(myceliumId));
+        mycologist.growHyphaeOnTekton(mycelium);
+       }
 
     public void run(){
         System.out.println("Baszodj meg");
@@ -266,6 +300,18 @@ public class ConsoleApp {
                     break;
                 case "listHyphae":
                     listHyphae(inputStrings[1]);
+                    break;
+                case "printMap":
+                    printMap();
+                    break;
+                case "listSpore":
+                    listSpore(inputStrings[1]);
+                    break;
+                case "growHyphaefromHyphae":
+                    growHyphaeFromHyphae(inputStrings[1], inputStrings[2], inputStrings[3], inputStrings[4]);
+                    break;
+                case "growHyphaefromMycelium":
+                    growHyphaefromMycelium(inputStrings[1], inputStrings[2], inputStrings[3], inputStrings[4]);
                     break;
                 case "addSpore":
                     addSpore(Integer.parseInt(inputStrings[1]), inputStrings[2]);
