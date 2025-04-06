@@ -59,10 +59,18 @@ public class Hyphae{
         }   
     }
 
+     /**
+     * Configures Keeper Tekton persistence status.
+     * @param value true enables indefinite lifespan while on Tekton
+     */
     public void setIsOnKeeperTekton(boolean value) {
         isOnKeeperTekton = value;
     }
 
+    /**
+     * Checks Keeper Tekton persistence status.
+     * @return true if benefiting from Tekton-based lifespan extension
+     */
     public boolean isOnKeeperTekton() {
         return isOnKeeperTekton;
     }
@@ -205,9 +213,20 @@ public class Hyphae{
         return currentTekton;
     } 
 
+    /**
+     * Adds the hyphae to the list of current Tekton.
+     * If hyphae is between two Tekton it will be added to both of them.
+     * @param currentTekton The Tekton to be set.
+     */
     public void addCurrentTekton(Tekton tekton) {
         currentTekton.add(tekton);
     }
+
+    /**
+     * Removes the hyphae from the list of current Tekton.
+     * If hyphae is between two Tekton it will be removed from both of them.
+     * @param currentTekton The Tekton to be removed.
+     */
     public void removeCurrentTekton(Tekton tekton) {
         currentTekton.remove(tekton);
     }   

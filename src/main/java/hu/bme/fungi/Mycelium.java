@@ -37,6 +37,10 @@ public class Mycelium<T extends Spore> {
         this.currentTekton = currentTekton;
     }
 
+    /**
+     * Creates a shallow copy without spore/hyphae connections.
+     * @return New Mycelium instance with default configuration
+     */
     public Mycelium<T> clone(){
         Mycelium<T> cloned = new Mycelium<>();
         return cloned;
@@ -129,6 +133,9 @@ public class Mycelium<T extends Spore> {
      */
     public void setCurrentTekton(Tekton tekton) {
         currentTekton = tekton;
+    }
+    public Tekton getCurrentTekton() {
+        return currentTekton;
     }
 
     /**

@@ -46,6 +46,10 @@ public class MyceliumManager implements IMyceliumManager{
         return myceliums.size();
     }
 
+    /**
+     * Returns the myceliums in a List.
+     * @return The list of myceliums.
+     */
     @Override
     public List<Mycelium> getMyceliums() {
         return myceliums;

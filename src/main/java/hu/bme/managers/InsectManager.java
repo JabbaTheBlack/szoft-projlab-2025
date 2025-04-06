@@ -63,6 +63,10 @@ public class InsectManager implements ITickable{
         return entomologists.size();
     }
 
+    /**
+     * Executes simulation tick for all managed entomologists.
+     * Propagates update call through entire entomologist hierarchy.
+     */
     @Override
     public void tick() {
         for(Entomologist entomologist : entomologists){

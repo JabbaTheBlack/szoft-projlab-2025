@@ -27,9 +27,12 @@ public class AbsrobingTekton extends Tekton {
             iterator.remove();
             removeHyphae(hyphae);
         }
-        // TODO add javadoc
     }
 
+    /**
+     * Creates new AbsrobingTekton instances using Prototype pattern.
+     * @return Fresh AbsrobingTekton instance with default configuration
+     */
     @Override
     public Tekton createTekton() {
         return new AbsrobingTekton();

@@ -12,6 +12,9 @@ public class MultiTypeTekton extends Tekton {
         super();
     }
 
+    /**
+     * Creates a new MulytiTypeTekton. 
+    */
     @Override
     public Tekton createTekton() {
         return new MultiTypeTekton();
