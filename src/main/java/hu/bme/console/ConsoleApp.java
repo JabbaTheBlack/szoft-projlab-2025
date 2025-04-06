@@ -1,8 +1,8 @@
 package hu.bme.console;
 
-import java.sql.Time;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 import hu.bme.core.GameController;
@@ -15,7 +15,8 @@ import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
-import hu.bme.tekton.*;
+import hu.bme.insect.Insect;
+import hu.bme.tekton.Tekton;
 
 public class ConsoleApp {
     int id;
@@ -24,9 +25,10 @@ public class ConsoleApp {
     private static MycologistManager mycologistManager = MycologistManager.getInstance();
     private static HashMap<Integer, Entomologist> entomologistWithIds = new HashMap<>();
     private static HashMap<Integer, Mycologist> mycologistWithIds = new HashMap<>();
-    private static HashMap<Integer, Tekton> tektonsWithId = new HashMap<>();
-    private static HashMap<Integer, Mycelium> myceliumsWithId = new HashMap<>();
-    private static HashMap<Integer, Insect> insectsWithId = new HashMap<>();
+    private static HashMap<Integer, Tekton> tektonsWithIds = new HashMap<>();
+    private static HashMap<Integer, Mycelium> myceliumsWithIds = new HashMap<>();
+    private static HashMap<Integer, Insect> insectsWithIds = new HashMap<>();
+    private static TektonManager tektonManager = TektonManager.getInstance();
     private static Ticker ticker = Ticker.getInstance();
     
     public ConsoleApp() {
@@ -40,15 +42,15 @@ public class ConsoleApp {
         return scanner.nextLine();
     }
 
-    private void addPlayer(String player) { 
-        if(player.equalsIgnoreCase("entomologist")){
+    private void addPlayer(String player) {
+        if(player.toLowerCase().equals("entomologist")){
             Entomologist entomologist = new Entomologist();
             insectManager.addEntomologist(entomologist);
 
             entomologistWithIds.put(id, entomologist);
 
             System.out.println("ID: " + id++ + " entomologist added");
-        } else if(player.equalsIgnoreCase("mycologist")){
+        } else if(player.toLowerCase().equals("mycologist")){
             Mycologist mycologist = new Mycologist();
             mycologistManager.addMycologist(mycologist);
             
@@ -82,7 +84,7 @@ public class ConsoleApp {
     }
 
     private void addInsect(int tektonId, int entomologistId) {
-        Tekton tekton = tektonsWithId.get(tektonId);
+        Tekton tekton = tektonsWithIds.get(tektonId);
         Entomologist entomologist = entomologistWithIds.get(entomologistId);
 
         if(entomologist == null || tekton == null) {
@@ -92,15 +94,15 @@ public class ConsoleApp {
         insect.setEntomologist(entomologist);
         insect.setCurrentTekton(tekton);
         entomologist.addInsect(insect);
-        insectsWithId.put(id, insect);
+        insectsWithIds.put(id, insect);
 
         System.out.println(id++ + " insect added to " + entomologistId + " entomologist and to " + tektonId + " tekton");
     }
 
     private void addMycelium(int tektonId, int mycologistId) {
-        Mycelium<? extends Spore> mycelium = myceliumsWithId.get(mycologistId);
+        Mycelium<? extends Spore> mycelium = myceliumsWithIds.get(mycologistId);
         Mycelium<? extends Spore> clone = mycelium.clone();
-        Tekton tekton = tektonsWithId.get(tektonId);
+        Tekton tekton = tektonsWithIds.get(tektonId);
         Mycologist mycologist = mycologistWithIds.get(mycologistId);
 
         if(tekton != null && clone != null && mycelium != null) {
@@ -115,21 +117,37 @@ public class ConsoleApp {
         System.out.println(id++ + "mycelium added to " + mycologistId + " mycologist and to " + tektonId + " tekton");
     }
 
-    private void printMap(){
-        gameController.getTektonManager().getTektons().forEach(tekton -> {
-            System.out.println(tekton);
-            tekton.getConnectedNeighbours().forEach(neighbour -> {
-                System.out.println("  " + neighbour);
-            });
-        }); 
+    private void moveInsect(Integer insectId, Integer tektonId){
+        if(!(insectsWithIds.containsKey(insectId) && tektonsWithIds.containsKey(tektonId))){
+            System.out.println("Invalid insect or tekton ID");
+            return;
+        } else {
+
+            Insect insect = insectsWithIds.get(insectId);
+            Tekton tekton = tektonsWithIds.get(tektonId);
+            insect.move(tekton);
+        }
     }
-    
+    private void listInsects(String entomologistID){
+        if(!entomologistWithIds.containsKey(Integer.parseInt(entomologistID))){
+            System.out.println("Invalid entomologist ID");
+
+        } else {
+            Entomologist entomologist = entomologistWithIds.get(Integer.parseInt(entomologistID));
+            List<Insect> insects = entomologist.getInsects();
+            for(Insect insect : insects){
+                System.out.println(insect);
+            }
+        }
+    }
+
+
     public void run(){
         System.out.println("Baszodj meg");
-        String[] intputStrings;
+        String[] inputStrings;
         do {
-            intputStrings = getInput().split(" ");
-            switch (intputStrings[0]) {
+            inputStrings = getInput().split(" ");
+            switch (inputStrings[0]) {
                 case "":
                     
                     break;
@@ -140,22 +158,24 @@ public class ConsoleApp {
                     addPlayer(getInput());
                     break;
                 case "roundElapsed":
-                    roundElapsed();
+
                     break;
                 case "addInsect":
-                    addInsect(Integer.parseInt(intputStrings[1]), Integer.parseInt(intputStrings[2]));
+                    addInsect(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]));
                     break;
                 case "addMycelium":
-                    addMycelium(Integer.parseInt(intputStrings[1]), Integer.parseInt(intputStrings[2]));
+                    addMycelium(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]));
                     break;
-                // Jani csinálta: 
-                case "printMap":
-                    printMap();
+                case "moveInsect":
+                    moveInsect(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]));
+                    break;
+                case "listInsects":
+                    listInsects(inputStrings[1]);
                     break;
                 default:
                     break;
             }
                
-        } while(!intputStrings[0].equals("Exit"));
+        } while (!inputStrings[0].equals("Exit"));
     }
 }
