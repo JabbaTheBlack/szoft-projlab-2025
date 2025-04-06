@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import hu.bme.core.GameController;
+import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycologist;
 import hu.bme.insect.Entomologist;
 import hu.bme.managers.InsectManager;
@@ -94,6 +95,26 @@ public class ConsoleApp {
         }
     }
 
+    private void listHyphae(String string) {
+        switch(string){
+            case "all":
+                for (Tekton tekton : tektonsWithIds.values()) {
+                    for (Hyphae hyphae : tekton.getHyphaes()) {
+                        System.out.println(hyphae);
+                    }
+                }
+                break;
+            case "tektonID":
+                Tekton tempTekton = tektonsWithIds.get(Integer.parseInt(string));
+                for (Hyphae hyphae : tempTekton.getHyphaes()) {
+                    System.out.println(hyphae);
+                }
+                break;
+            default:
+                System.out.println("Invalid input");
+                break;
+        }
+    }
 
     public void run(){
         System.out.println("Baszodj meg");
@@ -119,6 +140,9 @@ public class ConsoleApp {
                     break;
                 case "listInsects":
                     listInsects(inputStrings[1]);
+                    break;
+                case "listHyphae":
+                    listHyphae(inputStrings[1]);
                     break;
                 default:
                     break;
