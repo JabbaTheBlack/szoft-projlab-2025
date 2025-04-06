@@ -180,13 +180,22 @@ public class ConsoleApp {
         });
     }
 
-    private void growHyphae(String tektronid, String sporeid, String mycologistid, String hyphaeId) {
+    private void growHyphaeFromHyphae(String tektronid, String sporeid, String mycologistid, String hyphaeId) {
         int id = Integer.parseInt(tektronid);
         int sporeId = Integer.parseInt(sporeid);
         Tekton tekton = tektonManager.getTektons().get(id);
         Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
-    
-        mycologist.growHyphaeToTekton(null, tekton);
+        Hyphae hyphae = tekton.getHyphaes().get(Integer.parseInt(hyphaeId));
+        mycologist.growHyphaeToTekton(hyphae, tekton);
+       }
+
+       private void growHyphaefromMycelium(String tektronid, String sporeid, String mycologistid, String myceliumId) {
+        int id = Integer.parseInt(tektronid);
+        int sporeId = Integer.parseInt(sporeid);
+        Tekton tekton = tektonManager.getTektons().get(id);
+        Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
+        Mycelium mycelium = mycologist.getMyceliums().get(Integer.parseInt(myceliumId));
+        mycologist.growHyphaeOnTekton(mycelium);
        }
 
     public void run(){
@@ -226,10 +235,13 @@ public class ConsoleApp {
                     printMap();
                     break;
                 case "listSpore":
-                    listSpore(intputStrings[1]);
+                    listSpore(inputStrings[1]);
                     break;
-                case "growHyphae":
-                    growHyphae(intputStrings[1], intputStrings[2], intputStrings[3], intputStrings[4]);
+                case "growHyphaefromHyphae":
+                    growHyphaeFromHyphae(inputStrings[1], inputStrings[2], inputStrings[3], inputStrings[4]);
+                    break;
+                case "growHyphaefromMycelium":
+                    growHyphaefromMycelium(inputStrings[1], inputStrings[2], inputStrings[3], inputStrings[4]);
                     break;
                 default:
                     break;
