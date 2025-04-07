@@ -1,6 +1,8 @@
 package hu.bme.console;
 
+import java.nio.channels.MulticastChannel;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +25,11 @@ import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
 import hu.bme.insect.Insect;
+import hu.bme.tekton.AbsrobingTekton;
+import hu.bme.tekton.KeeperTekton;
+import hu.bme.tekton.MultiTypeTekton;
+import hu.bme.tekton.MyceliumFreeTekton;
+import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 
 public class ConsoleApp {
@@ -306,13 +313,80 @@ public class ConsoleApp {
         mycologist.growHyphaeToTekton(hyphae, tekton);
     }
 
-    private void growHyphaefromMycelium(String tektronid, String sporeid, String mycologistid, String myceliumId) {
-    int id = Integer.parseInt(tektronid);
+    //map-hoz hozzaadni
+    private void growHyphaefromMycelium(String tektronid, String sporeid, String mycologistid, String myceliumId) { 
+        int id = Integer.parseInt(tektronid);
+        Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
+        Mycelium mycelium = mycologist.getMyceliums().get(Integer.parseInt(myceliumId));
+        mycologist.growHyphaeOnTekton(mycelium);
+    }
+
+    private void upgradeMycelium(Integer mycologistId , Integer myceliumId) {
+        Mycelium mycelium = myceliumsWithIds.get(myceliumId);
+        Mycologist mycologist = mycologistWithIds.get(mycologistId);
+        if(mycelium == null){
+            System.out.println("No mycelium with this ID");
+            return;
+        } else {
+            if(mycologist == null){
+                System.out.println("No mycologist with this ID");
+                return;
+            } else {
+                mycelium.upgrade();
+                System.out.println(myceliumId + " mycelium is upgraded, it can release further.");
+            }
+        }
+    }
     
+    private void growNewMycelium(Integer mycologistID, Integer hyphaeID) {
+        Mycologist mycologist = mycologistWithIds.get(mycologistID);
+        Hyphae hyphae = hyphaesWithIds.get(hyphaeID);
+        if (mycologist == null) {
+            System.out.println("Mycologist with ID " + mycologistID + " not found.");
+            return;
+        }
+        if (hyphae == null) {
+            System.out.println("Hyphae with ID " + hyphaeID + " not found.");
+            return;
+        }
+        if(hyphae.getCurrentTekton().size() != 1){
+            System.out.println("Hyphae with ID " + hyphaeID + " is not on a tekton or between two tektons.");
+            return;
+        }
+        mycologist.growMycelium(hyphae, hyphae.getCurrentTekton().get(0));
+        Mycelium mycelium = mycologist.getMyceliums().getLast();
+        Integer newid = Collections.max(myceliumsWithIds.keySet()) + 1;
+        myceliumsWithIds.put(newid, mycelium);
+        System.out.println(newid+" mycelium grown on "+ getTektonId(hyphae.getCurrentTekton().get(0)) + " tekton");
+    }
+
+    private void addTekton(String type){
+        Tekton tekton = null;
+        switch(type){
+            case "absorbing":
+                 tekton = new AbsrobingTekton();
+                break;
+            case "multitype":
+                 tekton = new MultiTypeTekton();
+                break;
+            case "singletype":
+                tekton = new SingleTypeTekton();
+                break;
+            case "keeper":
+                tekton = new KeeperTekton();
+                break;
+            case "myceliumfree":
+                tekton = new MyceliumFreeTekton();
+                break;
+            default:
+                System.out.println("Invalid type");
+                return;
+        }
+        Integer newid = Collections.max(tektonsWithIds.keySet()) + 1;
     
-    Mycologist mycologist = mycologistWithIds.get(Integer.parseInt(mycologistid));
-    Mycelium mycelium = mycologist.getMyceliums().get(Integer.parseInt(myceliumId));
-    mycologist.growHyphaeOnTekton(mycelium);
+        tektonsWithIds.put(newid, tekton);
+        tektonManager.addTekton(tekton);
+        System.out.println(newid + " "+ type +" tekton added");
     }
 
     public void run(){
@@ -373,6 +447,15 @@ public class ConsoleApp {
                     break;
                 case "eatSpore":
                     eatSpore(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]), Integer.parseInt(inputStrings[3]));
+                    break;
+                case "upgradeMycelium":
+                    upgradeMycelium(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]));
+                    break;
+                case "growNewMycelium":
+                    growNewMycelium(Integer.parseInt(inputStrings[1]), Integer.parseInt(inputStrings[2]));
+                    break;
+                case "addTekton":
+                    addTekton(inputStrings[1]);
                     break;
                 default:
                     break;

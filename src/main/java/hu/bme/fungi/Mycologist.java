@@ -54,7 +54,12 @@ public class Mycologist {
      * @param mycelium the mycelium to be upgraded
      */
     public void upgradeMyceium(Mycelium mycelium) {
-        mycelium.upgrade();
+        if(myceliums.contains(mycelium)){
+            mycelium.upgrade();
+        }
+        else {
+            System.out.println("[Mycologist] Failed to upgrade mycelium: Mycelium not found or not yours.");
+        }
     }
 
     /**
