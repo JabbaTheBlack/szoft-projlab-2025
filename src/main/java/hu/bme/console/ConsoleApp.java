@@ -382,7 +382,11 @@ public class ConsoleApp {
                 System.out.println("Invalid type");
                 return;
         }
-        Integer newid = Collections.max(tektonsWithIds.keySet()) + 1;
+        Integer newid = 0;
+        if(!tektonsWithIds.isEmpty()){
+        
+             newid = Collections.max(tektonsWithIds.keySet()) + 1;
+        }
     
         tektonsWithIds.put(newid, tekton);
         tektonManager.addTekton(tekton);
@@ -531,6 +535,7 @@ public class ConsoleApp {
                 tekton1.breakApart();
                 break;
                 default:
+                System.out.println("Unknown command: " + inputStrings[0]);
                     break;
             }
                
