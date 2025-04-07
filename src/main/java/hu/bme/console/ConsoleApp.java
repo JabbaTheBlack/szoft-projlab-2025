@@ -389,6 +389,59 @@ public class ConsoleApp {
         System.out.println(newid + " "+ type +" tekton added");
     }
 
+    private void addTektonNeighbour(Tekton tekton, List<Tekton> tektons){
+        if(tekton == null || tektons == null){
+            System.out.println("Tekton or tektons is null");
+            return;
+        }
+        for(Tekton t : tektons){
+            if(t == null){
+                System.out.println("Tekton is null");
+                return;
+            }
+            tekton.addNeighbour(t);
+            t.addNeighbour(tekton);
+        }
+        System.out.println("Tekton neighbours added");
+    }
+
+    private void loadMap(String file){
+        try (Scanner fileScanner = new Scanner(new java.io.File(file))) {
+            while (fileScanner.hasNextLine()) {
+            String command = fileScanner.nextLine();
+            String[] inputStrings = command.split(" ");
+            switch (inputStrings[0]) {
+                case "addTekton":
+                addTekton(inputStrings[1]);
+                break;
+                case "addTektonNeighbour":
+                List<Tekton> tektons = new ArrayList<>();
+                for (int i = 2; i < inputStrings.length; i++) {
+                    tektons.add(tektonsWithIds.get(Integer.parseInt(inputStrings[i])));
+                }
+                Tekton tekton = tektonsWithIds.get(Integer.parseInt(inputStrings[1]));
+                addTektonNeighbour(tekton, tektons);
+                break;
+                default:
+                System.out.println("Unknown command: " + inputStrings[0]);
+                break;
+            }
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+    private void releaseSpore(String MyceliumID){
+        Mycelium mycelium = myceliumsWithIds.get(Integer.parseInt(MyceliumID));
+        if(mycelium == null){
+            System.out.println("No mycelium with this ID");
+            return;
+        } else {
+            mycelium.releaseSpores();
+            System.out.println(MyceliumID + " mycelium released spores.");
+        }
+    }
+
     public void run(){
         System.out.println("Baszodj meg");
         String[] inputStrings;
@@ -457,6 +510,26 @@ public class ConsoleApp {
                 case "addTekton":
                     addTekton(inputStrings[1]);
                     break;
+                case "addTektonNeighbour":
+                List<Tekton> tektons = new ArrayList<>();
+                for(int i = 2; i < inputStrings.length; i++){
+                     tektons.add(tektonsWithIds.get(Integer.parseInt(inputStrings[i])));
+                     
+                    }
+                Tekton tekton = tektonsWithIds.get(Integer.parseInt(inputStrings[1]));
+                    addTektonNeighbour(tekton, tektons);
+                
+                break;
+                case "loadMap":
+                loadMap(inputStrings[1]);
+                break;
+                case "releaseSpore":
+                releaseSpore(inputStrings[1]);
+                break;
+                case "breakApart":
+                Tekton tekton1 = tektonsWithIds.get(Integer.parseInt(inputStrings[1]));
+                tekton1.breakApart();
+                break;
                 default:
                     break;
             }
