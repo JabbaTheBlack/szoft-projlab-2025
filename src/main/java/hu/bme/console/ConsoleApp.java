@@ -116,20 +116,20 @@ public class ConsoleApp {
     }
 
     private void addMycelium(int tektonId, int mycologistId) {
-        Mycelium<? extends Spore> mycelium = myceliumsWithIds.get(mycologistId);
-        Mycelium<? extends Spore> clone = mycelium.clone();
         Tekton tekton = tektonsWithIds.get(tektonId);
+        Mycelium<? extends Spore> mycelium = new Mycelium<>(tekton);
+       
         Mycologist mycologist = mycologistWithIds.get(mycologistId);
 
-        if(tekton != null && clone != null && mycelium != null) {
+        if(tekton != null  && mycelium != null) {
             System.out.println("Tekton with ID: " + tektonId + " or myceium with ID");
+            tekton.addMycelium(mycelium);
         }
 
-        tekton.addMycelium(clone);
-        mycelium.setCurrentTekton(tekton);
+       
         mycologist.addMycelium(mycelium);
 
-        mycologistWithIds.put(id, mycologist);
+       myceliumsWithIds.put(id, mycelium);
         System.out.println(id++ + "mycelium added to " + mycologistId + " mycologist and to " + tektonId + " tekton");
     }
 
