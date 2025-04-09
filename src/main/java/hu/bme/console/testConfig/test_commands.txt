@@ -1,0 +1,56 @@
+addPlayer mycologist
+addPlayer entomologist
+
+addTekton multitype
+addTekton multitype
+addTekton absorbing
+addTekton keeper
+addTekton myceliumfree
+
+addTektonNeighbour 2 3
+addTektonNeighbour 3 4
+addTektonNeighbour 4 5
+addTektonNeighbour 5 6
+
+addMycelium 2 0
+addMycelium 3 0
+
+addHyphae 7 3 0
+addHyphae 8 4 0
+
+addInsect 2 1
+addInsect 3 1
+addInsect 4 1
+
+addSpore 2 DefensiveSpore
+addSpore 3 StunSpore
+addSpore 4 SpeedBoostSpore
+addSpore 5 SlowingSpore
+addSpore 6 CloneSpore
+
+listPlayer
+listInsects 1
+listHyphae all
+listSpore 2
+listNeighbour 3
+
+releaseSpore 7
+upgradeMycelium 0 7
+growNewMycelium 0 7
+
+growHyphaefromHyphae 7 3 0 7
+growHyphaefromMycelium 8 4 0 8
+
+moveInsect 9 3
+moveInsect 10 4
+
+eatSpore 1 9 12
+eatSpore 1 10 13
+
+breakApart 3
+
+printMap
+
+roundElapsed
+
+Exit
