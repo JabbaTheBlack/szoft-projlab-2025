@@ -1,0 +1,7 @@
+addTekton multitype
+addTekton multitype
+addTekton absorbing
+addTekton multitype
+addTektonNeighbour 0 1 2 3
+addTektonNeighbour 1 2
+
