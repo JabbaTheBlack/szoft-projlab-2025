@@ -9,10 +9,10 @@ import hu.bme.fungi.spore.*;
 /**
  * Represents a mycelium in a fungal network, managing spores and hyphae.
  */
-public class Mycelium<T extends Spore> {
+public class Mycelium {
     
     private boolean upgraded;
-    private List<T> spores;
+    private List<Spore> spores;
     private List<Hyphae> hyphaes;
     private Tekton currentTekton;
     private int maxSporeRelease;
@@ -38,12 +38,11 @@ public class Mycelium<T extends Spore> {
     }
 
     /**
-     * Creates a shallow copy without spore/hyphae connections.
+     * Creates a deep copy without spore/hyphae connections.
      * @return New Mycelium instance with default configuration
      */
-    public Mycelium<T> clone(){
-        Mycelium<T> cloned = new Mycelium<>();
-        return cloned;
+    public Mycelium clone(){
+        return new Mycelium();    
     }
 
     /**
@@ -141,7 +140,7 @@ public class Mycelium<T extends Spore> {
     /**
      * Increment the spore count of the mycelium by one.
      */
-    public void addSpore(T spore) {
+    public void addSpore(Spore spore) {
         spores.add(spore);
     }
 

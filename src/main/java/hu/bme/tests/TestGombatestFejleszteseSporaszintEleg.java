@@ -16,7 +16,7 @@ import hu.bme.tekton.MultiTypeTekton;
 public class TestGombatestFejleszteseSporaszintEleg {
     public static void test_gombatest_fejlesztese_megfelelo_sporaszinttel() {
         MultiTypeTekton t1 = new MultiTypeTekton();
-        Mycelium m1 = new Mycelium<>();
+        Mycelium m1 = new Mycelium();
         DefensiveSpore s1 = new DefensiveSpore();
         DefensiveSpore s2 = new DefensiveSpore();
         DefensiveSpore s3 = new DefensiveSpore();
