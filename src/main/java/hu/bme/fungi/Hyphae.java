@@ -17,7 +17,7 @@ import hu.bme.fungi.spore.*;
 public class Hyphae{
     private int timeToLive;
     private List<Hyphae> connectedHyphae;
-    private List<Mycelium<? extends Spore>> connectedMyceliums;
+    private List<Mycelium> connectedMyceliums;
     private List<Tekton> currentTekton;
     private Mycologist ownner;
     private boolean isOnKeeperTekton;
@@ -154,7 +154,7 @@ public class Hyphae{
      * Adds a mycelium to the list of connected myceliums.
      * @param mycelium The mycelium to be added.
      */
-    public void addMycelium(Mycelium<? extends Spore> mycelium) {
+    public void addMycelium(Mycelium mycelium) {
         connectedMyceliums.add(mycelium);
     }
 

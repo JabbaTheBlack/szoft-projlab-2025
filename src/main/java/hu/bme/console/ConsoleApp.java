@@ -115,7 +115,7 @@ public class ConsoleApp {
 
     private void addMycelium(String tektonId, String mycologistId) {
         Tekton tekton = tektonsWithIds.get(tektonId);
-        Mycelium<? extends Spore> mycelium = new Mycelium<>(tekton);
+        Mycelium mycelium = new Mycelium(tekton);
        
         Mycologist mycologist = mycologistWithIds.get(mycologistId);
 
@@ -441,7 +441,7 @@ public class ConsoleApp {
     }
 
     private void upgradeMycelium(String mycologistId , String myceliumId) {
-        Mycelium<? extends Spore> mycelium = myceliumsWithIds.get(myceliumId);
+        Mycelium mycelium = myceliumsWithIds.get(myceliumId);
         Mycologist mycologist = mycologistWithIds.get(mycologistId);
         if(mycelium == null){
             System.out.println("No mycelium with this ID");
@@ -493,9 +493,6 @@ public class ConsoleApp {
         if (command.trim().isEmpty()) return;
     
         String[] inputStrings = command.split(" ");
-        for (int i = 1; i < inputStrings.length; i++) {
-            inputStrings[i] = inputStrings[i].toLowerCase();
-        }
     
         switch (inputStrings[0]) {
             case "listPlayer":

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+import hu.bme.fungi.spore.CloneSpore;
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.fungi.spore.SlowingSpore;
 import hu.bme.fungi.spore.SpeedBoostSpore;
@@ -21,6 +22,7 @@ public class Mycologist {
 
     private List<Mycelium> myceliums;
     private List<Hyphae> hyphaes;
+    private Spore selectedType;
 
     /**
      * Initializes a new mycologist with an empty list of myceliums.
@@ -182,26 +184,26 @@ public class Mycologist {
      */
     public void chooseSpore(int choice){
         System.out.println("[Mycoligist] new Mycelium() -> [Mycelium]");
-        Mycelium<? extends Spore> mycelium;
         switch (choice) {
-            case 1:
-                mycelium = new Mycelium<StunSpore>();    
+            case 1:  
+                selectedType = new StunSpore();  
                 break;
             case 2:
-                mycelium = new Mycelium<DefensiveSpore>();
-                // ((Mycelium<DefensiveSpore>) mycelium).addSpore(new DefensiveSpore());
+                selectedType = new DefensiveSpore();
                 break;
             case 3:
-                mycelium = new Mycelium<SpeedBoostSpore>();
+                selectedType = new SpeedBoostSpore();
                 break;
             case 4:
-                mycelium = new Mycelium<SlowingSpore>();
+                selectedType = new SlowingSpore();
+                break;
+            case 5:
+                selectedType = new CloneSpore();
                 break;
             default:
                 System.out.println("Invalid choice.");
                 return;  
         }
-        this.addMycelium(mycelium);
     }
 
     /**
