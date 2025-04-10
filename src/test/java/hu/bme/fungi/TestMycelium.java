@@ -11,18 +11,19 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import hu.bme.fungi.mycelium.DefensiveMycelium;
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 
 class TestMycelium {
-    private Mycelium<DefensiveSpore> mycelium;
+    private Mycelium mycelium;
     private SingleTypeTekton singleTypeTekton;
 
     @BeforeEach
     void setUp() {
         singleTypeTekton = mock(SingleTypeTekton.class);
-        mycelium = new Mycelium<>(singleTypeTekton);
+        mycelium = new DefensiveMycelium(singleTypeTekton);
     }
 
     @Test

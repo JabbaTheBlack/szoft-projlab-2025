@@ -9,42 +9,35 @@ import hu.bme.fungi.spore.*;
 /**
  * Represents a mycelium in a fungal network, managing spores and hyphae.
  */
-public class Mycelium<T extends Spore> {
+public abstract class Mycelium<T extends Spore> {
     
-    private boolean upgraded;
-    private List<T> spores;
-    private List<Hyphae> hyphaes;
-    private Tekton currentTekton;
-    private int maxSporeRelease;
+    protected List<T> spores;
+    protected boolean upgraded;
+    protected List<Hyphae> hyphaes;
+    protected Tekton currentTekton;
+    protected int maxSporeRelease;
 
     /**
      * Initializes a new mycelium with empty lists for spores, hyphae, unupgraded.
      */
-    public Mycelium() {
+    protected Mycelium() {
         upgraded = false;
-        spores = new ArrayList<>();
         hyphaes = new ArrayList<>();
         currentTekton = null;
         maxSporeRelease = 1;
     }
 
     /**
-     * Initializes a new mycelium with the specified Tekton.
+     * Initializes a new mycelium with the specified TektWSon.
      * @param currentTekton The Tekton to be associated with this mycelium.
      */
-    public Mycelium(Tekton currentTekton) {
+    protected Mycelium(Tekton currentTekton) {
         this();
         this.currentTekton = currentTekton;
     }
 
-    /**
-     * Creates a shallow copy without spore/hyphae connections.
-     * @return New Mycelium instance with default configuration
-     */
-    public Mycelium<T> clone(){
-        Mycelium<T> cloned = new Mycelium<>();
-        return cloned;
-    }
+    public abstract Mycelium<T> cloneMycelium(Tekton targetTekton);
+    public abstract Mycelium<T> cloneMycelium();
 
     /**
      * Returns the number of possible spore releases, before the mycelium dies.
@@ -126,6 +119,7 @@ public class Mycelium<T extends Spore> {
             }
         }
     }
+    
 
     /**
      * Sets the given mycelium's current Tekton.
@@ -144,11 +138,12 @@ public class Mycelium<T extends Spore> {
     public void addSpore(T spore) {
         spores.add(spore);
     }
+    
 
     /**
      * Decrement the spore count of the mycelium by one.
      */
-    public void removeSpore(Spore spore) {
+    public void removeSpore(T spore) {
         spores.remove(spore);
     }
     

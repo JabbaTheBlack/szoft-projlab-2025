@@ -5,6 +5,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.swing.text.DefaultEditorKit;
+
+import hu.bme.fungi.mycelium.CloneMycelium;
+import hu.bme.fungi.mycelium.DefensiveMycelium;
+import hu.bme.fungi.mycelium.SlowingMycelium;
+import hu.bme.fungi.mycelium.SpeedBoostMycelium;
+import hu.bme.fungi.mycelium.StunningMycelium;
 import hu.bme.fungi.spore.DefensiveSpore;
 import hu.bme.fungi.spore.SlowingSpore;
 import hu.bme.fungi.spore.SpeedBoostSpore;
@@ -19,7 +26,8 @@ import hu.bme.tekton.Tekton;
  */
 public class Mycologist {
 
-    private List<Mycelium> myceliums;
+    private List<Mycelium<? extends Spore>> myceliums;
+    private Mycelium<? extends Spore> selectedType;
     private List<Hyphae> hyphaes;
 
     /**
@@ -47,6 +55,10 @@ public class Mycologist {
             System.out.println("[Mycologist] removeAllHyphae() -> [" + mycelium + "]");
             mycelium.removeAllHyphae();
         }
+    }
+
+    public Mycelium<? extends Spore> getSelectedType() {
+        return selectedType;
     }
 
     /**
@@ -149,7 +161,7 @@ public class Mycologist {
     public void growMycelium(Hyphae hyphae, Tekton targetTekton) {
         if(hyphae.getCurrentTekton().get(0) == targetTekton && hyphae.getCurrentTekton().size() == 1 && hyphae.getCurrentTekton().get(0).getSporeCount() >= 3) {
             System.out.println("[Mycologist] new Mycelium("+targetTekton+") -> [Mycelium]");
-            Mycelium newMycelium = new Mycelium(targetTekton);
+            Mycelium newMycelium = selectedType.cloneMycelium(targetTekton);
             System.out.println("[Mycologist] setCurrentTekton("+targetTekton+") -> ["+newMycelium+"]");
             
             System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Tekton]");
@@ -181,27 +193,26 @@ public class Mycologist {
      * @param choice The choice of the user.
      */
     public void chooseSpore(int choice){
-        System.out.println("[Mycoligist] new Mycelium() -> [Mycelium]");
-        Mycelium<? extends Spore> mycelium;
         switch (choice) {
-            case 1:
-                mycelium = new Mycelium<StunSpore>();    
+            case 1:    
+                selectedType = new StunningMycelium();
                 break;
             case 2:
-                mycelium = new Mycelium<DefensiveSpore>();
-                // ((Mycelium<DefensiveSpore>) mycelium).addSpore(new DefensiveSpore());
+                selectedType = new DefensiveMycelium();
                 break;
             case 3:
-                mycelium = new Mycelium<SpeedBoostSpore>();
+                selectedType = new SpeedBoostMycelium();
                 break;
             case 4:
-                mycelium = new Mycelium<SlowingSpore>();
+                selectedType = new SlowingMycelium();
+                break;
+            case 5:
+                selectedType = new CloneMycelium();
                 break;
             default:
                 System.out.println("Invalid choice.");
                 return;  
         }
-        this.addMycelium(mycelium);
     }
 
     /**
@@ -249,7 +260,7 @@ public class Mycologist {
         if(insect.isStunned() && tektons.contains(insect.getCurrentTekton())) {
             
             Tekton insectTekton = insect.getCurrentTekton();
-            Mycelium newMycelium = myceliums.get(0).clone();
+            Mycelium newMycelium = myceliums.get(0).cloneMycelium();
             insectTekton.addMycelium(newMycelium);
 
             for(Hyphae hyphae : insectTekton.getHyphaes()){
@@ -288,7 +299,7 @@ public class Mycologist {
      *
      * @return A list of all active Myceliums managed by this Mycologist.
      */
-    public List<Mycelium> getMyceliums(){
+    public List<Mycelium<? extends Spore>> getMyceliums(){
         return myceliums;
     }
 

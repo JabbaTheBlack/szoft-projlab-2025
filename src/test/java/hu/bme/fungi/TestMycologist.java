@@ -1,5 +1,6 @@
 package hu.bme.fungi;
 
+import hu.bme.fungi.spore.Spore;
 import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.tekton.Tekton;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import static org.mockito.Mockito.*;
 
@@ -33,7 +35,7 @@ class MycologistTest {
         // Add a mock mycelium to the mycologist's list
         List<Mycelium> myceliums = new ArrayList<>();
         myceliums.add(mockMycelium);
-        mycologist.getMyceliums().addAll(myceliums);
+        mycologist.getMyceliums().addAll((Collection<? extends Mycelium<? extends Spore>>) myceliums);
     }
 
     @Test
@@ -43,7 +45,7 @@ class MycologistTest {
         when(mockInsect.getEntomologist()).thenReturn(mockEntomologist);
         when(mockHyphae.getCurrentTekton()).thenReturn(List.of(mockTekton));
         when(mockTekton.getHyphaes()).thenReturn(List.of(mockHyphae));
-        when(mockMycelium.clone()).thenReturn(mockMycelium);
+        when(mockMycelium.cloneMycelium()).thenReturn(mockMycelium);
         mycologist.getHyphaes().add(mockHyphae);
         mycologist.getMyceliums().add(mockMycelium);
 

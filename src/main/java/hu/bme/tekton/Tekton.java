@@ -86,14 +86,14 @@ public abstract class Tekton {
      * @param tekton The tekton to connect to.
      */
     public void connectToTekton(Tekton tekton) {
-        if(connectedNeighbours.contains(tekton)){
+        if(connectedNeighbours.contains(tekton)) {
             return;
         }
         if(!neighbours.contains(tekton)) {
             neighbours.add(tekton);
         }
         connectedNeighbours.add(tekton);
-        tekton.connectedNeighbours.add(tekton);
+        tekton.connectedNeighbours.add(this);
     }
 
     /**
