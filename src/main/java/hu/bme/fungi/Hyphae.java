@@ -171,7 +171,9 @@ public class Hyphae{
      * @param hyphae The hyphae to be added.
      */
     public void addHyphae(Hyphae hyphae) {
-        connectedHyphae.add(hyphae);
+        if(!connectedHyphae.contains(hyphae)) {
+            connectedHyphae.add(hyphae);
+        }
     }
 
     /**
@@ -219,7 +221,9 @@ public class Hyphae{
      * @param currentTekton The Tekton to be set.
      */
     public void addCurrentTekton(Tekton tekton) {
-        currentTekton.add(tekton);
+        if(!currentTekton.contains(tekton)) {
+            currentTekton.add(tekton);
+        }
     }
 
     /**

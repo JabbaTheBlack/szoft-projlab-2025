@@ -183,7 +183,6 @@ public class Mycologist {
      * @param choice The choice of the user.
      */
     public void chooseSpore(int choice){
-        System.out.println("[Mycoligist] new Mycelium() -> [Mycelium]");
         switch (choice) {
             case 1:  
                 selectedType = new StunSpore();  

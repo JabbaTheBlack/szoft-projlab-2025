@@ -10,14 +10,4 @@ addTektonNeighbour t0 t2
 addTektonNeighbour t1 t2
 addTektonNeighbour t2 t3
 
-addPlayer mycologist
-
-setMyceliumType Myc0 stunning
-addMycelium T3 Myc0
-
-addSpore T0 stunning
-addHyphae M0 T2 Myc0
-addHyphae H0 T2 Myc0
-addHyphae H1 T0 Myc0
-addHyphae H2 T0 Myc0
-addHyphae H3 T1 Myc0
+printMap
