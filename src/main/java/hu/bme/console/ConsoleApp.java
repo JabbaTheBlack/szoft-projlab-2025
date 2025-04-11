@@ -150,11 +150,11 @@ public class ConsoleApp {
         }
     }
     private void listInsects(String entomologistID){
-        if(!entomologistWithIds.containsKey(Integer.parseInt(entomologistID))){
+        if(!entomologistWithIds.containsKey(entomologistID)){
             System.out.println("Invalid entomologist ID");
 
         } else {
-            Entomologist entomologist = entomologistWithIds.get(Integer.parseInt(entomologistID));
+            Entomologist entomologist = entomologistWithIds.get(entomologistID);
             List<Insect> insects = entomologist.getInsects();
             for(Insect insect : insects){
                 System.out.println(insect);
@@ -502,7 +502,11 @@ public class ConsoleApp {
             return;
         }
         mycologist.growMycelium(hyphae, hyphae.getCurrentTekton().get(0));
-        Mycelium mycelium = mycologist.getMyceliums().getLast();
+        if(mycologist.getMyceliums().size() == 0){
+            System.out.println("There is no mycologist here");
+            return;
+        } 
+        Mycelium mycelium = mycologist.getMyceliums().get(mycologist.getMyceliums().size() - 1);
         String newid = "M" + (myceliumsWithIds.size());
         myceliumsWithIds.put(newid, mycelium);
         System.out.println(newid + " mycelium grown on "+ getTektonId(hyphae.getCurrentTekton().get(0)) + " tekton");
