@@ -502,7 +502,7 @@ public class ConsoleApp {
             return;
         }
         mycologist.growMycelium(hyphae, hyphae.getCurrentTekton().get(0));
-        Mycelium mycelium = mycologist.getMyceliums().getLast();
+        Mycelium mycelium = mycologist.getMyceliums().get(mycologist.getMyceliums().size()-1);
         String newid = "M" + (myceliumsWithIds.size());
         myceliumsWithIds.put(newid, mycelium);
         System.out.println(newid + " mycelium grown on "+ getTektonId(hyphae.getCurrentTekton().get(0)) + " tekton");
