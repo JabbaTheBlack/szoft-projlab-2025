@@ -63,7 +63,7 @@ public class ConsoleApp {
 
             entomologistWithIds.put(generateId("E", entomologistWithIds.size()), entomologist);
 
-            System.out.println("ID: E" + (entomologistWithIds.size()) + " entomologist added");
+            System.out.println("ID: E" + (entomologistWithIds.size()-1) + " entomologist added");
         } else if(player.toLowerCase().equals("mycologist")){
             Mycologist mycologist = new Mycologist();
             mycologistManager.addMycologist(mycologist);
@@ -110,7 +110,7 @@ public class ConsoleApp {
         entomologist.addInsect(insect);
         insectsWithIds.put(generateId("I", insectsWithIds.size()), insect);
 
-        System.out.println("I" + (insectsWithIds.size()) + " insect added to " + entomologistId + " entomologist and to " + tektonId + " tekton");
+        System.out.println("I" + (insectsWithIds.size()-1) + " insect added to " + entomologistId + " entomologist and to " + tektonId + " tekton");
     }
 
     private void addMycelium(String tektonId, String mycologistId) {
@@ -332,6 +332,7 @@ public class ConsoleApp {
         return null;
     }
 
+    //TODO nincs benne az all mode
     private void listSpore(String tektronid) {
         int id = Integer.parseInt(tektronid);
         Tekton tekton = gameController.getTektonManager().getTektons().get(id);
@@ -590,7 +591,9 @@ public class ConsoleApp {
         if (command.trim().isEmpty()) return;
     
         String[] inputStrings = command.split(" ");
-    
+        
+        //TODO 
+
         switch (inputStrings[0]) {
             case "listPlayer":
                 listPlayers();
@@ -665,6 +668,7 @@ public class ConsoleApp {
                 releaseSpore(inputStrings[1]);
                 break;
             case "breakApart":
+            //TODO az uj tektonokat felveni a hashmapre
                 Tekton tekton = tektonsWithIds.get(inputStrings[1]);
                 tekton.breakApart();
                 break;
