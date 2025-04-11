@@ -1,7 +1,6 @@
 package hu.bme.fungi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import hu.bme.fungi.spore.SlowingSpore;
 import hu.bme.fungi.spore.SpeedBoostSpore;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.fungi.spore.StunSpore;
-import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.tekton.Tekton;
 
@@ -224,8 +222,9 @@ public class Mycologist {
         }
     }
 
-    public void growHyphaeOnTekton(Mycelium mycelium) {
-        Hyphae newHyphae = new Hyphae(mycelium.getCurrentTekton());
+    public void growHyphaeOnTekton(Mycelium mycelium, Hyphae hyphae) {
+        Hyphae newHyphae = hyphae;
+        newHyphae.addCurrentTekton(mycelium.getCurrentTekton());
         if(mycelium.getCurrentTekton().addHyphae(newHyphae)){
             newHyphae.setOwner(this);
             mycelium.addHyphae(newHyphae);

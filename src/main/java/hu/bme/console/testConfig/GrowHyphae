@@ -1,0 +1,7 @@
+addTekton multitype
+addTekton multitype
+addTektonNeighbour T0 T1
+addPlayer mycologist
+addMycelium T0 Myc0
+growHyphaefromMycelium Myc0 M0
+growHyphaefromHyphae T1 Myc0 H0 
