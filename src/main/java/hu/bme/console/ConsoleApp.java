@@ -2,14 +2,14 @@ package hu.bme.console;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import hu.bme.core.GameController;
-import hu.bme.fungi.Hyphae;
 import hu.bme.core.Ticker;
+import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.CloneSpore;
@@ -22,7 +22,6 @@ import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
-import hu.bme.managers.TektonManager;
 import hu.bme.tekton.AbsrobingTekton;
 import hu.bme.tekton.KeeperTekton;
 import hu.bme.tekton.MultiTypeTekton;
@@ -514,6 +513,27 @@ public class ConsoleApp {
         return null; // Return null if the Tekton is not found
     }
 
+    public void cutHyphae(String entomologistID, String insectID, String hyphaeID){
+        Insect insect = insectsWithIds.get(insectID);
+        Entomologist entomologist = entomologistWithIds.get(entomologistID);
+        Hyphae hyphae = hyphaesWithIds.get(hyphaeID);
+
+        if(insect == null){
+            System.out.println("Invalid insect ID");
+            return;
+        } else if(entomologist == null){
+            System.out.println("Invalid entomologist ID");
+            return;
+        } else if(hyphae == null){
+            System.out.println("Invalid hyphae ID");
+            return;
+        } else {
+            insect.cutHyphae(hyphae);
+            System.out.println("Hyphae cut successfully.");
+        }
+
+    }
+
     private static void setMyceliumType(String mycologistID, String spore) {
         Mycologist mycologist = mycologistWithIds.get(mycologistID);
 
@@ -521,6 +541,7 @@ public class ConsoleApp {
             System.out.println("Invalid Mycologist ID");
             return;
         } 
+
 
         switch (spore) {
             case "clone":
@@ -641,6 +662,9 @@ public class ConsoleApp {
             case "setMyceliumType":
                 setMyceliumType(inputStrings[1], inputStrings[2]);
                 break;
+            case "cutHyphae":
+                cutHyphae(inputStrings[1], inputStrings[2], inputStrings[3]);
+            break;
             default:
                 System.out.println("Unknown command: " + inputStrings[0]);
                 break;
