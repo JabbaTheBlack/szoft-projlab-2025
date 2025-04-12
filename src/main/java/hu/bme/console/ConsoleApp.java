@@ -147,6 +147,7 @@ public class ConsoleApp {
             Insect insect = insectsWithIds.get(insectId);
             Tekton tekton = tektonsWithIds.get(tektonId);
             insect.move(tekton);
+            System.out.println(insectId + " moves to " + tektonId + " tekton");
         }
     }
     private void listInsects(String entomologistID){
@@ -168,7 +169,7 @@ public class ConsoleApp {
                 AbsrobingTekton absrobingTekton = new AbsrobingTekton();
                 tektonsWithIds.put(generateId("T" , tektonsWithIds.size()), absrobingTekton);
                 gameController.getTektonManager().addTekton(absrobingTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " absorbing tekton added to the map");
+                System.out.println("T" + (tektonsWithIds.size() - 1) + " absorbing tekton addedaddTek");
                 break;
             case "multitype":
                 MultiTypeTekton multiTypeTekton = new MultiTypeTekton();
@@ -180,7 +181,7 @@ public class ConsoleApp {
                 SingleTypeTekton singleTypeTekton = new SingleTypeTekton();
                 tektonsWithIds.put(generateId("T", tektonsWithIds.size()), singleTypeTekton);
                 gameController.getTektonManager().addTekton(singleTypeTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " multiType tekton added");
+                System.out.println("T" + (tektonsWithIds.size() - 1) + " singleType tekton added");
                 break;
             case "keeper":
                 KeeperTekton keeperTekton = new KeeperTekton();
@@ -443,7 +444,7 @@ public class ConsoleApp {
                 if(tekton.isConnectedTo(t)){
                     System.out.println("- " + getTektonId(t) + "tekton, is connected by hyphae");
                 } else {
-                    System.out.println("- " + getTektonId(t) + "tekton, is notconnected by hyphae");
+                    System.out.println("- " + getTektonId(t) + "tekton, is not connected by hyphae");
                 }
                
             }
@@ -592,7 +593,7 @@ public class ConsoleApp {
     
         String[] inputStrings = command.split(" ");
         
-        //TODO 
+        //TODO kell fuggveny ami belerak spórat gombatestbe, és olyan amivel rovart lehet enni
 
         switch (inputStrings[0]) {
             case "listPlayer":
