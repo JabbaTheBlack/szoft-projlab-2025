@@ -333,14 +333,30 @@ public class ConsoleApp {
         return null;
     }
 
-    //TODO nincs benne az all mode
     private void listSpore(String tektronid) {
-        int id = Integer.parseInt(tektronid);
-        Tekton tekton = gameController.getTektonManager().getTektons().get(id);
-        System.out.println(tekton.getSporeCount());
-        tekton.getSpores().forEach(spore -> {
-            System.out.println(spore);
-        });
+        String mode = tektronid.toLowerCase();
+        if(mode.equals("all")){
+            for (Map.Entry<String, Tekton> entry : tektonsWithIds.entrySet()) {
+                if(!entry.getValue().getSpores().isEmpty()){
+                    System.out.println(entry.getKey() + " contains these spores: ");
+                    entry.getValue().getSpores().forEach(spore -> {
+                        for(Map.Entry<String, Spore> entry2 : sporesWithIds.entrySet()){
+                            if(entry2.getValue() == spore){
+                                System.out.println("\t" + entry2.getKey() + " spore: " + spore);
+                            }
+                        }
+                    });
+                }   
+            }
+        } else {
+            Tekton tekton = tektonsWithIds.get(tektronid);
+            if(tekton != null){
+                System.out.println(tektronid + " contains these spores: ");
+                tekton.getSpores().forEach(spore -> {
+                    System.out.println("\t"+spore);
+                });
+            }
+        }
     }
 
     private void growHyphaeFromHyphae(String tektronid, String mycologistid, String hyphaeId) {
@@ -352,7 +368,7 @@ public class ConsoleApp {
         mycologist.growHyphaeToTekton(hyphae, tekton);
        }
 
-       private void growHyphaefromMycelium(String mycologistid, String myceliumId) {
+    private void growHyphaefromMycelium(String mycologistid, String myceliumId) {
      
         
         Mycologist mycologist = mycologistWithIds.get(mycologistid);
