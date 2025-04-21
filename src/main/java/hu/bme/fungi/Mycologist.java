@@ -98,6 +98,11 @@ public class Mycologist {
         
         // ATNEZNI
         System.out.println("[Mycologist] setCurrentTekton(" + targetTekton + ") -> [Hyphae]");
+        // if(hyphae.getCurrentTekton().size() <= 1) {
+        //     newHyphae.addCurrentTekton(hyphae.getCurrentTekton().get(0));
+        // } else {
+        //     newHyphae.addCurrentTekton(hyphae.getCurrentTekton().get(1));
+        // }
         newHyphae.addCurrentTekton(targetTekton);
 
         System.out.println("[Mycologist] connectToTekton(" + targetTekton + ") -> [Tekton]");

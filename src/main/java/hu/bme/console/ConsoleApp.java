@@ -169,7 +169,7 @@ public class ConsoleApp {
                 AbsrobingTekton absrobingTekton = new AbsrobingTekton();
                 tektonsWithIds.put(generateId("T" , tektonsWithIds.size()), absrobingTekton);
                 gameController.getTektonManager().addTekton(absrobingTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " absorbing tekton addedaddTek");
+                System.out.println("T" + (tektonsWithIds.size() - 1) + " absorbing tekton added");
                 break;
             case "multitype":
                 MultiTypeTekton multiTypeTekton = new MultiTypeTekton();
@@ -604,6 +604,22 @@ public class ConsoleApp {
         }
     }
 
+    private void eatInsect(String mycologistID, String insectID){
+        Mycologist mycologist = mycologistWithIds.get(mycologistID);
+        Insect insect = insectsWithIds.get(insectID);
+
+        if(mycologist == null){
+            System.out.println("Invalid Mycologist ID");
+            return;
+        } else if(insect == null){
+            System.out.println("Invalid Insect ID");
+            return;
+        } else {
+            mycologist.eatInsect(insect);
+            System.out.println(mycologistID + " mycologist ate " + insectID + " insect.");
+        }
+    }
+
     private void processCommand(String command) {
         if (command.trim().isEmpty()) return;
     
@@ -695,6 +711,9 @@ public class ConsoleApp {
             case "cutHyphae":
                 cutHyphae(inputStrings[1], inputStrings[2], inputStrings[3]);
             break;
+            case "eatInsect":
+                eatInsect(inputStrings[1], inputStrings[2]);
+                break;
             default:
                 System.out.println("Unknown command: " + inputStrings[0]);
                 break;
