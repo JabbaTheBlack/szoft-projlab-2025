@@ -577,6 +577,7 @@ public class ConsoleApp {
                 mycologist.chooseSpore(5);
                 System.out.println("Clone spore chosen");
                 break;
+            case "speed":
             case "speedboost":
             case "speedboostspore":
                 mycologist.chooseSpore(3);
@@ -629,6 +630,34 @@ public class ConsoleApp {
             mycelium.growSpores();
             System.out.println("Spore put in "+myceliumID + " mycelium");
         }
+    }
+
+    private void breakApart(String tektonID) {
+        Tekton tekton = tektonsWithIds.get(tektonID);
+        if (tekton == null) {
+            System.out.println("Tekton with ID " + tektonID + " not found.");
+            return;
+        }
+    
+        // Break apart the Tekton
+        List<Tekton> newtektons = gameController.getTektonManager().breakApart(tekton);
+        if(newtektons == null){
+            System.out.println("There are no breakable tektons.");
+            return;
+        }
+
+        // Remove the Tekton from the map
+        tektonsWithIds.remove(tektonID);
+        boolean isfirst = true;
+        System.out.println(tektonID + " has break apart.");
+        for (Tekton newTekton : newtektons) {
+            String newTektonId = generateId("T", tektonsWithIds.size());
+            tektonsWithIds.put(newTektonId, newTekton);
+            if(isfirst)System.out.print(newTektonId+ " and ");
+            else System.out.print(newTektonId + " ");
+        }
+        System.out.println("born");
+       
     }
 
     private void processCommand(String command) {
@@ -712,9 +741,7 @@ public class ConsoleApp {
                 releaseSpore(inputStrings[1]);
                 break;
             case "breakApart":
-            //TODO az uj tektonokat felveni a hashmapre
-                Tekton tekton = tektonsWithIds.get(inputStrings[1]);
-                tekton.breakApart();
+                breakApart(inputStrings[1]);
                 break;
             case "chooseFungalType":
                 setMyceliumType(inputStrings[1], inputStrings[2]);
@@ -724,6 +751,9 @@ public class ConsoleApp {
             break;
             case "eatInsect":
                 eatInsect(inputStrings[1], inputStrings[2]);
+                break;
+            case "putSporeToMycelium":
+                putSporeToMycelium(inputStrings[1]);
                 break;
             default:
                 System.out.println("Unknown command: " + inputStrings[0]);
