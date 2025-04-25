@@ -439,7 +439,7 @@ public class ConsoleApp {
     }
 
     private void releaseSpore(String MyceliumID){
-        Mycelium mycelium = myceliumsWithIds.get(Integer.parseInt(MyceliumID));
+        Mycelium mycelium = myceliumsWithIds.get(MyceliumID);
         if(mycelium == null){
             System.out.println("No mycelium with this ID");
             return;
@@ -504,7 +504,7 @@ public class ConsoleApp {
         }
     }
 
-      private void growNewMycelium(String mycologistID, String hyphaeID) {
+    private void growNewMycelium(String mycologistID, String hyphaeID) {
         Mycologist mycologist = mycologistWithIds.get(mycologistID);
         Hyphae hyphae = hyphaesWithIds.get(hyphaeID);
         if (mycologist == null) {
@@ -621,13 +621,13 @@ public class ConsoleApp {
         }
     }
 
-    private void putSporeToMycelium(String myceliumID){
+    private void putSporeToMycelium(String mycologistID, String myceliumID){
         Mycelium mycelium = myceliumsWithIds.get(myceliumID);
-        if(mycelium == null){
-            System.out.println("No mycelium with this ID");
-            return;
+        Mycologist mycologist = mycologistWithIds.get(mycologistID);
+        if(mycelium == null || mycologist == null){
+            System.out.println("No mycelium or mycologist with this ID");
         } else {
-            mycelium.growSpores();
+            mycologist.growSpore(mycelium);
             System.out.println("Spore put in "+myceliumID + " mycelium");
         }
     }
@@ -665,7 +665,7 @@ public class ConsoleApp {
     
         String[] inputStrings = command.split(" ");
         
-        //TODO kell fuggveny ami belerak spórat gombatestbe, és olyan amivel rovart lehet enni
+        //TODO kell fuggveny ami belerak spórat gombatestbe, 
 
         switch (inputStrings[0]) {
             case "listPlayer":
@@ -753,7 +753,7 @@ public class ConsoleApp {
                 eatInsect(inputStrings[1], inputStrings[2]);
                 break;
             case "putSporeToMycelium":
-                putSporeToMycelium(inputStrings[1]);
+                putSporeToMycelium(inputStrings[1], inputStrings[2]);
                 break;
             default:
                 System.out.println("Unknown command: " + inputStrings[0]);

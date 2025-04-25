@@ -85,8 +85,8 @@ public class Mycelium {
     /**
      * Adds more spores to the mycelium.
      */
-    public void growSpores(){
-        // TODO implement function
+    public void growSpores(Spore spore) {
+        this.spores.add(spore);
     }
 
     /**

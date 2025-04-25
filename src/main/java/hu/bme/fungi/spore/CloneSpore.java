@@ -8,6 +8,9 @@ public class CloneSpore extends Spore {
         super();
     }
 
+    public Spore clone() {
+        return new CloneSpore();
+    }
     @Override
     public void applyEffect(Insect insect) {
         insect.getEntomologist().clone(insect);

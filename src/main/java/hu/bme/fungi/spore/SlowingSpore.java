@@ -15,6 +15,9 @@ public class SlowingSpore extends Spore {
         super();
     }
 
+    public Spore clone() {
+        return new SlowingSpore();
+    }
     /**
      * Initializes a SlowingSpore with the given arguments
      * @param nutrition Nutritional value of the spore

@@ -301,5 +301,12 @@ public class Mycologist {
         return hyphaes;
     }
 
+    public Spore getSelectedType() {
+        return selectedType;
+    }
 
+    public void growSpore(Mycelium mycelium) {
+        Spore spore = selectedType.clone();
+        mycelium.addSpore(spore);
+    }
 }
