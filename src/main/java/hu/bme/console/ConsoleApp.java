@@ -137,7 +137,6 @@ public class ConsoleApp {
         System.out.println(myceliumId + " mycelium added to " + mycologistId + " mycologist and to " + tektonId + " tekton");
     }
 
-
     private void moveInsect(String insectId, String tektonId){
         if(!(insectsWithIds.containsKey(insectId) && tektonsWithIds.containsKey(tektonId))){
             System.out.println("Invalid insect or tekton ID");
@@ -150,6 +149,7 @@ public class ConsoleApp {
             System.out.println(insectId + " moves to " + tektonId + " tekton");
         }
     }
+    
     private void listInsects(String entomologistID){
         if(!entomologistWithIds.containsKey(entomologistID)){
             System.out.println("Invalid entomologist ID");
@@ -620,6 +620,17 @@ public class ConsoleApp {
         }
     }
 
+    private void putSporeToMycelium(String myceliumID){
+        Mycelium mycelium = myceliumsWithIds.get(myceliumID);
+        if(mycelium == null){
+            System.out.println("No mycelium with this ID");
+            return;
+        } else {
+            mycelium.growSpores();
+            System.out.println("Spore put in "+myceliumID + " mycelium");
+        }
+    }
+
     private void processCommand(String command) {
         if (command.trim().isEmpty()) return;
     
@@ -705,7 +716,7 @@ public class ConsoleApp {
                 Tekton tekton = tektonsWithIds.get(inputStrings[1]);
                 tekton.breakApart();
                 break;
-            case "setMyceliumType":
+            case "chooseFungalType":
                 setMyceliumType(inputStrings[1], inputStrings[2]);
                 break;
             case "cutHyphae":
