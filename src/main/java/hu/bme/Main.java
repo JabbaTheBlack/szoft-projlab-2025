@@ -1,25 +1,29 @@
 package hu.bme;
 
+import hu.bme.console.CommandProcessor;
 import hu.bme.console.ConsoleApp;
 
-/**
- * The main entry point of the application.
- * 
- * This class initializes and runs the test runner.
- * 
- * @see TestRunner
- */
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Main {
-    
-    /**
-     * The main method where the program execution begins.
-     * 
-     * It creates an instance of the TestRunner and calls its runTests method.
-     * 
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args){
-        ConsoleApp app = new ConsoleApp();
-        app.run();
+    public static void main(String[] args) {
+        ConsoleApp consoleApp = new ConsoleApp();
+        CommandProcessor commandProcessor = new CommandProcessor(consoleApp);
+
+        System.out.println("Welcome to the Console App");
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("> ");
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting...");
+                break;
+            }
+            commandProcessor.processCommand(input);
+        }
     }
 }
