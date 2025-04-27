@@ -46,6 +46,7 @@ public class ConsoleApp {
     public static HashMap<String, Spore> sporesWithIds = new HashMap<>();
     public static HashMap<String, Hyphae> hyphaesWithIds = new HashMap<>();
     public static Ticker ticker = Ticker.getInstance();
+    public int removed = 0;
 
     public ConsoleApp() {
 
@@ -129,7 +130,8 @@ public class ConsoleApp {
         // Step 4: Remove Hyphae after iteration
         for (String hyphaeId : hyphaeIdsToRemove) {
             hyphaesWithIds.remove(hyphaeId);
-            System.out.println("Hyphae with ID " + hyphaeId + " has been removed from hyphaesWithIds.");
+            removed ++;
+            //System.out.println("Hyphae with ID " + hyphaeId + " has been removed from hyphaesWithIds.");
         }
 
         // Step 5: Clean up Tektons (remove references to non-existent Hyphae)
@@ -330,10 +332,11 @@ public class ConsoleApp {
                 newHyphae.addMycelium(argumentMycelium);
                 argumentMycelium.addHyphae(newHyphae);
 
-                String generatedId = generateId("H", hyphaesWithIds.size());
+                String generatedId = generateId("H", hyphaesWithIds.size()+removed);
                 hyphaesWithIds.put(generatedId, newHyphae);
 
-                System.out.println(generatedId + " hyphae added to " + mycologistId);
+                System.out.println(generatedId + " hyphae added to " + hyphaeOrMyceliumId + " mycelium on " +
+                        tektonId + " tekton");
                 return;
             } else {
                 System.out.println("Tekton does not match the Mycelium's current Tekton.");
@@ -354,11 +357,11 @@ public class ConsoleApp {
                     newHyphae.addHyphae(argumentHyphae);
                     argumentHyphae.addHyphae(newHyphae);
 
-                    String generatedId = generateId("H", hyphaesWithIds.size());
+                    String generatedId = generateId("H", hyphaesWithIds.size()+removed);
                     hyphaesWithIds.put(generatedId, newHyphae);
 
-                    System.out.println(generatedId + " hyphae added, spanning from " +
-                            getTektonId(connectedTekton) + " to " + tektonId);
+                    System.out.println(generatedId + " hyphae added, next to " +
+                            hyphaeOrMyceliumId + " hyphae, on " + tektonId+" tekton");
 
                     // Connect the Tektons
                     tekton.connectToTekton(connectedTekton);
@@ -388,25 +391,26 @@ public class ConsoleApp {
                     System.out.println(generatedId + " hyphae added to " + tektonId);
                 }   
             }
-            if (tekton.getSporeCount() >= 1){
-                    Hyphae newHyphae = new Hyphae(tekton);
-                    mycologist.addHyphae(newHyphae);
-
-                    tekton.addHyphae(newHyphae);
-                    newHyphae.setOwner(mycologist);
-                    argumentHyphae.addHyphae(newHyphae);
-                    newHyphae.addHyphae(argumentHyphae);
-
-                    String generatedId = generateId("H", hyphaesWithIds.size());
-                    hyphaesWithIds.put(generatedId, newHyphae);
-
-                    System.out.println(generatedId + " hyphae added to " + tektonId);
-
-            } 
+            
             else {
                 System.out.println("Invalid Hyphae state: Hyphae has unexpected number of current Tektons.");
                 return;
             }
+            if (tekton.getSporeCount() >= 1){
+                Hyphae newHyphae = new Hyphae(tekton);
+                mycologist.addHyphae(newHyphae);
+
+                tekton.addHyphae(newHyphae);
+                newHyphae.setOwner(mycologist);
+                argumentHyphae.addHyphae(newHyphae);
+                newHyphae.addHyphae(argumentHyphae);
+
+                String generatedId = generateId("H", hyphaesWithIds.size());
+                hyphaesWithIds.put(generatedId, newHyphae);
+
+                System.out.println(generatedId + " hyphae added to " + tektonId);
+
+            } 
         }
     }
 

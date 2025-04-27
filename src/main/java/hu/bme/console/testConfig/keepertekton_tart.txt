@@ -1,0 +1,15 @@
+addTekton multitype
+addTekton keeper
+addTektonNeighbour T0 T1
+addPlayer mycologist
+addMycelium T0 Myc0
+addHyphae M0 T0 Myc0
+addHyphae H0 T1 Myc0
+addHyphae H1 T1 Myc0
+addPlayer entomologist
+addInsect T0 E0
+cutHyphae E0 I0 H1
+roundElapsed
+roundElapsed
+roundElapsed
+addHyphae H2 T0 Myc0
