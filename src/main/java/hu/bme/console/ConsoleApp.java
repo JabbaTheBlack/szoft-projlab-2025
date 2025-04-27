@@ -261,6 +261,7 @@ public class ConsoleApp {
                 sporesWithIds.put(generateId("S", sporesWithIds.size()), stunSpore);
                 break;
             case "SlowingSpore":
+            case "SlowSpore":
             case "slowing":
                 SlowingSpore slowingSpore = new SlowingSpore();
                 tekton.addSpore(slowingSpore);
