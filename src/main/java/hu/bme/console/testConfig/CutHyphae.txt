@@ -8,3 +8,4 @@ addHyphae M0 T0 Myc0
 addHyphae H0 T1 Myc0
 addInsect T1 E0
 cutHyphae E0 I0 H1
+listHyphae all

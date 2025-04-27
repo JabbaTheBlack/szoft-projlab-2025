@@ -15,6 +15,9 @@ public class SpeedBoostSpore extends Spore {
         super();
     }
 
+    public Spore clone() {
+        return new SpeedBoostSpore();
+    }
     /**
      * Initializes a SpeedBoostSpore with the given arguments
      * @param nutrition Nutritional value of the spore

@@ -17,5 +17,6 @@ addMycelium T3 Myc0
 
 addSpore T0 stunning
 
-addHyphae M0 T2 Myc0
+addHyphae M0 T3 Myc0
 addHyphae H0 T2 Myc0
+addHyphae H1 T2 Myc0
