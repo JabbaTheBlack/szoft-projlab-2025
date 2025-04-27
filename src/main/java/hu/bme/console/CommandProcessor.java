@@ -1,10 +1,12 @@
 package hu.bme.console;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.util.Scanner;
 
 public class CommandProcessor {
-    public static String commands = "";
+    public static List<String> commands = new ArrayList<String>();
     private ConsoleApp consoleApp;
 
     public CommandProcessor(ConsoleApp consoleApp) {
@@ -14,7 +16,7 @@ public class CommandProcessor {
     public void processCommand(String command) {
         if (command.trim().isEmpty())
             return;
-        commands += command + "\n";
+        commands.add(command);
         String[] inputStrings = command.split(" ");
         switch (inputStrings[0]) {
             case "listPlayer":
@@ -259,7 +261,14 @@ public class CommandProcessor {
                 System.out.println("\t- eatInsect <mycologistId> <insectId> - Mycologist eats an insect");
                 System.out.println("\t- putSporeToMycelium <sporeId> <myceliumId> - Puts a spore into a mycelium");
                 break;
-
+            case "savestate":
+                if (inputStrings.length < 2) {
+                    System.out.println("savestate Filename");
+                    return;
+                } else {
+                    consoleApp.saveState(inputStrings[1]);
+                }
+                break;
             default:
                 System.out.println("Unknown command: " + inputStrings[0]);
                 break;

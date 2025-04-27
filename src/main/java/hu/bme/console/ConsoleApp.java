@@ -1,6 +1,6 @@
 package hu.bme.console;
 
-import java.io.File;
+import java.nio.file.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -725,7 +725,13 @@ public class ConsoleApp {
     public void saveState(String filename) {
         try {
             FileWriter myWriter = new FileWriter(filename);
-            myWriter.write(CommandProcessor.commands);
+            String data = "";
+            CommandProcessor.commands.removeLast();
+            for (String sor : CommandProcessor.commands) {
+
+                data += sor + "\n";
+            }
+            myWriter.write(data);
             myWriter.close();
             System.out.println("State saved to " + filename);
         } catch (IOException e) {
