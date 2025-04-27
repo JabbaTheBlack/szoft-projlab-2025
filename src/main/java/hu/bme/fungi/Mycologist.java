@@ -298,6 +298,9 @@ public class Mycologist {
     public void tick(){
         for(Hyphae hyphae : hyphaes) {
             hyphae.tick();
+            if(hyphae.getTimeToLive() == 0) {
+                hyphaes.remove(hyphae);
+            }
         }
     }
 
@@ -321,5 +324,12 @@ public class Mycologist {
     public void growSpore(Mycelium mycelium) {
         Spore spore = selectedType.clone();
         mycelium.addSpore(spore);
+    }
+
+    public void addHyphae(Hyphae hyphae) {
+        if(hyphaes.contains(hyphae)) {
+            return;
+        }
+        hyphaes.add(hyphae);
     }
 }
