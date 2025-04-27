@@ -67,7 +67,7 @@ public class Entomologist {
         Insect newInsect = new Insect();
         newInsect.setEntomologist(this);
         newInsect.setCurrentTekton(insect.getCurrentTekton());
-        ConsoleApp.insectsWithIds.put(ConsoleApp.generateId("I", ConsoleApp.insectsWithIds.size()), insect);
+        ConsoleApp.insectsWithIds.put(ConsoleApp.generateId("I", ConsoleApp.insectsWithIds.size()), newInsect);
         insects.add(newInsect);
     }
 

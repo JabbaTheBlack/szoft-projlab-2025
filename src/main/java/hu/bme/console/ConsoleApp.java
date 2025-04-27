@@ -362,7 +362,7 @@ public class ConsoleApp {
                     tekton.connectToTekton(connectedTekton);
                     System.out.println(
                             tektonId + " connected to " + getTektonId(connectedTekton) + " via " + generatedId);
-                    return;
+                    
                 } else {
                     System.out.println("Tekton " + tektonId + " is not a neighbor of " + getTektonId(connectedTekton));
                     return;
@@ -384,12 +384,24 @@ public class ConsoleApp {
                     hyphaesWithIds.put(generatedId, newHyphae);
 
                     System.out.println(generatedId + " hyphae added to " + tektonId);
-                    return;
-                } else {
-                    System.out.println("Tekton " + tektonId + " does not match the second Tekton of the Hyphae.");
-                    return;
-                }
-            } else {
+                }   
+            }
+            if (tekton.getSporeCount() >= 1){
+                    Hyphae newHyphae = new Hyphae(tekton);
+                    mycologist.addHyphae(newHyphae);
+
+                    tekton.addHyphae(newHyphae);
+                    newHyphae.setOwner(mycologist);
+                    argumentHyphae.addHyphae(newHyphae);
+                    newHyphae.addHyphae(argumentHyphae);
+
+                    String generatedId = generateId("H", hyphaesWithIds.size());
+                    hyphaesWithIds.put(generatedId, newHyphae);
+
+                    System.out.println(generatedId + " hyphae added to " + tektonId);
+
+            } 
+            else {
                 System.out.println("Invalid Hyphae state: Hyphae has unexpected number of current Tektons.");
                 return;
             }
