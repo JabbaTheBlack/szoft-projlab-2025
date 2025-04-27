@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class CommandProcessor {
+    public static String commands = "";
     private ConsoleApp consoleApp;
 
     public CommandProcessor(ConsoleApp consoleApp) {
@@ -11,8 +12,9 @@ public class CommandProcessor {
     }
 
     public void processCommand(String command) {
-        if (command.trim().isEmpty()) return;
-
+        if (command.trim().isEmpty())
+            return;
+        commands += command + "\n";
         String[] inputStrings = command.split(" ");
         switch (inputStrings[0]) {
             case "listPlayer":
@@ -161,7 +163,8 @@ public class CommandProcessor {
                     return;
                 }
                 String tektonId = inputStrings[1];
-                consoleApp.addTektonNeighbour(tektonId, java.util.Arrays.asList(inputStrings).subList(2, inputStrings.length));
+                consoleApp.addTektonNeighbour(tektonId,
+                        java.util.Arrays.asList(inputStrings).subList(2, inputStrings.length));
                 break;
             }
 
@@ -220,7 +223,13 @@ public class CommandProcessor {
                 }
                 consoleApp.putSporeToMycelium(inputStrings[1], inputStrings[2]);
                 break;
-
+            case "savestate":
+                if (inputStrings.length < 2) {
+                    System.out.println("File name");
+                    return;
+                }
+                consoleApp.saveState(inputStrings[1]);
+                break;
             default:
                 System.out.println("Unknown command: " + inputStrings[0]);
                 break;

@@ -1,6 +1,8 @@
 package hu.bme.console;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -191,7 +193,7 @@ public class ConsoleApp {
 
             insect.move(tekton);
 
-            if(insect.getCurrentTekton() == insectTekton) {
+            if (insect.getCurrentTekton() == insectTekton) {
                 System.out.println("Insect couldn't move");
                 return;
             }
@@ -720,6 +722,18 @@ public class ConsoleApp {
         }
     }
 
+    public void saveState(String filename) {
+        try {
+            FileWriter myWriter = new FileWriter(filename);
+            myWriter.write(CommandProcessor.commands);
+            myWriter.close();
+            System.out.println("State saved to " + filename);
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
     public void breakApart(String tektonID) {
         // Retrieve the Tekton from tektonsWithIds
         Tekton tekton = tektonsWithIds.get(tektonID);
@@ -727,24 +741,24 @@ public class ConsoleApp {
             System.out.println("Tekton with ID " + tektonID + " not found.");
             return;
         }
-    
+
         // Call the breakApart method on the TektonManager
         List<Tekton> newTektons = tektonManager.breakApart(tekton);
         if (newTektons == null || newTektons.isEmpty()) {
             System.out.println("Tekton " + tektonID + " cannot be broken apart.");
             return;
         }
-    
+
         // Remove the original Tekton from tektonsWithIds
         tektonsWithIds.remove(tektonID);
         System.out.println(tektonID + " has been broken apart.");
-    
+
         // Add the new Tektons to tektonsWithIds and update neighbors
         for (Tekton newTekton : newTektons) {
             String newTektonId = generateId("T");
             tektonsWithIds.put(newTektonId, newTekton);
             System.out.println(newTektonId + " tekton created.");
-    
+
             // Update neighbors for the new Tekton
             for (Tekton neighbor : newTekton.getNeighbours()) {
                 String neighborId = getKeyByValue(neighbor);
@@ -754,7 +768,7 @@ public class ConsoleApp {
                 }
             }
         }
-    
+
         // Synchronize tektonsWithIds with TektonManager to ensure consistency
         synchronizeTektonsWithManager();
     }
@@ -763,7 +777,8 @@ public class ConsoleApp {
         // Remove Tektons from tektonsWithIds that are no longer in TektonManager
         tektonsWithIds.entrySet().removeIf(entry -> !tektonManager.getTektons().contains(entry.getValue()));
 
-        // Add Tektons to tektonsWithIds that are in TektonManager but not in tektonsWithIds
+        // Add Tektons to tektonsWithIds that are in TektonManager but not in
+        // tektonsWithIds
         for (Tekton tekton : tektonManager.getTektons()) {
             if (!tektonsWithIds.containsValue(tekton)) {
                 String newTektonId = generateId("T");
@@ -781,7 +796,8 @@ public class ConsoleApp {
         // Remove Hyphaes from hyphaesWithIds that are no longer in the collected list
         hyphaesWithIds.entrySet().removeIf(entry -> !allHyphaes.contains(entry.getValue()));
 
-        // Add Hyphaes to hyphaesWithIds that are in the collected list but not in hyphaesWithIds
+        // Add Hyphaes to hyphaesWithIds that are in the collected list but not in
+        // hyphaesWithIds
         for (Hyphae hyphae : allHyphaes) {
             if (!hyphaesWithIds.containsValue(hyphae)) {
                 String newHyphaeId = generateId("H", hyphaesWithIds.size());
