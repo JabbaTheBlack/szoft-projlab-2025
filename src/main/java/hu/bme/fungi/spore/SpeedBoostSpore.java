@@ -34,6 +34,7 @@ public class SpeedBoostSpore extends Spore {
     @Override
     public void applyEffect(Insect insect) {
         // TODO implement the function
-        throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        //throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        insect.setMovementSpeed(insect.getMovementSpeed() * 2); // Increase speed by 100%
     }
 }

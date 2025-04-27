@@ -170,6 +170,9 @@ public class Insect {
     public void setMovementSpeed(float movementSpeed) {
         this.movementSpeed = movementSpeed;
     }
+    public float getMovementSpeed() {
+        return movementSpeed;
+    }
 
     /**
      * Sets whether the insect can cut hyphae.

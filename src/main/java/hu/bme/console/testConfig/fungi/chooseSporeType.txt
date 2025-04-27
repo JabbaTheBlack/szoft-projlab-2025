@@ -1,0 +1,2 @@
+addPlayer mycologist
+chooseFungalType Myc0 clone

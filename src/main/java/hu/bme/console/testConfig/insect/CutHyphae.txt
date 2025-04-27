@@ -11,3 +11,4 @@ cutHyphae E0 I0 H1
 listHyphae all
 roundElapsed
 listHyphae all
+printMap
