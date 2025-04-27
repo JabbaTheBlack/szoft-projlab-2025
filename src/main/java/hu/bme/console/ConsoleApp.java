@@ -22,6 +22,7 @@ import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
+import hu.bme.managers.TektonManager;
 import hu.bme.tekton.AbsrobingTekton;
 import hu.bme.tekton.KeeperTekton;
 import hu.bme.tekton.MultiTypeTekton;
@@ -30,7 +31,9 @@ import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 
 public class ConsoleApp {
+    private static int nextTektonId = 0;
     public static GameController gameController = new GameController();
+    public static TektonManager tektonManager = TektonManager.getInstance();
     public static InsectManager insectManager = InsectManager.getInstance();
     public static MycologistManager mycologistManager = MycologistManager.getInstance();
     public static HashMap<String, Entomologist> entomologistWithIds = new HashMap<>();
@@ -48,6 +51,10 @@ public class ConsoleApp {
 
     public static String generateId(String prefix, int id) {
         return prefix + id;
+    }
+
+    public static String generateId(String prefix) {
+        return prefix + nextTektonId++;
     }
 
     public String getInput() {
@@ -180,7 +187,14 @@ public class ConsoleApp {
 
             Insect insect = insectsWithIds.get(insectId);
             Tekton tekton = tektonsWithIds.get(tektonId);
+            Tekton insectTekton = insect.getCurrentTekton();
+
             insect.move(tekton);
+
+            if(insect.getCurrentTekton() == insectTekton) {
+                System.out.println("Insect couldn't move");
+                return;
+            }
             System.out.println(insectId + " moves to " + tektonId + " tekton");
         }
     }
@@ -206,41 +220,32 @@ public class ConsoleApp {
     }
 
     public void addTekton(String tektonType) {
-        switch (tektonType) {
+        Tekton newTekton;
+        switch (tektonType.toLowerCase()) {
             case "absorbing":
-                AbsrobingTekton absrobingTekton = new AbsrobingTekton();
-                tektonsWithIds.put(generateId("T", tektonsWithIds.size()), absrobingTekton);
-                gameController.getTektonManager().addTekton(absrobingTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " absorbing tekton added");
+                newTekton = new AbsrobingTekton();
                 break;
             case "multitype":
-                MultiTypeTekton multiTypeTekton = new MultiTypeTekton();
-                tektonsWithIds.put(generateId("T", tektonsWithIds.size()), multiTypeTekton);
-                gameController.getTektonManager().addTekton(multiTypeTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " multiType tekton added");
+                newTekton = new MultiTypeTekton();
                 break;
             case "singletype":
-                SingleTypeTekton singleTypeTekton = new SingleTypeTekton();
-                tektonsWithIds.put(generateId("T", tektonsWithIds.size()), singleTypeTekton);
-                gameController.getTektonManager().addTekton(singleTypeTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " singleType tekton added");
+                newTekton = new SingleTypeTekton();
                 break;
             case "keeper":
-                KeeperTekton keeperTekton = new KeeperTekton();
-                tektonsWithIds.put(generateId("T", tektonsWithIds.size()), keeperTekton);
-                gameController.getTektonManager().addTekton(keeperTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " keeper tekton added");
+                newTekton = new KeeperTekton();
                 break;
             case "myceliumfree":
-                MyceliumFreeTekton myceliumFreeTekton = new MyceliumFreeTekton();
-                tektonsWithIds.put(generateId("T", tektonsWithIds.size()), myceliumFreeTekton);
-                gameController.getTektonManager().addTekton(myceliumFreeTekton);
-                System.out.println("T" + (tektonsWithIds.size() - 1) + " myceliumFree tekton added");
+                newTekton = new MyceliumFreeTekton();
                 break;
             default:
                 System.out.println("Invalid type of tekton");
-                break;
+                return;
         }
+
+        String tektonId = generateId("T");
+        tektonsWithIds.put(tektonId, newTekton);
+        tektonManager.addTekton(newTekton); // Add to TektonManager
+        System.out.println(tektonId + " " + tektonType + " tekton added");
     }
 
     public void addSpore(String tektonId, String sporeType) {
@@ -716,32 +721,72 @@ public class ConsoleApp {
     }
 
     public void breakApart(String tektonID) {
+        // Retrieve the Tekton from tektonsWithIds
         Tekton tekton = tektonsWithIds.get(tektonID);
         if (tekton == null) {
             System.out.println("Tekton with ID " + tektonID + " not found.");
             return;
         }
-
-        // Break apart the Tekton
-        List<Tekton> newtektons = gameController.getTektonManager().breakApart(tekton);
-        if (newtektons == null) {
-            System.out.println("There are no breakable tektons.");
+    
+        // Call the breakApart method on the TektonManager
+        List<Tekton> newTektons = tektonManager.breakApart(tekton);
+        if (newTektons == null || newTektons.isEmpty()) {
+            System.out.println("Tekton " + tektonID + " cannot be broken apart.");
             return;
         }
-
-        // Remove the Tekton from the map
+    
+        // Remove the original Tekton from tektonsWithIds
         tektonsWithIds.remove(tektonID);
-        boolean isfirst = true;
-        System.out.println(tektonID + " has break apart.");
-        for (Tekton newTekton : newtektons) {
-            String newTektonId = generateId("T", tektonsWithIds.size());
+        System.out.println(tektonID + " has been broken apart.");
+    
+        // Add the new Tektons to tektonsWithIds and update neighbors
+        for (Tekton newTekton : newTektons) {
+            String newTektonId = generateId("T");
             tektonsWithIds.put(newTektonId, newTekton);
-            if (isfirst)
-                System.out.print(newTektonId + " and ");
-            else
-                System.out.print(newTektonId + " ");
+            System.out.println(newTektonId + " tekton created.");
+    
+            // Update neighbors for the new Tekton
+            for (Tekton neighbor : newTekton.getNeighbours()) {
+                String neighborId = getKeyByValue(neighbor);
+                if (neighborId != null) {
+                    neighbor.addNeighbour(newTekton);
+                    newTekton.addNeighbour(neighbor);
+                }
+            }
         }
-        System.out.println("born");
+    
+        // Synchronize tektonsWithIds with TektonManager to ensure consistency
+        synchronizeTektonsWithManager();
+    }
 
+    private void synchronizeTektonsWithManager() {
+        // Remove Tektons from tektonsWithIds that are no longer in TektonManager
+        tektonsWithIds.entrySet().removeIf(entry -> !tektonManager.getTektons().contains(entry.getValue()));
+
+        // Add Tektons to tektonsWithIds that are in TektonManager but not in tektonsWithIds
+        for (Tekton tekton : tektonManager.getTektons()) {
+            if (!tektonsWithIds.containsValue(tekton)) {
+                String newTektonId = generateId("T");
+                tektonsWithIds.put(newTektonId, tekton);
+            }
+        }
+
+        List<Hyphae> allHyphaes = new ArrayList<>();
+
+        // Collect all Hyphaes from Tektons
+        for (Tekton tekton : tektonsWithIds.values()) {
+            allHyphaes.addAll(tekton.getHyphaes());
+        }
+
+        // Remove Hyphaes from hyphaesWithIds that are no longer in the collected list
+        hyphaesWithIds.entrySet().removeIf(entry -> !allHyphaes.contains(entry.getValue()));
+
+        // Add Hyphaes to hyphaesWithIds that are in the collected list but not in hyphaesWithIds
+        for (Hyphae hyphae : allHyphaes) {
+            if (!hyphaesWithIds.containsValue(hyphae)) {
+                String newHyphaeId = generateId("H", hyphaesWithIds.size());
+                hyphaesWithIds.put(newHyphaeId, hyphae);
+            }
+        }
     }
 }

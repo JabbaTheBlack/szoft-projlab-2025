@@ -1,0 +1,30 @@
+addTekton multitype
+addTekton multitype
+addTekton multitype
+addTekton multitype
+
+addTektonNeighbour T0 T1 T2
+
+printMap
+
+addPlayer mycologist
+
+addMycelium T0 Myc0
+
+addHyphae M0 T0 Myc0
+
+printMap
+
+listHyphae all
+
+addHyphae H0 T1 Myc0
+
+listHyphae all
+
+printMap
+
+breakApart T1
+
+printMap
+
+listHyphae all
