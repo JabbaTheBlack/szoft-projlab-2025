@@ -37,14 +37,11 @@ public class Mycologist {
      * @param mycelium The mycelium to release spores from.
      */
     public void releaseSpore(Mycelium mycelium) {   
-        System.out.println("[Mycologist] releaseSpore() -> [" + mycelium + "]");
         mycelium.releaseSpores();
 
         if(mycelium.getRemainingSporeReleases() == 0) {
-            System.out.println("[Mycologist] setCurrentTekton() -> [" + mycelium + "]");
             mycelium.setCurrentTekton(null);
 
-            System.out.println("[Mycologist] removeAllHyphae() -> [" + mycelium + "]");
             mycelium.removeAllHyphae();
         }
     }
@@ -69,6 +66,10 @@ public class Mycologist {
      */
     public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
         
+        if(hyphae == null || targetTekton == null || !hyphaes.contains(hyphae)) {
+            return;
+        }
+
         Tekton neighbourTekton = null;
         boolean isNeighbour = false;
 
@@ -81,23 +82,19 @@ public class Mycologist {
             }
         }
         if(isNeighbour == false) {
-            System.out.println("[Mycologist] Failed to grow hyphae: Tekton is not a neighbour.");
             return;
         }
 
         //szomszédosak e a tektonok
-        System.out.println("[Mycologist] new Hyphae() -> [Hyphae]");
         Hyphae newHyphae = new Hyphae();
         newHyphae.setOwner(hyphae.getOwner());
 
-        System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Tekton]");
         if (!targetTekton.addHyphae(newHyphae)) {
             System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
             return;  
         }
         
         // ATNEZNI
-        System.out.println("[Mycologist] setCurrentTekton(" + targetTekton + ") -> [Hyphae]");
         // if(hyphae.getCurrentTekton().size() <= 1) {
         //     newHyphae.addCurrentTekton(hyphae.getCurrentTekton().get(0));
         // } else {
@@ -105,13 +102,10 @@ public class Mycologist {
         // }
         newHyphae.addCurrentTekton(targetTekton);
 
-        System.out.println("[Mycologist] connectToTekton(" + targetTekton + ") -> [Tekton]");
         neighbourTekton.connectToTekton(targetTekton);
 
-        System.out.println("[Mycologist] connectToTekton(" + hyphae.getCurrentTekton() + ") -> [Tekton]");
         targetTekton.connectToTekton(neighbourTekton);
 
-        System.out.println("[Mycologist] addHyphae(" + newHyphae + ") -> [Hyphae]");
         hyphae.addHyphae(newHyphae);   
         
         hyphaes.add(newHyphae);
@@ -120,13 +114,29 @@ public class Mycologist {
         if(neighbourTekton.getSporeCount() >= 4) {
             Hyphae newHyphae2 = new Hyphae(targetTekton);
             
-            System.out.println("[Mycologist]  addHyphae(" + newHyphae2 + ") -> [" + targetTekton + "]");
             if(targetTekton.addHyphae(newHyphae2)) {
-                System.out.println("[Mycologist]  addHyphae(" + newHyphae2 + ") -> [" + newHyphae + "]");
                 newHyphae.addHyphae(newHyphae2);
             }
         }
 
+    }
+
+    public void growHyphaeOnTekton(Mycelium mycelium, Tekton targetTekton) {
+        if (mycelium == null || targetTekton == null) {
+            return;
+        }
+    
+       Tekton currentTekton = mycelium.getCurrentTekton();
+        if (currentTekton != targetTekton) {
+           return;
+        }
+    
+        Hyphae newHyphae = new Hyphae();
+        targetTekton.addHyphae(newHyphae);
+        mycelium.addHyphae(newHyphae);
+        newHyphae.setOwner(this);
+        hyphaes.add(newHyphae);
+    
     }
 
     /**
@@ -134,7 +144,6 @@ public class Mycologist {
      * @param mycelium The mycelium to be added.
      */
     public void addMycelium(Mycelium mycelium) {
-        System.out.println("[Mycologist] addMycelium(" + mycelium + ") -> [Mycologist]");
         myceliums.add(mycelium);
     }
 
@@ -153,11 +162,8 @@ public class Mycologist {
      */
     public void growMycelium(Hyphae hyphae, Tekton targetTekton) {
         if(hyphae.getCurrentTekton().get(0) == targetTekton && hyphae.getCurrentTekton().size() == 1 && hyphae.getCurrentTekton().get(0).getSporeCount() >= 3) {
-            System.out.println("[Mycologist] new Mycelium("+targetTekton+") -> [Mycelium]");
             Mycelium newMycelium = new Mycelium(targetTekton);
-            System.out.println("[Mycologist] setCurrentTekton("+targetTekton+") -> ["+newMycelium+"]");
-            
-            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Tekton]");
+
             if(!targetTekton.addMycelium(newMycelium)) {
                 return;
             }
@@ -165,16 +171,13 @@ public class Mycologist {
             //remove spores
             for(int i = 0; i < 3; i++) {
                 Spore spore = targetTekton.getSpores().get(0);
-                System.out.println("[Mycologist] removeSpore(" + spore + ") -> [Tekton]");
                 targetTekton.removeSpore(spore);
             }
 
             addMycelium(newMycelium);
 
-            System.out.println("[Mycologist] addHyphae(" + hyphae + ") -> [Mycelium]");
             newMycelium.addHyphae(hyphae);
 
-            System.out.println("[Mycologist] addMycelium(" + newMycelium + ") -> [Hyphae]");
             hyphae.addMycelium(newMycelium);
         } else {
             System.out.println("[Mycologist] Failed to grow mycelium: Hyphae is not on the target Tekton or there are not enough spores.");
@@ -214,7 +217,7 @@ public class Mycologist {
      * @param targetTekton The tekton on which the new hyphae will grow on
      */
     public void growHyphaeOnTekton(Hyphae hyphae, Tekton targetTekton) {
-        if(hyphae.getCurrentTekton().size() != 2 || !hyphae.getCurrentTekton().contains(targetTekton)) {
+        if(hyphae.getCurrentTekton().size() != 2 || !hyphae.getCurrentTekton().contains(targetTekton) || !hyphaes.contains(hyphae)) {
             return;
         }
         
@@ -228,6 +231,11 @@ public class Mycologist {
     }
 
     public void growHyphaeOnTekton(Mycelium mycelium, Hyphae hyphae) {
+
+        if(mycelium == null || !hyphaes.contains(hyphae)) {
+            return;
+        }
+
         Hyphae newHyphae = hyphae;
         newHyphae.addCurrentTekton(mycelium.getCurrentTekton());
         if(mycelium.getCurrentTekton().addHyphae(newHyphae)){
@@ -244,6 +252,11 @@ public class Mycologist {
      * @param insect The insect to be consumed by the fungal network.
      */
     public void eatInsect(Insect insect) {
+
+        if (insect == null || !insect.isStunned()) {
+            return;
+        }
+
         HashSet<Tekton> tektons = new HashSet<>();
         for(Hyphae hyphae : hyphaes) {
             if(hyphae.getCurrentTekton().size() == 1) {
@@ -251,7 +264,7 @@ public class Mycologist {
             }
         }
          
-        if(insect.isStunned() && tektons.contains(insect.getCurrentTekton())) {
+        if(tektons.contains(insect.getCurrentTekton())) {
             
             Tekton insectTekton = insect.getCurrentTekton();
             Mycelium newMycelium = myceliums.get(0).clone();
@@ -285,6 +298,9 @@ public class Mycologist {
     public void tick(){
         for(Hyphae hyphae : hyphaes) {
             hyphae.tick();
+            if(hyphae.getTimeToLive() == 0) {
+                hyphaes.remove(hyphae);
+            }
         }
     }
 
@@ -308,5 +324,12 @@ public class Mycologist {
     public void growSpore(Mycelium mycelium) {
         Spore spore = selectedType.clone();
         mycelium.addSpore(spore);
+    }
+
+    public void addHyphae(Hyphae hyphae) {
+        if(hyphaes.contains(hyphae)) {
+            return;
+        }
+        hyphaes.add(hyphae);
     }
 }

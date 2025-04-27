@@ -86,14 +86,20 @@ public abstract class Tekton {
      * @param tekton The tekton to connect to.
      */
     public void connectToTekton(Tekton tekton) {
-        if(connectedNeighbours.contains(tekton)){
-            return;
-        }
+
         if(!neighbours.contains(tekton)) {
-            neighbours.add(tekton);
+            addNeighbour(tekton);
         }
-        connectedNeighbours.add(tekton);
-        tekton.connectedNeighbours.add(tekton);
+        if(!tekton.neighbours.contains(this)) {
+            tekton.addNeighbour(this);
+        }
+
+        if (!connectedNeighbours.contains(tekton)) {
+            connectedNeighbours.add(tekton);
+        }
+        if (!tekton.getConnectedNeighbours().contains(this)) {
+            tekton.getConnectedNeighbours().add(this);
+        }
     }
 
     /**
@@ -126,7 +132,7 @@ public abstract class Tekton {
      * @param tekton The neighbour to add.
      */
     public void addNeighbour(Tekton tekton) {
-        if(neighbours.contains(tekton)) {
+        if(neighbours.contains(tekton) || tekton == this) {
             return;
         }
         neighbours.add(tekton);
@@ -169,6 +175,9 @@ public abstract class Tekton {
      * @param hyphae The hyphae to add.
      */
     public boolean addHyphae(Hyphae hyphae) {
+        if(hasHyphae(hyphae)) {
+            return false;
+        }
         fungalManager.addHyphae(hyphae);
         hyphae.addCurrentTekton(this);
         return true;

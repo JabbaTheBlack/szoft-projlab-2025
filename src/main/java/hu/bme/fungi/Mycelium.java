@@ -72,7 +72,6 @@ public class Mycelium {
             for(int i = 0; i < 3; i++) {
                 if(!tektonspores.isEmpty()) {
                     Spore randomSpore = tektonspores.get(random.nextInt(tektonspores.size()));
-                    System.out.println("[Mycelium] removeSpore("+randomSpore+") -> [" + currentTekton + "]");
                     currentTekton.removeSpore(randomSpore);
                 }
             }
@@ -112,10 +111,8 @@ public class Mycelium {
         while(!spores.isEmpty() && !targets.isEmpty()) {
             Tekton randomTekton = targets.remove(random.nextInt(targets.size()));
 
-            System.out.println("[Mycelium] addSpore(" + spores.get(0) + ") -> [" + randomTekton + "]");
-                randomTekton.addSpore(spores.get(0));
+            randomTekton.addSpore(spores.get(0));
 
-            System.out.println("[Mycelium] removeSpore(" + spores.get(0) + ") -> [Myceium]");
             removeSpore(spores.get(0));
             maxSporeRelease--;
 

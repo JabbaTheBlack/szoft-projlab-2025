@@ -30,33 +30,33 @@ import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 
 public class ConsoleApp {
-    private static GameController gameController = new GameController(); 
-    private static InsectManager insectManager = InsectManager.getInstance();
-    private static MycologistManager mycologistManager = MycologistManager.getInstance();
-    private static HashMap<String, Entomologist> entomologistWithIds = new HashMap<>();
-    private static HashMap<String, Mycologist> mycologistWithIds = new HashMap<>();
-    private static HashMap<String, Tekton> tektonsWithIds = new HashMap<>();
-    private static HashMap<String, Mycelium> myceliumsWithIds = new HashMap<>();
-    private static HashMap<String, Insect> insectsWithIds = new HashMap<>();
-    private static HashMap<String, Spore> sporesWithIds = new HashMap<>();
-    private static HashMap<String, Hyphae> hyphaesWithIds = new HashMap<>();
-    private static Ticker ticker = Ticker.getInstance();
+    public static GameController gameController = new GameController(); 
+    public static InsectManager insectManager = InsectManager.getInstance();
+    public static MycologistManager mycologistManager = MycologistManager.getInstance();
+    public static HashMap<String, Entomologist> entomologistWithIds = new HashMap<>();
+    public static HashMap<String, Mycologist> mycologistWithIds = new HashMap<>();
+    public static HashMap<String, Tekton> tektonsWithIds = new HashMap<>();
+    public static HashMap<String, Mycelium> myceliumsWithIds = new HashMap<>();
+    public static HashMap<String, Insect> insectsWithIds = new HashMap<>();
+    public static HashMap<String, Spore> sporesWithIds = new HashMap<>();
+    public static HashMap<String, Hyphae> hyphaesWithIds = new HashMap<>();
+    public static Ticker ticker = Ticker.getInstance();
     
     public ConsoleApp() {
        
     }
     
     
-    private static String generateId(String prefix, int id) {
+    public static String generateId(String prefix, int id) {
         return prefix + id;
     }
 
-    private String getInput(){
+    public String getInput(){
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    private void addPlayer(String player) {
+    public void addPlayer(String player) {
         if(player.toLowerCase().equals("entomologist")){
             Entomologist entomologist = new Entomologist();
             insectManager.addEntomologist(entomologist);
@@ -74,7 +74,7 @@ public class ConsoleApp {
         }
     }
 
-    private void listPlayers() {
+    void listPlayers() {
 
         if(entomologistWithIds.size() == 0 && mycologistWithIds.size() == 0){
             System.out.println("No player");
@@ -92,12 +92,45 @@ public class ConsoleApp {
         }
     }
 
-    private void roundElapsed() {
+    public void roundElapsed() {
         ticker.tick();
         System.out.println("1 round has passed");
+    
+        // Step 1: Collect all existing Hyphae from Mycologists
+        List<Hyphae> existingHyphae = new ArrayList<>();
+        for (Mycologist mycologist : mycologistManager.getMycologists()) {
+            existingHyphae.addAll(mycologist.getHyphaes());
+        }
+    
+        // Step 2: Collect all existing Hyphae from Tektons
+        for (Tekton tekton : tektonsWithIds.values()) {
+            existingHyphae.addAll(tekton.getHyphaes());
+        }
+    
+        // Step 3: Collect IDs of Hyphae to remove
+        List<String> hyphaeIdsToRemove = new ArrayList<>();
+        for (Map.Entry<String, Hyphae> entry : hyphaesWithIds.entrySet()) {
+            String hyphaeId = entry.getKey();
+            Hyphae hyphae = entry.getValue();
+    
+            if (!existingHyphae.contains(hyphae)) {
+                hyphaeIdsToRemove.add(hyphaeId);
+            }
+        }
+    
+        // Step 4: Remove Hyphae after iteration
+        for (String hyphaeId : hyphaeIdsToRemove) {
+            hyphaesWithIds.remove(hyphaeId);
+            System.out.println("Hyphae with ID " + hyphaeId + " has been removed from hyphaesWithIds.");
+        }
+    
+        // Step 5: Clean up Tektons (remove references to non-existent Hyphae)
+        for (Tekton tekton : tektonsWithIds.values()) {
+            tekton.getHyphaes().removeIf(hyphae -> !hyphaesWithIds.containsValue(hyphae));
+        }
     }
 
-    private void addInsect(String tektonId, String entomologistId) {
+    public void addInsect(String tektonId, String entomologistId) {
         Tekton tekton = tektonsWithIds.get(tektonId);
         Entomologist entomologist = entomologistWithIds.get(entomologistId);
 
@@ -113,7 +146,7 @@ public class ConsoleApp {
         System.out.println("I" + (insectsWithIds.size()-1) + " insect added to " + entomologistId + " entomologist and to " + tektonId + " tekton");
     }
 
-    private void addMycelium(String tektonId, String mycologistId) {
+    public void addMycelium(String tektonId, String mycologistId) {
         Tekton tekton = tektonsWithIds.get(tektonId);
         Mycologist mycologist = mycologistWithIds.get(mycologistId);
     
@@ -137,7 +170,7 @@ public class ConsoleApp {
         System.out.println(myceliumId + " mycelium added to " + mycologistId + " mycologist and to " + tektonId + " tekton");
     }
 
-    private void moveInsect(String insectId, String tektonId){
+    public void moveInsect(String insectId, String tektonId){
         if(!(insectsWithIds.containsKey(insectId) && tektonsWithIds.containsKey(tektonId))){
             System.out.println("Invalid insect or tekton ID");
             return;
@@ -150,20 +183,22 @@ public class ConsoleApp {
         }
     }
     
-    private void listInsects(String entomologistID){
-        if(!entomologistWithIds.containsKey(entomologistID)){
+    public void listInsects(String entomologistID) {
+        if (!entomologistWithIds.containsKey(entomologistID)) {
             System.out.println("Invalid entomologist ID");
-
         } else {
             Entomologist entomologist = entomologistWithIds.get(entomologistID);
             List<Insect> insects = entomologist.getInsects();
-            for(Insect insect : insects){
-                System.out.println(insect);
+            for (Insect insect : insects) {
+                String owner = entomologistID;
+                String location = insect.getCurrentTekton() != null ? getTektonId(insect.getCurrentTekton()) : "Unknown location";
+                //String effect = insect.getEffect() != null ? insect.getEffect().toString() : "No effect";
+                System.out.println("Insect: " + insect + ", Owner: " + owner + ", Location: " + location);
             }
         }
     }
 
-    private void addTekton(String tektonType) {
+    public void addTekton(String tektonType) {
         switch (tektonType) {
             case "absorbing":
                 AbsrobingTekton absrobingTekton = new AbsrobingTekton();
@@ -201,31 +236,39 @@ public class ConsoleApp {
         }
     }
 
-    private void addSpore(String tektonId, String sporeType) {
+    public void addSpore(String tektonId, String sporeType) {
         Tekton tekton = tektonsWithIds.get(tektonId);
 
         switch (sporeType) {
             case "DefensiveSpore":
+            case "defensive":
                 DefensiveSpore spore = new DefensiveSpore();
                 tekton.addSpore(spore);
                 sporesWithIds.put(generateId("S", sporesWithIds.size()), spore);
                 break;
             case "StunSpore":
+            case "stun":
+            case "stunning":
                 StunSpore stunSpore = new StunSpore();
                 tekton.addSpore(stunSpore);
                 sporesWithIds.put(generateId("S", sporesWithIds.size()), stunSpore);
                 break;
             case "SlowingSpore":
+            case "slowing":
                 SlowingSpore slowingSpore = new SlowingSpore();
                 tekton.addSpore(slowingSpore);
                 sporesWithIds.put(generateId("S", sporesWithIds.size()), slowingSpore);
                 break;
             case "SpeedBoostSpore":
+            case "speed":
+            case "speedboost":
+            case "speedBoost":
                 SpeedBoostSpore speedBoostSpore = new SpeedBoostSpore();
                 tekton.addSpore(speedBoostSpore);
                 sporesWithIds.put(generateId("S", sporesWithIds.size()), speedBoostSpore);
                 break;
             case "CloneSpore":
+            case "clone":
                 CloneSpore cloneSpore = new CloneSpore();
                 tekton.addSpore(cloneSpore);
                 sporesWithIds.put(generateId("S", sporesWithIds.size()), cloneSpore);
@@ -237,48 +280,109 @@ public class ConsoleApp {
         System.out.println(generateId("S", sporesWithIds.size() - 1) + " spore added to " + tektonId + " tekton");
     }
 
-    private void addHyphae(String hyphaeOrMyceliumId, String tektonId, String mycologistId) {
+    public void addHyphae(String hyphaeOrMyceliumId, String tektonId, String mycologistId) {
+        // Step 1: Retrieve the Mycologist
         Mycologist mycologist = mycologistWithIds.get(mycologistId);
         if (mycologist == null) {
             System.out.println("Mycologist with ID " + mycologistId + " not found.");
             return;
         }
     
+        // Step 2: Retrieve the Tekton
         Tekton tekton = tektonsWithIds.get(tektonId);
         if (tekton == null) {
             System.out.println("Tekton with ID " + tektonId + " not found.");
             return;
         }
     
-        Hyphae hyphae = hyphaesWithIds.get(hyphaeOrMyceliumId);
-        if (hyphae != null) {
-            if (!hyphae.getCurrentTekton().contains(tekton) && 
-                !tekton.getNeighbours().contains(hyphae.getCurrentTekton().get(0))) {
-                System.out.println("[Mycologist] Failed to grow hyphae: Tekton is not a neighbour or the same Tekton.");
+        // Step 3: Check if the ID refers to a Hyphae
+        Hyphae argumentHyphae = hyphaesWithIds.get(hyphaeOrMyceliumId);
+        if (argumentHyphae == null) {
+            // Step 4: Handle Mycelium Case
+            Mycelium argumentMycelium = myceliumsWithIds.get(hyphaeOrMyceliumId);
+            if (argumentMycelium == null) {
+                System.out.println("Invalid ID: " + hyphaeOrMyceliumId + " is neither a Hyphae nor a Mycelium.");
                 return;
             }
-            String id = generateId("H", hyphaesWithIds.size());
-            hyphaesWithIds.put(id, hyphae);
-            mycologist.growHyphaeToTekton(hyphae, tekton);
-            System.out.println(id + " hyphae added to Tekton with ID " + tektonId);
-            return;
-        } else  {
-            Mycelium mycelium = myceliumsWithIds.get(hyphaeOrMyceliumId);
-            if(mycelium == null) {
-                System.out.println("Invalid mycelium id");
+    
+            // Grow a new Hyphae on the same Tekton as the Mycelium
+            if (tekton == argumentMycelium.getCurrentTekton()) {
+                Hyphae newHyphae = new Hyphae(tekton);
+                mycologist.addHyphae(newHyphae);
+
+                tekton.addHyphae(newHyphae);
+                newHyphae.setOwner(mycologist);
+                newHyphae.addMycelium(argumentMycelium);
+                argumentMycelium.addHyphae(newHyphae);
+    
+                String generatedId = generateId("H", hyphaesWithIds.size());
+                hyphaesWithIds.put(generatedId, newHyphae);
+    
+                System.out.println(generatedId + " hyphae added to " + mycologistId);
+                return;
+            } else {
+                System.out.println("Tekton does not match the Mycelium's current Tekton.");
                 return;
             }
-            
-            Hyphae newHyphae = new Hyphae();
-            mycologist.growHyphaeOnTekton(mycelium, newHyphae);
-            newHyphae.addCurrentTekton(mycelium.getCurrentTekton());
-            String newId = generateId("H", hyphaesWithIds.size());
-            hyphaesWithIds.put(newId, newHyphae);
-            System.out.println(newId + " hyphae added");
+        } else {
+            // Step 5: Handle Hyphae Case
+            if (argumentHyphae.getCurrentTekton().size() == 1) {
+                // Case: Hyphae with one current Tekton
+                Tekton connectedTekton = argumentHyphae.getCurrentTekton().get(0);
+    
+                if (tekton.getNeighbours().contains(connectedTekton)) {
+                    Hyphae newHyphae = new Hyphae(connectedTekton);
+                    mycologist.addHyphae(newHyphae);
+
+                    newHyphae.addCurrentTekton(tekton);
+                    newHyphae.setOwner(mycologist);
+                    newHyphae.addHyphae(argumentHyphae);
+                    argumentHyphae.addHyphae(newHyphae);
+    
+                    String generatedId = generateId("H", hyphaesWithIds.size());
+                    hyphaesWithIds.put(generatedId, newHyphae);
+    
+                    System.out.println(generatedId + " hyphae added, spanning from " +
+                        getTektonId(connectedTekton) + " to " + tektonId);
+    
+                    // Connect the Tektons
+                    tekton.connectToTekton(connectedTekton);
+                    System.out.println(tektonId + " connected to " + getTektonId(connectedTekton) + " via " + generatedId);
+                    return;
+                } else {
+                    System.out.println("Tekton " + tektonId + " is not a neighbor of " + getTektonId(connectedTekton));
+                    return;
+                }
+            } else if (argumentHyphae.getCurrentTekton().size() == 2) {
+                // Case: Hyphae with two current Tektons
+                Tekton secondTekton = argumentHyphae.getCurrentTekton().get(1);
+    
+                if (tekton == secondTekton) {
+                    Hyphae newHyphae = new Hyphae(tekton);
+                    mycologist.addHyphae(newHyphae);
+
+                    tekton.addHyphae(newHyphae);
+                    newHyphae.setOwner(mycologist);
+                    argumentHyphae.addHyphae(newHyphae);
+                    newHyphae.addHyphae(argumentHyphae);
+    
+                    String generatedId = generateId("H", hyphaesWithIds.size());
+                    hyphaesWithIds.put(generatedId, newHyphae);
+    
+                    System.out.println(generatedId + " hyphae added to " + tektonId);
+                    return;
+                } else {
+                    System.out.println("Tekton " + tektonId + " does not match the second Tekton of the Hyphae.");
+                    return;
+                }
+            } else {
+                System.out.println("Invalid Hyphae state: Hyphae has unexpected number of current Tektons.");
+                return;
+            }
         }
     }
 
-    private void listHyphae(String string) {
+    public void listHyphae(String string) {
         switch(string){
             case "all":
                 for (Map.Entry<String, Hyphae> entry : hyphaesWithIds.entrySet()) {
@@ -302,7 +406,8 @@ public class ConsoleApp {
                 break;
         }
     }
-    private void printMap(){  
+
+    public void printMap(){  
         for (Map.Entry<String, Tekton> entry : tektonsWithIds.entrySet()) {
             String tektonId = entry.getKey();
             Tekton tekton = entry.getValue();
@@ -324,7 +429,7 @@ public class ConsoleApp {
         }
     }
 
-    private static String getKeyByValue(Tekton value) {
+    public static String getKeyByValue(Tekton value) {
         for (Map.Entry<String, Tekton> entry : tektonsWithIds.entrySet()) {
             if (entry.getValue() == value) {
                 return entry.getKey();
@@ -333,7 +438,7 @@ public class ConsoleApp {
         return null;
     }
 
-    private void listSpore(String tektronid) {
+    public void listSpore(String tektronid) {
         String mode = tektronid.toLowerCase();
         if(mode.equals("all")){
             for (Map.Entry<String, Tekton> entry : tektonsWithIds.entrySet()) {
@@ -359,16 +464,16 @@ public class ConsoleApp {
         }
     }
 
-    private void growHyphaeFromHyphae(String tektronid, String mycologistid, String hyphaeId) {
+    public void growHyphaeFromHyphae(String tektronid, String mycologistid, String hyphaeId) {
         Tekton tekton = tektonsWithIds.get(tektronid);
     
         
         Mycologist mycologist = mycologistWithIds.get(mycologistid);
         Hyphae hyphae = hyphaesWithIds.get(hyphaeId);
         mycologist.growHyphaeToTekton(hyphae, tekton);
-       }
+    }
 
-    private void growHyphaefromMycelium(String mycologistid, String myceliumId) {
+    public void growHyphaefromMycelium(String mycologistid, String myceliumId) {
      
         
         Mycologist mycologist = mycologistWithIds.get(mycologistid);
@@ -382,34 +487,7 @@ public class ConsoleApp {
         System.out.println(newId + " hyphae grown from mycelium " + myceliumId);
     }
 
-    private void loadMap(String file) {
-        // Construct the path to the testConfig folder
-        String filePath = "src/main/java/hu/bme/console/testConfig/" + file;
-    
-        File loadedFile = new File(filePath);
-        System.out.println("Attempting to open file: " + loadedFile.getAbsolutePath());
-    
-        // Check if the file exists
-        if (!loadedFile.exists()) {
-            System.out.println("File doesn't exist: " + loadedFile.getAbsolutePath());
-            return;
-        }
-    
-        // Read and process the file line by line
-        try (Scanner fileScanner = new Scanner(loadedFile)) {
-            while (fileScanner.hasNextLine()) {
-                String command = fileScanner.nextLine().trim();
-                if (!command.isEmpty()) {
-                    processCommand(command); // Reuse the existing command processing logic
-                }
-            }
-            System.out.println("File loaded successfully.");
-        } catch (Exception e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
-    }
-
-    private void addTektonNeighbour(String tektonId, List<String> neighbourIds) {
+    public void addTektonNeighbour(String tektonId, List<String> neighbourIds) {
         // Ensure the Tekton ID is uppercase
         tektonId = tektonId.toUpperCase();
     
@@ -438,7 +516,7 @@ public class ConsoleApp {
         System.out.println("Tekton neighbours added for " + tektonId);
     }
 
-    private void releaseSpore(String MyceliumID){
+    public void releaseSpore(String MyceliumID){
         Mycelium mycelium = myceliumsWithIds.get(MyceliumID);
         if(mycelium == null){
             System.out.println("No mycelium with this ID");
@@ -449,7 +527,7 @@ public class ConsoleApp {
         }
     }
 
-    private void listNeighbour(String id){
+    public void listNeighbour(String id){
         Tekton tekton = tektonsWithIds.get(id);
         if(tekton == null){
             System.out.println("No tekton with this ID");
@@ -467,7 +545,7 @@ public class ConsoleApp {
         }
     }
 
-    private void eatSpore(String entimologistID, String insectId, String sporeId){
+    public void eatSpore(String entimologistID, String insectId, String sporeId){
         if(!insectsWithIds.containsKey(insectId)){
             System.out.println("Invalid insect ID");
             return;
@@ -487,7 +565,7 @@ public class ConsoleApp {
         }
     }
 
-    private void upgradeMycelium(String mycologistId , String myceliumId) {
+    public void upgradeMycelium(String mycologistId , String myceliumId) {
         Mycelium mycelium = myceliumsWithIds.get(myceliumId);
         Mycologist mycologist = mycologistWithIds.get(mycologistId);
         if(mycelium == null){
@@ -504,7 +582,7 @@ public class ConsoleApp {
         }
     }
 
-    private void growNewMycelium(String mycologistID, String hyphaeID) {
+    public void growNewMycelium(String mycologistID, String hyphaeID) {
         Mycologist mycologist = mycologistWithIds.get(mycologistID);
         Hyphae hyphae = hyphaesWithIds.get(hyphaeID);
         if (mycologist == null) {
@@ -531,7 +609,7 @@ public class ConsoleApp {
     }
 
 
-    private String getTektonId(Tekton tekton) {
+    public String getTektonId(Tekton tekton) {
         for (HashMap.Entry<String, Tekton> entry : tektonsWithIds.entrySet()) {
             if (entry.getValue().equals(tekton)) {
                 return entry.getKey(); // Return the ID if the Tekton matches
@@ -561,7 +639,7 @@ public class ConsoleApp {
 
     }
 
-    private static void setMyceliumType(String mycologistID, String spore) {
+    public static void setMyceliumType(String mycologistID, String spore) {
         Mycologist mycologist = mycologistWithIds.get(mycologistID);
 
         if(mycologist == null){
@@ -605,7 +683,7 @@ public class ConsoleApp {
         }
     }
 
-    private void eatInsect(String mycologistID, String insectID){
+    public void eatInsect(String mycologistID, String insectID){
         Mycologist mycologist = mycologistWithIds.get(mycologistID);
         Insect insect = insectsWithIds.get(insectID);
 
@@ -621,7 +699,7 @@ public class ConsoleApp {
         }
     }
 
-    private void putSporeToMycelium(String mycologistID, String myceliumID){
+    public void putSporeToMycelium(String mycologistID, String myceliumID){
         Mycelium mycelium = myceliumsWithIds.get(myceliumID);
         Mycologist mycologist = mycologistWithIds.get(mycologistID);
         if(mycelium == null || mycologist == null){
@@ -632,7 +710,7 @@ public class ConsoleApp {
         }
     }
 
-    private void breakApart(String tektonID) {
+    public void breakApart(String tektonID) {
         Tekton tekton = tektonsWithIds.get(tektonID);
         if (tekton == null) {
             System.out.println("Tekton with ID " + tektonID + " not found.");
@@ -659,116 +737,5 @@ public class ConsoleApp {
         System.out.println("born");
        
     }
-
-    private void processCommand(String command) {
-        if (command.trim().isEmpty()) return;
-    
-        String[] inputStrings = command.split(" ");
-        
-        //TODO kell fuggveny ami belerak spórat gombatestbe, 
-
-        switch (inputStrings[0]) {
-            case "listPlayer":
-                listPlayers();
-                break;
-            case "addPlayer":
-                addPlayer(command.substring(command.indexOf(" ") + 1));
-                break;
-            case "roundElapsed":
-                roundElapsed();
-                break;
-            case "addInsect":
-                addInsect(inputStrings[1], inputStrings[2]);
-                break;
-            case "addMycelium":
-                addMycelium(inputStrings[1], inputStrings[2]);
-                break;
-            case "moveInsect":
-                moveInsect(inputStrings[1], inputStrings[2]);
-                break;
-            case "listInsects":
-                listInsects(inputStrings[1]);
-                break;
-            case "listHyphae":
-                listHyphae(inputStrings[1]);
-                break;
-            case "printMap":
-                printMap();
-                break;
-            case "listSpore":
-                listSpore(inputStrings[1]);
-                break;
-            case "growHyphaefromHyphae":
-                growHyphaeFromHyphae(inputStrings[1], inputStrings[2], inputStrings[3]);
-                break;
-            case "growHyphaefromMycelium":
-                growHyphaefromMycelium(inputStrings[1], inputStrings[2]);
-                break;
-            case "addSpore":
-                addSpore(inputStrings[1], inputStrings[2]);
-                break;
-            case "addHyphae":
-                addHyphae(inputStrings[1], inputStrings[2], inputStrings[3]);
-                break;
-            case "listNeighbour":
-                listNeighbour(inputStrings[1]);
-                break;
-            case "eatSpore":
-                eatSpore(inputStrings[1], inputStrings[2], inputStrings[3]);
-                break;
-            case "upgradeMycelium":
-                upgradeMycelium(inputStrings[1], inputStrings[2]);
-                break;
-            case "growNewMycelium":
-                growNewMycelium(inputStrings[1], inputStrings[2]);
-                break;
-            case "addTekton":
-                addTekton(inputStrings[1]);
-                break;
-                case "addTektonNeighbour": {
-                    String tektonId = inputStrings[1];
-                    List<String> neighbourIds = new ArrayList<>();
-                    for (int i = 2; i < inputStrings.length; i++) {
-                        neighbourIds.add(inputStrings[i]);
-                    }
-                    addTektonNeighbour(tektonId, neighbourIds);
-                    break;
-                }
-            case "loadMap":
-                loadMap(inputStrings[1]);
-                break;
-            case "releaseSpore":
-                releaseSpore(inputStrings[1]);
-                break;
-            case "breakApart":
-                breakApart(inputStrings[1]);
-                break;
-            case "chooseFungalType":
-                setMyceliumType(inputStrings[1], inputStrings[2]);
-                break;
-            case "cutHyphae":
-                cutHyphae(inputStrings[1], inputStrings[2], inputStrings[3]);
-            break;
-            case "eatInsect":
-                eatInsect(inputStrings[1], inputStrings[2]);
-                break;
-            case "putSporeToMycelium":
-                putSporeToMycelium(inputStrings[1], inputStrings[2]);
-                break;
-            default:
-                System.out.println("Unknown command: " + inputStrings[0]);
-                break;
-        }
-    }
-
-    public void run() {
-        System.out.println("Baszodj meg");
-        String input;
-        do {
-            input = getInput();
-            processCommand(input);
-        } while (!input.trim().equalsIgnoreCase("Exit"));
-    }
-       
 }
 
