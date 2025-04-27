@@ -223,13 +223,43 @@ public class CommandProcessor {
                 }
                 consoleApp.putSporeToMycelium(inputStrings[1], inputStrings[2]);
                 break;
-            case "savestate":
-                if (inputStrings.length < 2) {
-                    System.out.println("File name");
-                    return;
-                }
-                consoleApp.saveState(inputStrings[1]);
+
+            case "help":
+                System.out.println("Available commands:");
+                System.out.println("\t- listPlayer - Lists all players");
+                System.out.println("\t- addPlayer <playerType> - Adds a player (entomologist or mycologist)");
+                System.out.println("\t- troundElapsed - Advances the game by one round");
+                System.out.println(
+                        "\t- addInsect <tektonId> <entomologistId> - Adds an insect to a tekton and entomologist");
+                System.out.println(
+                        "\t- addMycelium <tektonId> <mycologistId> - Adds a mycelium to a tekton and mycologist");
+                System.out.println("\t- moveInsect <insectId> <tektonId> - Moves an insect to a new tekton");
+                System.out.println("\t- listInsects <entomologistId> - Lists all insects of an entomologist");
+                System.out.println("\t- listHyphae <id> - Lists hyphae by ID or all hyphae");
+                System.out.println("\t- printMap - Prints the map of tektons");
+                System.out.println("\t- listSpore <tektonId> - Lists spores in a tekton");
+                System.out.println(
+                        "\t- growHyphaefromHyphae <hyphaeId> <tektonId> <myceliumId> - Grows hyphae from another hyphae");
+                System.out.println("\t- growHyphaefromMycelium <myceliumId> <tektonId> - Grows hyphae from a mycelium");
+                System.out.println("\t- addSpore <tektonId> <sporeType> - Adds a spore to a tekton");
+                System.out.println(
+                        "\t- addHyphae <hyphaeId> <tektonId> <myceliumId> - Adds hyphae to a tekton and mycelium");
+                System.out.println("\t- listNeighbour <tektonId> - Lists neighbors of a tekton");
+                System.out.println("\t- eatSpore <mycologistId> <tektonId> <sporeId> - Mycologist eats a spore");
+                System.out.println("\t- upgradeMycelium <myceliumId> <upgradeType> - Upgrades a mycelium");
+                System.out.println("\t- growNewMycelium <tektonId> <myceliumId> - Grows a new mycelium");
+                System.out.println("\t- addTekton <tektonType> - Adds a tekton of a specific type");
+                System.out.println("\t- addTektonNeighbour <tektonId> <neighbourIds...> - Adds neighbors to a tekton");
+                System.out.println("\t- loadMap <fileName> - Loads a map from a file");
+                System.out.println("\t- releaseSpore <sporeId> - Releases a spore");
+                System.out.println("\t- breakApart <tektonId> - Breaks apart a tekton");
+                System.out
+                        .println("\t- chooseFungalType <myceliumId> <fungalType> - Sets the fungal type of a mycelium");
+                System.out.println("\t- cutHyphae <hyphaeId> <tektonId> <myceliumId> - Cuts a hyphae");
+                System.out.println("\t- eatInsect <mycologistId> <insectId> - Mycologist eats an insect");
+                System.out.println("\t- putSporeToMycelium <sporeId> <myceliumId> - Puts a spore into a mycelium");
                 break;
+
             default:
                 System.out.println("Unknown command: " + inputStrings[0]);
                 break;
