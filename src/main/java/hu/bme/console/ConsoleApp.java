@@ -199,6 +199,9 @@ public class ConsoleApp {
                 // "No effect";
                 System.out.println("Insect: " + insect + ", Owner: " + owner + ", Location: " + location);
             }
+            if (insects.isEmpty()) {
+                System.out.println("No insects found for entomologist with ID: " + entomologistID);
+            }
         }
     }
 

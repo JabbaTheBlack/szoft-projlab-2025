@@ -295,13 +295,11 @@ public class Mycologist {
     /**
      * Executes lifecycle management for all managed hyphaes. 
      */
-    public void tick(){
-        for(Hyphae hyphae : hyphaes) {
+    public void tick() {
+        hyphaes.removeIf(hyphae -> {
             hyphae.tick();
-            if(hyphae.getTimeToLive() == 0) {
-                hyphaes.remove(hyphae);
-            }
-        }
+            return hyphae.getTimeToLive() == 0;
+        });
     }
 
     /**
