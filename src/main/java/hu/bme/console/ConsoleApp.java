@@ -96,7 +96,7 @@ public class ConsoleApp {
         ticker.tick();
         System.out.println("1 round has passed");
     
-        // Step 1: Collect all existing Hyphae from Mycologists
+        //Step 1: Collect all existing Hyphae from Mycologists
         List<Hyphae> existingHyphae = new ArrayList<>();
         for (Mycologist mycologist : mycologistManager.getMycologists()) {
             existingHyphae.addAll(mycologist.getHyphaes());
