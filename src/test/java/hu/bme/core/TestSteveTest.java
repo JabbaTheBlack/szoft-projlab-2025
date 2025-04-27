@@ -25,13 +25,12 @@ import hu.bme.tekton.Tekton;
 class TestSteveTest {
     private Mycologist mycologist1;
     private Mycologist mycologist2;
-    
+
     private Entomologist entomologist;
     private Tekton t0, t1, t2, t3, t4, t5, t6;
 
     private Mycelium mycelium1, mycelium2;
     private Insect insect;
-
 
     @BeforeEach
     void setUp() {
@@ -52,13 +51,13 @@ class TestSteveTest {
         t1.addNeighbour(t3);
         t1.addNeighbour(t2);
         t1.addNeighbour(t4);
-        
+
         t3.addNeighbour(t6);
         t3.addNeighbour(t5);
         t3.addNeighbour(t2);
-        
+
         t6.addNeighbour(t5);
-        
+
         t4.addNeighbour(t2);
         t4.addNeighbour(t5);
 
@@ -74,7 +73,7 @@ class TestSteveTest {
         // Add Mycelium
         mycelium1 = new Mycelium(t0);
         mycelium2 = new Mycelium(t6);
-        
+
         mycologist1.addMycelium(mycelium1);
         mycelium1.setCurrentTekton(t0);
         t0.addMycelium(mycelium1);
@@ -153,8 +152,7 @@ class TestSteveTest {
         // Verify Insect is Removed
         assertNull(insect.getCurrentTekton());
         assertFalse(entomologist.getInsects().contains(insect));
-    
-        
+
     }
 
     private void verifyT0(Tekton t0) {
@@ -172,7 +170,7 @@ class TestSteveTest {
         assertTrue(t1.getNeighbours().contains(t2));
         assertTrue(t1.getNeighbours().contains(t3));
         assertTrue(t1.getNeighbours().contains(t4));
-      
+
         assertFalse(t1.getNeighbours().contains(t1));
         assertFalse(t1.getNeighbours().contains(t5));
         assertFalse(t1.getNeighbours().contains(t6));
@@ -182,23 +180,23 @@ class TestSteveTest {
         assertTrue(t2.getNeighbours().contains(t1));
         assertTrue(t2.getNeighbours().contains(t3));
         assertTrue(t2.getNeighbours().contains(t4));
-        
+
         assertFalse(t2.getNeighbours().contains(t0));
         assertFalse(t2.getNeighbours().contains(t6));
     }
 
     private void verifyT3(Tekton t3) {
-        
+
         assertTrue(t3.getNeighbours().contains(t1));
         assertTrue(t3.getNeighbours().contains(t2));
         assertTrue(t3.getNeighbours().contains(t5));
         assertTrue(t3.getNeighbours().contains(t5));
         assertTrue(t3.getNeighbours().contains(t0));
-        
-        
+
         assertFalse(t3.getNeighbours().contains(t4));
         assertFalse(t3.getNeighbours().contains(t3));
     }
+
     private void verifyT4(Tekton t4) {
         assertTrue(t4.getNeighbours().contains(t1));
         assertTrue(t4.getNeighbours().contains(t2));
@@ -220,6 +218,7 @@ class TestSteveTest {
         assertFalse(t5.getNeighbours().contains(t2));
         assertFalse(t5.getNeighbours().contains(t5));
     }
+
     private void verifyT6(Tekton t6) {
         assertTrue(t6.getNeighbours().contains(t5));
         assertTrue(t6.getNeighbours().contains(t3));
