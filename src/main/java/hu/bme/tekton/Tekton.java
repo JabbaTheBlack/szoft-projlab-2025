@@ -289,4 +289,6 @@ public abstract class Tekton {
     public List<Hyphae> getHyphaes() {
         return fungalManager.getHyphaes();
     }
+    public void absorbHyphae() {}
+       
 }

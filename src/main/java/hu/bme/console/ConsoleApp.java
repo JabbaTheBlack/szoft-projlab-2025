@@ -47,6 +47,7 @@ public class ConsoleApp {
     public static HashMap<String, Hyphae> hyphaesWithIds = new HashMap<>();
     public static Ticker ticker = Ticker.getInstance();
     public int removed = 0;
+    
 
     public ConsoleApp() {
 
@@ -127,6 +128,9 @@ public class ConsoleApp {
             }
         }
 
+        for (Tekton tekton : tektonsWithIds.values()) {
+            tekton.absorbHyphae();
+        }
         // Step 4: Remove Hyphae after iteration
         for (String hyphaeId : hyphaeIdsToRemove) {
             hyphaesWithIds.remove(hyphaeId);
