@@ -25,7 +25,6 @@ public class FungalManager {
      * and spores.
      */
     public FungalManager() {
-
         myceliumManager = new MyceliumManager();
         hyphaeManager = new HyphaeManager();
         sporeManager = new SporeManager();
