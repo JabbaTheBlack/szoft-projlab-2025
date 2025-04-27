@@ -195,6 +195,9 @@ public class ConsoleApp {
                 //String effect = insect.getEffect() != null ? insect.getEffect().toString() : "No effect";
                 System.out.println("Insect: " + insect + ", Owner: " + owner + ", Location: " + location);
             }
+            if (insects.isEmpty()) {
+                System.out.println("No insects found for entomologist with ID: " + entomologistID);
+            }
         }
     }
 
