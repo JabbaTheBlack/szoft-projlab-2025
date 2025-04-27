@@ -150,15 +150,17 @@ public class ConsoleApp {
         }
     }
     
-    public void listInsects(String entomologistID){
-        if(!entomologistWithIds.containsKey(entomologistID)){
+    public void listInsects(String entomologistID) {
+        if (!entomologistWithIds.containsKey(entomologistID)) {
             System.out.println("Invalid entomologist ID");
-
         } else {
             Entomologist entomologist = entomologistWithIds.get(entomologistID);
             List<Insect> insects = entomologist.getInsects();
-            for(Insect insect : insects){
-                System.out.println(insect);
+            for (Insect insect : insects) {
+                String owner = entomologistID;
+                String location = insect.getCurrentTekton() != null ? getTektonId(insect.getCurrentTekton()) : "Unknown location";
+                //String effect = insect.getEffect() != null ? insect.getEffect().toString() : "No effect";
+                System.out.println("Insect: " + insect + ", Owner: " + owner + ", Location: " + location);
             }
         }
     }
