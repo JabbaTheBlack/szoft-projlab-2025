@@ -135,7 +135,7 @@ public class ConsoleApp {
             tekton.getHyphaes().removeIf(hyphae -> !hyphaesWithIds.containsValue(hyphae));
         }
     }
-
+    
     public void addInsect(String tektonId, String entomologistId) {
         Tekton tekton = tektonsWithIds.get(tektonId);
         Entomologist entomologist = entomologistWithIds.get(entomologistId);

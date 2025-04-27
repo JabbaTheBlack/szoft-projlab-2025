@@ -1,0 +1,50 @@
+addTekton multiType
+addTekton absorbing
+addTekton keeper
+addTekton multiType
+addTekton singleType
+addTekton myceliumfree
+addTekton singleType
+
+addTektonNeighbour T0 T6 T3 T1
+addTektonNeighbour T1 T3 T2 T4
+addTektonNeighbour T3 T6 T5 T2
+addTektonNeighbour T6 T5      
+addTektonNeighbour T4 T2 T5    
+
+addPlayer mycologist
+addPlayer entomologist
+addPlayer entomologist
+addPlayer mycologist   
+
+chooseFungalType Myc0 stun
+chooseFungalType Myc1 speedboost
+
+addMycelium T0 Myc0
+
+addMycelium T6 Myc1
+
+addSpore T1 SlowSpore
+
+addHyphae M0 T0 Myc0
+addHyphae H0 T3 Myc0
+addHyphae H1 T3 Myc0 
+
+addHyphae H2 T1 Myc0 
+addHyphae H3 T1 Myc0 
+
+addHyphae H4 T2 Myc0
+addHyphae H5 T2 Myc0
+
+addHyphae H6 T4 Myc0
+
+addInsect T1 E0
+cutHyphae E0 I0 H5
+
+roundElapsed
+
+listHyphae all
+
+roundElapsed
+
+listHyphae all

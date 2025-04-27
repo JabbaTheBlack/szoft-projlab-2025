@@ -2,6 +2,7 @@ package hu.bme.fungi;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import hu.bme.fungi.spore.CloneSpore;
@@ -296,10 +297,16 @@ public class Mycologist {
      * Executes lifecycle management for all managed hyphaes. 
      */
     public void tick() {
-        hyphaes.removeIf(hyphae -> {
+      
+        for(Hyphae hyphae : new ArrayList<>(hyphaes)) {
             hyphae.tick();
-            return hyphae.getTimeToLive() == 0;
-        });
+        }
+
+        for(Hyphae hyphae : hyphaes) {
+            if(hyphae != null && (!hyphae.isOnKeeperTekton() && !hyphae.isConnectedToMycelium())) {
+                hyphae.setTimeToLive(1);
+            }
+        }
     }
 
     /**

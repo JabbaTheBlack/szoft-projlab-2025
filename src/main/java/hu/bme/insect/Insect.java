@@ -119,37 +119,8 @@ public class Insect {
      * @param hyphae The hyphae that the insect cuts.
      */
     public void cutHyphae(Hyphae hyphae) {
-        // if(canCutHyphae) {
-        // System.out.println("[" + this + "] canCutHyphae() -> [" + this + "] ");
-        // System.out.println("[" + this + "] canCutHyphae() <- [" + this + "] {true}");
-        // System.out.println("[" + this + "] getConnectedNeighbours() -> [" +
-        // currentTekton + "]");
-        // for(Tekton tekton : currentTekton.getConnectedNeighbours()) {
-        // if(tekton.hasHyphae(hyphae)) {
-        // System.out.println("[" + this + "] removeHyphae(" + hyphae + ") -> ["+ tekton
-        // +"]");
-        // tekton.removeHyphae(hyphae);
-
-        // System.out.println("[" + tekton + "] breakConnectionTo() -> [" +
-        // currentTekton + "]");
-        // tekton.breakConnectionTo(currentTekton);
-
-        // System.out.println("[" + currentTekton + "] breakConnectionTo() -> [" +
-        // tekton + "]");
-        // currentTekton.breakConnectionTo(tekton);
-        // break;
-        // }
-        // }
-
-        // currentTekton.removeHyphae(hyphae);
-        // }
-        // else {
-        // System.out.println("[Insect] canCutHyphae() -> [Insect] ");
-        // System.out.println("[Insect] canCutHyphae() <- [Insect] {false}");
-        // }
         if (canCutHyphae) {
             hyphae.setTimeToLive(1);
-
         }
     }
 

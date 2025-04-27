@@ -38,24 +38,36 @@ public class Hyphae{
      * Start of the round 
      */
     public void tick() {
+
+        if(isOnKeeperTekton) {
+            return;
+        }
+
         timeToLive--;
         if(timeToLive == 0){
 
-            for(Tekton tekton : new ArrayList<>(currentTekton)) {
-                tekton.removeHyphae(this);
+            if(currentTekton != null) {
+                for(Tekton tekton : new ArrayList<>(currentTekton)) {
+                    tekton.removeHyphae(this);
+                }
             }
             currentTekton = null;
-                
-            for (Hyphae neighbour : new ArrayList<>(getConnectedHyphae())) {
-                neighbour.removeHyphae(this);
+             
+            if(getConnectedHyphae() != null) {
+                for (Hyphae neighbour : new ArrayList<>(getConnectedHyphae())) {
+                    neighbour.removeHyphae(this);
+                }
             }
-
-            for (Mycelium neighbour : new ArrayList<>(getConnectedMyceliums())) {
-                neighbour.removeHyphae(this);
+            
+            if(getConnectedMyceliums() != null) {
+                for (Mycelium neighbour : new ArrayList<>(getConnectedMyceliums())) {
+                    neighbour.removeHyphae(this);
+                }
             }
-
+        
             connectedHyphae.clear();
             connectedMyceliums.clear();
+            ownner.getHyphaes().remove(this);
         }   
     }
 
