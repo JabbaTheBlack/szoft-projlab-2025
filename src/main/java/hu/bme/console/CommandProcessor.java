@@ -261,7 +261,7 @@ public class CommandProcessor {
                 System.out.println("\t- eatInsect <mycologistId> <insectId> - Mycologist eats an insect");
                 System.out.println("\t- putSporeToMycelium <sporeId> <myceliumId> - Puts a spore into a mycelium");
                 break;
-            case "savestate":
+            case "saveState":
                 if (inputStrings.length < 2) {
                     System.out.println("savestate Filename");
                     return;

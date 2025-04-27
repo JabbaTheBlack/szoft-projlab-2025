@@ -736,16 +736,20 @@ public class ConsoleApp {
 
     public void saveState(String filename) {
         try {
-            FileWriter myWriter = new FileWriter(filename);
+            Path testConfigPath = Paths.get("src/main/java/hu/bme/console/testConfig");
+            if (!Files.exists(testConfigPath)) {
+                Files.createDirectories(testConfigPath);
+            }
+    
+            FileWriter myWriter = new FileWriter(testConfigPath.resolve(filename).toString());
             String data = "";
             CommandProcessor.commands.removeLast();
             for (String sor : CommandProcessor.commands) {
-
                 data += sor + "\n";
             }
             myWriter.write(data);
             myWriter.close();
-            System.out.println("State saved to " + filename);
+            System.out.println("State saved to testConfig/" + filename);
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
