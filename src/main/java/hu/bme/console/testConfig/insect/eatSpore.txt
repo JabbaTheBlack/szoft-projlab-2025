@@ -1,0 +1,12 @@
+addTekton multiType
+addTekton multiType
+
+addPlayer mycologist
+addMycelium T0 Myc0
+
+addPlayer entomologist
+
+addInsect T1 E0
+addSpore T1 defensive
+
+eatSpore E0 I0 S0

@@ -25,7 +25,7 @@ public class Mycelium {
         spores = new ArrayList<>();
         hyphaes = new ArrayList<>();
         currentTekton = null;
-        maxSporeRelease = 1;
+        maxSporeRelease = 10;
     }
 
     /**
