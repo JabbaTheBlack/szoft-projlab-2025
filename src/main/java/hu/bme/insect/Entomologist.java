@@ -3,7 +3,6 @@ package hu.bme.insect;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.bme.console.ConsoleApp;
 
 /**
  * Manages insect populations within the ecosystem simulation, handling
@@ -67,7 +66,6 @@ public class Entomologist {
         Insect newInsect = new Insect();
         newInsect.setEntomologist(this);
         newInsect.setCurrentTekton(insect.getCurrentTekton());
-        ConsoleApp.insectsWithIds.put(ConsoleApp.generateId("I", ConsoleApp.insectsWithIds.size()), newInsect);
         insects.add(newInsect);
     }
 

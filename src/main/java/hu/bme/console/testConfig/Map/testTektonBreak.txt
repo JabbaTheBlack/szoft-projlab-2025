@@ -1,6 +1,0 @@
-addTekton multitype
-addTekton multitype
-addTektonNeighbour T0 T1
-printMap
-breakApart T0
-printMap
