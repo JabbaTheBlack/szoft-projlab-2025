@@ -15,6 +15,9 @@ public class SpeedBoostSpore extends Spore {
         super();
     }
 
+    public Spore clone() {
+        return new SpeedBoostSpore();
+    }
     /**
      * Initializes a SpeedBoostSpore with the given arguments
      * @param nutrition Nutritional value of the spore
@@ -31,6 +34,7 @@ public class SpeedBoostSpore extends Spore {
     @Override
     public void applyEffect(Insect insect) {
         // TODO implement the function
-        throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        //throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        insect.setMovementSpeed(insect.getMovementSpeed() * 2); // Increase speed by 100%
     }
 }

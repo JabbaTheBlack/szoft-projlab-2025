@@ -12,17 +12,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import hu.bme.fungi.spore.DefensiveSpore;
+import hu.bme.tekton.KeeperTekton;
 import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 
 class TestMycelium {
-    private Mycelium<DefensiveSpore> mycelium;
+    private Mycelium mycelium;
     private SingleTypeTekton singleTypeTekton;
 
     @BeforeEach
     void setUp() {
         singleTypeTekton = mock(SingleTypeTekton.class);
-        mycelium = new Mycelium<>(singleTypeTekton);
+        mycelium = new Mycelium(singleTypeTekton);
     }
 
     @Test
@@ -44,20 +45,25 @@ class TestMycelium {
         assertTrue(mycelium.isUpgraded());
     }
 
-     @Test
+    @Test
     void testReleaseSpores() {
         DefensiveSpore spore1 = new DefensiveSpore();
+        DefensiveSpore spore2 = new DefensiveSpore();
         
         mycelium.addSpore(spore1);
+        mycelium.addSpore(spore2);
 
-        Tekton neighbor1 = mock(Tekton.class);
-        Tekton neighbor2 = mock(Tekton.class);
+        Tekton neighbor1 = new KeeperTekton();
+        Tekton neighbor2 = new KeeperTekton();
         
-        when(singleTypeTekton.getNeighbours()).thenReturn(Arrays.asList(neighbor1, neighbor2));
-        
+        mycelium.getCurrentTekton().addNeighbour(neighbor2);
+        mycelium.getCurrentTekton().addNeighbour(neighbor1);
+
         mycelium.releaseSpores();
         
         assertEquals(0, mycelium.getRemainingSporeReleases(), "maxSporeRelease should decrement");
+        assertEquals(1, neighbor2.getSporeCount());
+        assertEquals(1, neighbor1.getSporeCount());
     }
     
 }

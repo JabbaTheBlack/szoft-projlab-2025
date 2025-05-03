@@ -21,7 +21,7 @@ class TestHyphae {
     private Hyphae hyphae;
 
     @Mock
-    private Mycelium<? extends Spore> mycelium1, mycelium2;
+    private Mycelium mycelium1, mycelium2;
 
     @Mock
     private Tekton tekotn1, tekton2;
@@ -110,7 +110,7 @@ class TestHyphae {
         Hyphae h9 = new Hyphae();
         Hyphae h10 = new Hyphae();
 
-        Mycelium mycelium = new Mycelium<>();
+        Mycelium mycelium = new Mycelium();
 
         h1.addHyphae(h2);
 
@@ -182,7 +182,7 @@ class TestHyphae {
         Hyphae h2 = new Hyphae();
         Hyphae h3 = new Hyphae();
 
-        Mycelium<DefensiveSpore> m1 = new Mycelium<>();
+        Mycelium m1 = new Mycelium();
 
         setUpTickTest(h1, h2, h3, m1);
 
@@ -217,7 +217,7 @@ class TestHyphae {
         Hyphae h2 = new Hyphae();
         Hyphae h3 = new Hyphae();
 
-        Mycelium<DefensiveSpore> m1 = new Mycelium<>();
+        Mycelium m1 = new Mycelium();
 
         setUpTickTest(h1, h2, h3, m1);
 

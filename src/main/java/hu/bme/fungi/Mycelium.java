@@ -9,10 +9,10 @@ import hu.bme.fungi.spore.*;
 /**
  * Represents a mycelium in a fungal network, managing spores and hyphae.
  */
-public class Mycelium<T extends Spore> {
+public class Mycelium {
     
     private boolean upgraded;
-    private List<T> spores;
+    private List<Spore> spores;
     private List<Hyphae> hyphaes;
     private Tekton currentTekton;
     private int maxSporeRelease;
@@ -25,7 +25,7 @@ public class Mycelium<T extends Spore> {
         spores = new ArrayList<>();
         hyphaes = new ArrayList<>();
         currentTekton = null;
-        maxSporeRelease = 1;
+        maxSporeRelease = 10;
     }
 
     /**
@@ -38,12 +38,11 @@ public class Mycelium<T extends Spore> {
     }
 
     /**
-     * Creates a shallow copy without spore/hyphae connections.
+     * Creates a deep copy without spore/hyphae connections.
      * @return New Mycelium instance with default configuration
      */
-    public Mycelium<T> clone(){
-        Mycelium<T> cloned = new Mycelium<>();
-        return cloned;
+    public Mycelium clone(){
+        return new Mycelium();    
     }
 
     /**
@@ -73,7 +72,6 @@ public class Mycelium<T extends Spore> {
             for(int i = 0; i < 3; i++) {
                 if(!tektonspores.isEmpty()) {
                     Spore randomSpore = tektonspores.get(random.nextInt(tektonspores.size()));
-                    System.out.println("[Mycelium] removeSpore("+randomSpore+") -> [" + currentTekton + "]");
                     currentTekton.removeSpore(randomSpore);
                 }
             }
@@ -86,8 +84,8 @@ public class Mycelium<T extends Spore> {
     /**
      * Adds more spores to the mycelium.
      */
-    public void growSpores(){
-        // TODO implement function
+    public void growSpores(Spore spore) {
+        this.spores.add(spore);
     }
 
     /**
@@ -113,10 +111,8 @@ public class Mycelium<T extends Spore> {
         while(!spores.isEmpty() && !targets.isEmpty()) {
             Tekton randomTekton = targets.remove(random.nextInt(targets.size()));
 
-            System.out.println("[Mycelium] addSpore(" + spores.get(0) + ") -> [" + randomTekton + "]");
-                randomTekton.addSpore(spores.get(0));
+            randomTekton.addSpore(spores.get(0));
 
-            System.out.println("[Mycelium] removeSpore(" + spores.get(0) + ") -> [Myceium]");
             removeSpore(spores.get(0));
             maxSporeRelease--;
 
@@ -141,7 +137,7 @@ public class Mycelium<T extends Spore> {
     /**
      * Increment the spore count of the mycelium by one.
      */
-    public void addSpore(T spore) {
+    public void addSpore(Spore spore) {
         spores.add(spore);
     }
 

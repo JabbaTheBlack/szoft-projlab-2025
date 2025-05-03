@@ -68,4 +68,8 @@ public class MycologistManager implements ITickable{
     public int getMycologistCount() {
         return mycologists.size();
     }
+
+    public List<Mycologist> getMycologists() {
+        return mycologists;
+    }
 }

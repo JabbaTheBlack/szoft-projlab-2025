@@ -1,21 +1,18 @@
 package hu.bme;
 
-/**
- * The main entry point of the application.
- * 
- * This class initializes and runs the test runner.
- * 
- * @see TestRunner
- */
 public class Main {
-    
-    /**
-     * The main method where the program execution begins.
-     * 
-     * It creates an instance of the TestRunner and calls its runTests method.
-     * 
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        System.out.println(" /$$$$$$$$                                                /$$          \r\n" + //
+                        "| $$_____/                                               |__/          \r\n" + //
+                        "| $$    /$$   /$$ /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$  /$$$$$$ \r\n" + //
+                        "| $$$$$| $$  | $$| $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$| $$ |____  $$\r\n" + //
+                        "| $$__/| $$  | $$| $$  \\ $$| $$  \\ $$| $$  \\ $$| $$  \\__/| $$  /$$$$$$$\r\n" + //
+                        "| $$   | $$  | $$| $$  | $$| $$  | $$| $$  | $$| $$      | $$ /$$__  $$\r\n" + //
+                        "| $$   |  $$$$$$/| $$  | $$|  $$$$$$$|  $$$$$$/| $$      | $$|  $$$$$$$\r\n" + //
+                        "|__/    \\______/ |__/  |__/ \\____  $$ \\______/ |__/      |__/ \\_______/\r\n" + //
+                        "                            /$$  \\ $$                                  \r\n" + //
+                        "                           |  $$$$$$/                                  \r\n" + //
+                        "                            \\______/                                   \r\n\n" + //
+                        "#---------------------------------------------------------------------#");
     }
 }

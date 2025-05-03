@@ -39,4 +39,5 @@ public abstract class Spore {
      * @param insect
      */
     public abstract void applyEffect(Insect insect);
+    public abstract Spore clone(); 
 }

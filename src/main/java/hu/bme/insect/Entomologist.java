@@ -3,8 +3,10 @@ package hu.bme.insect;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Manages insect populations within the ecosystem simulation, handling lifecycle operations
+ * Manages insect populations within the ecosystem simulation, handling
+ * lifecycle operations
  * and genetic replication through cloning.
  */
 public class Entomologist {
@@ -19,14 +21,16 @@ public class Entomologist {
 
     /**
      * Adds an insect to the managed population.
+     * 
      * @param insect Insect to register in the ecosystem
      */
-    public void addInsect(Insect insect){
+    public void addInsect(Insect insect) {
         insects.add(insect);
     }
 
     /**
      * Removes an insect from management.
+     * 
      * @param insect Insect to deregister
      */
     public void removeInsect(Insect insect) {
@@ -35,6 +39,7 @@ public class Entomologist {
 
     /**
      * Gets current population size.
+     * 
      * @return Number of active insects under management
      */
     public int getInsectCount() {
@@ -42,10 +47,11 @@ public class Entomologist {
     }
 
     /**
-     * Advances all insects through one simulation round, triggering their lifecycle updates.
+     * Advances all insects through one simulation round, triggering their lifecycle
+     * updates.
      */
     public void tick() {
-        for(Insect insect : insects) {
+        for (Insect insect : insects) {
             insect.tick();
         }
     }
@@ -53,11 +59,17 @@ public class Entomologist {
     /**
      * Creates genetic replica of an insect and adds it to the population.
      * Preserves the original's Tekton location.
+     * 
      * @param insect Insect to clone
      */
-    public void clone(Insect insect){
+    public void clone(Insect insect) {
         Insect newInsect = new Insect();
+        newInsect.setEntomologist(this);
         newInsect.setCurrentTekton(insect.getCurrentTekton());
         insects.add(newInsect);
+    }
+
+    public List<Insect> getInsects() {
+        return insects;
     }
 }

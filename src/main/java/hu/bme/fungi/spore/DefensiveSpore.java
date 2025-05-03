@@ -16,6 +16,10 @@ public class DefensiveSpore extends Spore{
         super();
     }
 
+    public Spore clone() {
+        return new DefensiveSpore();
+    }
+
     /**
      * Initializes a DefensiveSpore with the given arguments
      * @param nutrition Nutritional value of the spore

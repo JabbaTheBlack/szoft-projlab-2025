@@ -15,6 +15,9 @@ public class SlowingSpore extends Spore {
         super();
     }
 
+    public Spore clone() {
+        return new SlowingSpore();
+    }
     /**
      * Initializes a SlowingSpore with the given arguments
      * @param nutrition Nutritional value of the spore
@@ -31,7 +34,8 @@ public class SlowingSpore extends Spore {
     @Override
     public void applyEffect(Insect insect) {
         // TODO implement the function
-        throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        //throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+        insect.setMovementSpeed(insect.getMovementSpeed() * 0.5f); // Decrease speed by 50%
     }
     
 }

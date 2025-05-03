@@ -9,11 +9,7 @@ import hu.bme.interfaces.IHyphaeManager;
 import hu.bme.interfaces.IMyceliumManager;
 import hu.bme.interfaces.ISporeManager;
 
-
 import java.util.List;
-
-
-
 
 /**
  * Manages fungal components such as myceliums, hyphae, and spores.
@@ -21,10 +17,12 @@ import java.util.List;
 public class FungalManager {
     private IMyceliumManager myceliumManager;
     private IHyphaeManager hyphaeManager;
+
     private ISporeManager sporeManager;
 
     /**
-     * Initializes a new fungal manager with default managers for myceliums, hyphae, and spores.
+     * Initializes a new fungal manager with default managers for myceliums, hyphae,
+     * and spores.
      */
     public FungalManager() {
         myceliumManager = new MyceliumManager();
@@ -34,6 +32,7 @@ public class FungalManager {
 
     /**
      * Adds a mycelium to the manager.
+     * 
      * @param mycelium The mycelium to be added.
      */
     public void addMycelium(Mycelium mycelium) {
@@ -42,6 +41,7 @@ public class FungalManager {
 
     /**
      * Adds a hyphae to the manager.
+     * 
      * @param hyphae The hyphae to be added.
      */
     public void addHyphae(Hyphae hyphae) {
@@ -50,6 +50,7 @@ public class FungalManager {
 
     /**
      * Adds a spore to the manager.
+     * 
      * @param spore The spore to be added.
      */
     public void addSpore(Spore spore) {
@@ -58,6 +59,7 @@ public class FungalManager {
 
     /**
      * Removes a mycelium from the manager.
+     * 
      * @param mycelium The mycelium to be removed.
      */
     public void removeMycelium(Mycelium mycelium) {
@@ -66,35 +68,38 @@ public class FungalManager {
 
     /**
      * Removes a hyphae from the manager.
+     * 
      * @param hyphae The hyphae to be removed.
      */
     public void removeHyphae(Hyphae hyphae) {
-        System.out.println("[FungalManager] removeHyphae("+ hyphae +") -> [HyphaeManager]");
+        System.out.println("[FungalManager] removeHyphae(" + hyphae + ") -> [HyphaeManager]");
         for (Hyphae rmv : getHyphaes()) {
-            System.out.println("[HyphaeManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
+            System.out.println("[HyphaeManager] removeHyphae(" + hyphae + ") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
         }
-        System.out.println("[FungalManager] removeHyphae("+ hyphae +") -> [MyceliumManager]");
+        System.out.println("[FungalManager] removeHyphae(" + hyphae + ") -> [MyceliumManager]");
         for (Mycelium rmv : getMyceliums()) {
-            System.out.println("[MyceliumManager] removeHyphae("+ hyphae +") -> [" + rmv + "]");
+            System.out.println("[MyceliumManager] removeHyphae(" + hyphae + ") -> [" + rmv + "]");
             rmv.removeHyphae(hyphae);
-            
+
         }
-        
+
         hyphaeManager.removeHyphae(hyphae);
     }
 
     /**
      * Removes a spore from the manager.
+     * 
      * @param spore The spore to be removed.
      */
     public void removeSpore(Spore spore) {
-        System.out.println("[FungalManager] removeSpore("+ spore +") -> [SporeManager]");
-        sporeManager.removeSpore(spore);    
+        System.out.println("[FungalManager] removeSpore(" + spore + ") -> [SporeManager]");
+        sporeManager.removeSpore(spore);
     }
 
     /**
      * Returns the number of myceliums managed.
+     * 
      * @return The count of myceliums.
      */
     public int getMyceliumCount() {
@@ -103,6 +108,7 @@ public class FungalManager {
 
     /**
      * Returns the number of spores managed.
+     * 
      * @return The count of spores.
      */
     public int getHyphaeCount() {
@@ -111,6 +117,7 @@ public class FungalManager {
 
     /**
      * Returns the number of spores managed.
+     * 
      * @return The count of spores.
      */
     public int getSporeCount() {
@@ -119,6 +126,7 @@ public class FungalManager {
 
     /**
      * Checks if a specific hyphae is managed.
+     * 
      * @param hyphae The hyphae to check for.
      * @return True if the hyphae is managed, false otherwise.
      */
@@ -128,6 +136,7 @@ public class FungalManager {
 
     /**
      * Gets a list of spores
+     * 
      * @return List of spores
      */
     public List<Spore> getSpores() {
@@ -136,6 +145,7 @@ public class FungalManager {
 
     /**
      * Gets a list of hyphaes
+     * 
      * @return List of hyphaes
      */
     public List<Hyphae> getHyphaes() {
@@ -144,9 +154,10 @@ public class FungalManager {
 
     /**
      * Gets a list of myceliums
+     * 
      * @return List of myceliums
      */
     public List<Mycelium> getMyceliums() {
         return myceliumManager.getMyceliums();
-    } 
+    }
 }

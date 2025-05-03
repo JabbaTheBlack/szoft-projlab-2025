@@ -15,6 +15,9 @@ public class StunSpore extends Spore {
         super();
     }
 
+    public Spore clone() {
+        return new StunSpore();
+    }
     /**
      * Initializes a StunSpore with the given arguments
      * @param nutrition Nutritional value of the spore
