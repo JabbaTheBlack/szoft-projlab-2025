@@ -2,25 +2,18 @@ package hu.bme.tekton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
-import hu.bme.interfaces.IDrawable;
-import hu.bme.interfaces.IPosition;
 import hu.bme.managers.FungalManager;
 
 /**
  * Represents a tekton, managing its connections to other tektons and neighbours.
  */
-public abstract class Tekton implements IPosition{
+public abstract class Tekton{
     
-    private BufferedImage image;
-    private float x;
-    private float y;
-    private Rectangle hitBox;
+
     protected final FungalManager fungalManager;
     private List<Tekton> neighbours;
     private List<Tekton> connectedNeighbours;
@@ -252,31 +245,6 @@ public abstract class Tekton implements IPosition{
         return fungalManager.getHyphaes();
     }
 
-    /**
-     * @return X coordinate of the Tekton
-     */
-    public float getX() { return x;}
-
-    /**
-     * @return Y coordinate of the Tekton
-     */
-    public float getY() { return y; }
-
-    /**
-     * Sets the new position of the Tekton
-     * @param x New X coordinate of the Tekton
-     * @param y New Y coordinate of the Tekton
-     */
-    public void setPosition(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public Rectangle getHitBox() {return hitBox;}
     public void absorbHyphae() {}
        
 }
