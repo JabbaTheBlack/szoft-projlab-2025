@@ -2,17 +2,25 @@ package hu.bme.tekton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
+import hu.bme.interfaces.IDrawable;
+import hu.bme.interfaces.IPosition;
 import hu.bme.managers.FungalManager;
 
 /**
  * Represents a tekton, managing its connections to other tektons and neighbours.
  */
-public abstract class Tekton {
+public abstract class Tekton implements IPosition{
     
+    private BufferedImage image;
+    private float x;
+    private float y;
+    private Rectangle hitBox;
     protected final FungalManager fungalManager;
     private List<Tekton> neighbours;
     private List<Tekton> connectedNeighbours;
@@ -35,52 +43,6 @@ public abstract class Tekton {
     /**
      * Breaks the tekton apart, refreshing all connections of the tektons.
      */
-    // public List<Tekton> breakApart() {
-      
-    //     if(this.fungalManager.getMyceliumCount() == 0){
-                
-    //         Tekton newTekton1 = createTekton();
-    //         System.out.println("["+this+"] new() - -> ["+newTekton1+"]");
-    //         Tekton newTekton2 = createTekton();
-    //         System.out.println("["+this+"] new() - -> ["+newTekton2+"]");
-    
-    
-    //         newTekton1.addNeighbour(newTekton2);
-    //         newTekton2.addNeighbour(newTekton1);
-    
-    //         this.fungalManager.getHyphaes().forEach(hyphae -> {
-    //             if(hyphae.getCurrentTekton().size() >= 2){
-    //                 //hyphea a két tekton között
-    //                 System.out.println("["+this+"] addHyphea("+hyphae+") -> ["+newTekton1+"]");
-    //                 newTekton1.addHyphae(hyphae);
-    //                 System.out.println("["+this+"] addCurrentTekton("+newTekton1+") -> ["+hyphae+"]");
-    //                 hyphae.addCurrentTekton(newTekton1);
-    //                 System.out.println("["+this+"] removeCurrentTekton("+this+") -> ["+hyphae+"]");
-    //                 hyphae.removeCurrentTekton(this);
-    //             } else{
-    //                 //hyphea a tektonon belül
-    //                 hyphae.getConnectedHyphae().forEach(nghHyphae -> {
-    //                     System.out.println("["+this+"] removeHyphae("+hyphae+") -> ["+nghHyphae+"]");
-    //                 nghHyphae.removeHyphae(hyphae);
-    //                 });
-    //             }
-    //         });
-            
-    //         this.fungalManager.getSpores().forEach(spore -> {
-    //             System.out.println("["+this+"] addSpore("+spore+") -> ["+newTekton1+"]");
-    //             newTekton1.addSpore(spore);
-                
-    //         });
-    
-    //         List<Tekton> newTektons = new ArrayList<>();
-    //         newTektons.add(newTekton1);
-    //         newTektons.add(newTekton2);
-
-    //         return newTektons;
-    //     }
-    //     return null;
-    // }
-
     public List<Tekton> breakApart() {
         if (this.fungalManager.getMyceliumCount() == 0) {
             // Create new Tektons
@@ -289,6 +251,32 @@ public abstract class Tekton {
     public List<Hyphae> getHyphaes() {
         return fungalManager.getHyphaes();
     }
+
+    /**
+     * @return X coordinate of the Tekton
+     */
+    public float getX() { return x;}
+
+    /**
+     * @return Y coordinate of the Tekton
+     */
+    public float getY() { return y; }
+
+    /**
+     * Sets the new position of the Tekton
+     * @param x New X coordinate of the Tekton
+     * @param y New Y coordinate of the Tekton
+     */
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public Rectangle getHitBox() {return hitBox;}
     public void absorbHyphae() {}
        
 }
