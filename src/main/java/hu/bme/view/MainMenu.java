@@ -1,10 +1,16 @@
 package hu.bme.view;
 
 import hu.bme.core.GamePanel;
+import hu.bme.fungi.Mycologist;
+import hu.bme.insect.Entomologist;
+import hu.bme.managers.InsectManager;
+import hu.bme.managers.MycologistManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,6 +87,29 @@ public class MainMenu extends JPanel {
                     System.out.println(entry.getKey() + ": " + entry.getValue().getText());
                 }
 
+                // Gombászok és rovarászok létrehozása
+
+                for (Map.Entry<String, JTextField> entry : gombaszokTextFields.entrySet()) {
+                    String name = entry.getValue().getText().trim();
+                    if (!name.isEmpty()) {
+                        Mycologist mycologist = new Mycologist(name); // Feltételezve, hogy van ilyen konstruktor
+                        MycologistManager.getInstance().addMycologist(mycologist); // Gombász hozzáadása a
+                                                                                   // MycologistManagerhez
+                        System.out.println("Létrehozott gombász: " + name);
+                    }
+                }
+
+                for (Map.Entry<String, JTextField> entry : rovaraszokTextFields.entrySet()) {
+                    String name = entry.getValue().getText().trim();
+                    if (!name.isEmpty()) {
+                        Entomologist entomologist = new Entomologist(name); // Feltételezve, hogy van ilyen konstruktor
+                        InsectManager.getInstance().addEntomologist(entomologist); // Rovarász hozzáadása az
+                                                                                   // InsectManagerhez
+
+                        System.out.println("Létrehozott rovarász: " + name);
+                    }
+                }
+
                 // Bezárjuk az aktuális ablakot
                 parentFrame.dispose();
 
@@ -89,7 +118,8 @@ public class MainMenu extends JPanel {
                 gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 gameFrame.setSize(800, 600);
 
-                GamePanel gamePanel = new GamePanel(); // GamePanel példány létrehozása
+                // GamePanel példány létrehozása és a listák átadása
+                GamePanel gamePanel = new GamePanel();
                 gameFrame.add(gamePanel); // GamePanel hozzáadása
                 gameFrame.setVisible(true);
             }

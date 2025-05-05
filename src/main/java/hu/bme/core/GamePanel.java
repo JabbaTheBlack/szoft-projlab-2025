@@ -2,6 +2,7 @@ package hu.bme.core;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import hu.bme.managers.TektonManager;
 import hu.bme.view.InsectView;
@@ -9,6 +10,7 @@ import hu.bme.view.MyceliumView;
 import hu.bme.view.TektonView;
 
 public class GamePanel extends JPanel {
+    private DefaultListModel<String> commandListModel; // A parancsok listájának modellje
     private TektonManager tektonManager;
     private TektonView tektonView;
     private InsectView insectView;
@@ -53,11 +55,31 @@ public class GamePanel extends JPanel {
         commandPanel2.setBackground(Color.GRAY);
         JLabel label2 = new JLabel("parancsok");
         commandPanel2.add(label2);
+        // Parancsok listája
+        commandListModel = new DefaultListModel<>();
+        JList<String> commandList = new JList<>(commandListModel);
+        commandList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Egyetlen elem választható
+        commandList.setVisibleRowCount(10); // Látható sorok száma
+        JScrollPane scrollPane = new JScrollPane(commandList); // Görgethető lista
+        commandPanel2.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel commandPanel3 = new JPanel();
+        // Eseménykezelő a listaelemekhez
+        commandList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) { // Csak akkor fut le, ha a kiválasztás befejeződött
+                String selectedCommand = commandList.getSelectedValue();
+                System.out.println("Kiválasztott parancs: " + selectedCommand);
+            }
+        });
+
+        JPanel commandPanel3 = new JPanel(new BorderLayout()); // BorderLayout a gomb aljára helyezéséhez
+        JLabel label4 = new JLabel("aktuális parancs:");
         commandPanel3.setBackground(Color.DARK_GRAY);
         JLabel label3 = new JLabel("itt lesz majd az aktuális parancs és a gomb");
-        commandPanel3.add(label3);
+        commandPanel3.add(label3, BorderLayout.NORTH); // Szöveg a panel tetején
+        commandPanel3.add(label4, BorderLayout.CENTER); // Szöveg középen
+
+        JButton button = new JButton("Parancs kiadása");
+        commandPanel3.add(button, BorderLayout.SOUTH); // Gomb a panel aljára
 
         // Parancs panelek hozzáadása a jobb oldali panelhez
         rightPanel.add(commandPanel1);
