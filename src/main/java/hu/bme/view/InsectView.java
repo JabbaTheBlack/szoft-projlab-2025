@@ -24,21 +24,13 @@ public class InsectView extends JPanel {
         for (Entomologist entomologist : entomologists) {
             List<Insect> insects = entomologist.getInsects();
             for (Insect insect : insects) {
-                if (insect != null) {
-                    System.out.println(
-                            "Rovar: " + insect.getCurrentTekton().getX() + ", " + insect.getCurrentTekton().getY());
-                }
+
                 int x = insect.getCurrentTekton().getX();
                 int y = insect.getCurrentTekton().getY();
                 int size = 21; // Rovar mérete
 
                 // PNG kép betöltése
-                try {
-                    insectImage = ImageIO.read(getClass().getResourceAsStream("/images/ant_images/fekete.png"));
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                insectImage = insect.textureProvider.getImage();
 
                 if (insectImage != null) {
 

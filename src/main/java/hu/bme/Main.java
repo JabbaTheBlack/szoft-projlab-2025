@@ -35,10 +35,12 @@ public class Main {
         Entomologist entomologist = new Entomologist();
         Insect insect = new Insect(t1, 10);
         insect.setEntomologist(entomologist);
+        insect.textureProvider.setImage("/images/ant_images/fekete.png");
         entomologist.addInsect(insect);
         InsectManager.getInstance().addEntomologist(entomologist);
 
         Mycelium mycelium = new Mycelium(t2);
+        mycelium.textureProvider.setImage("/images/fungi_images/defensive_fungi.png");
         Mycologist mycologist = new Mycologist();
         mycologist.addMycelium(mycelium);
         MycologistManager.getInstance().addMycologist(mycologist);

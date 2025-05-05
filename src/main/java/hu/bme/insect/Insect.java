@@ -3,6 +3,7 @@ package hu.bme.insect;
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.tekton.Tekton;
+import hu.bme.view.TextureProvider;
 
 /**
  * Represents an insect that can move between Tektons on hyphae and interact
@@ -15,6 +16,7 @@ public class Insect {
     private float movementSpeed;
     private boolean canCutHyphae;
     private Entomologist owner;
+    public TextureProvider textureProvider;
 
     /**
      * Initializes an insect at a specified Tekton with a given movement speed.
@@ -27,6 +29,7 @@ public class Insect {
         this.movementSpeed = movementSpeed;
         effectDuration = -1;
         owner = null;
+        textureProvider = new TextureProvider();
     }
 
     /**
@@ -37,6 +40,7 @@ public class Insect {
         this(null, 1);
         nutrition = 0;
         canCutHyphae = true;
+        textureProvider = new TextureProvider();
     }
 
     /**
@@ -141,6 +145,7 @@ public class Insect {
     public void setMovementSpeed(float movementSpeed) {
         this.movementSpeed = movementSpeed;
     }
+
     public float getMovementSpeed() {
         return movementSpeed;
     }
@@ -182,6 +187,7 @@ public class Insect {
         copy.owner = insect.owner;
         insect.getEntomologist().addInsect(copy);
         copy.nutrition = 0;
+        copy.textureProvider = this.textureProvider;
     }
 
     /**

@@ -37,12 +37,7 @@ public class MyceliumView extends JPanel {
                 int size = 21; // Rovar mérete
 
                 // PNG kép betöltése
-                try {
-                    myceliumImage = ImageIO.read(getClass().getResourceAsStream("/images/fungi_images/defensive_fungi.png"));
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                myceliumImage = mycelium.textureProvider.getImage();
 
                 if (myceliumImage != null) {
 
