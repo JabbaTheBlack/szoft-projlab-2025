@@ -38,7 +38,7 @@ public class MyceliumView extends JPanel {
 
                 // PNG kép betöltése
                 try {
-                    myceliumImage = ImageIO.read(getClass().getResourceAsStream("/images/defensive_fungi.png"));
+                    myceliumImage = ImageIO.read(getClass().getResourceAsStream("/images/fungi_images/defensive_fungi.png"));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

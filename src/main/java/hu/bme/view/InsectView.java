@@ -34,7 +34,7 @@ public class InsectView extends JPanel {
 
                 // PNG kép betöltése
                 try {
-                    insectImage = ImageIO.read(getClass().getResourceAsStream("/images/fekete.png"));
+                    insectImage = ImageIO.read(getClass().getResourceAsStream("/images/ant_images/fekete.png"));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
