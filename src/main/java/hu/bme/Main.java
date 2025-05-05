@@ -7,6 +7,7 @@ import hu.bme.core.GamePanel;
 import hu.bme.managers.TektonManager;
 import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.Tekton;
+import hu.bme.view.MainMenu;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,9 +39,11 @@ public class Main {
                 "                           |  $$$$$$/                                  \r\n" + //
                 "                            \\______/                                   \r\n\n" + //
                 "#---------------------------------------------------------------------#");
-
-        GamePanel gamePanel = new GamePanel();
-        gamePanel.draw();
+        JFrame frame = new JFrame("Fungorium - Main Menu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600);
+        frame.add(new MainMenu(frame)); // Átadjuk a JFrame-et a MainMenu-nak
+        frame.setVisible(true);
 
     }
 }
