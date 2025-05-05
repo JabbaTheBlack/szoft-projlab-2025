@@ -31,17 +31,19 @@ public class InsectView extends JPanel {
                 int x = insect.getCurrentTekton().getX();
                 int y = insect.getCurrentTekton().getY();
                 int size = 21; // Rovar mérete
+
+                // PNG kép betöltése
                 try {
-                    // PNG kép betöltése
-                    insectImage = ImageIO.read(getClass().getResource("/images/fekete.png"));
+                    insectImage = ImageIO.read(getClass().getResourceAsStream("/images/fekete.png"));
                 } catch (IOException e) {
-                    System.out.println("Nem sikerült betölteni a rovar képet.");
+                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+
                 if (insectImage != null) {
 
-                    g2d.drawImage(insectImage, x, y, insectImage.getWidth(), insectImage.getHeight(), null);
-                    System.out.println("Rovar kép betöltve: " + insectImage.getWidth() + "x" + insectImage.getHeight());
+                    g2d.drawImage(insectImage, x - 21 / 2, y - 21 / 2, 21, 21, null);
+                    System.out.println("Rovar kép betöltve: ");
                 }
             }
         }

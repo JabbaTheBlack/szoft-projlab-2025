@@ -17,6 +17,8 @@ public class GamePanel extends JPanel {
         tektonView = new TektonView();
         insectView = new InsectView();
 
+        insectView.setOpaque(false); // Átlátszó háttér
+
         setLayout(new BorderLayout()); // BorderLayout a fő elrendezéshez
 
         // Játékterület (középső rész)
@@ -25,8 +27,10 @@ public class GamePanel extends JPanel {
         gameArea.setPreferredSize(new Dimension(4 * 1980 / 5, 1080)); // Az ablak 4/5-ét foglalja el
         gameArea.setLayout(null); // Manuális elrendezés
         tektonView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
-        gameArea.add(tektonView);
+        insectView.setBounds(0, 0, 4 * 1980 / 5, 1080);
+        tektonView.setOpaque(false); // Átlátszó háttér
         gameArea.add(insectView);
+        gameArea.add(tektonView);
         add(gameArea, BorderLayout.CENTER);
 
         // Jobb oldali panel (parancsok)
@@ -62,10 +66,6 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Alapértelmezett rajzolás
-        Graphics2D g2d = (Graphics2D) g;
 
-        // A TektonView rajzolási logikájának meghívása
-        tektonView.paintComponent(g2d);
-        insectView.paintComponent(g2d);
     }
 }
