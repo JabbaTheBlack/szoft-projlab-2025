@@ -2,6 +2,7 @@ package hu.bme.tekton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
@@ -9,26 +10,40 @@ import hu.bme.fungi.spore.Spore;
 import hu.bme.managers.FungalManager;
 
 /**
- * Represents a tekton, managing its connections to other tektons and neighbours.
+ * Represents a tekton, managing its connections to other tektons and
+ * neighbours.
  */
-public abstract class Tekton{
-    
+public abstract class Tekton {
 
     protected final FungalManager fungalManager;
     private List<Tekton> neighbours;
     private List<Tekton> connectedNeighbours;
+    private int x, y;
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     /**
-     * Initializes a new tekton with an empty list of neighbours and connected neighbours.
+     * Initializes a new tekton with an empty list of neighbours and connected
+     * neighbours.
      */
     protected Tekton() {
         fungalManager = new FungalManager();
         neighbours = new ArrayList<>();
         connectedNeighbours = new ArrayList<>();
+        Random random = new Random();
+        this.x = random.nextInt(800); // Példa: 0 és 800 közötti érték
+        this.y = random.nextInt(600);
     }
 
     /**
      * Abstract function returning the instance of the tekton
+     * 
      * @return Subclass of Tekton
      */
     public abstract Tekton createTekton();
@@ -42,11 +57,10 @@ public abstract class Tekton{
             Tekton newTekton1 = createTekton();
             Tekton newTekton2 = createTekton();
 
-    
             // Connect the new Tektons to each other
             newTekton1.addNeighbour(newTekton2);
             newTekton2.addNeighbour(newTekton1);
-    
+
             // Remove this Tekton from the neighbor lists of its neighbors
             for (Tekton neighbor : new ArrayList<>(neighbours)) {
                 neighbor.removeNeighbour(this); // Remove this Tekton from the neighbor's list
@@ -55,9 +69,9 @@ public abstract class Tekton{
                 newTekton1.addNeighbour(neighbor); // Add the neighbor to the new Tekton
                 newTekton2.addNeighbour(neighbor); // Add the neighbor to the new Tekton
             }
-            
+
             // Remove all Hyphaes
-            for(Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
+            for (Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
                 hyphae.getConnectedHyphae().forEach(connectedHyphae -> connectedHyphae.removeHyphae(hyphae));
                 fungalManager.removeHyphae(hyphae);
             }
@@ -71,18 +85,17 @@ public abstract class Tekton{
         return null;
     }
 
-
-
     /**
      * Connects the tekton to another tekton.
+     * 
      * @param tekton The tekton to connect to.
      */
     public void connectToTekton(Tekton tekton) {
 
-        if(!neighbours.contains(tekton)) {
+        if (!neighbours.contains(tekton)) {
             addNeighbour(tekton);
         }
-        if(!tekton.neighbours.contains(this)) {
+        if (!tekton.neighbours.contains(this)) {
             tekton.addNeighbour(this);
         }
 
@@ -96,6 +109,7 @@ public abstract class Tekton{
 
     /**
      * Breaks the connection to another tekton.
+     * 
      * @param tekton The tekton to disconnect from.
      */
     public void breakConnectionTo(Tekton tekton) {
@@ -105,12 +119,13 @@ public abstract class Tekton{
     /**
      * Refreshes the neighbours of all tektons.
      */
-    public void refreshNeighbours(){
-       
+    public void refreshNeighbours() {
+
     }
 
     /**
      * Checks if the tekton is connected to another tekton.
+     * 
      * @param tekton The tekton to check connection to.
      * @return True if the tekton is connected to the other tekton, false otherwise.
      */
@@ -120,10 +135,11 @@ public abstract class Tekton{
 
     /**
      * Adds a neighbour to the list of neighbours.
+     * 
      * @param tekton The neighbour to add.
      */
     public void addNeighbour(Tekton tekton) {
-        if(neighbours.contains(tekton) || tekton == this) {
+        if (neighbours.contains(tekton) || tekton == this) {
             return;
         }
         neighbours.add(tekton);
@@ -132,6 +148,7 @@ public abstract class Tekton{
 
     /**
      * Removes a neighbour from the list of neighbours.
+     * 
      * @param tekton The neighbour to remove.
      */
     public void removeNeighbour(Tekton tekton) {
@@ -140,33 +157,34 @@ public abstract class Tekton{
 
     /**
      * Adds a mycelium to this tekton.
+     * 
      * @param mycelium The mycelium to add.
      */
     public boolean addMycelium(Mycelium mycelium) {
-        if(fungalManager.getMyceliumCount() == 0) {
+        if (fungalManager.getMyceliumCount() == 0) {
             fungalManager.addMycelium(mycelium);
             return true;
         }
-        System.out.println("[Mycoligist] <- addMycelium("+mycelium+") {false}");
+        System.out.println("[Mycoligist] <- addMycelium(" + mycelium + ") {false}");
         return false;
     }
 
     /**
      * Removes a mycelium from this tekton.
+     * 
      * @param mycelium The mycelium to remove.
      */
-    public void removeMycelium(Mycelium mycelium)
-    {
+    public void removeMycelium(Mycelium mycelium) {
         fungalManager.removeMycelium(mycelium);
     }
 
-  
     /**
      * Adds a hyphae to this tekton.
+     * 
      * @param hyphae The hyphae to add.
      */
     public boolean addHyphae(Hyphae hyphae) {
-        if(hasHyphae(hyphae)) {
+        if (hasHyphae(hyphae)) {
             return false;
         }
         fungalManager.addHyphae(hyphae);
@@ -176,15 +194,17 @@ public abstract class Tekton{
 
     /**
      * Removes a hyphae from this tekton.
+     * 
      * @param hyphae The hyphae to remove.
      */
     public void removeHyphae(Hyphae hyphae) {
-        System.out.println("["+this+"] removeHyphae("+hyphae+") -> [FungalManager]");
+        System.out.println("[" + this + "] removeHyphae(" + hyphae + ") -> [FungalManager]");
         fungalManager.removeHyphae(hyphae);
     }
 
     /**
      * Adds a spore to this tekton.
+     * 
      * @param spore The spore to add.
      */
     public void addSpore(Spore spore) {
@@ -193,15 +213,17 @@ public abstract class Tekton{
 
     /**
      * Removes a spore from this tekton.
+     * 
      * @param spore The spore to remove.
      */
     public void removeSpore(Spore spore) {
-        System.out.println("["+this+"] removeSpore("+spore+") -> [FungalManager]");
+        System.out.println("[" + this + "] removeSpore(" + spore + ") -> [FungalManager]");
         fungalManager.removeSpore(spore);
     }
 
     /**
      * Returns the list of neighbours.
+     * 
      * @return The list of neighbours.
      */
     public List<Tekton> getNeighbours() {
@@ -210,6 +232,7 @@ public abstract class Tekton{
 
     /**
      * Returns the list of connected neighbours.
+     * 
      * @return The list of connected neighbours.
      */
     public List<Tekton> getConnectedNeighbours() {
@@ -218,6 +241,7 @@ public abstract class Tekton{
 
     /**
      * Checks if this tekton has a specific hyphae.
+     * 
      * @param hyphae The hyphae to check for.
      * @return True if the hyphae is present, false otherwise.
      */
@@ -227,6 +251,7 @@ public abstract class Tekton{
 
     /**
      * Returns the number of spores on this tekton.
+     * 
      * @return The number of spores.
      */
     public int getSporeCount() {
@@ -235,9 +260,10 @@ public abstract class Tekton{
 
     /**
      * Returns a list of spores on this tekton.
+     * 
      * @return The list of spores.
      */
-    public List<Spore> getSpores(){
+    public List<Spore> getSpores() {
         return fungalManager.getSpores();
     }
 
@@ -245,6 +271,7 @@ public abstract class Tekton{
         return fungalManager.getHyphaes();
     }
 
-    public void absorbHyphae() {}
-       
+    public void absorbHyphae() {
+    }
+
 }

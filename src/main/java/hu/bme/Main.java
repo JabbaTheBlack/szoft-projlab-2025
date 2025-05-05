@@ -1,18 +1,46 @@
 package hu.bme;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import hu.bme.core.GamePanel;
+import hu.bme.managers.TektonManager;
+import hu.bme.tekton.MultiTypeTekton;
+import hu.bme.tekton.Tekton;
+
 public class Main {
     public static void main(String[] args) {
+        Tekton t1 = new MultiTypeTekton();
+        Tekton t2 = new MultiTypeTekton();
+        Tekton t3 = new MultiTypeTekton();
+        Tekton t4 = new MultiTypeTekton();
+        t1.addNeighbour(t2);
+        t2.addNeighbour(t1);
+        t1.addNeighbour(t4);
+        t4.addNeighbour(t1);
+        t3.addNeighbour(t4);
+        t4.addNeighbour(t3);
+
+        TektonManager.getInstance().addTekton(t1);
+        TektonManager.getInstance().addTekton(t2);
+        TektonManager.getInstance().addTekton(t3);
+        TektonManager.getInstance().addTekton(t4);
+
         System.out.println(" /$$$$$$$$                                                /$$          \r\n" + //
-                        "| $$_____/                                               |__/          \r\n" + //
-                        "| $$    /$$   /$$ /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$  /$$$$$$ \r\n" + //
-                        "| $$$$$| $$  | $$| $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$| $$ |____  $$\r\n" + //
-                        "| $$__/| $$  | $$| $$  \\ $$| $$  \\ $$| $$  \\ $$| $$  \\__/| $$  /$$$$$$$\r\n" + //
-                        "| $$   | $$  | $$| $$  | $$| $$  | $$| $$  | $$| $$      | $$ /$$__  $$\r\n" + //
-                        "| $$   |  $$$$$$/| $$  | $$|  $$$$$$$|  $$$$$$/| $$      | $$|  $$$$$$$\r\n" + //
-                        "|__/    \\______/ |__/  |__/ \\____  $$ \\______/ |__/      |__/ \\_______/\r\n" + //
-                        "                            /$$  \\ $$                                  \r\n" + //
-                        "                           |  $$$$$$/                                  \r\n" + //
-                        "                            \\______/                                   \r\n\n" + //
-                        "#---------------------------------------------------------------------#");
+                "| $$_____/                                               |__/          \r\n" + //
+                "| $$    /$$   /$$ /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$  /$$$$$$ \r\n" + //
+                "| $$$$$| $$  | $$| $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$| $$ |____  $$\r\n" + //
+                "| $$__/| $$  | $$| $$  \\ $$| $$  \\ $$| $$  \\ $$| $$  \\__/| $$  /$$$$$$$\r\n" + //
+                "| $$   | $$  | $$| $$  | $$| $$  | $$| $$  | $$| $$      | $$ /$$__  $$\r\n" + //
+                "| $$   |  $$$$$$/| $$  | $$|  $$$$$$$|  $$$$$$/| $$      | $$|  $$$$$$$\r\n" + //
+                "|__/    \\______/ |__/  |__/ \\____  $$ \\______/ |__/      |__/ \\_______/\r\n" + //
+                "                            /$$  \\ $$                                  \r\n" + //
+                "                           |  $$$$$$/                                  \r\n" + //
+                "                            \\______/                                   \r\n\n" + //
+                "#---------------------------------------------------------------------#");
+
+        GamePanel gamePanel = new GamePanel();
+        gamePanel.draw();
+
     }
 }

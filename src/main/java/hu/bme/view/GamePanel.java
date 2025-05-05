@@ -1,26 +1,12 @@
-package hu.bme.core;
+package hu.bme.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import hu.bme.managers.TektonManager;
-import hu.bme.view.TektonView;
-
-public class GamePanel extends JPanel {
-    private TektonManager tektonManager;
-    private TektonView tektonView;
-
-    public GamePanel() {
-        tektonManager = TektonManager.getInstance();
-        tektonView = new TektonView();
-        setBackground(Color.BLUE);
-        setPreferredSize(new Dimension(1980, 1080));
-    }
+public class GamePanel {
+    TektonView tektonView;
 
     public void draw() {
         tektonView = new TektonView();
@@ -35,4 +21,5 @@ public class GamePanel extends JPanel {
         frame.setVisible(true); // Make the JFrame visible
         tektonView.repaint();
     }
+
 }
