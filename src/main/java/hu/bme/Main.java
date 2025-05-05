@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import hu.bme.core.GamePanel;
+import hu.bme.insect.Entomologist;
+import hu.bme.insect.Insect;
+import hu.bme.managers.InsectManager;
 import hu.bme.managers.TektonManager;
 import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.Tekton;
@@ -26,7 +29,11 @@ public class Main {
         TektonManager.getInstance().addTekton(t2);
         TektonManager.getInstance().addTekton(t3);
         TektonManager.getInstance().addTekton(t4);
-
+        Entomologist entomologist = new Entomologist();
+        Insect insect = new Insect(t1, 10);
+        insect.setEntomologist(entomologist);
+        entomologist.addInsect(insect);
+        InsectManager.getInstance().addEntomologist(entomologist);
         System.out.println(" /$$$$$$$$                                                /$$          \r\n" + //
                 "| $$_____/                                               |__/          \r\n" + //
                 "| $$    /$$   /$$ /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$  /$$$$$$ \r\n" + //

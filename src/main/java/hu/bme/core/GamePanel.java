@@ -4,15 +4,18 @@ import java.awt.*;
 import javax.swing.*;
 
 import hu.bme.managers.TektonManager;
+import hu.bme.view.InsectView;
 import hu.bme.view.TektonView;
 
 public class GamePanel extends JPanel {
     private TektonManager tektonManager;
     private TektonView tektonView;
+    private InsectView insectView;
 
     public GamePanel() {
         tektonManager = TektonManager.getInstance();
         tektonView = new TektonView();
+        insectView = new InsectView();
 
         setLayout(new BorderLayout()); // BorderLayout a fő elrendezéshez
 
@@ -23,6 +26,7 @@ public class GamePanel extends JPanel {
         gameArea.setLayout(null); // Manuális elrendezés
         tektonView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
         gameArea.add(tektonView);
+        gameArea.add(insectView);
         add(gameArea, BorderLayout.CENTER);
 
         // Jobb oldali panel (parancsok)
@@ -62,5 +66,6 @@ public class GamePanel extends JPanel {
 
         // A TektonView rajzolási logikájának meghívása
         tektonView.paintComponent(g2d);
+        insectView.paintComponent(g2d);
     }
 }
