@@ -5,30 +5,35 @@ import javax.swing.*;
 
 import hu.bme.managers.TektonManager;
 import hu.bme.view.InsectView;
+import hu.bme.view.MyceliumView;
 import hu.bme.view.TektonView;
 
 public class GamePanel extends JPanel {
     private TektonManager tektonManager;
     private TektonView tektonView;
     private InsectView insectView;
+    private MyceliumView myceliumView;
 
     public GamePanel() {
         tektonManager = TektonManager.getInstance();
         tektonView = new TektonView();
         insectView = new InsectView();
+        myceliumView = new MyceliumView();
 
         insectView.setOpaque(false); // Átlátszó háttér
-
+        myceliumView.setOpaque(false); // Átlátszó háttér
         setLayout(new BorderLayout()); // BorderLayout a fő elrendezéshez
 
         // Játékterület (középső rész)
         JPanel gameArea = new JPanel();
-        gameArea.setBackground(Color.BLUE);
+        gameArea.setBackground(Color.WHITE);
         gameArea.setPreferredSize(new Dimension(4 * 1980 / 5, 1080)); // Az ablak 4/5-ét foglalja el
         gameArea.setLayout(null); // Manuális elrendezés
         tektonView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
         insectView.setBounds(0, 0, 4 * 1980 / 5, 1080);
+        myceliumView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
         tektonView.setOpaque(false); // Átlátszó háttér
+        gameArea.add(myceliumView); // MyceliumView hozzáadása a játékterülethez
         gameArea.add(insectView);
         gameArea.add(tektonView);
         add(gameArea, BorderLayout.CENTER);
