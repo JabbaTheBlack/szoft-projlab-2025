@@ -18,10 +18,10 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         tektonManager = TektonManager.getInstance();
+        commandListModel = new DefaultListModel<>();
         tektonView = new TektonView();
-        insectView = new InsectView();
+        insectView = new InsectView(commandListModel);
         myceliumView = new MyceliumView();
-
         insectView.setOpaque(false); // Átlátszó háttér
         myceliumView.setOpaque(false); // Átlátszó háttér
         setLayout(new BorderLayout()); // BorderLayout a fő elrendezéshez
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel {
         JLabel label2 = new JLabel("parancsok");
         commandPanel2.add(label2);
         // Parancsok listája
-        commandListModel = new DefaultListModel<>();
+
         JList<String> commandList = new JList<>(commandListModel);
         commandList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Egyetlen elem választható
         commandList.setVisibleRowCount(10); // Látható sorok száma

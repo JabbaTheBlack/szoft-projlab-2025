@@ -2,7 +2,11 @@ package hu.bme.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.event.MouseEvent;
+
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -12,6 +16,14 @@ import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 
 public class InsectView extends JPanel {
+    private DefaultListModel<String> commandListModel; // A parancsok listája
+
+    public InsectView(DefaultListModel<String> commandListModel) {
+        this.commandListModel = commandListModel;
+
+        addMouseListener(new InsectMouseHandler(commandListModel));
+    }
+
     BufferedImage insectImage = null; // Rovar kép inicializálása
 
     @Override
