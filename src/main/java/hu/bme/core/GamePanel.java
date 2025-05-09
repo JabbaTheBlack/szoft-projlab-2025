@@ -7,6 +7,10 @@ import javax.swing.border.Border;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import hu.bme.fungi.Mycologist;
+import hu.bme.insect.Entomologist;
+import hu.bme.managers.InsectManager;
+import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
 import hu.bme.view.CentralMouseHandler;
 
@@ -68,6 +72,15 @@ public class GamePanel extends JPanel {
         commandPanel1.setBackground(Color.LIGHT_GRAY);
         JLabel label1 = new JLabel("Játékosok és kör");
         commandPanel1.add(label1);
+        for (Entomologist entomologist : InsectManager.getInstance().geEntomologists()) {
+            JLabel label = new JLabel(entomologist.getName());
+            commandPanel1.add(label);
+        }
+
+        for (Mycologist mycologist : MycologistManager.getInstance().getMycologists()) {
+            JLabel label = new JLabel(mycologist.getName());
+            commandPanel1.add(label);
+        }
 
         JPanel commandPanel2 = new JPanel();
         commandPanel2.setBackground(Color.GRAY);
@@ -82,17 +95,19 @@ public class GamePanel extends JPanel {
         commandPanel2.add(scrollPane, BorderLayout.CENTER);
 
         // Eseménykezelő a listaelemekhez
+        JLabel label4 = new JLabel("aktuális parancs: " + CentralMouseHandler.getSelectedCommand());
         commandList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) { // Csak akkor fut le, ha a kiválasztás befejeződött
                 String selectedCommand = commandList.getSelectedValue();
                 System.out.println("Kiválasztott parancs: " + selectedCommand);
                 CentralMouseHandler.setSelectedCommand(selectedCommand);
+                label4.setText("aktuális parancs: " + selectedCommand);
 
             }
         });
 
         JPanel commandPanel3 = new JPanel(new BorderLayout()); // BorderLayout a gomb aljára helyezéséhez
-        JLabel label4 = new JLabel("aktuális parancs:");
+
         commandPanel3.setBackground(Color.DARK_GRAY);
         JLabel label3 = new JLabel("itt lesz majd az aktuális parancs és a gomb");
         commandPanel3.add(label3, BorderLayout.NORTH); // Szöveg a panel tetején

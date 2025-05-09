@@ -57,6 +57,10 @@ public class CentralMouseHandler extends MouseAdapter {
         return selectedInsect;
     }
 
+    public String getSelectedCommand() {
+        return selectedCommand;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         int mouseX = e.getX();
@@ -93,10 +97,8 @@ public class CentralMouseHandler extends MouseAdapter {
 
                     selectedInsect = insect;
 
-                    // Mentsük el a jelenlegi parancsot
-
                     // Parancsok hozzáadása a listához
-                    // commandListModel.clear();
+                    commandListModel.clear();
                     commandListModel.addElement("cuthyphae");
                     commandListModel.addElement("move");
                     commandListModel.addElement("eatspore");
