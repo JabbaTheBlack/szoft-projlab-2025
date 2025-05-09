@@ -24,14 +24,16 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
 
+        JPanel overlayPanel = new JPanel();
         tektonManager = TektonManager.getInstance();
         commandListModel = new DefaultListModel<>();
         tektonView = new TektonView();
-
+        overlayPanel.setOpaque(false);
+        overlayPanel.setBounds(0, 0, 4 * 1980 / 5, 1080);
         CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView);
         insectView = new InsectView(commandListModel);
-        tektonView.addMouseMotionListener(CentralMouseHandler); // TektonView egérmozgás eseménykezelő);
-        insectView.addMouseListener(CentralMouseHandler); // InsectView egérkattintás eseménykezelő);
+        overlayPanel.addMouseListener(CentralMouseHandler);
+        overlayPanel.addMouseMotionListener(CentralMouseHandler);
         myceliumView = new MyceliumView();
         tektonView.setOpaque(false); // Átlátszó háttér);
         insectView.setOpaque(false); // Átlátszó háttér
@@ -49,9 +51,10 @@ public class GamePanel extends JPanel {
         insectView.setBounds(0, 0, 4 * 1980 / 5, 1080);
         myceliumView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
         tektonView.setOpaque(false); // Átlátszó háttér
-        gameArea.add(myceliumView); // MyceliumView hozzáadása a játékterülethez
+        gameArea.add(myceliumView);
         gameArea.add(tektonView);
         gameArea.add(insectView);
+        gameArea.add(overlayPanel);
         add(gameArea, BorderLayout.CENTER);
 
         // Jobb oldali panel (parancsok)
