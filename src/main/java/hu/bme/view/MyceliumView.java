@@ -42,7 +42,7 @@ public class MyceliumView extends JPanel {
                 if (myceliumImage != null) {
 
                     g2d.drawImage(myceliumImage, x - 21 / 2, y - 21 / 2, 21, 21, null);
-                    System.out.println("Rovar kép betöltve: ");
+                    // System.out.println("Rovar kép betöltve: ");
                 }
             }
         }

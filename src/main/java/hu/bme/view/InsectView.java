@@ -21,7 +21,6 @@ public class InsectView extends JPanel {
     public InsectView(DefaultListModel<String> commandListModel) {
         this.commandListModel = commandListModel;
 
-        addMouseListener(new InsectMouseHandler(commandListModel));
     }
 
     BufferedImage insectImage = null; // Rovar kép inicializálása
@@ -47,7 +46,7 @@ public class InsectView extends JPanel {
                 if (insectImage != null) {
 
                     g2d.drawImage(insectImage, x - 21 / 2, y - 21 / 2, 21, 21, null);
-                    System.out.println("Rovar kép betöltve: ");
+                    // System.out.println("Rovar kép betöltve: ");
                 }
             }
         }

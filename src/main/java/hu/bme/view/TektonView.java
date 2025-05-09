@@ -13,11 +13,6 @@ import hu.bme.tekton.Tekton;
 public class TektonView extends JPanel {
     private Tekton hoveredTekton = null;
 
-    public TektonView() {
-        TektonMouseHandler mouseHandler = new TektonMouseHandler(this);
-        addMouseMotionListener(mouseHandler); // Egérmozgás figyelése
-    }
-
     public void setHoveredTekton(Tekton tekton) {
         this.hoveredTekton = tekton;
     }

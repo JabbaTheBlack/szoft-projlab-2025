@@ -4,7 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import hu.bme.managers.TektonManager;
+import hu.bme.view.CentralMouseHandler;
+
 import hu.bme.view.InsectView;
 import hu.bme.view.MyceliumView;
 import hu.bme.view.TektonView;
@@ -15,15 +20,24 @@ public class GamePanel extends JPanel {
     private TektonView tektonView;
     private InsectView insectView;
     private MyceliumView myceliumView;
+    private CentralMouseHandler CentralMouseHandler;
 
     public GamePanel() {
+
         tektonManager = TektonManager.getInstance();
         commandListModel = new DefaultListModel<>();
         tektonView = new TektonView();
+
+        CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView);
         insectView = new InsectView(commandListModel);
+        tektonView.addMouseMotionListener(CentralMouseHandler); // TektonView egérmozgás eseménykezelő);
+        insectView.addMouseListener(CentralMouseHandler); // InsectView egérkattintás eseménykezelő);
         myceliumView = new MyceliumView();
+        tektonView.setOpaque(false); // Átlátszó háttér);
         insectView.setOpaque(false); // Átlátszó háttér
         myceliumView.setOpaque(false); // Átlátszó háttér
+        tektonView.setEnabled(true);
+        tektonView.setFocusable(true); // Fókuszálható
         setLayout(new BorderLayout()); // BorderLayout a fő elrendezéshez
 
         // Játékterület (középső rész)
@@ -36,8 +50,8 @@ public class GamePanel extends JPanel {
         myceliumView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
         tektonView.setOpaque(false); // Átlátszó háttér
         gameArea.add(myceliumView); // MyceliumView hozzáadása a játékterülethez
-        gameArea.add(insectView);
         gameArea.add(tektonView);
+        gameArea.add(insectView);
         add(gameArea, BorderLayout.CENTER);
 
         // Jobb oldali panel (parancsok)
@@ -68,6 +82,7 @@ public class GamePanel extends JPanel {
             if (!e.getValueIsAdjusting()) { // Csak akkor fut le, ha a kiválasztás befejeződött
                 String selectedCommand = commandList.getSelectedValue();
                 System.out.println("Kiválasztott parancs: " + selectedCommand);
+                CentralMouseHandler.setSelectedCommand(selectedCommand);
             }
         });
 
@@ -78,8 +93,11 @@ public class GamePanel extends JPanel {
         commandPanel3.add(label3, BorderLayout.NORTH); // Szöveg a panel tetején
         commandPanel3.add(label4, BorderLayout.CENTER); // Szöveg középen
 
-        JButton button = new JButton("Parancs kiadása");
-        commandPanel3.add(button, BorderLayout.SOUTH); // Gomb a panel aljára
+        JButton executeButton = new JButton("Parancs kiadása");
+        commandPanel3.add(executeButton, BorderLayout.SOUTH); // Gomb a panel aljára
+        executeButton.addActionListener(e -> {
+            CentralMouseHandler.executeCommand();
+        });
 
         // Parancs panelek hozzáadása a jobb oldali panelhez
         rightPanel.add(commandPanel1);
@@ -95,4 +113,5 @@ public class GamePanel extends JPanel {
         super.paintComponent(g); // Alapértelmezett rajzolás
 
     }
+
 }
