@@ -49,6 +49,14 @@ public class CentralMouseHandler extends MouseAdapter {
         tektonView.repaint(); // Újrarajzolás
     }
 
+    public Tekton getSelectedTekton() {
+        return selectedTekton;
+    }
+
+    public Insect getSelectedInsect() {
+        return selectedInsect;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         int mouseX = e.getX();
@@ -115,6 +123,7 @@ public class CentralMouseHandler extends MouseAdapter {
 
                 // Megjegyezzük a kiválasztott tektont
                 selectedTekton = tekton;
+                tektonView.repaint(); // Újrarajzolás
                 return true;
             }
         }
@@ -135,7 +144,8 @@ public class CentralMouseHandler extends MouseAdapter {
                 case "move":
                     if (selectedTekton != null) {
                         System.out.println("Mozgatás: " + selectedInsect + " -> " + selectedTekton);
-                        selectedInsect.move(selectedTekton); // Feltételezve, hogy van ilyen metódus
+                        selectedInsect.move(selectedTekton);
+
                     }
                     break;
                 case "cuthyphae":

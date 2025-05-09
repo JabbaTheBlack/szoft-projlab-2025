@@ -27,6 +27,8 @@ public class Main {
         t4.addNeighbour(t1);
         t3.addNeighbour(t4);
         t4.addNeighbour(t3);
+        t1.connectToTekton(t4);
+        t4.connectToTekton(t1);
 
         TektonManager.getInstance().addTekton(t1);
         TektonManager.getInstance().addTekton(t2);

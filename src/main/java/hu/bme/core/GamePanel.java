@@ -25,12 +25,13 @@ public class GamePanel extends JPanel {
     public GamePanel() {
 
         JPanel overlayPanel = new JPanel();
+        tektonView = new TektonView();
         tektonManager = TektonManager.getInstance();
         commandListModel = new DefaultListModel<>();
-        tektonView = new TektonView();
         overlayPanel.setOpaque(false);
         overlayPanel.setBounds(0, 0, 4 * 1980 / 5, 1080);
         CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView);
+        tektonView.setMouseHandler(CentralMouseHandler);
         insectView = new InsectView(commandListModel);
         overlayPanel.addMouseListener(CentralMouseHandler);
         overlayPanel.addMouseMotionListener(CentralMouseHandler);
@@ -86,6 +87,7 @@ public class GamePanel extends JPanel {
                 String selectedCommand = commandList.getSelectedValue();
                 System.out.println("Kiválasztott parancs: " + selectedCommand);
                 CentralMouseHandler.setSelectedCommand(selectedCommand);
+
             }
         });
 
@@ -100,6 +102,8 @@ public class GamePanel extends JPanel {
         commandPanel3.add(executeButton, BorderLayout.SOUTH); // Gomb a panel aljára
         executeButton.addActionListener(e -> {
             CentralMouseHandler.executeCommand();
+            tektonView.repaint(); // Panel újrarajzolása
+            insectView.repaint(); // Panel újrarajzolása
         });
 
         // Parancs panelek hozzáadása a jobb oldali panelhez
