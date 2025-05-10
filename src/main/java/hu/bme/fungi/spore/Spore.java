@@ -1,6 +1,7 @@
 package hu.bme.fungi.spore;
 
 import hu.bme.insect.Insect;
+import hu.bme.view.TextureProvider;
 
 /**
  * Abstract class representing a spore in the game.
@@ -9,6 +10,7 @@ import hu.bme.insect.Insect;
 public abstract class Spore {
 
     private float nutrition;
+    public TextureProvider textureProvider;
 
     /**
      * Constructs a spore with specified nutrition and effect rate.
@@ -18,26 +20,32 @@ public abstract class Spore {
      */
     protected Spore(float nutrition, float effectRate) {
         this.nutrition = nutrition;
+        this.textureProvider = new TextureProvider();
     }
 
     /**
      * Constructs a spore with default values.
      */
-    protected Spore(){
+    protected Spore() {
         this(1, 1);
     }
 
     /**
      * Gets the nutritional value of the spore.
+     * 
      * @return The nutritional value.
      */
-    public float getNutrition() { return nutrition; }
-    
+    public float getNutrition() {
+        return nutrition;
+    }
+
     /**
      * Applies the spore's effect to a given insect.
      * The exact effect is dependent on the specific type of spore.
+     * 
      * @param insect
      */
     public abstract void applyEffect(Insect insect);
-    public abstract Spore clone(); 
+
+    public abstract Spore clone();
 }
