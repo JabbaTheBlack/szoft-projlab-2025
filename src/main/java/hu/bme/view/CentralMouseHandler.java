@@ -12,6 +12,10 @@ import hu.bme.managers.InsectManager;
 import hu.bme.managers.TektonManager;
 import hu.bme.tekton.Tekton;
 
+//-------------------------------------------------------------------------------------------------------------
+//              Ez a Központi egér eseménykezelős osztály, ha szét akarod szedni a kódot több osztályra, sok sikert.
+//              Ha máshogy akarod megoldani akkor légyszíves jelezd hanyadik agyfaszt kapod. Eddigi agyfaszok száma: 2
+//-------------------------------------------------------------------------------------------------------------
 public class CentralMouseHandler extends MouseAdapter {
     private DefaultListModel<String> commandListModel;
     private Insect selectedInsect; // Az aktuálisan kiválasztott rovar
