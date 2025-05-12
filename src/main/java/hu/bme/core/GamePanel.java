@@ -14,6 +14,12 @@ import hu.bme.insect.Entomologist;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
+import hu.bme.tekton.AbsrobingTekton;
+import hu.bme.tekton.KeeperTekton;
+import hu.bme.tekton.MultiTypeTekton;
+import hu.bme.tekton.MyceliumFreeTekton;
+import hu.bme.tekton.SingleTypeTekton;
+import hu.bme.tekton.Tekton;
 import hu.bme.view.CentralMouseHandler;
 
 import hu.bme.view.InsectView;
