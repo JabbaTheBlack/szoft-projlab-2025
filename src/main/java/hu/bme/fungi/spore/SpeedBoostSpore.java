@@ -14,7 +14,7 @@ public class SpeedBoostSpore extends Spore {
      */
     public SpeedBoostSpore() {
         super();
-        textureProvider.setImage("/images/fungi_images/speed_boost_spore.png");
+        textureProvider.setImage("/images/fungi_images/speed_spore.png");
     }
 
     public Spore clone() {

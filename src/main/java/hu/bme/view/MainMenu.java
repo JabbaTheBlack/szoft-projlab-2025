@@ -352,8 +352,7 @@ public class MainMenu extends JPanel {
                         break;
                     case "Speedboost":
                         mycologist.chooseSpore(3);
-                        // nem tudom ez valamiért nem működik
-                        // mycelium.textureProvider.setImage("/images/fungi_images/defensive_fungi.png");
+                        mycelium.textureProvider.setImage("/images/fungi_images/speed_fungi.png");
                         break;
                     case "Slowing":
                         mycologist.chooseSpore(4);
