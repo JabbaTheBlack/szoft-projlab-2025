@@ -31,6 +31,7 @@ public class MainMenu extends JPanel {
     private JFrame parentFrame; // A szülő JFrame tárolása
     private Map<String, JTextField> gombaszokTextFields = new HashMap<>();
     private Map<String, JTextField> rovaraszokTextFields = new HashMap<>();
+    int players = 0;
 
     public MainMenu(JFrame parentFrame) {
         this.parentFrame = parentFrame; // A szülő JFrame mentése
@@ -83,7 +84,6 @@ public class MainMenu extends JPanel {
         JButton startButton = new JButton("Start");
         startButton.setFont(new Font("Arial", Font.BOLD, 24)); // Nagyobb betűméret
         bottomPanel.add(startButton);
-
         // Start gomb eseménykezelő
         startButton.addActionListener(new ActionListener() {
             @Override
@@ -104,9 +104,12 @@ public class MainMenu extends JPanel {
                 for (Map.Entry<String, JTextField> entry : gombaszokTextFields.entrySet()) {
                     String name = entry.getValue().getText().trim();
                     if (!name.isEmpty()) {
-                        Mycologist mycologist = new Mycologist(name); // Feltételezve, hogy van ilyen konstruktor
-                        MycologistManager.getInstance().addMycologist(mycologist); // Gombász hozzáadása a
-                                                                                   // MycologistManagerhez
+                        // Mycologist mycologist = new Mycologist(name); // Feltételezve, hogy van ilyen
+                        // konstruktor
+                        // MycologistManager.getInstance().addMycologist(mycologist); // Gombász
+                        // hozzáadása a
+                        // MycologistManagerhez
+                        players++;
                         System.out.println("Létrehozott gombász: " + name);
                     }
                 }
@@ -114,15 +117,16 @@ public class MainMenu extends JPanel {
                 for (Map.Entry<String, JTextField> entry : rovaraszokTextFields.entrySet()) {
                     String name = entry.getValue().getText().trim();
                     if (!name.isEmpty()) {
-                        Entomologist entomologist = new Entomologist(name); // Feltételezve, hogy van ilyen konstruktor
-                        InsectManager.getInstance().addEntomologist(entomologist); // Rovarász hozzáadása az
-                                                                                   // InsectManagerhez
-
+                        Entomologist entomologist = new Entomologist(name); // Feltételezve, hogy van
+                        // ilyen konstruktor
+                        InsectManager.getInstance().addEntomologist(entomologist); // Rovarász
+                        // hozzáadása az
+                        // InsectManagerhez
+                        players++;
                         System.out.println("Létrehozott rovarász: " + name);
                     }
                 }
-                createTektons(MycologistManager.getInstance().getMycologistCount()
-                        + InsectManager.getInstance().getEntomologistCount());
+                createTektons(players);
 
                 createInsects();
                 createMyceliums();
