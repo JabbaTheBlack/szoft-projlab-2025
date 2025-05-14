@@ -82,7 +82,12 @@ public class TektonView extends JPanel {
 
         if (hoveredTekton != null) {
             for (Tekton neighbour : hoveredTekton.getNeighbours()) {
-                g2d.setColor(Color.RED); // Line color
+                g2d.setColor(Color.LIGHT_GRAY); // Set line color to gray
+
+                // Set a jagged (dashed) stroke
+                float[] dashPattern = {10, 5}; // Dash length and gap length
+                g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, dashPattern, 0));
+
                 g2d.drawLine(hoveredTekton.getX(), hoveredTekton.getY(), neighbour.getX(), neighbour.getY());
             }
         }

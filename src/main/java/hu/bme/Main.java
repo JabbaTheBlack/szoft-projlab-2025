@@ -34,14 +34,14 @@ public class Main {
         t1.connectToTekton(t4);
         t4.connectToTekton(t1);
 
-        // int numberOfTektons = 80; // Max 82, utána megöli a programot
+        int numberOfTektons = 30; // Max 82, utána megöli a programot
 
-        // TektonManager manager = TektonManager.getInstance();
+        TektonManager manager = TektonManager.getInstance();
 
-        // for (int i = 0; i < numberOfTektons; i++) {
-        //     Tekton tekton = new MultiTypeTekton(); // Replace with your Tekton subclass
-        //     manager.addTekton(tekton);
-        // }
+        for (int i = 0; i < numberOfTektons; i++) {
+            Tekton tekton = new MultiTypeTekton(); // Replace with your Tekton subclass
+            manager.addTekton(tekton);
+        }
 
         TektonManager.getInstance().addTekton(t1);
         TektonManager.getInstance().addTekton(t2);
