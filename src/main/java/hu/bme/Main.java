@@ -1,6 +1,8 @@
 package hu.bme;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import hu.bme.core.GamePanel;
@@ -67,8 +69,14 @@ public class Main {
         JFrame frame = new JFrame("Fungorium - Main Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
+
+
+        frame.setIconImage(new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
+
         frame.add(new MainMenu(frame)); // Átadjuk a JFrame-et a MainMenu-nak
         frame.setVisible(true);
+
+
 
     }
 }

@@ -1,5 +1,6 @@
 package hu.bme.view;
 
+import hu.bme.Main;
 import hu.bme.core.GamePanel;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
@@ -135,6 +136,8 @@ public class MainMenu extends JPanel {
 
                 // Új ablak megnyitása a GamePanel megjelenítéséhez
                 JFrame gameFrame = new JFrame("Fungorium - Game");
+                gameFrame.setIconImage(new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
+
                 gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 gameFrame.setSize(800, 600);
 

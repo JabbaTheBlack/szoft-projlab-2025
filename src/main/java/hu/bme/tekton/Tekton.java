@@ -20,6 +20,16 @@ public abstract class Tekton {
     private List<Tekton> connectedNeighbours;
     private int x, y;
 
+    // Setter for Y
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    // Setter for X
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getX() {
         return x;
     }
