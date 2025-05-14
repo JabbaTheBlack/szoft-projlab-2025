@@ -30,10 +30,12 @@ public abstract class Tekton {
         this.x = x;
     }
 
+    // Getter for Y
     public int getX() {
         return x;
     }
 
+    // Getter for X
     public int getY() {
         return y;
     }
