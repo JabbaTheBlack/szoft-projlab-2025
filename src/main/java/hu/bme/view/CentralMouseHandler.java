@@ -6,9 +6,13 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 
+import hu.bme.fungi.Mycelium;
+import hu.bme.fungi.Mycologist;
 import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
+import hu.bme.managers.FungalManager;
 import hu.bme.managers.InsectManager;
+import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
 import hu.bme.tekton.Tekton;
 
@@ -23,6 +27,7 @@ public class CentralMouseHandler extends MouseAdapter {
     private Tekton selectedTekton; // Az aktuálisan kiválasztott tekton
     private TektonView tektonView;
     private Object activePlayer; // Az aktuális játékos
+    private Mycelium selectedMycelium;
 
     public void setActivePlayer(Object activePlayer) {
         this.activePlayer = activePlayer;
@@ -76,10 +81,12 @@ public class CentralMouseHandler extends MouseAdapter {
         int mouseY = e.getY();
         System.out.println("parancs: " + selectedCommand);
         // Ellenőrizzük, hogy a kattintás egy rovarra esett-e
+        if (InsectManager.getInstance().geEntomologists().contains(activePlayer)) {
 
-        if (selectedCommand == null || selectedCommand.equals("move")) {
-            if (checkInsectSelection(mouseX, mouseY)) {
-                return;
+            if (selectedCommand == null || selectedCommand.equals("move")) {
+                if (checkInsectSelection(mouseX, mouseY)) {
+                    return;
+                }
             }
         }
 
@@ -87,6 +94,13 @@ public class CentralMouseHandler extends MouseAdapter {
         if (selectedCommand != null && selectedCommand.equals("move")) {
             if (checkTektonSelection(mouseX, mouseY)) {
                 return;
+            }
+        }
+        if (MycologistManager.getInstance().getMycologists().contains(activePlayer)) {
+            if (selectedCommand == null || selectedCommand.equals("GrowHyphae")) {
+                if (checkMyceliumSelection(mouseX, mouseY)) {
+                    return;
+                }
             }
         }
     }
@@ -115,13 +129,57 @@ public class CentralMouseHandler extends MouseAdapter {
                                 .contains(selectedInsect)) {
                             selectedInsect = null;
                             System.out.println("Ez nem a te rovarod!");
-                            return false;
+                            // innen a return false azért lett kivéve, mert lehet egy rovar egy másik
+                            // rovaron és ha a listában előtte van a másik rovar akkor soha nem fog tudni rá
+                            // kattintani
                         }
                         // Parancsok hozzáadása a listához
                         commandListModel.clear();
                         commandListModel.addElement("cuthyphae");
                         commandListModel.addElement("move");
                         commandListModel.addElement("eatspore");
+
+                        // Állítsuk vissza a parancsot
+
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkMyceliumSelection(int mouseX, int mouseY) {
+        System.out.println(activePlayer + " " + MycologistManager.getInstance().getMycologists()
+                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer)).getMyceliums().size());
+        if (MycologistManager.getInstance().getMycologists().contains(activePlayer)) {
+            List<Mycologist> mycologists = MycologistManager.getInstance().getMycologists();
+            for (Mycologist mycologist : mycologists) {
+                for (Mycelium mycelium : mycologist.getMyceliums()) {
+                    int x = mycelium.getCurrentTekton().getX();
+                    int y = mycelium.getCurrentTekton().getY();
+                    int size = 21; // Rovar mérete
+
+                    if (mouseX >= x - size / 2 && mouseX <= x + size / 2 &&
+                            mouseY >= y - size / 2 && mouseY <= y + size / 2) {
+                        System.out.println("Gombára kattintottál: " + mycelium);
+
+                        // Megjegyezzük a kiválasztott rovart
+
+                        selectedMycelium = mycelium;
+                        if (!MycologistManager.getInstance().getMycologists()
+                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer))
+                                .getMyceliums()
+                                .contains(selectedMycelium)) {
+                            selectedMycelium = null;
+                            System.out.println("Ez nem a te gombád!");
+                            // innen a return false maradhat amúgy, return false;
+                        }
+                        // Parancsok hozzáadása a listához
+                        commandListModel.clear();
+                        commandListModel.addElement("GrowHyphae");
+                        commandListModel.addElement("spreadSpore");
+                        commandListModel.addElement("upgradeMycelium");
 
                         // Állítsuk vissza a parancsot
 
