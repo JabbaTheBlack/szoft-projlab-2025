@@ -73,6 +73,12 @@ public class CentralMouseHandler extends MouseAdapter {
     public Insect getSelectedInsect() {
         return selectedInsect;
     }
+    public Mycelium getSelectedMycelium() {
+        return selectedMycelium;
+    }
+    public Hyphae getSelectedHyphae() {
+        return selectedHyphae;
+    }
 
     public String getSelectedCommand() {
         return selectedCommand;
@@ -108,15 +114,18 @@ public class CentralMouseHandler extends MouseAdapter {
         }
 
         if (MycologistManager.getInstance().getMycologists().contains(activePlayer)) {
-            if (selectedCommand == null || selectedCommand.equals("GrowHyphae")) {
-                if (checkMyceliumSelection(mouseX, mouseY)) {
-                    return;
-                }
+            if (selectedCommand == null ) {
+                checkMyceliumSelection(mouseX, mouseY);
+                checkHyphaeSelection(mouseX, mouseY);
+
+            } else if (selectedCommand == null|| selectedCommand.equals("GrowHyphae")) {
+                checkTektonSelection(mouseX, mouseY);
+
             }
         }
         
         // A tekton kijelölés megszüntetése
-       selectedTekton = null;
+       //selectedTekton = null;
     }
 
         private double pointToSegmentDistance(int px, int py, int x1, int y1, int x2, int y2) {
@@ -152,8 +161,8 @@ public class CentralMouseHandler extends MouseAdapter {
                     // Calculate the distance from the mouse point to the line segment
                     double distance = pointToSegmentDistance(mouseX, mouseY, x1, y1, x2, y2);
 
-                    // Check if the distance is within a certain threshold (e.g., 10 pixels)
-                    if (distance <= 10) {
+                    // Check if the distance is within a certain threshold (e.g., 3 pixels)
+                    if (distance <= 3) {
                         System.out.println("Hyphae-ra kattintottál: " + hyphae);
                         selectedHyphae = hyphae;
                         // Add commands or handle selection as needed
@@ -280,7 +289,7 @@ public class CentralMouseHandler extends MouseAdapter {
     }
 
     public void executeCommand() {
-        if (selectedInsect != null && selectedCommand != null) {
+        if (selectedCommand != null) { //selectedInsect != null kiszedve
             switch (selectedCommand) {
                 case "move":
                     if (selectedTekton != null) {
@@ -290,12 +299,35 @@ public class CentralMouseHandler extends MouseAdapter {
                     }
                     break;
                 case "cuthyphae":
-                    System.out.println("Hyphae vágása: " + selectedInsect);
-                    // selectedInsect.cutHyphae(); // Feltételezve, hogy van ilyen metódus
+                        if(selectedInsect != null && selectedHyphae != null) {
+                            selectedInsect.cutHyphae(selectedHyphae); // Feltételezve, hogy van ilyen metódus
+                            System.out.println("Hyphae vágása: " + selectedInsect + " -> " + selectedHyphae);
+                        }
                     break;
                 case "eatspore":
                     System.out.println("Spóra evése: " + selectedInsect);
                     // selectedInsect.eatSpore(); // Feltételezve, hogy van ilyen metódus
+                    break;
+                case "GrowHyphae":
+                    if (selectedMycelium != null && selectedHyphae == null) {
+                        // gombatestből saját tektonra
+                        System.out.println("Hyphae növesztése: " + selectedMycelium + " -> " + selectedTekton);
+                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
+                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
+                        mycologist.growHyphaeOnTekton(selectedMycelium, selectedMycelium.getCurrentTekton());
+                    } else if(selectedHyphae != null && selectedTekton != null) {
+                        
+                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
+                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
+                        if(selectedHyphae.getCurrentTekton().size() > 1 && selectedHyphae.getCurrentTekton()
+                                .contains(selectedTekton)) {
+                            //kooztes fonalbol tektonra
+                            mycologist.growHyphaeOnTekton(selectedHyphae, selectedTekton);
+                        } else {
+                            // ket tekton közötti fonal
+                            mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
+                        }
+                    }
                     break;
             }
         }

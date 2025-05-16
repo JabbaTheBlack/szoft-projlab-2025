@@ -52,7 +52,7 @@ public class MyceliumView extends JPanel {
             }
             for(Hyphae hyphae : mycologist.getHyphaes()) {
                 // 2 tekton közötti fonal kirajzolása
-                if(hyphae.getCurrentTekton().size() > 1){
+                if(hyphae.getCurrentTekton().size() > 1 && hyphae.getTimeToLive() != 0){
                     g2d.setColor(mycologist.getColor());
                     int ux = hyphae.getCurrentTekton().get(0).getX();
                     int uy = hyphae.getCurrentTekton().get(0).getY();
@@ -61,7 +61,7 @@ public class MyceliumView extends JPanel {
                     g2d.drawLine(ux, uy, vx, vy);
                     hyphae.setPosition(ux, uy, vx, vy);
                 
-                } else {
+                } else if(hyphae.getTimeToLive() != 0) {
                     int tx = hyphae.getCurrentTekton().get(0).getX();
                     int ty = hyphae.getCurrentTekton().get(0).getY();
                     double r = 20; // sugar
