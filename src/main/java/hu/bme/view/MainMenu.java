@@ -353,22 +353,27 @@ public class MainMenu extends JPanel {
                 switch (type) {
                     case "Stun":
                         mycologist.chooseSpore(1);
+                        mycologist.setColor(Color.MAGENTA);
                         mycelium.textureProvider.setImage("/images/fungi_images/stun_fungi.png");
                         break;
                     case "Defensive":
                         mycologist.chooseSpore(2);
+                        mycologist.setColor(Color.RED);
                         mycelium.textureProvider.setImage("/images/fungi_images/defensive_fungi.png");
                         break;
                     case "Speedboost":
                         mycologist.chooseSpore(3);
+                        mycologist.setColor(Color.YELLOW);
                         mycelium.textureProvider.setImage("/images/fungi_images/speed_fungi.png");
                         break;
                     case "Slowing":
                         mycologist.chooseSpore(4);
+                        mycologist.setColor(Color.GREEN);
                         mycelium.textureProvider.setImage("/images/fungi_images/slowing_fungi.png");
                         break;
                     case "Clone":
                         mycologist.chooseSpore(5);
+                        mycologist.setColor(Color.BLUE);
                         mycelium.textureProvider.setImage("/images/fungi_images/clone_fungi.png");
                         break;
                     default:
