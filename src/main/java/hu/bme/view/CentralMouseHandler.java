@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 
+import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
 import hu.bme.insect.Entomologist;
@@ -18,7 +19,8 @@ import hu.bme.tekton.Tekton;
 
 //-------------------------------------------------------------------------------------------------------------
 //              Ez a Központi egér eseménykezelős osztály, ha szét akarod szedni a kódot több osztályra, sok sikert.
-//              Ha máshogy akarod megoldani akkor légyszíves jelezd hanyadik agyfaszt kapod. Eddigi agyfaszok száma: 2
+//              Ha máshogy akarod megoldani akkor légyszíves jelezd hanyadik agyfaszt kapod. Eddigi agyfaszok száma: 3 
+//              ebbol egyet Praxi okozott Janinak.
 //-------------------------------------------------------------------------------------------------------------
 public class CentralMouseHandler extends MouseAdapter {
     private DefaultListModel<String> commandListModel;
@@ -28,6 +30,7 @@ public class CentralMouseHandler extends MouseAdapter {
     private TektonView tektonView;
     private Object activePlayer; // Az aktuális játékos
     private Mycelium selectedMycelium;
+    private Hyphae selectedHyphae;
 
     public void setActivePlayer(Object activePlayer) {
         this.activePlayer = activePlayer;
@@ -96,6 +99,14 @@ public class CentralMouseHandler extends MouseAdapter {
                 return;
             }
         }
+
+        // Ellenőrizzük, hogy a kattintás egy hyphae-ra esett-e
+        if (selectedCommand == null || selectedCommand.equals("cuthyphae")) {
+            if (checkHyphaeSelection(mouseX, mouseY)) {
+                return;
+            }
+        }
+
         if (MycologistManager.getInstance().getMycologists().contains(activePlayer)) {
             if (selectedCommand == null || selectedCommand.equals("GrowHyphae")) {
                 if (checkMyceliumSelection(mouseX, mouseY)) {
@@ -103,6 +114,54 @@ public class CentralMouseHandler extends MouseAdapter {
                 }
             }
         }
+        
+        // A tekton kijelölés megszüntetése
+       selectedTekton = null;
+    }
+
+        private double pointToSegmentDistance(int px, int py, int x1, int y1, int x2, int y2) {
+            double dx = x2 - x1;
+            double dy = y2 - y1;
+            if (dx == 0 && dy == 0) {
+                // It's a point, not a segment.
+                dx = px - x1;
+                dy = py - y1;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            // Calculate t that minimizes the distance
+            double t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
+            t = Math.max(0, Math.min(1, t));
+            double closestX = x1 + t * dx;
+            double closestY = y1 + t * dy;
+            dx = px - closestX;
+            dy = py - closestY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+
+    private boolean checkHyphaeSelection(int mouseX, int mouseY) {
+            List<Mycologist> mycologists = MycologistManager.getInstance().getMycologists();
+            for (Mycologist mycologist : mycologists) {
+                for (Hyphae hyphae : mycologist.getHyphaes()) {
+                    int x1 = (int)hyphae.getP1().getX();
+                    int y1 = (int)hyphae.getP1().getY();
+                    int x2 = (int)hyphae.getP2().getX();
+                    int y2 = (int)hyphae.getP2().getY();
+
+                    // Calculate the distance from the mouse point to the line segment
+                    double distance = pointToSegmentDistance(mouseX, mouseY, x1, y1, x2, y2);
+
+                    // Check if the distance is within a certain threshold (e.g., 10 pixels)
+                    if (distance <= 10) {
+                        System.out.println("Hyphae-ra kattintottál: " + hyphae);
+                        selectedHyphae = hyphae;
+                        // Add commands or handle selection as needed
+                        return true;
+                    }
+                }
+            }
+        return false;
     }
 
     private boolean checkInsectSelection(int mouseX, int mouseY) {
@@ -180,6 +239,7 @@ public class CentralMouseHandler extends MouseAdapter {
                         commandListModel.addElement("GrowHyphae");
                         commandListModel.addElement("spreadSpore");
                         commandListModel.addElement("upgradeMycelium");
+                        commandListModel.addElement("GrowMycelium");
 
                         // Állítsuk vissza a parancsot
 

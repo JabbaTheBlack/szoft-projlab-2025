@@ -54,8 +54,13 @@ public class MyceliumView extends JPanel {
                 // 2 tekton közötti fonal kirajzolása
                 if(hyphae.getCurrentTekton().size() > 1){
                     g2d.setColor(mycologist.getColor());
-                    g2d.drawLine(hyphae.getCurrentTekton().get(0).getX(), hyphae.getCurrentTekton().get(0).getY(),
-                            hyphae.getCurrentTekton().get(1).getX(), hyphae.getCurrentTekton().get(1).getY());
+                    int ux = hyphae.getCurrentTekton().get(0).getX();
+                    int uy = hyphae.getCurrentTekton().get(0).getY();
+                    int vx = hyphae.getCurrentTekton().get(1).getX();
+                    int vy = hyphae.getCurrentTekton().get(1).getY();
+                    g2d.drawLine(ux, uy, vx, vy);
+                    hyphae.setPosition(ux, uy, vx, vy);
+                
                 } else {
                     int tx = hyphae.getCurrentTekton().get(0).getX();
                     int ty = hyphae.getCurrentTekton().get(0).getY();
@@ -70,6 +75,7 @@ public class MyceliumView extends JPanel {
                     g2d.setColor(mycologist.getColor());
                     g2d.setStroke(new java.awt.BasicStroke(3)); // 4 is the line width in pixels
                     g2d.drawLine(vx, vy, ux, uy);
+                    hyphae.setPosition(ux, uy, vx, vy);
 
                 }
 
