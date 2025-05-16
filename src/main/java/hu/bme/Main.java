@@ -1,11 +1,14 @@
 package hu.bme;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import hu.bme.core.GamePanel;
+import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.DefensiveSpore;
@@ -38,10 +41,10 @@ public class Main {
 
         TektonManager manager = TektonManager.getInstance();
 
-        for (int i = 0; i < numberOfTektons; i++) {
-            Tekton tekton = new MultiTypeTekton(); // Replace with your Tekton subclass
-            manager.addTekton(tekton);
-        }
+        // for (int i = 0; i < numberOfTektons; i++) {
+        //     Tekton tekton = new MultiTypeTekton(); // Replace with your Tekton subclass
+        //     manager.addTekton(tekton);
+        // }
 
         TektonManager.getInstance().addTekton(t1);
         TektonManager.getInstance().addTekton(t2);
@@ -59,10 +62,23 @@ public class Main {
         InsectManager.getInstance().addEntomologist(entomologist);
 
         Mycelium mycelium = new Mycelium(t2);
+        Mycelium mycelium2 = new Mycelium(t1);
         mycelium.textureProvider.setImage("/images/fungi_images/defensive_fungi.png");
+        mycelium2.textureProvider.setImage("/images/fungi_images/clone_fungi.png");
         Mycologist mycologist = new Mycologist();
+        Mycologist mycologist2 = new Mycologist();
         mycologist.addMycelium(mycelium);
+        mycologist2.addMycelium(mycelium2);
+        mycologist.growHyphaeOnTekton(mycelium, t2);
+        mycologist2.growHyphaeOnTekton(mycelium2, t1);
+        Hyphae hyphae = mycologist.getHyphaes().get(0);
+        mycologist.growHyphaeToTekton(hyphae, t1);
+        mycologist.growHyphaeOnTekton(mycologist.getHyphaes().get(1), t1);
+        mycologist.setColor(Color.RED);
+        mycologist2.setColor(Color.BLUE);
         MycologistManager.getInstance().addMycologist(mycologist);
+        MycologistManager.getInstance().addMycologist(mycologist2);
+        
         System.out.println(" /$$$$$$$$                                                /$$          \r\n" + //
                 "| $$_____/                                               |__/          \r\n" + //
                 "| $$    /$$   /$$ /$$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$  /$$$$$$ \r\n" + //

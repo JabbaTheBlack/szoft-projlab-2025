@@ -1,5 +1,6 @@
 package hu.bme.fungi;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,6 +23,7 @@ public class Mycologist {
     private List<Mycelium> myceliums;
     private List<Hyphae> hyphaes;
     private Spore selectedType;
+    private Color color;
     private String name;
 
     /**
@@ -118,7 +120,9 @@ public class Mycologist {
         // } else {
         // newHyphae.addCurrentTekton(hyphae.getCurrentTekton().get(1));
         // }
+        // add both tektons to the new hyphae bc its between 2 tektons
         newHyphae.addCurrentTekton(targetTekton);
+        newHyphae.addCurrentTekton(neighbourTekton);
 
         neighbourTekton.connectToTekton(targetTekton);
 
@@ -254,6 +258,7 @@ public class Mycologist {
             newHyphae.addHyphae(hyphae);
             newHyphae.setOwner(hyphae.getOwner());
             hyphae.addHyphae(newHyphae);
+            hyphaes.add(newHyphae);
         }
     }
 
@@ -364,5 +369,11 @@ public class Mycologist {
             return;
         }
         hyphaes.add(hyphae);
+    }
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    public Color getColor() {
+        return color;
     }
 }
