@@ -118,9 +118,9 @@ public class MainMenu extends JPanel {
                 for (Map.Entry<String, JTextField> entry : rovaraszokTextFields.entrySet()) {
                     String name = entry.getValue().getText().trim();
                     if (!name.isEmpty()) {
-                        Entomologist entomologist = new Entomologist(name); // Feltételezve, hogy van
+                        // Entomologist entomologist = new Entomologist(name); // Feltételezve, hogy van
                         // ilyen konstruktor
-                        InsectManager.getInstance().addEntomologist(entomologist); // Rovarász
+                        // InsectManager.getInstance().addEntomologist(entomologist); // Rovarász
                         // hozzáadása az
                         // InsectManagerhez
                         players++;
@@ -136,7 +136,8 @@ public class MainMenu extends JPanel {
 
                 // Új ablak megnyitása a GamePanel megjelenítéséhez
                 JFrame gameFrame = new JFrame("Fungorium - Game");
-                gameFrame.setIconImage(new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
+                gameFrame.setIconImage(
+                        new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
                 // Max size window to see all tektons
                 gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 

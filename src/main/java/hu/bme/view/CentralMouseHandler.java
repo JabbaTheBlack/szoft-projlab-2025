@@ -22,12 +22,17 @@ public class CentralMouseHandler extends MouseAdapter {
     private String selectedCommand; // Az aktuálisan kiválasztott parancs
     private Tekton selectedTekton; // Az aktuálisan kiválasztott tekton
     private TektonView tektonView;
+    private Object activePlayer; // Az aktuális játékos
 
-    public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView) {
+    public void setActivePlayer(Object activePlayer) {
+        this.activePlayer = activePlayer;
+    }
+
+    public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView, Object activePlayer) {
         this.tektonView = tektonView;
         this.commandListModel = commandListModel;
         selectedCommand = null;
-
+        this.activePlayer = activePlayer;
         System.out.println("InsectMouseHandler inicializálva!");
     }
 
@@ -71,6 +76,7 @@ public class CentralMouseHandler extends MouseAdapter {
         int mouseY = e.getY();
         System.out.println("parancs: " + selectedCommand);
         // Ellenőrizzük, hogy a kattintás egy rovarra esett-e
+
         if (selectedCommand == null || selectedCommand.equals("move")) {
             if (checkInsectSelection(mouseX, mouseY)) {
                 return;
@@ -86,30 +92,41 @@ public class CentralMouseHandler extends MouseAdapter {
     }
 
     private boolean checkInsectSelection(int mouseX, int mouseY) {
-        List<Entomologist> entomologists = InsectManager.getInstance().geEntomologists();
-        for (Entomologist entomologist : entomologists) {
-            for (Insect insect : entomologist.getInsects()) {
-                int x = insect.getCurrentTekton().getX();
-                int y = insect.getCurrentTekton().getY();
-                int size = 21; // Rovar mérete
+        System.out.println(activePlayer + " " + InsectManager.getInstance().geEntomologists()
+                .get(InsectManager.getInstance().geEntomologists().indexOf(activePlayer)).getInsectCount());
+        if (InsectManager.getInstance().geEntomologists().contains(activePlayer)) {
 
-                if (mouseX >= x - size / 2 && mouseX <= x + size / 2 &&
-                        mouseY >= y - size / 2 && mouseY <= y + size / 2) {
-                    System.out.println("Rovarra kattintottál: " + insect);
+            List<Entomologist> entomologists = InsectManager.getInstance().geEntomologists();
+            for (Entomologist entomologist : entomologists) {
+                for (Insect insect : entomologist.getInsects()) {
+                    int x = insect.getCurrentTekton().getX();
+                    int y = insect.getCurrentTekton().getY();
+                    int size = 21; // Rovar mérete
 
-                    // Megjegyezzük a kiválasztott rovart
+                    if (mouseX >= x - size / 2 && mouseX <= x + size / 2 &&
+                            mouseY >= y - size / 2 && mouseY <= y + size / 2) {
+                        System.out.println("Rovarra kattintottál: " + insect);
 
-                    selectedInsect = insect;
+                        // Megjegyezzük a kiválasztott rovart
 
-                    // Parancsok hozzáadása a listához
-                    commandListModel.clear();
-                    commandListModel.addElement("cuthyphae");
-                    commandListModel.addElement("move");
-                    commandListModel.addElement("eatspore");
+                        selectedInsect = insect;
+                        if (!InsectManager.getInstance().geEntomologists()
+                                .get(InsectManager.getInstance().geEntomologists().indexOf(activePlayer)).getInsects()
+                                .contains(selectedInsect)) {
+                            selectedInsect = null;
+                            System.out.println("Ez nem a te rovarod!");
+                            return false;
+                        }
+                        // Parancsok hozzáadása a listához
+                        commandListModel.clear();
+                        commandListModel.addElement("cuthyphae");
+                        commandListModel.addElement("move");
+                        commandListModel.addElement("eatspore");
 
-                    // Állítsuk vissza a parancsot
+                        // Állítsuk vissza a parancsot
 
-                    return true;
+                        return true;
+                    }
                 }
             }
         }

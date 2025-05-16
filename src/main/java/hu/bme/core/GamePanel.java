@@ -58,7 +58,7 @@ public class GamePanel extends JPanel {
         commandListModel = new DefaultListModel<>();
         overlayPanel.setOpaque(false);
         overlayPanel.setBounds(0, 0, 4 * 1980 / 5, 1080);
-        CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView);
+        CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView, activePlayer);
         tektonView.setMouseHandler(CentralMouseHandler);
         insectView = new InsectView(commandListModel);
         overlayPanel.addMouseListener(CentralMouseHandler);
@@ -178,6 +178,7 @@ public class GamePanel extends JPanel {
             System.out.println("Aktuális játékos (Gombász): " + ((Mycologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Gombász): " + ((Mycologist) activePlayer).getName());
         }
+        CentralMouseHandler.setActivePlayer(activePlayer); // Frissítjük a kiválasztott játékost
     }
 
 }

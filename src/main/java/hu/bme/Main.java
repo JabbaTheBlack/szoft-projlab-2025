@@ -34,7 +34,7 @@ public class Main {
         t1.connectToTekton(t4);
         t4.connectToTekton(t1);
 
-        int numberOfTektons = 30; // Max 82, utána megöli a programot
+        int numberOfTektons = 1; // Max 82, utána megöli a programot
 
         TektonManager manager = TektonManager.getInstance();
 
@@ -79,13 +79,11 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
-
-        frame.setIconImage(new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
+        frame.setIconImage(
+                new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
 
         frame.add(new MainMenu(frame)); // Átadjuk a JFrame-et a MainMenu-nak
         frame.setVisible(true);
-
-
 
     }
 }
