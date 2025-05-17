@@ -114,15 +114,10 @@ public class Mycologist {
             return;
         }
 
-        // ATNEZNI
-        // if(hyphae.getCurrentTekton().size() <= 1) {
-        // newHyphae.addCurrentTekton(hyphae.getCurrentTekton().get(0));
-        // } else {
-        // newHyphae.addCurrentTekton(hyphae.getCurrentTekton().get(1));
-        // }
-        // add both tektons to the new hyphae bc its between 2 tektons
         newHyphae.addCurrentTekton(targetTekton);
         newHyphae.addCurrentTekton(neighbourTekton);
+
+        newHyphae.addHyphae(hyphae);
 
         neighbourTekton.connectToTekton(targetTekton);
 
@@ -157,6 +152,7 @@ public class Mycologist {
         targetTekton.addHyphae(newHyphae);
         mycelium.addHyphae(newHyphae);
         newHyphae.setOwner(this);
+        newHyphae.addMycelium(mycelium);
         hyphaes.add(newHyphae);
 
     }
