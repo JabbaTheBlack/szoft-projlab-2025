@@ -120,7 +120,7 @@ public class CentralMouseHandler extends MouseAdapter {
                 checkMyceliumSelection(mouseX, mouseY);
                 checkHyphaeSelection(mouseX, mouseY);
 
-            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae") || selectedCommand.equals("GrowMycelium")) {
+            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae")) {
                 checkTektonSelection(mouseX, mouseY);
 
             }
@@ -302,8 +302,8 @@ public class CentralMouseHandler extends MouseAdapter {
                     if (selectedTekton != null) {
                         System.out.println("Mozgatás: " + selectedInsect + " -> " + selectedTekton);
                         selectedInsect.move(selectedTekton);
-
                     }
+                    selectedTekton = null;
                     break;
                 case "cuthyphae":
                     if (selectedInsect != null && selectedHyphae != null) {
@@ -352,16 +352,8 @@ public class CentralMouseHandler extends MouseAdapter {
                         selectedMycelium.releaseSpores();
                     }
                     break;
-                case "GrowMycelium":
-                    if (selectedHyphae != null && selectedTekton != null) {
-                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
-                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
-                        mycologist.growMycelium(selectedHyphae, selectedTekton);
-                        System.out.println("Mycelium növesztése: " + selectedMycelium + " -> " + selectedTekton);
-
-                    }
-                    break;
             }
+            selectedCommand = null; // Parancs törlése a végrehajtás után
         }
     }
 

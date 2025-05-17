@@ -30,7 +30,6 @@ public class Insect {
         effectDuration = -1;
         owner = null;
         textureProvider = new TextureProvider();
-        canCutHyphae = true;
     }
 
     /**
@@ -38,7 +37,7 @@ public class Insect {
      * default movement speed and nutrition.
      */
     public Insect() {
-        this(null, 1);
+        this(null, 2);
         nutrition = 0;
         canCutHyphae = true;
         textureProvider = new TextureProvider();
@@ -68,7 +67,7 @@ public class Insect {
     public void tick() {
         effectDuration--;
         if (effectDuration == 0) {
-            movementSpeed = 1;
+            movementSpeed = 2;
             canCutHyphae = true;
         }
     }
@@ -92,7 +91,7 @@ public class Insect {
 
         System.out.println("[Insect] isConenctedTo(" + targetTekton + ") -> [Tekton]");
 
-        if (currentTekton.isConnectedTo(targetTekton)) {
+        if (currentTekton.reachable(targetTekton, (int) movementSpeed)) {
             System.out.println("[Insect] isConnectedTo(" + targetTekton + ") <- [Tekton] {true}");
             System.out.println("[Insect] setCurrentTekton(" + targetTekton + ") -> [Insect]");
             this.setCurrentTekton(targetTekton);
