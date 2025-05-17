@@ -178,7 +178,7 @@ public class GamePanel extends JPanel {
         // Frissítsd a felületet az aktuális játékos nevével ez a logika még nem
         // működik, a nextplayert nem tudtam még befejezniw
 
-        // TODO kivenni belole
+        
         if (InsectManager.getInstance().geEntomologists().contains(activePlayer)) {
             System.out.println("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
