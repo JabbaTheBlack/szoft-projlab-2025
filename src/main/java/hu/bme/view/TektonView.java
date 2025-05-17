@@ -35,7 +35,7 @@ public class TektonView extends JPanel {
         int radius = 50;
         int minDistance = 2 * radius;
 
-        int panelWidth = getWidth();  // Get panel width
+        int panelWidth = getWidth(); // Get panel width
         int panelHeight = getHeight(); // Get panel height
 
         for (Tekton tekton : manager.getTektons()) {
@@ -52,8 +52,10 @@ public class TektonView extends JPanel {
                 y += minDistance;
 
                 // Ensure Tekton stays within bounds
-                if (x > panelWidth - radius) x = radius;
-                if (y > panelHeight - radius) y = radius;
+                if (x > panelWidth - radius)
+                    x = radius;
+                if (y > panelHeight - radius)
+                    y = radius;
             }
 
             // Update Tekton's position
@@ -72,20 +74,12 @@ public class TektonView extends JPanel {
             g2d.drawOval(x - radius / 2, y - radius / 2, radius, radius); // Draw circle
         }
 
-        for (Tekton tekton : manager.getTektons()) {
-            for (Tekton connectedTekton : tekton.getConnectedNeighbours()) {
-                g2d.setColor(Color.GRAY); // Connection line color
-                g2d.setStroke(new BasicStroke(3));
-                g2d.drawLine(tekton.getX(), tekton.getY(), connectedTekton.getX(), connectedTekton.getY());
-            }
-        }
-
         if (hoveredTekton != null) {
             for (Tekton neighbour : hoveredTekton.getNeighbours()) {
                 g2d.setColor(Color.LIGHT_GRAY); // Set line color to gray
 
                 // Set a jagged (dashed) stroke
-                float[] dashPattern = {10, 5}; // Dash length and gap length
+                float[] dashPattern = { 10, 5 }; // Dash length and gap length
                 g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, dashPattern, 0));
 
                 g2d.drawLine(hoveredTekton.getX(), hoveredTekton.getY(), neighbour.getX(), neighbour.getY());
