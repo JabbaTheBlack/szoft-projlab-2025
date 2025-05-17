@@ -17,6 +17,9 @@ import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 
 import javax.swing.*;
+
+import org.w3c.dom.css.RGBColor;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -358,7 +361,7 @@ public class MainMenu extends JPanel {
                 switch (type) {
                     case "Stun":
                         mycologist.chooseSpore(1);
-                        mycologist.setColor(Color.MAGENTA);
+                        mycologist.setColor(new Color(109, 62, 144)); // RGB színkód
                         mycelium.textureProvider.setImage("/images/fungi_images/stun_fungi.png");
                         break;
                     case "Defensive":

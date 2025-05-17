@@ -146,6 +146,7 @@ public class GamePanel extends JPanel {
             CentralMouseHandler.executeCommand();
             tektonView.repaint(); // Panel újrarajzolása
             insectView.repaint(); // Panel újrarajzolása
+            myceliumView.repaint(); // Panel újrarajzolása
             nextPlayer(activePlayerLabel); // Következő játékosra váltás
             commandListModel.clear(); // Parancsok törlése
         });

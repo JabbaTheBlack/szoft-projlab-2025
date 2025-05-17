@@ -52,8 +52,12 @@ public class Main {
         TektonManager.getInstance().addTekton(t4);
         DefensiveSpore spore = new DefensiveSpore();
         SlowingSpore spore2 = new SlowingSpore();
-        t4.addSpore(spore2);
+        DefensiveSpore spore3 = new DefensiveSpore();
+        DefensiveSpore spore4 = new DefensiveSpore();
+        //t4.addSpore(spore2);
         t3.addSpore(spore);
+        t3.addSpore(spore3);
+        t3.addSpore(spore4);
         // Entomologist entomologist = new Entomologist();
         // Insect insect = new Insect(t1, 10);
         // insect.setEntomologist(entomologist);

@@ -20,7 +20,7 @@ import hu.bme.tekton.Tekton;
  */
 public class Mycologist {
 
-    private List<Mycelium> myceliums;
+    private ArrayList<Mycelium> myceliums;
     private List<Hyphae> hyphaes;
     private Spore selectedType;
     private Color color;
@@ -206,6 +206,8 @@ public class Mycologist {
             newMycelium.addHyphae(hyphae);
 
             hyphae.addMycelium(newMycelium);
+            newMycelium.textureProvider = myceliums.get(0).textureProvider;
+            
         } else {
             System.out.println(
                     "[Mycologist] Failed to grow mycelium: Hyphae is not on the target Tekton or there are not enough spores.");
@@ -347,7 +349,7 @@ public class Mycologist {
      *
      * @return A list of all active Myceliums managed by this Mycologist.
      */
-    public List<Mycelium> getMyceliums() {
+    public ArrayList<Mycelium> getMyceliums() {
         return myceliums;
     }
 

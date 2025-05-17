@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -30,11 +31,11 @@ public class MyceliumView extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 
         // Gombatest kirajzolása
-        List<Mycologist> Mycologists = MycologistManager.getInstance().getMycologists();
+        ArrayList<Mycologist> Mycologists = MycologistManager.getInstance().getMycologists();
         int i = 0;
         for (Mycologist mycologist : Mycologists) {
-            
-            List<Mycelium> myceliums = mycologist.getMyceliums();
+            i = 0;
+            ArrayList<Mycelium> myceliums = mycologist.getMyceliums();
             for (Mycelium mycelium : myceliums) {
 
                 int x = mycelium.getCurrentTekton().getX();
@@ -65,10 +66,10 @@ public class MyceliumView extends JPanel {
                     int tx = hyphae.getCurrentTekton().get(0).getX();
                     int ty = hyphae.getCurrentTekton().get(0).getY();
                     double r = 20; // sugar
-                    double angle = Math.toRadians(60 * i);
+                    double angle = Math.toRadians(72 * i);
                     int vx = tx + (int)(r * Math.cos(angle));
                     int vy = ty + (int)(r * Math.sin(angle));
-                    angle = Math.toRadians(60 * (i+1));
+                    angle = Math.toRadians(72 * (i+1));
                     int ux = tx + (int)(r * Math.cos(angle));
                     int uy = ty + (int)(r * Math.sin(angle));
 
@@ -78,12 +79,9 @@ public class MyceliumView extends JPanel {
                     hyphae.setPosition(ux, uy, vx, vy);
 
                 }
-
-                // mycologiston vegigmenni es az alapjan rajzolni a fonalat a tektonra
-
-                i++;
+                
             }
-        
+            i++;
 
         }
     }    
