@@ -70,7 +70,7 @@ public class Mycologist {
      * 
      * @param mycelium the mycelium to be upgraded
      */
-    public void upgradeMyceium(Mycelium mycelium) {
+    public void upgradeMycelium(Mycelium mycelium) {
         if (myceliums.contains(mycelium)) {
             mycelium.upgrade();
         } else {
