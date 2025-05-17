@@ -278,6 +278,7 @@ public class CentralMouseHandler extends MouseAdapter {
                             commandListModel.addElement("spreadSpore");
                             commandListModel.addElement("upgradeMycelium");
                             commandListModel.addElement("GrowMycelium");
+                            commandListModel.addElement("EatInsect");
                         }
 
                         // Állítsuk vissza a parancsot
@@ -386,7 +387,16 @@ public class CentralMouseHandler extends MouseAdapter {
 
                     }
                     break;
+                case "EatInsect":
+                    if(selectedMycelium != null && selectedInsect != null) {
+                        Mycologist owner = selectedMycelium.getHyphaes().get(0).getOwner();
+                        if(owner != null) {
+                            owner.eatInsect(selectedInsect); 
+                        }
+                    }
+                break;
             }
+            selectedTekton = null;
         }
     }
 

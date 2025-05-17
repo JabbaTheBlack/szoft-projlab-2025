@@ -188,6 +188,10 @@ public class Mycelium {
         }
     }
 
+    public List<Hyphae> getHyphaes() {
+        return hyphaes;
+    }
+
     public int getSporeCount() {
         return spores.size();
     }
