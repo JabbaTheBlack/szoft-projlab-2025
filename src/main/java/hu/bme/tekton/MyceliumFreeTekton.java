@@ -5,10 +5,11 @@ import hu.bme.fungi.Mycelium;
 /**
  * Represents a tekton that is free of mycelium, subclass of Tekton.
  */
-public class MyceliumFreeTekton extends Tekton{
+public class MyceliumFreeTekton extends Tekton {
 
     /**
-     * Initializes a new MyceliumFreeTekton with an empty list of neighbours and connected neighbours.
+     * Initializes a new MyceliumFreeTekton with an empty list of neighbours and
+     * connected neighbours.
      */
     public MyceliumFreeTekton() {
         super();
@@ -16,6 +17,7 @@ public class MyceliumFreeTekton extends Tekton{
 
     /**
      * Tries to add a mycelium to the tekton, will always fail.
+     * 
      * @param mycelium The mycelium to add.
      */
     @Override

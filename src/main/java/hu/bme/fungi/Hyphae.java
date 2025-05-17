@@ -1,5 +1,6 @@
 package hu.bme.fungi;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import hu.bme.tekton.Tekton;
+import hu.bme.view.TextureProvider;
 import hu.bme.fungi.spore.*;
 
 /**
@@ -22,6 +24,9 @@ public class Hyphae {
     private List<Tekton> currentTekton;
     private Mycologist ownner;
     private boolean isOnKeeperTekton;
+    private Point2D p1;
+    private Point2D p2;
+    public TextureProvider textureProvider;
 
     /**
      * Initializes a new hyphae with empty lists for connected hyphae and myceliums.
@@ -33,6 +38,7 @@ public class Hyphae {
         ownner = new Mycologist();
         timeToLive = -1;
         isOnKeeperTekton = false;
+        textureProvider = new TextureProvider();
     }
 
     /**
@@ -40,36 +46,36 @@ public class Hyphae {
      */
     public void tick() {
 
-        if(isOnKeeperTekton) {
+        if (isOnKeeperTekton) {
             return;
         }
 
         timeToLive--;
         if (timeToLive == 0) {
 
-            if(currentTekton != null) {
-                for(Tekton tekton : new ArrayList<>(currentTekton)) {
+            if (currentTekton != null) {
+                for (Tekton tekton : new ArrayList<>(currentTekton)) {
                     tekton.removeHyphae(this);
                 }
             }
             currentTekton = null;
-             
-            if(getConnectedHyphae() != null) {
+
+            if (getConnectedHyphae() != null) {
                 for (Hyphae neighbour : new ArrayList<>(getConnectedHyphae())) {
                     neighbour.removeHyphae(this);
                 }
             }
-            
-            if(getConnectedMyceliums() != null) {
+
+            if (getConnectedMyceliums() != null) {
                 for (Mycelium neighbour : new ArrayList<>(getConnectedMyceliums())) {
                     neighbour.removeHyphae(this);
                 }
             }
-        
+
             connectedHyphae.clear();
             connectedMyceliums.clear();
             ownner.getHyphaes().remove(this);
-        }   
+        }
     }
 
     /**
@@ -263,5 +269,16 @@ public class Hyphae {
      */
     public void removeCurrentTekton(Tekton tekton) {
         currentTekton.remove(tekton);
+    }
+
+    public void setPosition(int x1, int y1, int x2, int y2 ) {
+        p1 = new Point2D.Double(x1, y1);
+        p2 = new Point2D.Double(x2, y2);
+    }
+    public Point2D getP1() {
+        return p1;
+    }
+    public Point2D getP2() {
+        return p2;
     }
 }

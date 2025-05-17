@@ -3,7 +3,6 @@ package hu.bme.insect;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Manages insect populations within the ecosystem simulation, handling
  * lifecycle operations
@@ -11,12 +10,26 @@ import java.util.List;
  */
 public class Entomologist {
     private List<Insect> insects;
+    private String name;
 
     /**
      * Constructs an Entomologist with an empty insect population.
      */
     public Entomologist() {
         insects = new ArrayList<>();
+    }
+
+    public Entomologist(String name) {
+        this.name = name;
+        insects = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
