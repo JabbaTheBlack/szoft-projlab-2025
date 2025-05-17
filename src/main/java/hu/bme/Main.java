@@ -52,8 +52,12 @@ public class Main {
         TektonManager.getInstance().addTekton(t4);
         DefensiveSpore spore = new DefensiveSpore();
         SlowingSpore spore2 = new SlowingSpore();
-        t4.addSpore(spore2);
+        DefensiveSpore spore3 = new DefensiveSpore();
+        DefensiveSpore spore4 = new DefensiveSpore();
+        //t4.addSpore(spore2);
         t3.addSpore(spore);
+        t3.addSpore(spore3);
+        t3.addSpore(spore4);
         // Entomologist entomologist = new Entomologist();
         // Insect insect = new Insect(t1, 10);
         // insect.setEntomologist(entomologist);
@@ -95,8 +99,8 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
-        frame.setIconImage(
-                new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
+        // frame.setIconImage(
+        //         new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
 
         frame.add(new MainMenu(frame)); // Átadjuk a JFrame-et a MainMenu-nak
         frame.setVisible(true);

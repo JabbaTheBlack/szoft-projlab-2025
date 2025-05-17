@@ -120,7 +120,7 @@ public class CentralMouseHandler extends MouseAdapter {
                 checkMyceliumSelection(mouseX, mouseY);
                 checkHyphaeSelection(mouseX, mouseY);
 
-            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae")) {
+            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae") || selectedCommand.equals("GrowMycelium")) {
                 checkTektonSelection(mouseX, mouseY);
 
             }
@@ -350,6 +350,15 @@ public class CentralMouseHandler extends MouseAdapter {
                     if (selectedMycelium != null) {
                         System.out.println("Spóra terjesztése: " + selectedMycelium + " -> " + selectedTekton);
                         selectedMycelium.releaseSpores();
+                    }
+                    break;
+                case "GrowMycelium":
+                    if (selectedHyphae != null && selectedTekton != null) {
+                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
+                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
+                        mycologist.growMycelium(selectedHyphae, selectedTekton);
+                        System.out.println("Mycelium növesztése: " + selectedMycelium + " -> " + selectedTekton);
+
                     }
                     break;
             }

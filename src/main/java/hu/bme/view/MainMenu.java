@@ -358,7 +358,7 @@ public class MainMenu extends JPanel {
                 switch (type) {
                     case "Stun":
                         mycologist.chooseSpore(1);
-                        mycologist.setColor(Color.MAGENTA);
+                        mycologist.setColor(new Color(109, 62, 144)); // RGB színkód
                         mycelium.textureProvider.setImage("/images/fungi_images/stun_fungi.png");
                         break;
                     case "Defensive":
