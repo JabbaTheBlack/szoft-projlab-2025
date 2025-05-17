@@ -142,8 +142,7 @@ public class CentralMouseHandler extends MouseAdapter {
                 checkMyceliumSelection(mouseX, mouseY);
                 checkHyphaeSelection(mouseX, mouseY);
 
-            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae")
-                    || selectedCommand.equals("GrowMycelium")) {
+            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae") || selectedCommand.equals("GrowMycelium")) {
                 checkTektonSelection(mouseX, mouseY);
 
             }
@@ -328,8 +327,8 @@ public class CentralMouseHandler extends MouseAdapter {
                     if (selectedTekton != null) {
                         System.out.println("Mozgatás: " + selectedInsect + " -> " + selectedTekton);
                         selectedInsect.move(selectedTekton);
-
                     }
+                    selectedTekton = null;
                     break;
                 case "cuthyphae":
                     if (selectedInsect != null && selectedHyphae != null) {
@@ -393,16 +392,7 @@ public class CentralMouseHandler extends MouseAdapter {
 
                     }
                     break;
-                case "EatInsect":
-                    if (selectedMycelium != null && selectedInsect != null) {
-                        Mycologist owner = selectedMycelium.getHyphaes().get(0).getOwner();
-                        if (owner != null) {
-                            owner.eatInsect(selectedInsect);
-                        }
-                    }
-                    break;
             }
-            selectedTekton = null;
         }
     }
 

@@ -1,8 +1,12 @@
 package hu.bme.tekton;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
+import java.util.Set;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
@@ -292,5 +296,59 @@ public abstract class Tekton {
         }
         return false;
 
+    }
+
+/**
+ * Ellenőrzi, hogy az aktuális Tekton-ból elérhető-e egy célpont Tekton adott mélységen belül.
+ * Mélységkorlátos DFS algoritmust használ.
+ * 
+ * @param target A célpont Tekton, amelyet el szeretnénk érni
+ * @param maxDepth A maximális mélység/lépésszám, ameddig keresünk
+ * @return true, ha van út az aktuális Tekton-ból a célponthoz a megadott mélységen belül
+ */
+public boolean reachable(Tekton target, int maxDepth) {
+    // Nyomon követjük a már meglátogatott csomópontokat
+    Set<Tekton> visited = new HashSet<>();
+    return dfsReachable(this, target, visited, 0, maxDepth);
+}
+
+/**
+ * Rekurzív mélységkorlátos DFS algoritmus az elérhetőség ellenőrzésére
+ * 
+ * @param current Az aktuális Tekton
+ * @param target A célpont Tekton
+ * @param visited A már meglátogatott Tektonok halmaza
+ * @param currentDepth Az aktuális mélység
+ * @param maxDepth A maximális megengedett mélység
+ * @return true, ha van út a current-ből a target-hez a megengedett mélységen belül
+ */
+private boolean dfsReachable(Tekton current, Tekton target, Set<Tekton> visited, 
+                            int currentDepth, int maxDepth) {
+    // Ha az aktuális csomópont a célpont, akkor elértük a célt
+    if (current.equals(target)) {
+        return true;
+    }
+    
+    // Ha elértük a maximális mélységet, nem megyünk tovább
+    if (currentDepth >= maxDepth) {
+        return false;
+    }
+    
+    // Megjelöljük az aktuális csomópontot meglátogatottként
+    visited.add(current);
+    
+    // Rekurzívan bejárunk minden szomszédot, de csak a korlátozott mélységig
+    for (Tekton neighbor : current.connectedNeighbours) {
+        // Csak azokat a szomszédokat járjuk be, amelyeket még nem látogattunk meg
+        if (!visited.contains(neighbor)) {
+            // Növeljük a mélységet amikor a következő szintre lépünk
+            if (dfsReachable(neighbor, target, visited, currentDepth + 1, maxDepth)) {
+                return true;
+            }
+        }
+    }
+    
+    // Ha ide jutottunk, nincs út a célponthoz a megengedett mélységen belül
+    return false;
     }
 }
