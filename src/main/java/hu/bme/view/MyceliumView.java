@@ -36,11 +36,11 @@ public class MyceliumView extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 
         // Gombatest kirajzolása
-
-        ArrayList<Mycologist> Mycologists = MycologistManager.getInstance().getMycologists();
         int i = 0;
+        ArrayList<Mycologist> Mycologists = MycologistManager.getInstance().getMycologists();
+        
         for (Mycologist mycologist : Mycologists) {
-            i = 0;
+            
             ArrayList<Mycelium> myceliums = mycologist.getMyceliums();
             for (Mycelium mycelium : myceliums) {
 
@@ -113,7 +113,9 @@ public class MyceliumView extends JPanel {
 
             }
             i++;
-
+            if( i == MycologistManager.getInstance().getMycologists().size()) {
+                i=0;
+            }
         }
     }
 }

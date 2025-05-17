@@ -378,7 +378,7 @@ public class MainMenu extends JPanel {
                         break;
                     case "Clone":
                         mycologist.chooseSpore(5);
-                        mycologist.setColor(Color.BLUE);
+                        mycologist.setColor(new Color(112,226,255));
                         mycelium.textureProvider.setImage("/images/fungi_images/clone_fungi.png");
                         break;
                     default:
