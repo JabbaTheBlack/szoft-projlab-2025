@@ -63,7 +63,7 @@ public class MyceliumView extends JPanel {
                 int y = hoverMycelium.getCurrentTekton().getY();
                 String szoveg = "Spórák: " + hoverMycelium.getSporeCount();
                 g.setColor(Color.BLACK);
-                g.drawString(szoveg, x, y - 10); // 10 pixellel a gomba fölé írja
+                g.drawString(szoveg, x - 20, y - 30); // 10 pixellel a gomba fölé írja
             }
             for (Hyphae hyphae : mycologist.getHyphaes()) {
                 // 2 tekton közötti fonal kirajzolása

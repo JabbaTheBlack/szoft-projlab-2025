@@ -388,13 +388,13 @@ public class CentralMouseHandler extends MouseAdapter {
                     }
                     break;
                 case "EatInsect":
-                    if(selectedMycelium != null && selectedInsect != null) {
+                    if (selectedMycelium != null && selectedInsect != null) {
                         Mycologist owner = selectedMycelium.getHyphaes().get(0).getOwner();
-                        if(owner != null) {
-                            owner.eatInsect(selectedInsect); 
+                        if (owner != null) {
+                            owner.eatInsect(selectedInsect);
                         }
                     }
-                break;
+                    break;
             }
             selectedTekton = null;
         }
