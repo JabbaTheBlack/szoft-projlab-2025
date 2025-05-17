@@ -28,6 +28,7 @@ public class CentralMouseHandler extends MouseAdapter {
     private String selectedCommand; // Az aktuálisan kiválasztott parancs
     private Tekton selectedTekton; // Az aktuálisan kiválasztott tekton
     private TektonView tektonView;
+    private MyceliumView myceliumView;
     private Object activePlayer; // Az aktuális játékos
     private Mycelium selectedMycelium;
     private Hyphae selectedHyphae;
@@ -37,8 +38,10 @@ public class CentralMouseHandler extends MouseAdapter {
         this.activePlayer = activePlayer;
     }
 
-    public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView, Object activePlayer) {
+    public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView,
+            MyceliumView myceliumView, Object activePlayer) {
         this.tektonView = tektonView;
+        this.myceliumView = myceliumView;
         this.commandListModel = commandListModel;
         selectedCommand = null;
         this.activePlayer = activePlayer;
@@ -58,13 +61,14 @@ public class CentralMouseHandler extends MouseAdapter {
                 int size = 21;
                 if (e.getX() >= x - size / 2 && e.getX() <= x + size / 2 &&
                         e.getY() >= y - size / 2 && e.getY() <= y + size / 2) {
-                    hoveredMycelium = mycelium;
+
+                    myceliumView.setHoverMycelium(mycelium);
                     break;
                 }
             }
-            if (hoveredMycelium != null)
-                break;
+
         }
+        myceliumView.repaint(); // Újrarajzolás
         // Ellenőrizzük, hogy az egér egy Tekton fölött van-e
         for (Tekton tekton : manager.getTektons()) {
             int x = tekton.getX();
@@ -76,6 +80,8 @@ public class CentralMouseHandler extends MouseAdapter {
                     e.getY() >= y - radius / 2 && e.getY() <= y + radius / 2) {
                 tektonView.setHoveredTekton(tekton);
                 break;
+            } else {
+                tektonView.setHoveredTekton(null); // Ha nem, akkor töröljük a kijelölést
             }
         }
 
