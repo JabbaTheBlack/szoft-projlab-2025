@@ -97,6 +97,14 @@ public class Mycelium {
         this.spores.add(spore);
     }
 
+    public void growSpores() {
+        Spore spore = spores.get(0).clone();
+
+        if(spore != null) {
+            spores.add(spore);
+        }
+    }
+
     /**
      * Releases spores from the mycelium.
      */
@@ -129,6 +137,18 @@ public class Mycelium {
 
             if (maxSporeRelease == 0) {
                 currentTekton.removeMycelium(this);
+                
+                for(Hyphae hyphae : hyphaes) {
+                    hyphae.removeMycelium(this);
+                }
+                Mycologist owner = hyphaes.get(0).getOwner();
+
+                if(owner != null) {
+                    owner.removeMycelium(this);
+                }
+                
+                hyphaes = null;
+                
                 return;
             }
         }
