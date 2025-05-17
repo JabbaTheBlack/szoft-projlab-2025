@@ -187,4 +187,8 @@ public class Mycelium {
             hyphae.removeMycelium(this);
         }
     }
+
+    public List<Hyphae> getHyphaes() {
+        return hyphaes;
+    }
 }
