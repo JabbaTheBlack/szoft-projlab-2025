@@ -97,14 +97,6 @@ public class Mycelium {
         this.spores.add(spore);
     }
 
-    public void growSpores() {
-        Spore spore = spores.get(0).clone();
-
-        if(spore != null) {
-            spores.add(spore);
-        }
-    }
-
     /**
      * Releases spores from the mycelium.
      */
@@ -146,7 +138,7 @@ public class Mycelium {
                 if(owner != null) {
                     owner.removeMycelium(this);
                 }
-                
+
                 hyphaes = null;
                 
                 return;

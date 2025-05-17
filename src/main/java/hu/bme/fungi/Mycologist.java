@@ -163,6 +163,9 @@ public class Mycologist {
      * @param mycelium The mycelium to be added.
      */
     public void addMycelium(Mycelium mycelium) {
+        if(myceliums.contains(mycelium)) {
+            return;
+        }
         myceliums.add(mycelium);
     }
 
@@ -342,7 +345,7 @@ public class Mycologist {
         }
 
         for(Mycelium mycelium : myceliums) {
-            mycelium.growSpores();
+            growSpore(mycelium);
         }
     }
 
