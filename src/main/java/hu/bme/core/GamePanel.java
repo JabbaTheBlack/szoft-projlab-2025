@@ -179,10 +179,10 @@ public class GamePanel extends JPanel {
         // működik, a nextplayert nem tudtam még befejezniw
 
         // TODO kivenni belole
-        if (activePlayer instanceof Entomologist) {
+        if (InsectManager.getInstance().geEntomologists().contains(activePlayer)) {
             System.out.println("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
-        } else if (activePlayer instanceof Mycologist) {
+        } else if (MycologistManager.getInstance().getMycologists().contains(activePlayer)) {
             System.out.println("Aktuális játékos (Gombász): " + ((Mycologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Gombász): " + ((Mycologist) activePlayer).getName());
         }
