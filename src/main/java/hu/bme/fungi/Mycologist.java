@@ -163,6 +163,9 @@ public class Mycologist {
      * @param mycelium The mycelium to be added.
      */
     public void addMycelium(Mycelium mycelium) {
+        if(myceliums.contains(mycelium)) {
+            return;
+        }
         myceliums.add(mycelium);
     }
 
@@ -203,6 +206,8 @@ public class Mycologist {
 
             hyphae.addMycelium(newMycelium);
             newMycelium.textureProvider = myceliums.get(0).textureProvider;
+
+            myceliums.add(newMycelium);
             
         } else {
             System.out.println(
@@ -337,6 +342,10 @@ public class Mycologist {
             if (hyphae != null && (!hyphae.isOnKeeperTekton() && !hyphae.isConnectedToMycelium())) {
                 hyphae.setTimeToLive(1);
             }
+        }
+
+        for(Mycelium mycelium : myceliums) {
+            growSpore(mycelium);
         }
     }
 

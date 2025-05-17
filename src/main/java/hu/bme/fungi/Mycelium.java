@@ -129,6 +129,18 @@ public class Mycelium {
 
             if (maxSporeRelease == 0) {
                 currentTekton.removeMycelium(this);
+                
+                for(Hyphae hyphae : hyphaes) {
+                    hyphae.removeMycelium(this);
+                }
+                Mycologist owner = hyphaes.get(0).getOwner();
+
+                if(owner != null) {
+                    owner.removeMycelium(this);
+                }
+
+                hyphaes = null;
+                
                 return;
             }
         }
@@ -186,5 +198,13 @@ public class Mycelium {
         for (Hyphae hyphae : hyphaes) {
             hyphae.removeMycelium(this);
         }
+    }
+
+    public List<Hyphae> getHyphaes() {
+        return hyphaes;
+    }
+
+    public int getSporeCount() {
+        return spores.size();
     }
 }
