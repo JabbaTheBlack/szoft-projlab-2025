@@ -153,6 +153,8 @@ public class CentralMouseHandler extends MouseAdapter {
         // selectedTekton = null;
     }
 
+
+
     private double pointToSegmentDistance(int px, int py, int x1, int y1, int x2, int y2) {
         double dx = x2 - x1;
         double dy = y2 - y1;
@@ -336,8 +338,12 @@ public class CentralMouseHandler extends MouseAdapter {
                     }
                     break;
                 case "eatspore":
-                    System.out.println("Spóra evése: " + selectedInsect);
-                    // selectedInsect.eatSpore(); // Feltételezve, hogy van ilyen metódus
+                    if(selectedTekton != null && selectedInsect != null) {
+                        System.out.println("Spóra evése: " + selectedInsect);
+                        if(selectedTekton.getSporeCount() > 0 && selectedInsect.getCurrentTekton().equals(selectedTekton)) {
+                            selectedInsect.eatSpore(selectedTekton.getSpores().get(selectedTekton.getSporeCount()-1));
+                        }
+                    }
                     break;
                 case "GrowHyphae":
                     if (selectedMycelium != null && selectedHyphae == null) {
