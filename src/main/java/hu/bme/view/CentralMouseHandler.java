@@ -73,9 +73,11 @@ public class CentralMouseHandler extends MouseAdapter {
     public Insect getSelectedInsect() {
         return selectedInsect;
     }
+
     public Mycelium getSelectedMycelium() {
         return selectedMycelium;
     }
+
     public Hyphae getSelectedHyphae() {
         return selectedHyphae;
     }
@@ -114,62 +116,61 @@ public class CentralMouseHandler extends MouseAdapter {
         }
 
         if (MycologistManager.getInstance().getMycologists().contains(activePlayer)) {
-            if (selectedCommand == null ) {
+            if (selectedCommand == null) {
                 checkMyceliumSelection(mouseX, mouseY);
                 checkHyphaeSelection(mouseX, mouseY);
 
-            } else if (selectedCommand == null|| selectedCommand.equals("GrowHyphae")) {
+            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae")) {
                 checkTektonSelection(mouseX, mouseY);
 
             }
         }
-        
+
         // A tekton kijelölés megszüntetése
-       //selectedTekton = null;
+        // selectedTekton = null;
     }
 
-        private double pointToSegmentDistance(int px, int py, int x1, int y1, int x2, int y2) {
-            double dx = x2 - x1;
-            double dy = y2 - y1;
-            if (dx == 0 && dy == 0) {
-                // It's a point, not a segment.
-                dx = px - x1;
-                dy = py - y1;
-                return Math.sqrt(dx * dx + dy * dy);
-            }
-
-            // Calculate t that minimizes the distance
-            double t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
-            t = Math.max(0, Math.min(1, t));
-            double closestX = x1 + t * dx;
-            double closestY = y1 + t * dy;
-            dx = px - closestX;
-            dy = py - closestY;
+    private double pointToSegmentDistance(int px, int py, int x1, int y1, int x2, int y2) {
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        if (dx == 0 && dy == 0) {
+            // It's a point, not a segment.
+            dx = px - x1;
+            dy = py - y1;
             return Math.sqrt(dx * dx + dy * dy);
         }
 
+        // Calculate t that minimizes the distance
+        double t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
+        t = Math.max(0, Math.min(1, t));
+        double closestX = x1 + t * dx;
+        double closestY = y1 + t * dy;
+        dx = px - closestX;
+        dy = py - closestY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 
     private boolean checkHyphaeSelection(int mouseX, int mouseY) {
-            List<Mycologist> mycologists = MycologistManager.getInstance().getMycologists();
-            for (Mycologist mycologist : mycologists) {
-                for (Hyphae hyphae : mycologist.getHyphaes()) {
-                    int x1 = (int)hyphae.getP1().getX();
-                    int y1 = (int)hyphae.getP1().getY();
-                    int x2 = (int)hyphae.getP2().getX();
-                    int y2 = (int)hyphae.getP2().getY();
+        List<Mycologist> mycologists = MycologistManager.getInstance().getMycologists();
+        for (Mycologist mycologist : mycologists) {
+            for (Hyphae hyphae : mycologist.getHyphaes()) {
+                int x1 = (int) hyphae.getP1().getX();
+                int y1 = (int) hyphae.getP1().getY();
+                int x2 = (int) hyphae.getP2().getX();
+                int y2 = (int) hyphae.getP2().getY();
 
-                    // Calculate the distance from the mouse point to the line segment
-                    double distance = pointToSegmentDistance(mouseX, mouseY, x1, y1, x2, y2);
+                // Calculate the distance from the mouse point to the line segment
+                double distance = pointToSegmentDistance(mouseX, mouseY, x1, y1, x2, y2);
 
-                    // Check if the distance is within a certain threshold (e.g., 3 pixels)
-                    if (distance <= 3) {
-                        System.out.println("Hyphae-ra kattintottál: " + hyphae);
-                        selectedHyphae = hyphae;
-                        // Add commands or handle selection as needed
-                        return true;
-                    }
+                // Check if the distance is within a certain threshold (e.g., 3 pixels)
+                if (distance <= 3) {
+                    System.out.println("Hyphae-ra kattintottál: " + hyphae);
+                    selectedHyphae = hyphae;
+                    // Add commands or handle selection as needed
+                    return true;
                 }
             }
+        }
         return false;
     }
 
@@ -202,10 +203,13 @@ public class CentralMouseHandler extends MouseAdapter {
                             // kattintani
                         }
                         // Parancsok hozzáadása a listához
-                        commandListModel.clear();
-                        commandListModel.addElement("cuthyphae");
-                        commandListModel.addElement("move");
-                        commandListModel.addElement("eatspore");
+                        if (selectedInsect != null) {
+
+                            commandListModel.clear();
+                            commandListModel.addElement("cuthyphae");
+                            commandListModel.addElement("move");
+                            commandListModel.addElement("eatspore");
+                        }
 
                         // Állítsuk vissza a parancsot
 
@@ -244,11 +248,14 @@ public class CentralMouseHandler extends MouseAdapter {
                             // innen a return false maradhat amúgy, return false;
                         }
                         // Parancsok hozzáadása a listához
-                        commandListModel.clear();
-                        commandListModel.addElement("GrowHyphae");
-                        commandListModel.addElement("spreadSpore");
-                        commandListModel.addElement("upgradeMycelium");
-                        commandListModel.addElement("GrowMycelium");
+                        if (selectedMycelium != null) {
+
+                            commandListModel.clear();
+                            commandListModel.addElement("GrowHyphae");
+                            commandListModel.addElement("spreadSpore");
+                            commandListModel.addElement("upgradeMycelium");
+                            commandListModel.addElement("GrowMycelium");
+                        }
 
                         // Állítsuk vissza a parancsot
 
@@ -289,7 +296,7 @@ public class CentralMouseHandler extends MouseAdapter {
     }
 
     public void executeCommand() {
-        if (selectedCommand != null) { //selectedInsect != null kiszedve
+        if (selectedCommand != null) { // selectedInsect != null kiszedve
             switch (selectedCommand) {
                 case "move":
                     if (selectedTekton != null) {
@@ -299,10 +306,10 @@ public class CentralMouseHandler extends MouseAdapter {
                     }
                     break;
                 case "cuthyphae":
-                        if(selectedInsect != null && selectedHyphae != null) {
-                            selectedInsect.cutHyphae(selectedHyphae); // Feltételezve, hogy van ilyen metódus
-                            System.out.println("Hyphae vágása: " + selectedInsect + " -> " + selectedHyphae);
-                        }
+                    if (selectedInsect != null && selectedHyphae != null) {
+                        selectedInsect.cutHyphae(selectedHyphae); // Feltételezve, hogy van ilyen metódus
+                        System.out.println("Hyphae vágása: " + selectedInsect + " -> " + selectedHyphae);
+                    }
                     break;
                 case "eatspore":
                     System.out.println("Spóra evése: " + selectedInsect);
@@ -315,13 +322,13 @@ public class CentralMouseHandler extends MouseAdapter {
                         Mycologist mycologist = MycologistManager.getInstance().getMycologists()
                                 .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
                         mycologist.growHyphaeOnTekton(selectedMycelium, selectedMycelium.getCurrentTekton());
-                    } else if(selectedHyphae != null && selectedTekton != null) {
-                        
+                    } else if (selectedHyphae != null && selectedTekton != null) {
+
                         Mycologist mycologist = MycologistManager.getInstance().getMycologists()
                                 .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
-                        if(selectedHyphae.getCurrentTekton().size() > 1 && selectedHyphae.getCurrentTekton()
+                        if (selectedHyphae.getCurrentTekton().size() > 1 && selectedHyphae.getCurrentTekton()
                                 .contains(selectedTekton)) {
-                            //kooztes fonalbol tektonra
+                            // kooztes fonalbol tektonra
                             mycologist.growHyphaeOnTekton(selectedHyphae, selectedTekton);
                         } else {
                             // ket tekton közötti fonal
