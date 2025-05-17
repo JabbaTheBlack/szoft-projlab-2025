@@ -99,8 +99,8 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
-        // frame.setIconImage(
-        //         new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
+        frame.setIconImage(
+                new ImageIcon(Main.class.getResource("/images/fungi_images/defensive_fungi.png")).getImage());
 
         frame.add(new MainMenu(frame)); // Átadjuk a JFrame-et a MainMenu-nak
         frame.setVisible(true);

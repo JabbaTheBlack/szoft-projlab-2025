@@ -362,6 +362,7 @@ public class CentralMouseHandler extends MouseAdapter {
                     }
                     break;
             }
+            selectedTekton = null;
         }
     }
 
