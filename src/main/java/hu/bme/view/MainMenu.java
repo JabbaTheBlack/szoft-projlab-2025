@@ -352,6 +352,7 @@ public class MainMenu extends JPanel {
                 }
                 Mycelium mycelium = new Mycelium(randomTekton);
                 mycologist.addMycelium(mycelium); // Hozzáadjuk a gombásznak
+                randomTekton.addMycelium(mycelium);
 
                 // Spórafajta kiválasztása
                 switch (type) {
