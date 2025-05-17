@@ -23,6 +23,7 @@ import hu.bme.tekton.Tekton;
 
 public class MyceliumView extends JPanel {
 
+    private Mycelium hoverMycelium = null; // Hoverelő gombatest
     BufferedImage myceliumImage = null; // Mycelium kép inicializálása
 
     @Override
@@ -51,9 +52,9 @@ public class MyceliumView extends JPanel {
                     // System.out.println("Gombatest kép betöltve: ");
                 }
             }
-            for(Hyphae hyphae : mycologist.getHyphaes()) {
+            for (Hyphae hyphae : mycologist.getHyphaes()) {
                 // 2 tekton közötti fonal kirajzolása
-                if(hyphae.getCurrentTekton().size() > 1 && hyphae.getTimeToLive() != 0){
+                if (hyphae.getCurrentTekton().size() > 1 && hyphae.getTimeToLive() != 0) {
                     g2d.setColor(mycologist.getColor());
                     int ux = hyphae.getCurrentTekton().get(0).getX();
                     int uy = hyphae.getCurrentTekton().get(0).getY();
@@ -61,17 +62,17 @@ public class MyceliumView extends JPanel {
                     int vy = hyphae.getCurrentTekton().get(1).getY();
                     g2d.drawLine(ux, uy, vx, vy);
                     hyphae.setPosition(ux, uy, vx, vy);
-                
-                } else if(hyphae.getTimeToLive() != 0) {
+
+                } else if (hyphae.getTimeToLive() != 0) {
                     int tx = hyphae.getCurrentTekton().get(0).getX();
                     int ty = hyphae.getCurrentTekton().get(0).getY();
                     double r = 20; // sugar
                     double angle = Math.toRadians(72 * i);
-                    int vx = tx + (int)(r * Math.cos(angle));
-                    int vy = ty + (int)(r * Math.sin(angle));
-                    angle = Math.toRadians(72 * (i+1));
-                    int ux = tx + (int)(r * Math.cos(angle));
-                    int uy = ty + (int)(r * Math.sin(angle));
+                    int vx = tx + (int) (r * Math.cos(angle));
+                    int vy = ty + (int) (r * Math.sin(angle));
+                    angle = Math.toRadians(72 * (i + 1));
+                    int ux = tx + (int) (r * Math.cos(angle));
+                    int uy = ty + (int) (r * Math.sin(angle));
 
                     g2d.setColor(mycologist.getColor());
                     g2d.setStroke(new java.awt.BasicStroke(3)); // 4 is the line width in pixels
@@ -79,11 +80,10 @@ public class MyceliumView extends JPanel {
                     hyphae.setPosition(ux, uy, vx, vy);
 
                 }
-                
+
             }
             i++;
 
         }
-    }    
+    }
 }
-
