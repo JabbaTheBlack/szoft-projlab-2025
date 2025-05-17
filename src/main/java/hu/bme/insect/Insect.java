@@ -30,6 +30,7 @@ public class Insect {
         effectDuration = -1;
         owner = null;
         textureProvider = new TextureProvider();
+        canCutHyphae = true;
     }
 
     /**
