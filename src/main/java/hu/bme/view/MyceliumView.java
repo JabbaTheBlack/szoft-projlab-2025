@@ -61,7 +61,8 @@ public class MyceliumView extends JPanel {
 
                 int x = hoverMycelium.getCurrentTekton().getX();
                 int y = hoverMycelium.getCurrentTekton().getY();
-                String szoveg = "Spórák: " + hoverMycelium.getSporeCount();
+                String level = hoverMycelium.isUpgraded() ? "2" : "1";
+                String szoveg = "Spórák: " + hoverMycelium.getSporeCount() + " Level: " + level;
                 g.setColor(Color.BLACK);
                 g.drawString(szoveg, x - 20, y - 30); // 10 pixellel a gomba fölé írja
             }
