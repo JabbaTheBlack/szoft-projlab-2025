@@ -87,6 +87,7 @@ public class TektonManager {
             addTekton(newTekton);
         }
         removeTekton(tekton);
+        
         return newTektons;
     }
 }

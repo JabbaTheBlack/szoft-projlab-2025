@@ -191,6 +191,7 @@ public class GamePanel extends JPanel {
         if (currentPlayerIndex % players.size() == 0) {
             ticker.tick();
         }
+
     }
 
 }
