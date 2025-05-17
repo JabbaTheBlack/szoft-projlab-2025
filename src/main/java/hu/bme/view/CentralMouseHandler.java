@@ -336,6 +336,13 @@ public class CentralMouseHandler extends MouseAdapter {
                         }
                     }
                     break;
+                
+                case "spreadSpore":
+                    if (selectedMycelium != null) {
+                        System.out.println("Spóra terjesztése: " + selectedMycelium + " -> " + selectedTekton);
+                        selectedMycelium.releaseSpores();
+                    }
+                    break;
             }
         }
     }

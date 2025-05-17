@@ -165,12 +165,14 @@ public class GamePanel extends JPanel {
 
     }
 
-    private void nextPlayer(JLabel activePlayerLabel) {
+    private void nextPlayer(JLabel activePlayerLabel) {    
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size(); // Körkörös váltás
         activePlayer = players.get(currentPlayerIndex);
 
         // Frissítsd a felületet az aktuális játékos nevével ez a logika még nem
         // működik, a nextplayert nem tudtam még befejezniw
+
+        //TODO kivenni belole
         if (activePlayer instanceof Entomologist) {
             System.out.println("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
