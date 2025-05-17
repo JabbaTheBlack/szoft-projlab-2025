@@ -286,4 +286,11 @@ public abstract class Tekton {
     public void absorbHyphae() {
     }
 
+    public boolean hasMycelium() {
+        if (fungalManager.getMyceliumCount() > 0) {
+            return true;
+        }
+        return false;
+
+    }
 }

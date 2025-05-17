@@ -347,6 +347,9 @@ public class MainMenu extends JPanel {
                 Tekton randomTekton = tektonManager.getTektons().get(random.nextInt(tektonManager.getTektons().size()));
 
                 // Gomba létrehozása
+                while (randomTekton.hasMycelium()) {
+                    randomTekton = tektonManager.getTektons().get(random.nextInt(tektonManager.getTektons().size()));
+                }
                 Mycelium mycelium = new Mycelium(randomTekton);
                 mycologist.addMycelium(mycelium); // Hozzáadjuk a gombásznak
 
