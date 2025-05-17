@@ -17,9 +17,6 @@ import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 
 import javax.swing.*;
-
-import org.w3c.dom.css.RGBColor;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
