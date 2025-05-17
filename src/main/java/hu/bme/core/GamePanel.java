@@ -49,7 +49,6 @@ public class GamePanel extends JPanel {
         ticker.addObserver(MycologistManager.getInstance());
         ticker.addObserver(InsectManager.getInstance());
 
-
         if (!players.isEmpty()) {
             activePlayer = players.get(0); // Az első játékos az aktív
         }
@@ -64,12 +63,12 @@ public class GamePanel extends JPanel {
         commandListModel = new DefaultListModel<>();
         overlayPanel.setOpaque(false);
         overlayPanel.setBounds(0, 0, 4 * 1980 / 5, 1080);
-        CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView, activePlayer);
+        myceliumView = new MyceliumView();
+        CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView, myceliumView, activePlayer);
         tektonView.setMouseHandler(CentralMouseHandler);
         insectView = new InsectView(commandListModel);
         overlayPanel.addMouseListener(CentralMouseHandler);
         overlayPanel.addMouseMotionListener(CentralMouseHandler);
-        myceliumView = new MyceliumView();
         tektonView.setOpaque(false); // Átlátszó háttér);
         insectView.setOpaque(false); // Átlátszó háttér
         myceliumView.setOpaque(false); // Átlátszó háttér
@@ -172,14 +171,14 @@ public class GamePanel extends JPanel {
 
     }
 
-    private void nextPlayer(JLabel activePlayerLabel) {    
+    private void nextPlayer(JLabel activePlayerLabel) {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size(); // Körkörös váltás
         activePlayer = players.get(currentPlayerIndex);
 
         // Frissítsd a felületet az aktuális játékos nevével ez a logika még nem
         // működik, a nextplayert nem tudtam még befejezniw
 
-        //TODO kivenni belole
+        // TODO kivenni belole
         if (activePlayer instanceof Entomologist) {
             System.out.println("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
@@ -188,7 +187,7 @@ public class GamePanel extends JPanel {
             activePlayerLabel.setText("Aktuális játékos (Gombász): " + ((Mycologist) activePlayer).getName());
         }
         CentralMouseHandler.setActivePlayer(activePlayer); // Frissítjük a kiválasztott játékost
-        
+
         if (currentPlayerIndex % players.size() == 0) {
             ticker.tick();
         }

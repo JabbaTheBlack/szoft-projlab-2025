@@ -24,6 +24,11 @@ import hu.bme.tekton.Tekton;
 public class MyceliumView extends JPanel {
 
     BufferedImage myceliumImage = null; // Mycelium kép inicializálása
+    private Mycelium hoverMycelium = null;
+
+    public void setHoverMycelium(Mycelium mycelium) {
+        this.hoverMycelium = mycelium;
+    }
 
     @Override
     public void paintComponent(Graphics g) {
@@ -31,6 +36,7 @@ public class MyceliumView extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 
         // Gombatest kirajzolása
+
         ArrayList<Mycologist> Mycologists = MycologistManager.getInstance().getMycologists();
         int i = 0;
         for (Mycologist mycologist : Mycologists) {
@@ -51,9 +57,17 @@ public class MyceliumView extends JPanel {
                     // System.out.println("Gombatest kép betöltve: ");
                 }
             }
-            for(Hyphae hyphae : mycologist.getHyphaes()) {
+            if (hoverMycelium != null) {
+
+                int x = hoverMycelium.getCurrentTekton().getX();
+                int y = hoverMycelium.getCurrentTekton().getY();
+                String szoveg = "Spórák: " + hoverMycelium.getSporeCount();
+                g.setColor(Color.BLACK);
+                g.drawString(szoveg, x, y - 10); // 10 pixellel a gomba fölé írja
+            }
+            for (Hyphae hyphae : mycologist.getHyphaes()) {
                 // 2 tekton közötti fonal kirajzolása
-                if(hyphae.getCurrentTekton().size() > 1 && hyphae.getTimeToLive() != 0){
+                if (hyphae.getCurrentTekton().size() > 1 && hyphae.getTimeToLive() != 0) {
                     g2d.setColor(mycologist.getColor());
                     int x1 = hyphae.getCurrentTekton().get(0).getX();
                     int y1 = hyphae.getCurrentTekton().get(0).getY();
@@ -63,7 +77,7 @@ public class MyceliumView extends JPanel {
                     // hyphae.setPosition(ux, uy, vx, vy);
                     double dx = x2 - x1;
                     double dy = y2 - y1;
-                    double dist = Math.sqrt(dx*dx + dy*dy);
+                    double dist = Math.sqrt(dx * dx + dy * dy);
                     int radius = 25; // Tekton sugara (állítsd be a tényleges értékre)
 
                     if (dist > 0.1) {
@@ -77,17 +91,17 @@ public class MyceliumView extends JPanel {
                         g2d.drawLine(startX, startY, endX, endY);
                         hyphae.setPosition(startX, startY, endX, endY);
                     }
-                    
-                } else if(hyphae.getTimeToLive() != 0) {
+
+                } else if (hyphae.getTimeToLive() != 0) {
                     int tx = hyphae.getCurrentTekton().get(0).getX();
                     int ty = hyphae.getCurrentTekton().get(0).getY();
                     double r = 20; // sugar
                     double angle = Math.toRadians(72 * i);
-                    int vx = tx + (int)(r * Math.cos(angle));
-                    int vy = ty + (int)(r * Math.sin(angle));
-                    angle = Math.toRadians(72 * (i+1));
-                    int ux = tx + (int)(r * Math.cos(angle));
-                    int uy = ty + (int)(r * Math.sin(angle));
+                    int vx = tx + (int) (r * Math.cos(angle));
+                    int vy = ty + (int) (r * Math.sin(angle));
+                    angle = Math.toRadians(72 * (i + 1));
+                    int ux = tx + (int) (r * Math.cos(angle));
+                    int uy = ty + (int) (r * Math.sin(angle));
 
                     g2d.setColor(mycologist.getColor());
                     g2d.setStroke(new java.awt.BasicStroke(3)); // 3 is the line width in pixels
@@ -95,11 +109,10 @@ public class MyceliumView extends JPanel {
                     hyphae.setPosition(ux, uy, vx, vy);
 
                 }
-                
+
             }
             i++;
 
         }
-    }    
+    }
 }
-

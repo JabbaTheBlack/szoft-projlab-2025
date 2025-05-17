@@ -28,16 +28,20 @@ public class CentralMouseHandler extends MouseAdapter {
     private String selectedCommand; // Az aktuálisan kiválasztott parancs
     private Tekton selectedTekton; // Az aktuálisan kiválasztott tekton
     private TektonView tektonView;
+    private MyceliumView myceliumView;
     private Object activePlayer; // Az aktuális játékos
     private Mycelium selectedMycelium;
     private Hyphae selectedHyphae;
+    private Mycelium hoveredMycelium;
 
     public void setActivePlayer(Object activePlayer) {
         this.activePlayer = activePlayer;
     }
 
-    public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView, Object activePlayer) {
+    public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView,
+            MyceliumView myceliumView, Object activePlayer) {
         this.tektonView = tektonView;
+        this.myceliumView = myceliumView;
         this.commandListModel = commandListModel;
         selectedCommand = null;
         this.activePlayer = activePlayer;
@@ -48,7 +52,23 @@ public class CentralMouseHandler extends MouseAdapter {
     public void mouseMoved(MouseEvent e) {
         TektonManager manager = TektonManager.getInstance();
         tektonView.setHoveredTekton(null); // Alapértelmezésben nincs kijelölt Tekton
+        hoveredMycelium = null;
 
+        for (Mycologist mycologist : MycologistManager.getInstance().getMycologists()) {
+            for (Mycelium mycelium : mycologist.getMyceliums()) {
+                int x = mycelium.getCurrentTekton().getX();
+                int y = mycelium.getCurrentTekton().getY();
+                int size = 21;
+                if (e.getX() >= x - size / 2 && e.getX() <= x + size / 2 &&
+                        e.getY() >= y - size / 2 && e.getY() <= y + size / 2) {
+
+                    myceliumView.setHoverMycelium(mycelium);
+                    break;
+                }
+            }
+
+        }
+        myceliumView.repaint(); // Újrarajzolás
         // Ellenőrizzük, hogy az egér egy Tekton fölött van-e
         for (Tekton tekton : manager.getTektons()) {
             int x = tekton.getX();
@@ -60,6 +80,8 @@ public class CentralMouseHandler extends MouseAdapter {
                     e.getY() >= y - radius / 2 && e.getY() <= y + radius / 2) {
                 tektonView.setHoveredTekton(tekton);
                 break;
+            } else {
+                tektonView.setHoveredTekton(null); // Ha nem, akkor töröljük a kijelölést
             }
         }
 
@@ -120,7 +142,8 @@ public class CentralMouseHandler extends MouseAdapter {
                 checkMyceliumSelection(mouseX, mouseY);
                 checkHyphaeSelection(mouseX, mouseY);
 
-            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae") || selectedCommand.equals("GrowMycelium")) {
+            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae")
+                    || selectedCommand.equals("GrowMycelium")) {
                 checkTektonSelection(mouseX, mouseY);
 
             }
@@ -257,6 +280,7 @@ public class CentralMouseHandler extends MouseAdapter {
                             commandListModel.addElement("spreadSpore");
                             commandListModel.addElement("upgradeMycelium");
                             commandListModel.addElement("GrowMycelium");
+                            commandListModel.addElement("EatInsect");
                         }
 
                         // Állítsuk vissza a parancsot
@@ -338,7 +362,7 @@ public class CentralMouseHandler extends MouseAdapter {
                             mycologist.growHyphaeOnTekton(selectedHyphae, selectedTekton);
                         } else {
                             // ket tekton közötti fonal
-                            if(selectedHyphae != null) {
+                            if (selectedHyphae != null) {
                                 mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
                             }
                         }
@@ -347,11 +371,13 @@ public class CentralMouseHandler extends MouseAdapter {
                 case "upgradeMycelium":
                     if (selectedMycelium != null) {
                         System.out.println("Mycelium fejlesztése: " + selectedMycelium);
-                        Mycologist mycologist = MycologistManager.getInstance().getMycologists().get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
-                        if(!selectedMycelium.isUpgraded()) mycologist.upgradeMycelium(selectedMycelium);
+                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
+                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
+                        if (!selectedMycelium.isUpgraded())
+                            mycologist.upgradeMycelium(selectedMycelium);
                     }
                     break;
-                
+
                 case "spreadSpore":
                     if (selectedMycelium != null) {
                         System.out.println("Spóra terjesztése: " + selectedMycelium + " -> " + selectedTekton);
@@ -367,7 +393,16 @@ public class CentralMouseHandler extends MouseAdapter {
 
                     }
                     break;
+                case "EatInsect":
+                    if(selectedMycelium != null && selectedInsect != null) {
+                        Mycologist owner = selectedMycelium.getHyphaes().get(0).getOwner();
+                        if(owner != null) {
+                            owner.eatInsect(selectedInsect); 
+                        }
+                    }
+                break;
             }
+            selectedTekton = null;
         }
     }
 
