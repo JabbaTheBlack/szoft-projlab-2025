@@ -15,7 +15,7 @@ public class DefensiveSpore extends Spore {
      */
     public DefensiveSpore() {
         super();
-        textureProvider.setImage("/images/fungi_images/defensive_spore.png");
+        textureProvider.setImage("src/main/resources/images/fungi_images/defensive_spore.png");
     }
 
     public Spore clone() {
