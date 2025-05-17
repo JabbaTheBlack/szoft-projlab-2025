@@ -38,11 +38,17 @@ public class GamePanel extends JPanel {
     private ArrayList<Object> players; // A játékosok listája (Entomologist és Mycologist)
     private Object activePlayer; // Az aktuális játékos
     private int currentPlayerIndex = 0; // Az aktuális játékos indexe
+    private Ticker ticker;
 
     public GamePanel() {
         players = new ArrayList<>();
         players.addAll(InsectManager.getInstance().geEntomologists()); // Rovarászok hozzáadása
         players.addAll(MycologistManager.getInstance().getMycologists()); // Gombászok hozzáadása
+
+        ticker = Ticker.getInstance();
+        ticker.addObserver(MycologistManager.getInstance());
+        ticker.addObserver(InsectManager.getInstance());
+
 
         if (!players.isEmpty()) {
             activePlayer = players.get(0); // Az első játékos az aktív
@@ -181,6 +187,10 @@ public class GamePanel extends JPanel {
             activePlayerLabel.setText("Aktuális játékos (Gombász): " + ((Mycologist) activePlayer).getName());
         }
         CentralMouseHandler.setActivePlayer(activePlayer); // Frissítjük a kiválasztott játékost
+        
+        if (currentPlayerIndex % players.size() == 0) {
+            ticker.tick();
+        }
     }
 
 }

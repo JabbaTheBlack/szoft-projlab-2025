@@ -40,9 +40,6 @@ public class GameController {
      */
     public void runGameLoop(){
         startGame();
-        while(true){
-            ticker.tick();
-        }       
     }
 
     /**
