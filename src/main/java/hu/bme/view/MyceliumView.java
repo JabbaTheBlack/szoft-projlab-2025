@@ -56,6 +56,7 @@ public class MyceliumView extends JPanel {
                 // 2 tekton közötti fonal kirajzolása
                 if (hyphae.getCurrentTekton().size() > 1 && hyphae.getTimeToLive() != 0) {
                     g2d.setColor(mycologist.getColor());
+<<<<<<< HEAD
                     int ux = hyphae.getCurrentTekton().get(0).getX();
                     int uy = hyphae.getCurrentTekton().get(0).getY();
                     int vx = hyphae.getCurrentTekton().get(1).getX();
@@ -64,6 +65,32 @@ public class MyceliumView extends JPanel {
                     hyphae.setPosition(ux, uy, vx, vy);
 
                 } else if (hyphae.getTimeToLive() != 0) {
+=======
+                    int x1 = hyphae.getCurrentTekton().get(0).getX();
+                    int y1 = hyphae.getCurrentTekton().get(0).getY();
+                    int x2 = hyphae.getCurrentTekton().get(1).getX();
+                    int y2 = hyphae.getCurrentTekton().get(1).getY();
+                    // g2d.drawLine(ux, uy, vx, vy);
+                    // hyphae.setPosition(ux, uy, vx, vy);
+                    double dx = x2 - x1;
+                    double dy = y2 - y1;
+                    double dist = Math.sqrt(dx*dx + dy*dy);
+                    int radius = 25; // Tekton sugara (állítsd be a tényleges értékre)
+
+                    if (dist > 0.1) {
+                        double ux = dx / dist;
+                        double uy = dy / dist;
+                        int startX = (int) Math.round(x1 + ux * radius);
+                        int startY = (int) Math.round(y1 + uy * radius);
+                        int endX = (int) Math.round(x2 - ux * radius);
+                        int endY = (int) Math.round(y2 - uy * radius);
+                        g2d.setStroke(new java.awt.BasicStroke(3));
+                        g2d.drawLine(startX, startY, endX, endY);
+                        hyphae.setPosition(startX, startY, endX, endY);
+                    }
+                    
+                } else if(hyphae.getTimeToLive() != 0) {
+>>>>>>> 717eb4432e943b60e5cdba8519ba3df0601a8f24
                     int tx = hyphae.getCurrentTekton().get(0).getX();
                     int ty = hyphae.getCurrentTekton().get(0).getY();
                     double r = 20; // sugar
@@ -75,7 +102,7 @@ public class MyceliumView extends JPanel {
                     int uy = ty + (int) (r * Math.sin(angle));
 
                     g2d.setColor(mycologist.getColor());
-                    g2d.setStroke(new java.awt.BasicStroke(3)); // 4 is the line width in pixels
+                    g2d.setStroke(new java.awt.BasicStroke(3)); // 3 is the line width in pixels
                     g2d.drawLine(vx, vy, ux, uy);
                     hyphae.setPosition(ux, uy, vx, vy);
 
