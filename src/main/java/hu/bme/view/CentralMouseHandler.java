@@ -340,7 +340,7 @@ public class CentralMouseHandler extends MouseAdapter {
                     if (selectedMycelium != null) {
                         System.out.println("Mycelium fejlesztése: " + selectedMycelium);
                         Mycologist mycologist = MycologistManager.getInstance().getMycologists().get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
-                        mycologist.upgradeMycelium(selectedMycelium);
+                        if(!selectedMycelium.isUpgraded()) mycologist.upgradeMycelium(selectedMycelium);
                     }
                     break;
                 
