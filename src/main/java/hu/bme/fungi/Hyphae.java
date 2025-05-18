@@ -281,4 +281,20 @@ public class Hyphae {
     public Point2D getP2() {
         return p2;
     }
+
+    public boolean isSporeNearby() {
+        if(currentTekton != null) {
+            for (Tekton tekton : currentTekton) {
+                if (tekton.getSpores() != null) {
+                    if(tekton.getSpores().size() > 0){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+
 }

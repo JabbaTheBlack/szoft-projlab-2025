@@ -392,7 +392,10 @@ public class CentralMouseHandler extends MouseAdapter {
                         } else {
                             // ket tekton közötti fonal
                             if (selectedHyphae != null) {
-                                mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
+                                 mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
+                                if (selectedHyphae.isSporeNearby()){
+                                    mycologist.growHyphaeOnTekton(selectedHyphae, selectedTekton);
+                                }
                             } else {
                                 result = "Nincs kiválasztott hyphae!";
                             }
