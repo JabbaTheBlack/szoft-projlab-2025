@@ -331,20 +331,27 @@ public class CentralMouseHandler extends MouseAdapter {
         }
     }
 
-    public void executeCommand() {
+    public String executeCommand() {
+        String result = null;
         if (selectedCommand != null) { // selectedInsect != null kiszedve
             switch (selectedCommand) {
                 case "move":
                     if (selectedTekton != null) {
                         System.out.println("Mozgatás: " + selectedInsect + " -> " + selectedTekton);
                         selectedInsect.move(selectedTekton);
+                    } else {
+                        result = "Nincs kiválasztott tekton!";
                     }
                     selectedTekton = null;
+
                     break;
                 case "cuthyphae":
                     if (selectedInsect != null && selectedHyphae != null) {
                         selectedInsect.cutHyphae(selectedHyphae); // Feltételezve, hogy van ilyen metódus
                         System.out.println("Hyphae vágása: " + selectedInsect + " -> " + selectedHyphae);
+
+                    } else {
+                        result = "Nincs kiválasztott hyphae!";
                     }
                     break;
                 case "eatspore":
@@ -354,7 +361,11 @@ public class CentralMouseHandler extends MouseAdapter {
                                 && selectedInsect.getCurrentTekton().equals(selectedInsect.getCurrentTekton())) {
                             selectedInsect.eatSpore(selectedInsect.getCurrentTekton().getSpores()
                                     .get(selectedInsect.getCurrentTekton().getSporeCount() - 1));
+                        } else {
+                            result = "Nincs elérhető spóra!";
                         }
+                    } else {
+                        result = "Nincs kiválasztott rovar!";
                     }
                     sporeView.repaint();
                     break;
@@ -381,6 +392,8 @@ public class CentralMouseHandler extends MouseAdapter {
                             }
                         }
                         selectedHyphae = null;
+                    } else {
+                        result = "Nincs kiválasztott tekton!";
                     }
                     break;
                 case "upgradeMycelium":
@@ -388,8 +401,14 @@ public class CentralMouseHandler extends MouseAdapter {
                         System.out.println("Mycelium fejlesztése: " + selectedMycelium);
                         Mycologist mycologist = MycologistManager.getInstance().getMycologists()
                                 .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
-                        if (!selectedMycelium.isUpgraded())
+                        if (!selectedMycelium.isUpgraded()) {
+
                             mycologist.upgradeMycelium(selectedMycelium);
+                        } else {
+                            result = "Ez a gombatest már fejlesztve van!";
+                        }
+                    } else {
+                        result = "Nincs kiválasztott gombatest!";
                     }
                     break;
 
@@ -407,11 +426,13 @@ public class CentralMouseHandler extends MouseAdapter {
                         mycologist.growMycelium(selectedHyphae, selectedTekton);
                         System.out.println("Mycelium növesztése: " + selectedMycelium + " -> " + selectedTekton);
 
+                    } else {
+                        result = "Nincs kiválasztott tekton!";
                     }
                     break;
             }
         }
-
+        return result;
     }
 
     @Override

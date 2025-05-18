@@ -154,12 +154,17 @@ public class GamePanel extends JPanel {
         JButton executeButton = new JButton("Parancs kiadása");
         commandPanel3.add(executeButton, BorderLayout.SOUTH); // Gomb a panel aljára
         executeButton.addActionListener(e -> {
-            CentralMouseHandler.executeCommand();
+            String result = CentralMouseHandler.executeCommand();
             tektonView.repaint(); // Panel újrarajzolása
             insectView.repaint(); // Panel újrarajzolása
             myceliumView.repaint(); // Panel újrarajzolása
+            if (result != null) {
+                JOptionPane.showMessageDialog(this, result, "Hiba", JOptionPane.ERROR_MESSAGE);
+                commandListModel.clear(); // Parancsok törlése
+                return;
+            }
             nextPlayer(activePlayerLabel); // Következő játékosra váltás
-            commandListModel.clear(); // Parancsok törlése
+            commandListModel.clear();
         });
 
         // Parancs panelek hozzáadása a jobb oldali panelhez
