@@ -87,10 +87,25 @@ public abstract class Tekton {
             }
 
             // Remove all Hyphaes
-            for (Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
-                hyphae.getConnectedHyphae().forEach(connectedHyphae -> connectedHyphae.removeHyphae(hyphae));
-                fungalManager.removeHyphae(hyphae);
+            for (java.util.Iterator<Hyphae> il = new ArrayList<>(fungalManager.getHyphaes()).iterator(); il.hasNext(); ) {
+                Hyphae hyphae = il.next();
+                for (java.util.Iterator<Hyphae> it = hyphae.getConnectedHyphae().iterator(); it.hasNext(); ) {
+                    Hyphae connectedHyphae = it.next();
+                    if (connectedHyphae.getCurrentTekton().size() > 1) {
+                        connectedHyphae.setTimeToLive(0);
+                    } else {
+                        if (connectedHyphae.getCurrentTekton().get(0).equals(this)) {
+                            connectedHyphae.setTimeToLive(0);
+                        } else if (connectedHyphae.isConnectedToMycelium() || connectedHyphae.isOnKeeperTekton()) {
+                            connectedHyphae.setTimeToLive(-1);
+                        } else {
+                            connectedHyphae.setTimeToLive(2);
+                        }
+                    }
+                }
             }
+                
+            
 
             // Return the new Tektons
             List<Tekton> newTektons = new ArrayList<>();

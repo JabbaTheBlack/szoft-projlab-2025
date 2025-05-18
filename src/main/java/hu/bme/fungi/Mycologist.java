@@ -113,6 +113,7 @@ public class Mycologist {
             System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
             return;
         }
+        neighbourTekton.addHyphae(newHyphae);
 
         newHyphae.addCurrentTekton(targetTekton);
         newHyphae.addCurrentTekton(neighbourTekton);
@@ -133,6 +134,10 @@ public class Mycologist {
 
             if (targetTekton.addHyphae(newHyphae2)) {
                 newHyphae.addHyphae(newHyphae2);
+                newHyphae2.addHyphae(newHyphae);
+                newHyphae2.setOwner(newHyphae.getOwner());
+                hyphaes.add(newHyphae2);
+                newHyphae2.addCurrentTekton(targetTekton);
             }
         }
 
