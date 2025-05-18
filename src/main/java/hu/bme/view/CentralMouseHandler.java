@@ -149,6 +149,8 @@ public class CentralMouseHandler extends MouseAdapter {
                 checkHyphaeSelection(mouseX, mouseY);
                 checkTektonSelection(mouseX, mouseY);
 
+            } else if (selectedCommand == "EatInsect") {
+                checkInsectSelection(mouseX, mouseY);
             }
         }
 
@@ -391,6 +393,8 @@ public class CentralMouseHandler extends MouseAdapter {
                             // ket tekton közötti fonal
                             if (selectedHyphae != null) {
                                 mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
+                            } else {
+                                result = "Nincs kiválasztott hyphae!";
                             }
                         }
                         selectedHyphae = null;
