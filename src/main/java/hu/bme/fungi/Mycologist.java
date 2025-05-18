@@ -153,6 +153,7 @@ public class Mycologist {
         mycelium.addHyphae(newHyphae);
         newHyphae.setOwner(this);
         newHyphae.addMycelium(mycelium);
+        newHyphae.addCurrentTekton(targetTekton);
         hyphaes.add(newHyphae);
 
     }

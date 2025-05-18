@@ -144,6 +144,7 @@ public class CentralMouseHandler extends MouseAdapter {
 
             } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae")
                     || selectedCommand.equals("GrowMycelium")) {
+                checkHyphaeSelection(mouseX, mouseY);
                 checkTektonSelection(mouseX, mouseY);
 
             }
@@ -187,13 +188,23 @@ public class CentralMouseHandler extends MouseAdapter {
 
                 // Check if the distance is within a certain threshold (e.g., 3 pixels)
                 if (distance <= 3) {
-                    System.out.println("Hyphae-ra kattintottál: " + hyphae);
-                    selectedHyphae = hyphae;
-                    // Add commands or handle selection as needed
-                    return true;
+                    Hyphae tmp = hyphae;
+                    if(MycologistManager.getInstance().getMycologists()
+                        .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer)) 
+                        != tmp.getOwner())
+                        {
+                            System.out.println("Másik játékos hyphae-jára kattintottál!");
+                            //selectedHyphae = null;
+                            return false;
+                    } else{
+                         System.out.println("Hyphae-ra kattintottál: " + hyphae);
+                        selectedHyphae = hyphae;
+                        return true;
+                    }
                 }
             }
         }
+        
         return false;
     }
 
@@ -267,7 +278,7 @@ public class CentralMouseHandler extends MouseAdapter {
                                 .getMyceliums()
                                 .contains(selectedMycelium)) {
                             selectedMycelium = null;
-                            System.out.println("Ez nem a te gombád!");
+                            System.out.println("Ez nem a te gombatested!");
                             // innen a return false maradhat amúgy, return false;
                         }
                         // Parancsok hozzáadása a listához
@@ -352,6 +363,7 @@ public class CentralMouseHandler extends MouseAdapter {
                         Mycologist mycologist = MycologistManager.getInstance().getMycologists()
                                 .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
                         mycologist.growHyphaeOnTekton(selectedMycelium, selectedMycelium.getCurrentTekton());
+
                     } else if (selectedHyphae != null && selectedTekton != null) {
 
                         Mycologist mycologist = MycologistManager.getInstance().getMycologists()
@@ -366,6 +378,7 @@ public class CentralMouseHandler extends MouseAdapter {
                                 mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
                             }
                         }
+                        selectedHyphae = null;
                     }
                     break;
                 case "upgradeMycelium":
