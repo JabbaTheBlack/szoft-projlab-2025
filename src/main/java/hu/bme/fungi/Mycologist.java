@@ -321,6 +321,8 @@ public class Mycologist {
             Tekton insectTekton = insect.getCurrentTekton();
             Mycelium newMycelium = myceliums.get(0).clone();
             insectTekton.addMycelium(newMycelium);
+            newMycelium.setCurrentTekton(insectTekton);
+            newMycelium.textureProvider = myceliums.get(0).textureProvider;
             this.myceliums.add(newMycelium);
 
             for (Hyphae hyphae : insectTekton.getHyphaes()) {
