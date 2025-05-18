@@ -30,6 +30,7 @@ public class Insect {
         effectDuration = -1;
         owner = null;
         textureProvider = new TextureProvider();
+        canCutHyphae = true;
     }
 
     /**
@@ -60,7 +61,7 @@ public class Insect {
     public Entomologist getEntomologist() {
         return owner;
     }
-    
+
     /**
      * Updates insect state each simulation round.
      */
@@ -149,6 +150,7 @@ public class Insect {
      */
     public void setMovementSpeed(float movementSpeed) {
         this.movementSpeed = movementSpeed;
+        effectDuration = 2;
     }
 
     public float getMovementSpeed() {
