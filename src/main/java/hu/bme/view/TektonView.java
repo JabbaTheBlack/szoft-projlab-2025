@@ -4,12 +4,15 @@ import java.awt.geom.Point2D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import hu.bme.fungi.spore.Spore;
 import hu.bme.managers.TektonManager;
 import hu.bme.tekton.Tekton;
 
@@ -100,6 +103,16 @@ public class TektonView extends JPanel {
                 String name = hoveredTekton.toString().substring(14, place2); //14
                 g2d.setColor(Color.BLACK); // Set text color to red
                 g2d.drawString(name, x - 20, y + 40); // 10 pixellel a gomba fölé írja
+
+                // Get the spores from the tektons
+                java.util.List<Spore> spores = hoveredTekton.getSpores();
+                int offsetY = 55;
+
+                // Draw spore types below the Tekton type
+                for(Spore spore : spores) {
+                    String sporeType = spore.getClass().getSimpleName();
+                    g2d.drawString(sporeType, x - 20, y + offsetY);
+                }
             }
         }
     }

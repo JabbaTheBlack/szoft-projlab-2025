@@ -60,7 +60,7 @@ public class Insect {
     public Entomologist getEntomologist() {
         return owner;
     }
-
+    
     /**
      * Updates insect state each simulation round.
      */
