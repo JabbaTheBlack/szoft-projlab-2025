@@ -219,7 +219,7 @@ public class GamePanel extends JPanel {
 
                 // 3. Ha nincs rajta rovar sem, akkor kettétörjük
                 if (!hasInsect) {
-                    tekton.breakApart();
+                    tektonManager.breakApart(tekton);
                     return;
                 }
             }
