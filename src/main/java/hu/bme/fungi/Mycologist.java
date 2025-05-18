@@ -93,7 +93,7 @@ public class Mycologist {
      */
     public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
 
-        if (hyphae == null || targetTekton == null || !hyphaes.contains(hyphae)) {
+        if (hyphae == null || targetTekton == null || !hyphaes.contains(hyphae) || !hyphae.isConnectedToMycelium()) {
             return;
         }
 
@@ -116,14 +116,19 @@ public class Mycologist {
         Hyphae newHyphae = new Hyphae();
         newHyphae.setOwner(hyphae.getOwner());
 
-        if (!targetTekton.addHyphae(newHyphae)) {
-            System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
-            return;
-        }
-        neighbourTekton.addHyphae(newHyphae);
-
+        // Adding tektons to the hyphae
         newHyphae.addCurrentTekton(targetTekton);
         newHyphae.addCurrentTekton(neighbourTekton);
+
+        if (!targetTekton.addHyphae(newHyphae)) {
+            System.out.println("[Mycologist] Failed to grow hyphae: Tekton rejected it.");
+            newHyphae.removeCurrentTekton(neighbourTekton);
+            newHyphae.removeCurrentTekton(targetTekton);
+            return;
+        }
+
+        // Adding hyphae to the tekton
+        neighbourTekton.addHyphae(newHyphae);
 
         newHyphae.addHyphae(hyphae);
 
