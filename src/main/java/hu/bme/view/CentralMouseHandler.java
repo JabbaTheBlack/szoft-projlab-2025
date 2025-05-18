@@ -226,10 +226,10 @@ public class CentralMouseHandler extends MouseAdapter {
                         System.out.println("Rovarra kattintottál: " + insect);
 
                         // Megjegyezzük a kiválasztott rovart
-                        if(selectedInsect == null) {
+                        if (selectedInsect == null) {
                             selectedInsect = insect;
                         }
-                        
+
                         if (!InsectManager.getInstance().geEntomologists()
                                 .get(InsectManager.getInstance().geEntomologists().indexOf(activePlayer)).getInsects()
                                 .contains(selectedInsect)) {
@@ -432,11 +432,21 @@ public class CentralMouseHandler extends MouseAdapter {
                         result = "Nincs kiválasztott tekton!";
                     }
                     break;
+                case "EatInsect":
+                    if (selectedMycelium != null) {
+                        System.out.println("Rovar evése: " + selectedMycelium);
+                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
+                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
+                        mycologist.eatInsect(selectedInsect);
+                    } else {
+                        result = "Nincs kiválasztott rovar!";
+                    }
+                    break;
             }
         }
         return result;
     }
-    
+
     @Override
     public void mouseDragged(MouseEvent e) {
         // Nem szükséges implementálni, de a MouseMotionListener miatt kell jelen lennie
