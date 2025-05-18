@@ -192,16 +192,18 @@ public class CentralMouseHandler extends MouseAdapter {
 
                 // Check if the distance is within a certain threshold (e.g., 3 pixels)
                 if (distance <= 3) {
-                    Hyphae tmp = hyphae;
-                    if (MycologistManager.getInstance().getMycologists()
-                            .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer)) != tmp
-                                    .getOwner()) {
-                        System.out.println("Másik játékos hyphae-jára kattintottál!");
-                        // selectedHyphae = null;
-                        return false;
-                    } else {
-                        System.out.println("Hyphae-ra kattintottál: " + hyphae);
+                     if (MycologistManager.getInstance().getMycologists().contains(activePlayer)) {
+                    Mycologist activeMycologist = (Mycologist) activePlayer;
+                    if (hyphae.getOwner() == activeMycologist) {
                         selectedHyphae = hyphae;
+                        System.out.println("Saját hyphae-ra kattintottál: " + hyphae);
+                        return true;
+                    }
+                }
+                    // If the active player is an entomologist (insect player), allow selection of any hyphae
+                    if (InsectManager.getInstance().geEntomologists().contains(activePlayer)) {
+                        selectedHyphae = hyphae;
+                        System.out.println("Hyphae-ra kattintottál (insect): " + hyphae);
                         return true;
                     }
                 }
