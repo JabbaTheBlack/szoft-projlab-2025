@@ -40,6 +40,7 @@ public class GamePanel extends JPanel {
     private Object activePlayer; // Az aktuális játékos
     private int currentPlayerIndex = 0; // Az aktuális játékos indexe
     private Ticker ticker;
+    private int round = 0;
 
     public GamePanel() {
         players = new ArrayList<>();
@@ -195,7 +196,12 @@ public class GamePanel extends JPanel {
 
         if (currentPlayerIndex % players.size() == 0) {
             ticker.tick();
-            breakEmptyTektons();
+            round++;
+            if (round % 5 == 0) {
+
+                breakEmptyTektons();
+            }
+
         }
 
     }
