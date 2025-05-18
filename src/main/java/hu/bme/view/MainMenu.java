@@ -166,8 +166,9 @@ public class MainMenu extends JPanel {
         SingleTypeTekton singleTypeTekton = new SingleTypeTekton();
         AbsrobingTekton absrobingTekton = new AbsrobingTekton();
         Tekton tekton;
-        int randomType = (int) (Math.random() * 5); // 0, 1 vagy 2
+         // 0, 1 vagy 2
         for (int i = 0; i < count; i++) {
+            int randomType = (int) (Math.random() * 5);
             switch (randomType) {
                 case 0:
                     tekton = new MultiTypeTekton();
@@ -183,6 +184,7 @@ public class MainMenu extends JPanel {
                     break;
                 case 4:
                     tekton = new SingleTypeTekton();
+                    break;
                 default:
                     tekton = new MultiTypeTekton();
                     break;
@@ -346,12 +348,14 @@ public class MainMenu extends JPanel {
                 // Véletlenszerű Tekton kiválasztása
                 Tekton randomTekton = tektonManager.getTektons().get(random.nextInt(tektonManager.getTektons().size()));
 
+                Mycelium mycelium = new Mycelium();
                 // Gomba létrehozása
-                while (randomTekton.hasMycelium()) {
+                while (!randomTekton.addMycelium(mycelium)) {
                     randomTekton = tektonManager.getTektons().get(random.nextInt(tektonManager.getTektons().size()));
                 }
-                Mycelium mycelium = new Mycelium(randomTekton);
+                mycelium.setCurrentTekton(randomTekton); // Beállítjuk a gomba aktuális Tektonját
                 mycologist.addMycelium(mycelium); // Hozzáadjuk a gombásznak
+                
                 randomTekton.addMycelium(mycelium);
 
                 // Spórafajta kiválasztása
