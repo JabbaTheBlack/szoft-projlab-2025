@@ -87,6 +87,7 @@ public class Entomologist {
         Insect newInsect = new Insect();
         newInsect.setEntomologist(this);
         newInsect.setCurrentTekton(insect.getCurrentTekton());
+        newInsect.textureProvider = insect.textureProvider;
         insects.add(newInsect);
     }
 

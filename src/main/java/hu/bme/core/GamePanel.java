@@ -42,6 +42,7 @@ public class GamePanel extends JPanel {
     private Ticker ticker;
     private int round = 0;
 
+
     public GamePanel() {
         players = new ArrayList<>();
         players.addAll(InsectManager.getInstance().geEntomologists()); // Rovarászok hozzáadása
@@ -163,6 +164,7 @@ public class GamePanel extends JPanel {
                 commandListModel.clear(); // Parancsok törlése
                 return;
             }
+
             nextPlayer(activePlayerLabel); // Következő játékosra váltás
             commandListModel.clear();
         });
