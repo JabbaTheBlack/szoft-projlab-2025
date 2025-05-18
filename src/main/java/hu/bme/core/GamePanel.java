@@ -42,7 +42,6 @@ public class GamePanel extends JPanel {
     private Ticker ticker;
     private int round = 0;
 
-
     public GamePanel() {
         players = new ArrayList<>();
         players.addAll(InsectManager.getInstance().geEntomologists()); // Rovarászok hozzáadása
@@ -108,15 +107,15 @@ public class GamePanel extends JPanel {
         // Parancs panelek
         JPanel commandPanel1 = new JPanel();
         commandPanel1.setBackground(Color.LIGHT_GRAY);
-        JLabel label1 = new JLabel("Játékosok és kör");
+        JLabel label1 = new JLabel("Játékosok: ");
         commandPanel1.add(label1);
         for (Entomologist entomologist : InsectManager.getInstance().geEntomologists()) {
-            JLabel label = new JLabel(entomologist.getName() + " pont: " + entomologist.getNutrition());
+            JLabel label = new JLabel(entomologist.getName());
             commandPanel1.add(label);
         }
 
         for (Mycologist mycologist : MycologistManager.getInstance().getMycologists()) {
-            JLabel label = new JLabel(mycologist.getName() + " pont: " + mycologist.getScore());
+            JLabel label = new JLabel(mycologist.getName());
             commandPanel1.add(label);
         }
         JLabel activePlayerLabel = new JLabel("Aktuális játékos: " + activePlayer);
@@ -235,7 +234,46 @@ public class GamePanel extends JPanel {
                     tektonManager.breakApart(tekton);
                     return;
                 }
+
+                checkGameEnd();
             }
+        }
+    }
+
+    private void checkGameEnd() {
+        if (round >= 20) {
+            // Legjobb rovarász
+            Entomologist bestEntomologist = null;
+            int maxNutrition = Integer.MIN_VALUE;
+            for (Entomologist entomologist : InsectManager.getInstance().geEntomologists()) {
+                if (entomologist.getNutrition() > maxNutrition) {
+                    maxNutrition = entomologist.getNutrition();
+                    bestEntomologist = entomologist;
+                }
+            }
+
+            // Legjobb gombász
+            Mycologist bestMycologist = null;
+            int maxScore = Integer.MIN_VALUE;
+            for (Mycologist mycologist : MycologistManager.getInstance().getMycologists()) {
+                if (mycologist.getScore() > maxScore) {
+                    maxScore = mycologist.getScore();
+                    bestMycologist = mycologist;
+                }
+            }
+
+            String message = "Játék vége!\n\n";
+            if (bestEntomologist != null) {
+                message += "Legjobb rovarász: " + bestEntomologist.getName() + " (" + bestEntomologist.getNutrition()
+                        + " pont)\n";
+            }
+            if (bestMycologist != null) {
+                message += "Legjobb gombász: " + bestMycologist.getName() + " (" + bestMycologist.getScore()
+                        + " pont)\n";
+            }
+
+            JOptionPane.showMessageDialog(this, message, "Végeredmény", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
         }
     }
 
