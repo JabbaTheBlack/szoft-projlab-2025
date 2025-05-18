@@ -65,7 +65,8 @@ public class GamePanel extends JPanel {
         overlayPanel.setOpaque(false);
         overlayPanel.setBounds(0, 0, 4 * 1980 / 5, 1080);
         myceliumView = new MyceliumView();
-        CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView, myceliumView, activePlayer);
+        CentralMouseHandler = new CentralMouseHandler(commandListModel, tektonView, myceliumView, sporeView,
+                activePlayer);
         tektonView.setMouseHandler(CentralMouseHandler);
         insectView = new InsectView(commandListModel);
         overlayPanel.addMouseListener(CentralMouseHandler);
@@ -86,7 +87,7 @@ public class GamePanel extends JPanel {
         insectView.setBounds(0, 0, 4 * 1980 / 5, 1080);
         myceliumView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
         tektonView.setOpaque(false); // Átlátszó háttér
-        
+
         gameArea.add(myceliumView);
 
         gameArea.add(sporeView); // Spóra nézet hozzáadása a játékterülethez

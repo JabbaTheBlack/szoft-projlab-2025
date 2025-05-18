@@ -32,6 +32,7 @@ public class CentralMouseHandler extends MouseAdapter {
     private Object activePlayer; // Az aktuális játékos
     private Mycelium selectedMycelium;
     private Hyphae selectedHyphae;
+    private SporeView sporeView;
     private Mycelium hoveredMycelium;
 
     public void setActivePlayer(Object activePlayer) {
@@ -39,9 +40,10 @@ public class CentralMouseHandler extends MouseAdapter {
     }
 
     public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView,
-            MyceliumView myceliumView, Object activePlayer) {
+            MyceliumView myceliumView, SporeView sporeView, Object activePlayer) {
         this.tektonView = tektonView;
         this.myceliumView = myceliumView;
+        this.sporeView = sporeView;
         this.commandListModel = commandListModel;
         selectedCommand = null;
         this.activePlayer = activePlayer;
@@ -189,22 +191,21 @@ public class CentralMouseHandler extends MouseAdapter {
                 // Check if the distance is within a certain threshold (e.g., 3 pixels)
                 if (distance <= 3) {
                     Hyphae tmp = hyphae;
-                    if(MycologistManager.getInstance().getMycologists()
-                        .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer)) 
-                        != tmp.getOwner())
-                        {
-                            System.out.println("Másik játékos hyphae-jára kattintottál!");
-                            //selectedHyphae = null;
-                            return false;
-                    } else{
-                         System.out.println("Hyphae-ra kattintottál: " + hyphae);
+                    if (MycologistManager.getInstance().getMycologists()
+                            .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer)) != tmp
+                                    .getOwner()) {
+                        System.out.println("Másik játékos hyphae-jára kattintottál!");
+                        // selectedHyphae = null;
+                        return false;
+                    } else {
+                        System.out.println("Hyphae-ra kattintottál: " + hyphae);
                         selectedHyphae = hyphae;
                         return true;
                     }
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -355,6 +356,7 @@ public class CentralMouseHandler extends MouseAdapter {
                                     .get(selectedInsect.getCurrentTekton().getSporeCount() - 1));
                         }
                     }
+                    sporeView.repaint();
                     break;
                 case "GrowHyphae":
                     if (selectedMycelium != null && selectedHyphae == null) {
@@ -395,6 +397,7 @@ public class CentralMouseHandler extends MouseAdapter {
                     if (selectedMycelium != null) {
                         System.out.println("Spóra terjesztése: " + selectedMycelium);
                         selectedMycelium.releaseSpores();
+                        sporeView.repaint();
                     }
                     break;
                 case "GrowMycelium":
@@ -408,6 +411,7 @@ public class CentralMouseHandler extends MouseAdapter {
                     break;
             }
         }
+
     }
 
     @Override

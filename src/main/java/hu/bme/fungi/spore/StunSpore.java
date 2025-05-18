@@ -1,6 +1,9 @@
 package hu.bme.fungi.spore;
 
+import java.awt.TexturePaint;
+
 import hu.bme.insect.Insect;
+import hu.bme.view.TextureProvider;
 
 /**
  * Class representing a StunSpore.
@@ -13,6 +16,7 @@ public class StunSpore extends Spore {
      */
     public StunSpore() {
         super();
+        textureProvider.setImage("/images/fungi_images/stun_spore.png");
     }
 
     public Spore clone() {
