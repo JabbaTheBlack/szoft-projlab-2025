@@ -141,7 +141,7 @@ public class Mycologist {
         hyphaes.add(newHyphae);
 
         // spore on the tekton, bc that it grows faster
-        if (neighbourTekton.getSporeCount() >= 4) {
+        if (targetTekton.getSporeCount() >= 1) {
             Hyphae newHyphae2 = new Hyphae(targetTekton);
 
             if (targetTekton.addHyphae(newHyphae2)) {
@@ -326,6 +326,8 @@ public class Mycologist {
             Tekton insectTekton = insect.getCurrentTekton();
             Mycelium newMycelium = myceliums.get(0).clone();
             insectTekton.addMycelium(newMycelium);
+            newMycelium.setCurrentTekton(insectTekton);
+            newMycelium.textureProvider = myceliums.get(0).textureProvider;
             this.myceliums.add(newMycelium);
 
             for (Hyphae hyphae : insectTekton.getHyphaes()) {
