@@ -93,6 +93,13 @@ public class TektonView extends JPanel {
                 g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, dashPattern, 0));
 
                 g2d.drawLine(hoveredTekton.getX(), hoveredTekton.getY(), neighbour.getX(), neighbour.getY());
+                int x = hoveredTekton.getX();
+                int y = hoveredTekton.getY();
+                int place2 = hoveredTekton.toString().lastIndexOf("@");
+
+                String name = hoveredTekton.toString().substring(14, place2); //14
+                g2d.setColor(Color.BLACK); // Set text color to red
+                g2d.drawString(name, x - 20, y + 40); // 10 pixellel a gomba fölé írja
             }
         }
     }
