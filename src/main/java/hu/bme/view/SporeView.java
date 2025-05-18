@@ -37,13 +37,10 @@ public class SporeView extends JPanel {
                     int size = 15; // Spóra mérete
                     if (sporeImage != null) {
                         g2d.drawImage(sporeImage, x - size / 2, y - size / 2, size, size, null);
-
                     }
                 }
-
                 // e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e
                 // - e - e
-
             }
         }
     }
