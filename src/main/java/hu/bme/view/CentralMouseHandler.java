@@ -142,7 +142,8 @@ public class CentralMouseHandler extends MouseAdapter {
                 checkMyceliumSelection(mouseX, mouseY);
                 checkHyphaeSelection(mouseX, mouseY);
 
-            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae") || selectedCommand.equals("GrowMycelium")) {
+            } else if (selectedCommand == null || selectedCommand.equals("GrowHyphae")
+                    || selectedCommand.equals("GrowMycelium")) {
                 checkTektonSelection(mouseX, mouseY);
 
             }
@@ -151,8 +152,6 @@ public class CentralMouseHandler extends MouseAdapter {
         // A tekton kijelölés megszüntetése
         // selectedTekton = null;
     }
-
-
 
     private double pointToSegmentDistance(int px, int py, int x1, int y1, int x2, int y2) {
         double dx = x2 - x1;
@@ -337,10 +336,12 @@ public class CentralMouseHandler extends MouseAdapter {
                     }
                     break;
                 case "eatspore":
-                    if(selectedTekton != null && selectedInsect != null) {
+                    if (selectedInsect != null) {
                         System.out.println("Spóra evése: " + selectedInsect);
-                        if(selectedTekton.getSporeCount() > 0 && selectedInsect.getCurrentTekton().equals(selectedTekton)) {
-                            selectedInsect.eatSpore(selectedTekton.getSpores().get(selectedTekton.getSporeCount()-1));
+                        if (selectedInsect.getCurrentTekton().getSporeCount() > 0
+                                && selectedInsect.getCurrentTekton().equals(selectedInsect.getCurrentTekton())) {
+                            selectedInsect.eatSpore(selectedInsect.getCurrentTekton().getSpores()
+                                    .get(selectedInsect.getCurrentTekton().getSporeCount() - 1));
                         }
                     }
                     break;
@@ -379,7 +380,7 @@ public class CentralMouseHandler extends MouseAdapter {
 
                 case "spreadSpore":
                     if (selectedMycelium != null) {
-                        System.out.println("Spóra terjesztése: " + selectedMycelium + " -> " + selectedTekton);
+                        System.out.println("Spóra terjesztése: " + selectedMycelium);
                         selectedMycelium.releaseSpores();
                     }
                     break;

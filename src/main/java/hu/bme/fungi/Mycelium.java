@@ -102,6 +102,7 @@ public class Mycelium {
      */
     public void releaseSpores() {
         if (spores.isEmpty()) {
+            System.out.println("No spores to release");
             return;
         }
 

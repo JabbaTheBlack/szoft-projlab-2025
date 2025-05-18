@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.insect.Entomologist;
+import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
@@ -193,8 +194,36 @@ public class GamePanel extends JPanel {
 
         if (currentPlayerIndex % players.size() == 0) {
             ticker.tick();
+            breakEmptyTektons();
         }
 
+    }
+
+    private void breakEmptyTektons() {
+        for (Tekton tekton : TektonManager.getInstance().getTektons()) {
+            // 1. Ha van rajta gombatest, nem törjük ketté
+            if (!tekton.hasMycelium()) {
+
+                // 2. Megnézzük, van-e rajta rovar
+                boolean hasInsect = false;
+                for (Entomologist entomologist : InsectManager.getInstance().geEntomologists()) {
+                    for (Insect insect : entomologist.getInsects()) {
+                        if (insect.getCurrentTekton() == tekton) {
+                            hasInsect = true;
+                            break;
+                        }
+                    }
+                    if (hasInsect)
+                        break;
+                }
+
+                // 3. Ha nincs rajta rovar sem, akkor kettétörjük
+                if (!hasInsect) {
+                    tekton.breakApart();
+                    return;
+                }
+            }
+        }
     }
 
 }
