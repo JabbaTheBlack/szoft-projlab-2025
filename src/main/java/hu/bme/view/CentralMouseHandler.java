@@ -436,7 +436,7 @@ public class CentralMouseHandler extends MouseAdapter {
         }
         return result;
     }
-
+    
     @Override
     public void mouseDragged(MouseEvent e) {
         // Nem szükséges implementálni, de a MouseMotionListener miatt kell jelen lennie

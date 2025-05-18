@@ -351,6 +351,7 @@ private boolean dfsReachable(Tekton current, Tekton target, Set<Tekton> visited,
     
     // Megjelöljük az aktuális csomópontot meglátogatottként
     visited.add(current);
+    System.err.println("Visited: " + current + " Depth: " + currentDepth + " MaxDepth: " + maxDepth);
     
     // Rekurzívan bejárunk minden szomszédot, de csak a korlátozott mélységig
     for (Tekton neighbor : current.connectedNeighbours) {

@@ -25,6 +25,7 @@ public class Mycologist {
     private Spore selectedType;
     private Color color;
     private String name;
+    private int score;
 
     /**
      * Initializes a new mycologist with an empty list of myceliums.
@@ -32,12 +33,14 @@ public class Mycologist {
     public Mycologist() {
         myceliums = new ArrayList<>();
         hyphaes = new ArrayList<>();
+        score = 0;
     }
 
     public Mycologist(String name) {
         this.name = name;
         myceliums = new ArrayList<>();
         hyphaes = new ArrayList<>();
+        score = 0;
     }
 
     public String getName() {
@@ -46,6 +49,10 @@ public class Mycologist {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     /**
@@ -169,10 +176,11 @@ public class Mycologist {
      * @param mycelium The mycelium to be added.
      */
     public void addMycelium(Mycelium mycelium) {
-        if(myceliums.contains(mycelium)) {
+        if (myceliums.contains(mycelium)) {
             return;
         }
         myceliums.add(mycelium);
+        score++;
     }
 
     /**
@@ -214,7 +222,7 @@ public class Mycologist {
             newMycelium.textureProvider = myceliums.get(0).textureProvider;
 
             myceliums.add(newMycelium);
-            
+
         } else {
             System.out.println(
                     "[Mycologist] Failed to grow mycelium: Hyphae is not on the target Tekton or there are not enough spores.");
@@ -350,7 +358,7 @@ public class Mycologist {
             }
         }
 
-        for(Mycelium mycelium : myceliums) {
+        for (Mycelium mycelium : myceliums) {
             growSpore(mycelium);
         }
     }
@@ -383,9 +391,11 @@ public class Mycologist {
         }
         hyphaes.add(hyphae);
     }
+
     public void setColor(Color color) {
         this.color = color;
     }
+
     public Color getColor() {
         return color;
     }

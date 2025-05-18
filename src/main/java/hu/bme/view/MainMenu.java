@@ -295,7 +295,7 @@ public class MainMenu extends JPanel {
 
                 Tekton randomTekton = TektonManager.getInstance().getTektons()
                         .get(random.nextInt(TektonManager.getInstance().getTektons().size()));
-                Insect insect = new Insect(randomTekton, 10);
+                Insect insect = new Insect(randomTekton, 2);
                 switch (color) {
                     case "Fekete":
                         insect.textureProvider.setImage("/images/ant_images/fekete.png");

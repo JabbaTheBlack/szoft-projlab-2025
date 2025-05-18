@@ -110,12 +110,12 @@ public class GamePanel extends JPanel {
         JLabel label1 = new JLabel("Játékosok és kör");
         commandPanel1.add(label1);
         for (Entomologist entomologist : InsectManager.getInstance().geEntomologists()) {
-            JLabel label = new JLabel(entomologist.getName());
+            JLabel label = new JLabel(entomologist.getName() + " pont: " + entomologist.getNutrition());
             commandPanel1.add(label);
         }
 
         for (Mycologist mycologist : MycologistManager.getInstance().getMycologists()) {
-            JLabel label = new JLabel(mycologist.getName());
+            JLabel label = new JLabel(mycologist.getName() + " pont: " + mycologist.getScore());
             commandPanel1.add(label);
         }
         JLabel activePlayerLabel = new JLabel("Aktuális játékos: " + activePlayer);
@@ -206,7 +206,6 @@ public class GamePanel extends JPanel {
 
                 breakEmptyTektons();
             }
-
         }
 
     }
