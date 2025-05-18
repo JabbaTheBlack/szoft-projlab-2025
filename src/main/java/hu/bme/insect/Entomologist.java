@@ -59,6 +59,14 @@ public class Entomologist {
         return insects.size();
     }
 
+    public int getNutrition() {
+        int nutrition = 0;
+        for (Insect insect : insects) {
+            nutrition += insect.getNutrition();
+        }
+        return nutrition;
+    }
+
     /**
      * Advances all insects through one simulation round, triggering their lifecycle
      * updates.

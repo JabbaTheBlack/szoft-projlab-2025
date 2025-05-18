@@ -66,7 +66,12 @@ public class MyceliumView extends JPanel {
                 g.setColor(Color.BLACK);
                 g.drawString(szoveg, x - 20, y - 30); // 10 pixellel a gomba fölé írja
             }
-            for (Hyphae hyphae : mycologist.getHyphaes()) {
+
+            List<Hyphae> toRemove = new ArrayList<>();
+
+
+            for (java.util.Iterator<Hyphae> it = mycologist.getHyphaes().iterator(); it.hasNext(); ) {
+                Hyphae hyphae = it.next();
                 // 2 tekton közötti fonal kirajzolása
                 if (hyphae.getCurrentTekton().size() > 1 && hyphae.getTimeToLive() != 0) {
                     g2d.setColor(mycologist.getColor());
@@ -109,9 +114,16 @@ public class MyceliumView extends JPanel {
                     g2d.drawLine(vx, vy, ux, uy);
                     hyphae.setPosition(ux, uy, vx, vy);
 
+                } else{
+                    toRemove.add(hyphae);
                 }
 
             }
+            for (Hyphae h : toRemove) {
+                mycologist.removeHyphae(h);
+            }
+
+
             i++;
             if( i == MycologistManager.getInstance().getMycologists().size()) {
                 i=0;

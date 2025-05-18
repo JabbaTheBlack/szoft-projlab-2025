@@ -226,8 +226,10 @@ public class CentralMouseHandler extends MouseAdapter {
                         System.out.println("Rovarra kattintottál: " + insect);
 
                         // Megjegyezzük a kiválasztott rovart
-
-                        selectedInsect = insect;
+                        if(selectedInsect == null) {
+                            selectedInsect = insect;
+                        }
+                        
                         if (!InsectManager.getInstance().geEntomologists()
                                 .get(InsectManager.getInstance().geEntomologists().indexOf(activePlayer)).getInsects()
                                 .contains(selectedInsect)) {
@@ -434,7 +436,7 @@ public class CentralMouseHandler extends MouseAdapter {
         }
         return result;
     }
-
+    
     @Override
     public void mouseDragged(MouseEvent e) {
         // Nem szükséges implementálni, de a MouseMotionListener miatt kell jelen lennie
