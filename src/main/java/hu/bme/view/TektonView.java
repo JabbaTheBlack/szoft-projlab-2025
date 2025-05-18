@@ -70,7 +70,17 @@ public class TektonView extends JPanel {
                 g2d.setColor(Color.BLACK); // Default color
             }
 
+            Color lightBrown = new Color(205, 133, 63);
+            g2d.setPaint(lightBrown);
+            g2d.fillOval(x - radius / 2, y - radius / 2, radius, radius);
+
+
             g2d.setStroke(new BasicStroke(3));
+            if (tekton.equals(CentralMouseHandler.getSelectedTekton())) {
+                g2d.setColor(Color.BLUE); // Selected Tekton outline
+            } else {
+                g2d.setColor(Color.BLACK); // Default outline
+            }
             g2d.drawOval(x - radius / 2, y - radius / 2, radius, radius); // Draw circle
         }
 

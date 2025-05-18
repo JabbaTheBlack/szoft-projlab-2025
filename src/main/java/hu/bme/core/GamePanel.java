@@ -78,7 +78,7 @@ public class GamePanel extends JPanel {
 
         // Játékterület (középső rész)
         JPanel gameArea = new JPanel();
-        gameArea.setBackground(Color.WHITE);
+        gameArea.setBackground(new Color(173, 216, 230));
         gameArea.setPreferredSize(new Dimension(4 * 1980 / 5, 1080)); // Az ablak 4/5-ét foglalja el
         gameArea.setLayout(null); // Manuális elrendezés
         tektonView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
