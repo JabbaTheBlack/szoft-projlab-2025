@@ -305,6 +305,7 @@ public class Mycologist {
     public void eatInsect(Insect insect) {
 
         if (insect == null || !insect.isStunned()) {
+            System.out.println("[Mycologist] Failed to consume insect: Insect is null or not stunned.");
             return;
         }
 
@@ -320,6 +321,7 @@ public class Mycologist {
             Tekton insectTekton = insect.getCurrentTekton();
             Mycelium newMycelium = myceliums.get(0).clone();
             insectTekton.addMycelium(newMycelium);
+            this.myceliums.add(newMycelium);
 
             for (Hyphae hyphae : insectTekton.getHyphaes()) {
                 if (hyphae.getCurrentTekton().size() == 1) {
@@ -330,6 +332,7 @@ public class Mycologist {
 
             insect.getEntomologist().removeInsect(insect);
             insect.setCurrentTekton(null);
+            System.out.println("[Mycologist] Insect consumed: " + insect);
         }
     }
 

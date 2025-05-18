@@ -150,7 +150,7 @@ public class CentralMouseHandler extends MouseAdapter {
                 checkTektonSelection(mouseX, mouseY);
 
             } else if (selectedCommand == "EatInsect") {
-                checkInsectSelection(mouseX, mouseY);
+                checkTektonSelection(mouseX, mouseY);
             }
         }
 
@@ -437,13 +437,25 @@ public class CentralMouseHandler extends MouseAdapter {
                     }
                     break;
                 case "EatInsect":
-                    if (selectedMycelium != null) {
-                        System.out.println("Rovar evése: " + selectedMycelium);
-                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
-                                .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
-                        mycologist.eatInsect(selectedInsect);
+                    if (selectedMycelium != null && selectedTekton != null) {
+                        for (Entomologist entomologist : InsectManager.getInstance().geEntomologists()) {
+                            for (Insect insect : entomologist.getInsects()) {
+                                if (insect.getCurrentTekton() == selectedTekton) {
+                                    if (insect.isStunned()) {
+                                        System.out.println("Rovar evése: " + selectedMycelium);
+                                        Mycologist mycologist = MycologistManager.getInstance().getMycologists()
+                                                .get(MycologistManager.getInstance().getMycologists()
+                                                        .indexOf(activePlayer));
+                                        mycologist.eatInsect(insect);
+                                        return null;
+                                    }
+
+                                }
+                            }
+                        }
+
                     } else {
-                        result = "Nincs kiválasztott rovar!";
+                        result = "Nincs kiválasztott tekton!";
                     }
                     break;
             }
