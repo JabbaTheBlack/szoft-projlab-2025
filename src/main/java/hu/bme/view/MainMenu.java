@@ -21,6 +21,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -284,20 +285,21 @@ public class MainMenu extends JPanel {
     }
 
     private void createInsects() {
+        ArrayList<Tekton> tektons = new ArrayList<>(TektonManager.getInstance().getTektons());
+        Collections.shuffle(tektons); // Shuffle to randomize assignment
 
-        Random random = new Random();
-
+        int antCount = 0;
         for (Map.Entry<String, JTextField> entry : rovaraszokTextFields.entrySet()) {
             String color = entry.getKey();
             String name = entry.getValue().getText().trim();
 
-            if (!name.isEmpty()) {
+            if (!name.isEmpty() && antCount < tektons.size()) {
                 Entomologist entomologist = new Entomologist(name);
                 InsectManager.getInstance().addEntomologist(entomologist);
 
-                Tekton randomTekton = TektonManager.getInstance().getTektons()
-                        .get(random.nextInt(TektonManager.getInstance().getTektons().size()));
-                Insect insect = new Insect(randomTekton, 2);
+                Tekton assignedTekton = tektons.get(antCount); // Assign unique Tekton
+                Insect insect = new Insect(assignedTekton, 2);
+
                 switch (color) {
                     case "Fekete":
                         insect.textureProvider.setImage("/images/ant_images/fekete.png");
@@ -322,12 +324,14 @@ public class MainMenu extends JPanel {
                         break;
                     case "Zöld":
                         insect.textureProvider.setImage("/images/ant_images/zold.png");
+                        break;
                     default:
                         break;
                 }
                 entomologist.addInsect(insect);
                 insect.setEntomologist(entomologist);
-                System.out.println("Létrehozott rovar: " + name + " szín: " + color);
+                System.out.println("Létrehozott rovar: " + name + " szín: " + color + " -> Tekton: " + assignedTekton);
+                antCount++;
             }
         }
     }
