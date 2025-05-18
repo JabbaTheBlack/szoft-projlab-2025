@@ -85,10 +85,13 @@ public class GamePanel extends JPanel {
         insectView.setBounds(0, 0, 4 * 1980 / 5, 1080);
         myceliumView.setBounds(0, 0, 4 * 1980 / 5, 1080); // Méret és pozíció beállítása
         tektonView.setOpaque(false); // Átlátszó háttér
-        gameArea.add(sporeView); // Spóra nézet hozzáadása a játékterülethez
+        
         gameArea.add(myceliumView);
-        gameArea.add(tektonView);
+
+        gameArea.add(sporeView); // Spóra nézet hozzáadása a játékterülethez
         gameArea.add(insectView);
+        gameArea.add(tektonView);
+
         gameArea.add(overlayPanel);
 
         add(gameArea, BorderLayout.CENTER);

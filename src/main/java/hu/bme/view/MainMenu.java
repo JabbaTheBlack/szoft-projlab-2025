@@ -65,7 +65,7 @@ public class MainMenu extends JPanel {
         JLabel rovaraszokLabel = new JLabel("Rovarászok:");
         rightPanel.add(rovaraszokLabel);
 
-        String[] rovaraszok = { "Kék", "Piros", "Lila", "Zöld", "Sárga" };
+        String[] rovaraszok = {"Kék", "Piros", "Lila", "Zöld", "Pink", "Narancs", "Fekete", "Neon"};
         for (String rovarasz : rovaraszok) {
             JPanel row = new JPanel();
             row.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5)); // Térköz a komponensek között
@@ -307,7 +307,7 @@ public class MainMenu extends JPanel {
                         insect.textureProvider.setImage("/images/ant_images/lila.png");
                         break;
                     case "Narancs":
-                        insect.textureProvider.setImage("/images/and_images/narancs.png");
+                        insect.textureProvider.setImage("/images/ant_images/narancs.png");
                         break;
                     case "Neon":
                         insect.textureProvider.setImage("/images/ant_images/neon.png");
@@ -318,7 +318,7 @@ public class MainMenu extends JPanel {
                     case "Piros":
                         insect.textureProvider.setImage("/images/ant_images/piros.png");
                         break;
-                    case "Zold":
+                    case "Zöld":
                         insect.textureProvider.setImage("/images/ant_images/zold.png");
                     default:
                         break;
