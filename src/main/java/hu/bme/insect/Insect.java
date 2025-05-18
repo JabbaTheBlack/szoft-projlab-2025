@@ -88,7 +88,12 @@ public class Insect {
      */
     public void move(Tekton targetTekton) {
         // TODO implement function
-
+        if (this.isStunned()) {
+            System.out.println("[Insect] isStunned() -> [Insect] {true}");
+            return;
+        } else {
+            System.out.println("[Insect] isStunned() -> [Insect] {false}");
+        }
         System.out.println("[Insect] isConenctedTo(" + targetTekton + ") -> [Tekton]");
 
         if (currentTekton.reachable(targetTekton, (int) movementSpeed)) {
@@ -114,7 +119,7 @@ public class Insect {
         System.out.println("[Insect] applyEffect(" + this + ") -> [Spore]");
         spore.applyEffect(this);
         currentTekton.removeSpore(spore);
-
+        this.effectDuration = 2;
     }
 
     /**
