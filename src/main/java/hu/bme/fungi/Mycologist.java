@@ -136,7 +136,7 @@ public class Mycologist {
         hyphaes.add(newHyphae);
 
         // spore on the tekton, bc that it grows faster
-        if (neighbourTekton.getSporeCount() >= 4) {
+        if (targetTekton.getSporeCount() >= 1) {
             Hyphae newHyphae2 = new Hyphae(targetTekton);
 
             if (targetTekton.addHyphae(newHyphae2)) {

@@ -376,17 +376,9 @@ public class CentralMouseHandler extends MouseAdapter {
                 case "GrowHyphae":
                     if (selectedMycelium != null && selectedHyphae == null) {
                         // gombatestből saját tektonra
-
                         System.out.println("Hyphae növesztése: " + selectedMycelium + " -> " + selectedTekton);
                         Mycologist mycologist = MycologistManager.getInstance().getMycologists()
                                 .get(MycologistManager.getInstance().getMycologists().indexOf(activePlayer));
-                        for (Hyphae hyphae : mycologist.getHyphaes()) {
-
-                            if (hyphae.getCurrentTekton().get(0) == selectedMycelium.getCurrentTekton()) {
-                                result = "Ez a gombatest már növesztett hyphae-t!, Vagy nem jelöltél ki hyphae-t!";
-                                return result;
-                            }
-                        }
                         mycologist.growHyphaeOnTekton(selectedMycelium, selectedMycelium.getCurrentTekton());
 
                     } else if (selectedHyphae != null && selectedTekton != null) {
@@ -400,22 +392,15 @@ public class CentralMouseHandler extends MouseAdapter {
                         } else {
                             // ket tekton közötti fonal
                             if (selectedHyphae != null) {
-                                 mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
-                                if (selectedHyphae.isSporeNearby()){
-                                    mycologist.growHyphaeOnTekton(selectedHyphae, selectedTekton);
-                                }
+                                mycologist.growHyphaeToTekton(selectedHyphae, selectedTekton);
                             } else {
                                 result = "Nincs kiválasztott hyphae!";
                             }
-                        }
-                        if (selectedHyphae == null) {
-                            result = "Nincs kiválasztott hyphae!";
                         }
                         selectedHyphae = null;
                     } else {
                         result = "Nincs kiválasztott tekton!";
                     }
-                    System.out.println(result);
                     break;
                 case "upgradeMycelium":
                     if (selectedMycelium != null) {
