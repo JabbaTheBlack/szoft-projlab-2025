@@ -12,6 +12,7 @@ public class GameController {
     private InsectManager insectManager;
     private MycologistManager mycologistManager;
     private Ticker ticker;
+    private final GamePanel gamePanel;
 
     
     /**
@@ -24,6 +25,7 @@ public class GameController {
         ticker = Ticker.getInstance();
         ticker.addObserver(mycologistManager);
         ticker.addObserver(insectManager);
+        gamePanel = new GamePanel();
     }
 
     /**
@@ -37,9 +39,7 @@ public class GameController {
      * Contols the game loop by running the game components.
      */
     public void runGameLoop(){
-        while(true){
-            ticker.tick();
-        }       
+        startGame();
     }
 
     /**

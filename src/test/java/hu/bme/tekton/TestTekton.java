@@ -1,6 +1,9 @@
 package hu.bme.tekton;
 
 import hu.bme.fungi.Hyphae;
+import hu.bme.fungi.Mycelium;
+import hu.bme.fungi.Mycologist;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -120,5 +123,52 @@ class TestTekton {
         tekton1.addNeighbour(tekton1);
 
         assertFalse(tekton1.getNeighbours().contains(tekton1));
+    }
+
+    @Test
+    void testMyceliumFreeTekton(){
+        MyceliumFreeTekton mFreeTekton = new MyceliumFreeTekton();
+        KeeperTekton keeperTekton = new KeeperTekton();
+
+        mFreeTekton.addNeighbour(keeperTekton);
+
+        
+        Mycelium mycelium = new Mycelium();
+        mycelium.setCurrentTekton(keeperTekton);
+
+        Mycologist mycologist = new Mycologist();
+
+        mycologist.addMycelium(mycelium);
+        mycologist.chooseSpore(2);
+
+        Hyphae h1 = new Hyphae();
+        h1.addCurrentTekton(keeperTekton);
+        keeperTekton.addHyphae(h1);
+
+        Hyphae h2 = new Hyphae();
+        h2.addCurrentTekton(keeperTekton);
+        h2.addCurrentTekton(mFreeTekton);
+
+        Hyphae h3 = new Hyphae();
+        h3.addCurrentTekton(mFreeTekton);
+
+       
+        mycologist.growSpore(mycelium);
+        mycologist.growSpore(mycelium);
+        mycologist.growSpore(mycelium);
+        
+        assertEquals(3, mycelium.getSporeCount());
+
+        mycologist.releaseSpore(mycelium);
+        mycologist.releaseSpore(mycelium);
+        mycologist.releaseSpore(mycelium);
+
+        assertEquals(0, mycelium.getSporeCount());
+        assertEquals(3, mFreeTekton.getSporeCount());
+
+        mycologist.growMycelium(h3, mFreeTekton);
+
+        assertEquals(1, mycologist.getMyceliums().size());
+        assertEquals(0, mFreeTekton.fungalManager.getMyceliumCount());
     }
 }

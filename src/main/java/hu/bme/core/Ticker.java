@@ -70,5 +70,6 @@ public class Ticker {
         for(ITickable observer : observers) {
             observer.tick();
         }
+        System.out.println("Tick has been sent.");
     }
 }

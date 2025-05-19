@@ -1,33 +1,68 @@
 package hu.bme.tekton;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Random;
+import java.util.Set;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
+import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.Spore;
+import hu.bme.interfaces.ITickable;
 import hu.bme.managers.FungalManager;
+import hu.bme.managers.MycologistManager;
 
 /**
- * Represents a tekton, managing its connections to other tektons and neighbours.
+ * Represents a tekton, managing its connections to other tektons and
+ * neighbours.
  */
-public abstract class Tekton {
-    
+public abstract class Tekton implements ITickable {
+
     protected final FungalManager fungalManager;
     private List<Tekton> neighbours;
     private List<Tekton> connectedNeighbours;
+    private int x, y;
+
+    // Setter for Y
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    // Setter for X
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    // Getter for Y
+    public int getX() {
+        return x;
+    }
+
+    // Getter for X
+    public int getY() {
+        return y;
+    }
 
     /**
-     * Initializes a new tekton with an empty list of neighbours and connected neighbours.
+     * Initializes a new tekton with an empty list of neighbours and connected
+     * neighbours.
      */
     protected Tekton() {
         fungalManager = new FungalManager();
         neighbours = new ArrayList<>();
         connectedNeighbours = new ArrayList<>();
+        Random random = new Random();
+        this.x = random.nextInt(800); // Példa: 0 és 800 közötti érték
+        this.y = random.nextInt(600);
     }
 
     /**
      * Abstract function returning the instance of the tekton
+     * 
      * @return Subclass of Tekton
      */
     public abstract Tekton createTekton();
@@ -35,63 +70,16 @@ public abstract class Tekton {
     /**
      * Breaks the tekton apart, refreshing all connections of the tektons.
      */
-    // public List<Tekton> breakApart() {
-      
-    //     if(this.fungalManager.getMyceliumCount() == 0){
-                
-    //         Tekton newTekton1 = createTekton();
-    //         System.out.println("["+this+"] new() - -> ["+newTekton1+"]");
-    //         Tekton newTekton2 = createTekton();
-    //         System.out.println("["+this+"] new() - -> ["+newTekton2+"]");
-    
-    
-    //         newTekton1.addNeighbour(newTekton2);
-    //         newTekton2.addNeighbour(newTekton1);
-    
-    //         this.fungalManager.getHyphaes().forEach(hyphae -> {
-    //             if(hyphae.getCurrentTekton().size() >= 2){
-    //                 //hyphea a két tekton között
-    //                 System.out.println("["+this+"] addHyphea("+hyphae+") -> ["+newTekton1+"]");
-    //                 newTekton1.addHyphae(hyphae);
-    //                 System.out.println("["+this+"] addCurrentTekton("+newTekton1+") -> ["+hyphae+"]");
-    //                 hyphae.addCurrentTekton(newTekton1);
-    //                 System.out.println("["+this+"] removeCurrentTekton("+this+") -> ["+hyphae+"]");
-    //                 hyphae.removeCurrentTekton(this);
-    //             } else{
-    //                 //hyphea a tektonon belül
-    //                 hyphae.getConnectedHyphae().forEach(nghHyphae -> {
-    //                     System.out.println("["+this+"] removeHyphae("+hyphae+") -> ["+nghHyphae+"]");
-    //                 nghHyphae.removeHyphae(hyphae);
-    //                 });
-    //             }
-    //         });
-            
-    //         this.fungalManager.getSpores().forEach(spore -> {
-    //             System.out.println("["+this+"] addSpore("+spore+") -> ["+newTekton1+"]");
-    //             newTekton1.addSpore(spore);
-                
-    //         });
-    
-    //         List<Tekton> newTektons = new ArrayList<>();
-    //         newTektons.add(newTekton1);
-    //         newTektons.add(newTekton2);
-
-    //         return newTektons;
-    //     }
-    //     return null;
-    // }
-
     public List<Tekton> breakApart() {
         if (this.fungalManager.getMyceliumCount() == 0) {
             // Create new Tektons
             Tekton newTekton1 = createTekton();
             Tekton newTekton2 = createTekton();
 
-    
             // Connect the new Tektons to each other
             newTekton1.addNeighbour(newTekton2);
             newTekton2.addNeighbour(newTekton1);
-    
+
             // Remove this Tekton from the neighbor lists of its neighbors
             for (Tekton neighbor : new ArrayList<>(neighbours)) {
                 neighbor.removeNeighbour(this); // Remove this Tekton from the neighbor's list
@@ -100,11 +88,20 @@ public abstract class Tekton {
                 newTekton1.addNeighbour(neighbor); // Add the neighbor to the new Tekton
                 newTekton2.addNeighbour(neighbor); // Add the neighbor to the new Tekton
             }
-            
+
             // Remove all Hyphaes
-            for(Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
-                hyphae.getConnectedHyphae().forEach(connectedHyphae -> connectedHyphae.removeHyphae(hyphae));
-                fungalManager.removeHyphae(hyphae);
+            for (Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
+                if (hyphae.getCurrentTekton().contains(this)) {
+                    hyphae.setTimeToLive(0);
+                }
+            }
+
+            updateHyphaeLifeOnBreak();
+
+            for (Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
+                if (hyphae.getCurrentTekton().contains(this)) {
+                    hyphae.setTimeToLive(0);
+                }
             }
 
             // Return the new Tektons
@@ -117,17 +114,73 @@ public abstract class Tekton {
     }
 
 
+    public void updateHyphaeLifeOnBreak() {
+    // Get all hyphae from all mycologists
+    List<Mycologist> mycologists = MycologistManager.getInstance().getMycologists();
+    List<Hyphae> allHyphae = new ArrayList<>();
+    for (Mycologist mycologist : mycologists) {
+        allHyphae.addAll(mycologist.getHyphaes());
+    }
+    
+        Set<Hyphae> visited = new HashSet<>();
 
+        for (Hyphae hyphae : allHyphae) {
+            // Kihagyjuk a halott hyphae-kat
+            if (visited.contains(hyphae) || hyphae.getTimeToLive() == 0) continue;
+
+            List<Hyphae> component = new ArrayList<>();
+            boolean hasMycelium = findConnectedComponent(hyphae, component, visited);
+
+            if (!hasMycelium) {
+                for (Hyphae h : component) {
+                    h.setTimeToLive(2);
+                }
+            }
+        }
+    }
+
+    // DFS helper: returns true if any hyphae in the component is connected to mycelium
+    private boolean findConnectedComponent(Hyphae start, List<Hyphae> component, Set<Hyphae> visited) {
+        boolean hasMycelium = false;
+        Queue<Hyphae> queue = new LinkedList<>();
+        queue.add(start);
+        visited.add(start);
+
+        while (!queue.isEmpty()) {
+            Hyphae current = queue.poll();
+            // Skip dead hyphae
+            if (current.getTimeToLive() == 0) continue;
+
+            component.add(current);
+            
+            // Check if this hyphae has a mycelium connection
+            if (current.isConnectedToMyceliumbreakapart()) {
+                hasMycelium = true;
+                // We could break early here if optimization is needed
+            }
+
+            // Visit all connected, unvisited hyphae
+            for (Hyphae neighbor : current.getConnectedHyphae()) {
+                if (!visited.contains(neighbor) && neighbor.getTimeToLive() != 0) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+        return hasMycelium;
+}
+  
     /**
      * Connects the tekton to another tekton.
+     * 
      * @param tekton The tekton to connect to.
      */
     public void connectToTekton(Tekton tekton) {
 
-        if(!neighbours.contains(tekton)) {
+        if (!neighbours.contains(tekton)) {
             addNeighbour(tekton);
         }
-        if(!tekton.neighbours.contains(this)) {
+        if (!tekton.neighbours.contains(this)) {
             tekton.addNeighbour(this);
         }
 
@@ -141,6 +194,7 @@ public abstract class Tekton {
 
     /**
      * Breaks the connection to another tekton.
+     * 
      * @param tekton The tekton to disconnect from.
      */
     public void breakConnectionTo(Tekton tekton) {
@@ -150,12 +204,13 @@ public abstract class Tekton {
     /**
      * Refreshes the neighbours of all tektons.
      */
-    public void refreshNeighbours(){
-       
+    public void refreshNeighbours() {
+
     }
 
     /**
      * Checks if the tekton is connected to another tekton.
+     * 
      * @param tekton The tekton to check connection to.
      * @return True if the tekton is connected to the other tekton, false otherwise.
      */
@@ -165,10 +220,11 @@ public abstract class Tekton {
 
     /**
      * Adds a neighbour to the list of neighbours.
+     * 
      * @param tekton The neighbour to add.
      */
     public void addNeighbour(Tekton tekton) {
-        if(neighbours.contains(tekton) || tekton == this) {
+        if (neighbours.contains(tekton) || tekton == this) {
             return;
         }
         neighbours.add(tekton);
@@ -177,6 +233,7 @@ public abstract class Tekton {
 
     /**
      * Removes a neighbour from the list of neighbours.
+     * 
      * @param tekton The neighbour to remove.
      */
     public void removeNeighbour(Tekton tekton) {
@@ -185,33 +242,34 @@ public abstract class Tekton {
 
     /**
      * Adds a mycelium to this tekton.
+     * 
      * @param mycelium The mycelium to add.
      */
     public boolean addMycelium(Mycelium mycelium) {
-        if(fungalManager.getMyceliumCount() == 0) {
+        if (fungalManager.getMyceliumCount() == 0) {
             fungalManager.addMycelium(mycelium);
             return true;
         }
-        System.out.println("[Mycoligist] <- addMycelium("+mycelium+") {false}");
+        System.out.println("[Mycoligist] <- addMycelium(" + mycelium + ") {false}");
         return false;
     }
 
     /**
      * Removes a mycelium from this tekton.
+     * 
      * @param mycelium The mycelium to remove.
      */
-    public void removeMycelium(Mycelium mycelium)
-    {
+    public void removeMycelium(Mycelium mycelium) {
         fungalManager.removeMycelium(mycelium);
     }
 
-  
     /**
      * Adds a hyphae to this tekton.
+     * 
      * @param hyphae The hyphae to add.
      */
     public boolean addHyphae(Hyphae hyphae) {
-        if(hasHyphae(hyphae)) {
+        if (hasHyphae(hyphae)) {
             return false;
         }
         fungalManager.addHyphae(hyphae);
@@ -221,15 +279,17 @@ public abstract class Tekton {
 
     /**
      * Removes a hyphae from this tekton.
+     * 
      * @param hyphae The hyphae to remove.
      */
     public void removeHyphae(Hyphae hyphae) {
-        System.out.println("["+this+"] removeHyphae("+hyphae+") -> [FungalManager]");
+        System.out.println("[" + this + "] removeHyphae(" + hyphae + ") -> [FungalManager]");
         fungalManager.removeHyphae(hyphae);
     }
 
     /**
      * Adds a spore to this tekton.
+     * 
      * @param spore The spore to add.
      */
     public void addSpore(Spore spore) {
@@ -238,15 +298,17 @@ public abstract class Tekton {
 
     /**
      * Removes a spore from this tekton.
+     * 
      * @param spore The spore to remove.
      */
     public void removeSpore(Spore spore) {
-        System.out.println("["+this+"] removeSpore("+spore+") -> [FungalManager]");
+        System.out.println("[" + this + "] removeSpore(" + spore + ") -> [FungalManager]");
         fungalManager.removeSpore(spore);
     }
 
     /**
      * Returns the list of neighbours.
+     * 
      * @return The list of neighbours.
      */
     public List<Tekton> getNeighbours() {
@@ -255,6 +317,7 @@ public abstract class Tekton {
 
     /**
      * Returns the list of connected neighbours.
+     * 
      * @return The list of connected neighbours.
      */
     public List<Tekton> getConnectedNeighbours() {
@@ -263,6 +326,7 @@ public abstract class Tekton {
 
     /**
      * Checks if this tekton has a specific hyphae.
+     * 
      * @param hyphae The hyphae to check for.
      * @return True if the hyphae is present, false otherwise.
      */
@@ -272,6 +336,7 @@ public abstract class Tekton {
 
     /**
      * Returns the number of spores on this tekton.
+     * 
      * @return The number of spores.
      */
     public int getSporeCount() {
@@ -280,15 +345,87 @@ public abstract class Tekton {
 
     /**
      * Returns a list of spores on this tekton.
+     * 
      * @return The list of spores.
      */
-    public List<Spore> getSpores(){
+    public List<Spore> getSpores() {
         return fungalManager.getSpores();
     }
 
     public List<Hyphae> getHyphaes() {
         return fungalManager.getHyphaes();
     }
-    public void absorbHyphae() {}
-       
+
+    public void absorbHyphae() {
+    }
+
+    public boolean hasMycelium() {
+        if (fungalManager.getMyceliumCount() > 0) {
+            return true;
+        }
+        return false;
+
+    }
+
+/**
+ * Ellenőrzi, hogy az aktuális Tekton-ból elérhető-e egy célpont Tekton adott mélységen belül.
+ * Mélységkorlátos DFS algoritmust használ.
+ * 
+ * @param target A célpont Tekton, amelyet el szeretnénk érni
+ * @param maxDepth A maximális mélység/lépésszám, ameddig keresünk
+ * @return true, ha van út az aktuális Tekton-ból a célponthoz a megadott mélységen belül
+ */
+public boolean reachable(Tekton target, int maxDepth) {
+    // Nyomon követjük a már meglátogatott csomópontokat
+    Set<Tekton> visited = new HashSet<>();
+    return dfsReachable(this, target, visited, 0, maxDepth);
 }
+
+/**
+ * Rekurzív mélységkorlátos DFS algoritmus az elérhetőség ellenőrzésére
+ * 
+ * @param current Az aktuális Tekton
+ * @param target A célpont Tekton
+ * @param visited A már meglátogatott Tektonok halmaza
+ * @param currentDepth Az aktuális mélység
+ * @param maxDepth A maximális megengedett mélység
+ * @return true, ha van út a current-ből a target-hez a megengedett mélységen belül
+ */
+private boolean dfsReachable(Tekton current, Tekton target, Set<Tekton> visited, 
+                            int currentDepth, int maxDepth) {
+    // Ha az aktuális csomópont a célpont, akkor elértük a célt
+    if (current.equals(target)) {
+        return true;
+    }
+    
+    // Ha elértük a maximális mélységet, nem megyünk tovább
+    if (currentDepth >= maxDepth) {
+        return false;
+    }
+    
+    // Megjelöljük az aktuális csomópontot meglátogatottként
+    visited.add(current);
+    System.err.println("Visited: " + current + " Depth: " + currentDepth + " MaxDepth: " + maxDepth);
+    
+    // Rekurzívan bejárunk minden szomszédot, de csak a korlátozott mélységig
+    for (Tekton neighbor : current.connectedNeighbours) {
+        // Csak azokat a szomszédokat járjuk be, amelyeket még nem látogattunk meg
+        if (!visited.contains(neighbor)) {
+            // Növeljük a mélységet amikor a következő szintre lépünk
+            if (dfsReachable(neighbor, target, visited, currentDepth + 1, maxDepth)) {
+                return true;
+            }
+        }
+    }
+    
+    // Ha ide jutottunk, nincs út a célponthoz a megengedett mélységen belül
+    return false;
+    }
+
+    @Override
+    public void tick() {
+        
+    }
+}
+
+   

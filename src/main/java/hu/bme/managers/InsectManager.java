@@ -9,11 +9,11 @@ import hu.bme.interfaces.ITickable;
 /**
  * Manages a collection of insects using the singleton pattern.
  */
-public class InsectManager implements ITickable{
-    
+public class InsectManager implements ITickable {
+
     private static volatile InsectManager instance;
     private List<Entomologist> entomologists;
-    
+
     /**
      * Private constructor.
      */
@@ -23,24 +23,26 @@ public class InsectManager implements ITickable{
 
     /**
      * Returns the singleton instance of the InsectManager.
+     * 
      * @return The instance of InsectManager.
      */
     public static InsectManager getInstance() {
         InsectManager result = instance;
 
-        if(result == null) {
-            synchronized(InsectManager.class) {
+        if (result == null) {
+            synchronized (InsectManager.class) {
                 result = instance;
-                if(result == null) {
+                if (result == null) {
                     instance = result = new InsectManager();
                 }
             }
         }
         return result;
     }
- 
+
     /**
      * Adds an insect to the manager's collection.
+     * 
      * @param insect The insect to be added.
      */
     public void addEntomologist(Entomologist entomologist) {
@@ -49,6 +51,7 @@ public class InsectManager implements ITickable{
 
     /**
      * Removes an insect from the manager's collection.
+     * 
      * @param insect The insect to be removed.
      */
     public void removeEntomologist(Entomologist entomologist) {
@@ -57,6 +60,7 @@ public class InsectManager implements ITickable{
 
     /**
      * Returns the number of insects managed.
+     * 
      * @return The count of insects.
      */
     public int getEntomologistCount() {
@@ -69,7 +73,7 @@ public class InsectManager implements ITickable{
      */
     @Override
     public void tick() {
-        for(Entomologist entomologist : entomologists){
+        for (Entomologist entomologist : entomologists) {
             entomologist.tick();
         }
     }
