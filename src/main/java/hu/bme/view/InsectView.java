@@ -15,38 +15,50 @@ import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 
+/**
+ * A custom JPanel for rendering insects in the game.
+ * This class is responsible for drawing insect images at their respective positions on the game board.
+ */
 public class InsectView extends JPanel {
-    private DefaultListModel<String> commandListModel; // A parancsok listája
+    /** Model for the list of commands displayed in the UI. */
+    private DefaultListModel<String> commandListModel;
+    /** Buffered image for storing the insect texture. */
+    private BufferedImage insectImage = null;
 
+    /**
+     * Constructs a new InsectView instance, initializing the command list model.
+     *
+     * @param commandListModel the model for the list of commands in the UI
+     */
     public InsectView(DefaultListModel<String> commandListModel) {
         this.commandListModel = commandListModel;
-
     }
 
-    BufferedImage insectImage = null; // Rovar kép inicializálása
-
+    /**
+     * Overrides the default paintComponent method to render insects on the panel.
+     * Draws each insect's image at the position of its current Tekton.
+     *
+     * @param g the Graphics object used for painting
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Rovarok kirajzolása
+        // Draw insects
         List<Entomologist> entomologists = InsectManager.getInstance().geEntomologists();
         for (Entomologist entomologist : entomologists) {
             List<Insect> insects = entomologist.getInsects();
             for (Insect insect : insects) {
-
                 int x = insect.getCurrentTekton().getX();
                 int y = insect.getCurrentTekton().getY();
-                int size = 21; // Rovar mérete
+                int size = 21; // Insect size
 
-                // PNG kép betöltése
+                // Load PNG image
                 insectImage = insect.textureProvider.getImage();
 
                 if (insectImage != null) {
-
-                    g2d.drawImage(insectImage, x - 21 / 2, y - 21 / 2, 21, 21, null);
-                    // System.out.println("Rovar kép betöltve: ");
+                    g2d.drawImage(insectImage, x - size / 2, y - size / 2, size, size, null);
                 }
             }
         }

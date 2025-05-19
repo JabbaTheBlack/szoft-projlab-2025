@@ -22,6 +22,7 @@ import hu.bme.tekton.MultiTypeTekton;
 import hu.bme.tekton.Tekton;
 import hu.bme.view.MainMenu;
 
+//* Main method */
 public class Main {
     public static void main(String[] args) {
 

@@ -36,21 +36,42 @@ public class Mycologist {
         score = 0;
     }
 
-    public Mycologist(String name) {
-        this.name = name;
-        myceliums = new ArrayList<>();
-        hyphaes = new ArrayList<>();
-        score = 0;
-    }
+    /**
+ * Constructs a new Mycologist instance with the specified name.
+ * Initializes the mycologist's myceliums and hyphae lists as empty, and sets the initial score to zero.
+ *
+ * @param name the name of the Mycologist
+ */
+public Mycologist(String name) {
+    this.name = name;
+    myceliums = new ArrayList<>();
+    hyphaes = new ArrayList<>();
+    score = 0;
+}
 
+    /**
+     * Retrieves the name of the Mycologist.
+     *
+     * @return the name of the Mycologist
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the Mycologist.
+     *
+     * @param name the new name to set for the Mycologist
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retrieves the current score of the Mycologist.
+     *
+     * @return the score of the Mycologist
+     */
     public int getScore() {
         return score;
     }

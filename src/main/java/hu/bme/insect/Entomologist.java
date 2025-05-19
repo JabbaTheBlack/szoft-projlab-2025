@@ -19,15 +19,31 @@ public class Entomologist {
         insects = new ArrayList<>();
     }
 
+    /**
+     * Constructs a new Entomologist instance with the specified name.
+     * Initializes the entomologist's list of insects as empty.
+     *
+     * @param name the name of the Entomologist
+     */
     public Entomologist(String name) {
         this.name = name;
         insects = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the name of the Entomologist.
+     *
+     * @return the name of the Entomologist
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the Entomologist.
+     *
+     * @param name the new name to set for the Entomologist
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -16,18 +16,36 @@ import hu.bme.fungi.spore.Spore;
 import hu.bme.managers.TektonManager;
 import hu.bme.tekton.Tekton;
 
+/**
+ * A custom JPanel for rendering tektons in the game.
+ * This class is responsible for drawing tektons images at their respective positions on the game board.
+ */
 public class TektonView extends JPanel {
     private CentralMouseHandler CentralMouseHandler;
     private Tekton hoveredTekton = null;
 
+    /**
+     * Constructs a new TektonView instance.
+     */
     public void setMouseHandler(CentralMouseHandler mouseHandler) {
         this.CentralMouseHandler = mouseHandler;
     }
 
+    /**
+     * Sets the hovered tekton for displaying additional information.
+     *
+     * @param tekton the tekton to be hovered
+     */
     public void setHoveredTekton(Tekton tekton) {
         this.hoveredTekton = tekton;
     }
 
+    /**
+     * Overrides the default paintComponent method to render tektons on the panel.
+     * Draws each tekton's image at the position of its current Tekton.
+     *
+     * @param g the Graphics object used for painting
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // Default panel drawing
@@ -117,6 +135,15 @@ public class TektonView extends JPanel {
         }
     }
 
+    /**
+     * Checks if a given position is too close to any occupied positions.
+     *
+     * @param x the x-coordinate of the position to check
+     * @param y the y-coordinate of the position to check
+     * @param occupiedPositions a set of occupied positions
+     * @param minDistance the minimum distance to maintain from occupied positions
+     * @return true if the position is too close, false otherwise
+     */
     private boolean isTooClose(int x, int y, Set<Point2D> occupiedPositions, int minDistance) {
         for (Point2D point : occupiedPositions) {
             if (point.distance(x, y) < minDistance) {

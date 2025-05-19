@@ -21,15 +21,28 @@ import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.tekton.Tekton;
 
+/**
+ * A custom JPanel for rendering mycelium in the game.
+ * This class is responsible for drawing mycelium images at their respective positions on the game board.
+ */
 public class MyceliumView extends JPanel {
 
     BufferedImage myceliumImage = null; // Mycelium kép inicializálása
     private Mycelium hoverMycelium = null;
 
+    /**
+     * Constructs a new MyceliumView instance.
+     */
     public void setHoverMycelium(Mycelium mycelium) {
         this.hoverMycelium = mycelium;
     }
 
+    /**
+     * Overrides the default paintComponent method to render mycelium on the panel.
+     * Draws each mycelium's image at the position of its current Tekton.
+     *
+     * @param g the Graphics object used for painting
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
