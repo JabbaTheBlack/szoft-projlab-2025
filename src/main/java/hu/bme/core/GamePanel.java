@@ -50,6 +50,7 @@ public class GamePanel extends JPanel {
         ticker = Ticker.getInstance();
         ticker.addObserver(MycologistManager.getInstance());
         ticker.addObserver(InsectManager.getInstance());
+        ticker.addObserver(TektonManager.getInstance());
 
         if (!players.isEmpty()) {
             activePlayer = players.get(0); // Az első játékos az aktív
