@@ -128,7 +128,8 @@ public class MainMenu extends JPanel {
                         System.out.println("Létrehozott rovarász: " + name);
                     }
                 }
-                createTektons(players);
+
+                createTektons(players * 3); // Tektonok létrehozása
 
                 createInsects();
                 createMyceliums();

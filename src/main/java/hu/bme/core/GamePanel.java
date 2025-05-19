@@ -15,11 +15,6 @@ import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
-import hu.bme.tekton.AbsrobingTekton;
-import hu.bme.tekton.KeeperTekton;
-import hu.bme.tekton.MultiTypeTekton;
-import hu.bme.tekton.MyceliumFreeTekton;
-import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 import hu.bme.view.CentralMouseHandler;
 
@@ -137,7 +132,7 @@ public class GamePanel extends JPanel {
         commandList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) { // Csak akkor fut le, ha a kiválasztás befejeződött
                 String selectedCommand = commandList.getSelectedValue();
-                System.out.println("Kiválasztott parancs: " + selectedCommand);
+                
                 CentralMouseHandler.setSelectedCommand(selectedCommand);
                 label4.setText("aktuális parancs: " + selectedCommand);
 
