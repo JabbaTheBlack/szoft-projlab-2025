@@ -3,15 +3,17 @@ package hu.bme.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.interfaces.ITickable;
 import hu.bme.tekton.Tekton;
 
 /**
  * Manages a collection of tektons, providing methods for adding, removing, and
  * retrieving them.
  */
-public class TektonManager {
+public class TektonManager implements ITickable{
     private static volatile TektonManager instance;
     private List<Tekton> tektons;
+    private int breakApartCounter = 0;
 
     /**
      * Initializes a new tekton manager with an empty list of tektons.
@@ -74,10 +76,15 @@ public class TektonManager {
      * @param tekton to be broken apart.
      */
     public List<Tekton> breakApart(Tekton tekton) {
-        System.out.println("[TektonManager] breakApart() -> [" + tekton + "]");
-        List<Tekton> newTektons = tekton.breakApart();
+        breakApartCounter++;
+        List<Tekton> newTektons = null;
+        if (breakApartCounter > 1) {
+            System.out.println("[TektonManager] breakApart() -> [" + tekton + "]");
+            newTektons = tekton.breakApart();    
+        }
+        
 
-        if (newTektons == null) {
+        if (newTektons == null ) {
             System.out.println("[TektonManager] breakApart() <- [" + tekton + "] {fail}");
             return null;
         }
@@ -87,7 +94,15 @@ public class TektonManager {
             addTekton(newTekton);
         }
         removeTekton(tekton);
+        breakApartCounter = 0;
         
         return newTektons;
+    }
+
+    @Override
+    public void tick() {
+        for(Tekton tekton : tektons) {
+            tekton.tick();
+        }
     }
 }

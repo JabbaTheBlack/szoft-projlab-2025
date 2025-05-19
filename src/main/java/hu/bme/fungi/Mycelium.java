@@ -154,6 +154,7 @@ public class Mycelium {
      */
     public void setCurrentTekton(Tekton tekton) {
         currentTekton = tekton;
+        tekton.addMycelium(this);
     }
 
     public Tekton getCurrentTekton() {

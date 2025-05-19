@@ -45,4 +45,13 @@ public class AbsrobingTekton extends Tekton {
     public Tekton createTekton() {
         return new AbsrobingTekton();
     }
+
+    @Override
+    public void tick() {
+        if(nextAbsorb == 0) {
+            absorbHyphae();
+            nextAbsorb = 2;
+        }
+        nextAbsorb--;
+    }
 }
