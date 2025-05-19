@@ -11,13 +11,14 @@ import java.util.Set;
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.spore.Spore;
+import hu.bme.interfaces.ITickable;
 import hu.bme.managers.FungalManager;
 
 /**
  * Represents a tekton, managing its connections to other tektons and
  * neighbours.
  */
-public abstract class Tekton {
+public abstract class Tekton implements ITickable {
 
     protected final FungalManager fungalManager;
     private List<Tekton> neighbours;
@@ -368,3 +369,8 @@ private boolean dfsReachable(Tekton current, Tekton target, Set<Tekton> visited,
     return false;
     }
 }
+
+    @Override
+    public void tick() {
+        
+    }
