@@ -78,7 +78,7 @@ public class TektonManager implements ITickable{
     public List<Tekton> breakApart(Tekton tekton) {
         breakApartCounter++;
         List<Tekton> newTektons = null;
-        if (breakApartCounter > 1) {
+        if (breakApartCounter > 0) {
             System.out.println("[TektonManager] breakApart() -> [" + tekton + "]");
             newTektons = tekton.breakApart();    
         }
