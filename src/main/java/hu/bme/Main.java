@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import hu.bme.view.MainMenu;
 
+//* Main method */
 public class Main {
     public static void main(String[] args) {
 

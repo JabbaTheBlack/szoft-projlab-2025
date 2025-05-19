@@ -34,10 +34,12 @@ public class CentralMouseHandler extends MouseAdapter {
     private SporeView sporeView;
     private Mycelium hoveredMycelium;
 
+    //* Aktív player beállítása */
     public void setActivePlayer(Object activePlayer) {
         this.activePlayer = activePlayer;
     }
 
+    //* Aktív player lekérdezése */
     public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView,
             MyceliumView myceliumView, SporeView sporeView, Object activePlayer) {
         this.tektonView = tektonView;
@@ -49,6 +51,7 @@ public class CentralMouseHandler extends MouseAdapter {
         System.out.println("InsectMouseHandler inicializálva!");
     }
 
+    // Kattintás eseménykezelő
     @Override
     public void mouseMoved(MouseEvent e) {
         TektonManager manager = TektonManager.getInstance();

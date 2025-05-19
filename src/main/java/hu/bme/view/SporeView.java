@@ -9,14 +9,25 @@ import hu.bme.fungi.spore.Spore;
 import hu.bme.tekton.Tekton;
 import hu.bme.managers.TektonManager;
 
+/**
+ * A custom JPanel for rendering spores in the game.
+ * This class is responsible for drawing spore images at their respective positions on the game board.
+ */
 public class SporeView extends JPanel {
 
+    /** Model for the list of commands displayed in the UI. */
     public SporeView() {
 
     }
 
     BufferedImage sporeImage = null; // Spóra kép inicializálása
 
+    /**
+     * Overrides the default paintComponent method to render spores on the panel.
+     * Draws each spore's image at the position of its current Tekton.
+     *
+     * @param g the Graphics object used for painting
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
