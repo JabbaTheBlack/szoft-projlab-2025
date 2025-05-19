@@ -11,7 +11,6 @@ import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
 import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
-import hu.bme.managers.FungalManager;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
@@ -35,10 +34,12 @@ public class CentralMouseHandler extends MouseAdapter {
     private SporeView sporeView;
     private Mycelium hoveredMycelium;
 
+    //* Aktív player beállítása */
     public void setActivePlayer(Object activePlayer) {
         this.activePlayer = activePlayer;
     }
 
+    //* Aktív player lekérdezése */
     public CentralMouseHandler(DefaultListModel<String> commandListModel, TektonView tektonView,
             MyceliumView myceliumView, SporeView sporeView, Object activePlayer) {
         this.tektonView = tektonView;
@@ -50,6 +51,7 @@ public class CentralMouseHandler extends MouseAdapter {
         System.out.println("InsectMouseHandler inicializálva!");
     }
 
+    // Kattintás eseménykezelő
     @Override
     public void mouseMoved(MouseEvent e) {
         TektonManager manager = TektonManager.getInstance();

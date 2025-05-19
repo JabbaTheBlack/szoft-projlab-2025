@@ -9,7 +9,6 @@ import hu.bme.interfaces.IHyphaeManager;
 import hu.bme.interfaces.IMyceliumManager;
 import hu.bme.interfaces.ISporeManager;
 
-import java.util.List;
 
 /**
  * Manages fungal components such as myceliums, hyphae, and spores.

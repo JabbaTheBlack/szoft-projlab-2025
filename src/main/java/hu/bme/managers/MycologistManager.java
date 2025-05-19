@@ -1,7 +1,6 @@
 package hu.bme.managers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hu.bme.fungi.Mycologist;
 import hu.bme.interfaces.ITickable;

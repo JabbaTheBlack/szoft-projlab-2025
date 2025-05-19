@@ -11,7 +11,6 @@ import java.util.Set;
 
 import hu.bme.tekton.Tekton;
 import hu.bme.view.TextureProvider;
-import hu.bme.fungi.spore.*;
 
 /**
  * Represents a hyphae in a fungal network, managing connections to other hyphae

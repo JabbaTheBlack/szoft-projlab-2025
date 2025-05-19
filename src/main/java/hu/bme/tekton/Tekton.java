@@ -14,7 +14,6 @@ import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.interfaces.ITickable;
 import hu.bme.managers.FungalManager;
-import hu.bme.managers.MyceliumManager;
 import hu.bme.managers.MycologistManager;
 
 /**

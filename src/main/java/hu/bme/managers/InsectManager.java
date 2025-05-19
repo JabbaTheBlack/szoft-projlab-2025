@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.bme.insect.Entomologist;
-import hu.bme.insect.Insect;
 import hu.bme.interfaces.ITickable;
 
 /**

@@ -2,14 +2,11 @@ package hu.bme.core;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import hu.bme.fungi.Mycologist;
-import hu.bme.fungi.spore.Spore;
+
 import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
@@ -23,20 +20,40 @@ import hu.bme.view.MyceliumView;
 import hu.bme.view.SporeView;
 import hu.bme.view.TektonView;
 
+/**
+ * A custom JPanel representing the main game interface for a strategy game involving entomologists and mycologists.
+ * This panel manages the game area, player interactions, command inputs, and visual representations of game elements.
+ */
 public class GamePanel extends JPanel {
-    private DefaultListModel<String> commandListModel; // A parancsok listájának modellje
+    /** Model for the list of commands displayed in the UI. */
+    private DefaultListModel<String> commandListModel;
+    /** Manager for handling Tekton objects in the game. */
     private TektonManager tektonManager;
+    /** View component for rendering Tekton elements. */
     private TektonView tektonView;
+    /** View component for rendering Insect elements. */
     private InsectView insectView;
+    /** View component for rendering Mycelium elements. */
     private MyceliumView myceliumView;
+    /** View component for rendering Spore elements. */
     private SporeView sporeView;
+    /** Handler for mouse events across the game panel. */
     private CentralMouseHandler CentralMouseHandler;
-    private ArrayList<Object> players; // A játékosok listája (Entomologist és Mycologist)
-    private Object activePlayer; // Az aktuális játékos
-    private int currentPlayerIndex = 0; // Az aktuális játékos indexe
+    /** List of players in the game, including Entomologists and Mycologists. */
+    private ArrayList<Object> players;
+    /** The currently active player taking their turn. */
+    private Object activePlayer;
+    /** Index of the current player in the players list. */
+    private int currentPlayerIndex = 0;
+    /** Ticker instance for managing game time and updates. */
     private Ticker ticker;
-    private int round = 0;
+    /** Current round number in the game. */
+    private int round = 1;
 
+    /**
+     * Constructs a new GamePanel, initializing the game environment, players, UI components, and event handlers.
+     * Sets up the layout with a game area and a command panel on the right side.
+     */
     public GamePanel() {
         players = new ArrayList<>();
         players.addAll(InsectManager.getInstance().geEntomologists()); // Rovarászok hozzáadása
@@ -45,6 +62,7 @@ public class GamePanel extends JPanel {
         ticker = Ticker.getInstance();
         ticker.addObserver(MycologistManager.getInstance());
         ticker.addObserver(InsectManager.getInstance());
+        ticker.addObserver(TektonManager.getInstance());
 
         if (!players.isEmpty()) {
             activePlayer = players.get(0); // Az első játékos az aktív
@@ -67,7 +85,7 @@ public class GamePanel extends JPanel {
         insectView = new InsectView(commandListModel);
         overlayPanel.addMouseListener(CentralMouseHandler);
         overlayPanel.addMouseMotionListener(CentralMouseHandler);
-        tektonView.setOpaque(false); // Átlátszó háttér);
+        tektonView.setOpaque(false); // Átlátszó háttér
         insectView.setOpaque(false); // Átlátszó háttér
         myceliumView.setOpaque(false); // Átlátszó háttér
         tektonView.setEnabled(true);
@@ -85,11 +103,9 @@ public class GamePanel extends JPanel {
         tektonView.setOpaque(false); // Átlátszó háttér
 
         gameArea.add(myceliumView);
-
         gameArea.add(sporeView); // Spóra nézet hozzáadása a játékterülethez
         gameArea.add(insectView);
         gameArea.add(tektonView);
-
         gameArea.add(overlayPanel);
 
         add(gameArea, BorderLayout.CENTER);
@@ -135,17 +151,14 @@ public class GamePanel extends JPanel {
                 
                 CentralMouseHandler.setSelectedCommand(selectedCommand);
                 label4.setText("aktuális parancs: " + selectedCommand);
-
             }
         });
 
         JPanel commandPanel3 = new JPanel(new BorderLayout()); // BorderLayout a gomb aljára helyezéséhez
-
         commandPanel3.setBackground(Color.DARK_GRAY);
         JLabel label3 = new JLabel("itt lesz majd az aktuális parancs és a gomb");
         commandPanel3.add(label3, BorderLayout.NORTH); // Szöveg a panel tetején
         commandPanel3.add(label4, BorderLayout.CENTER); // Szöveg középen
-
         JButton executeButton = new JButton("Parancs kiadása");
         commandPanel3.add(executeButton, BorderLayout.SOUTH); // Gomb a panel aljára
         executeButton.addActionListener(e -> {
@@ -173,19 +186,27 @@ public class GamePanel extends JPanel {
         nextPlayer(activePlayerLabel);
     }
 
+    /**
+     * Overrides the default paintComponent method to handle custom rendering of the game panel.
+     *
+     * @param g the Graphics object used for painting
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Alapértelmezett rajzolás
-
     }
 
+    /**
+     * Advances the game to the next player in the turn order and updates the UI accordingly.
+     * Also triggers game ticks and checks for game end conditions or Tekton breaking events.
+     *
+     * @param activePlayerLabel the JLabel displaying the current player's name
+     */
     private void nextPlayer(JLabel activePlayerLabel) {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size(); // Körkörös váltás
         activePlayer = players.get(currentPlayerIndex);
 
-        // Frissítsd a felületet az aktuális játékos nevével ez a logika még nem
-        // működik, a nextplayert nem tudtam még befejezniw
-
+        // Frissítsd a felületet az aktuális játékos nevével
         if (InsectManager.getInstance().geEntomologists().contains(activePlayer)) {
             System.out.println("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
@@ -198,19 +219,24 @@ public class GamePanel extends JPanel {
         if (currentPlayerIndex % players.size() == 0) {
             ticker.tick();
             round++;
+            if (checkGameEnd()) {
+                // End the game after 20 rounds
+                return;
+            }
             if (round % 5 == 0) {
-
                 breakEmptyTektons();
             }
         }
-
     }
 
+    /**
+     * Breaks apart empty Tekton objects that have no Mycelium or Insects on them.
+     * This method is called every 5 rounds to clean up the game board.
+     */
     private void breakEmptyTektons() {
         for (Tekton tekton : TektonManager.getInstance().getTektons()) {
             // 1. Ha van rajta gombatest, nem törjük ketté
             if (!tekton.hasMycelium()) {
-
                 // 2. Megnézzük, van-e rajta rovar
                 boolean hasInsect = false;
                 for (Entomologist entomologist : InsectManager.getInstance().geEntomologists()) {
@@ -229,13 +255,17 @@ public class GamePanel extends JPanel {
                     tektonManager.breakApart(tekton);
                     return;
                 }
-
-                checkGameEnd();
             }
         }
     }
 
-    private void checkGameEnd() {
+    /**
+     * Checks if the game has reached its end condition (20 rounds).
+     * If the condition is met, calculates and displays the best Entomologist and Mycologist based on their scores.
+     *
+     * @return true if the game has ended, false otherwise
+     */
+    private boolean checkGameEnd() {
         if (round >= 20) {
             // Legjobb rovarász
             Entomologist bestEntomologist = null;
@@ -270,6 +300,6 @@ public class GamePanel extends JPanel {
             JOptionPane.showMessageDialog(this, message, "Végeredmény", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
+        return false; // Játék nem ért véget
     }
-
 }

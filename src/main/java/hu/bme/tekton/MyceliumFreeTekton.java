@@ -2,6 +2,7 @@ package hu.bme.tekton;
 
 import hu.bme.fungi.Mycelium;
 
+
 /**
  * Represents a tekton that is free of mycelium, subclass of Tekton.
  */

@@ -1,8 +1,9 @@
 package hu.bme.tekton;
 
 import hu.bme.fungi.Hyphae;
+
+
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Represents a tekton that can absorb hyphae, subclass of Tekton.
@@ -29,8 +30,11 @@ public class AbsrobingTekton extends Tekton {
             Iterator<Hyphae> iterator = fungalManager.getHyphaes().iterator();
             while (iterator.hasNext()) {
                 Hyphae hyphae = iterator.next();
-                iterator.remove();
-                removeHyphae(hyphae);
+                if(hyphae.getCurrentTekton().size() != 2) {
+                    iterator.remove();
+                    hyphae.getOwner().removeHyphae(hyphae);;
+                    removeHyphae(hyphae);
+                }
             }
             nextAbsorb = 2;
         }
@@ -48,10 +52,6 @@ public class AbsrobingTekton extends Tekton {
 
     @Override
     public void tick() {
-        if(nextAbsorb == 0) {
-            absorbHyphae();
-            nextAbsorb = 2;
-        }
-        nextAbsorb--;
+        absorbHyphae();
     }
 }

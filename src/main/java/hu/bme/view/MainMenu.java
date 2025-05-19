@@ -28,6 +28,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * A főmenü panel, ahol a felhasználó megadhatja a gombászok és rovarászok nevét.
+ * A panel tartalmaz egy bal oldali részt a gombászok számára, egy jobb oldali részt a rovarászok számára,
+ * és egy alsó részt a "Start" gombbal.
+ */
 public class MainMenu extends JPanel {
 
     private JFrame parentFrame; // A szülő JFrame tárolása
@@ -35,6 +40,11 @@ public class MainMenu extends JPanel {
     private Map<String, JTextField> rovaraszokTextFields = new HashMap<>();
     int players = 0;
 
+    /**
+     * Konstruktor, amely inicializálja a főmenü panelt.
+     *
+     * @param parentFrame A szülő JFrame, amelyhez a panel tartozik.
+     */
     public MainMenu(JFrame parentFrame) {
         this.parentFrame = parentFrame; // A szülő JFrame mentése
         setLayout(new BorderLayout()); // BorderLayout a komponensek elrendezéséhez
@@ -159,6 +169,11 @@ public class MainMenu extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH); // Alsó rész
     }
 
+    /**
+     * Létrehozza a Tektonokat a megadott szám alapján.
+     *
+     * @param count A létrehozandó Tektonok száma.
+     */
     private void createTektons(int count) {
         TektonManager tektonManager = TektonManager.getInstance();
 
@@ -197,6 +212,10 @@ public class MainMenu extends JPanel {
         initializeNeighbors();
     }
 
+    /**
+     * Inicializálja a Tektonok szomszédságait.
+     * A szomszédságok létrehozása véletlenszerűen történik, és biztosítja, hogy a gráf összefüggő legyen.
+     */
     private void initializeNeighbors() {
         TektonManager tektonManager = TektonManager.getInstance();
 
@@ -218,6 +237,10 @@ public class MainMenu extends JPanel {
 
     }
 
+    /**
+     * Biztosítja, hogy a gráf összefüggő legyen.
+     * Ha nem, akkor összekapcsolja az elszigetelt Tektonokat a legközelebbi szomszédjukkal.
+     */
     private void ensureGraphConnectivity() {
         while (!isGraphConnected()) {
             ArrayList<Tekton> isolated = findIsolatedTektons();
@@ -225,6 +248,11 @@ public class MainMenu extends JPanel {
         }
     }
 
+    /**
+     * Ellenőrzi, hogy a gráf összefüggő-e.
+     *
+     * @return true, ha a gráf összefüggő, false egyébként.
+     */
     private boolean isGraphConnected() {
 
         Set<Tekton> visited = new HashSet<>();
@@ -235,6 +263,12 @@ public class MainMenu extends JPanel {
         return visited.size() == TektonManager.getInstance().getTektons().size();
     }
 
+    /**
+     * Mélységi keresés a gráfban.
+     *
+     * @param tekton  A Tekton, amelyet bejárunk.
+     * @param visited  A már meglátogatott Tektonok halmaza.
+     */
     private void dfs(Tekton tekton, Set<Tekton> visited) {
         if (visited.contains(tekton)) {
             return;
@@ -245,6 +279,11 @@ public class MainMenu extends JPanel {
         }
     }
 
+    /**
+     * Megkeresi az elszigetelt Tektonokat a gráfban.
+     *
+     * @return Az elszigetelt Tektonok listája.
+     */
     private ArrayList<Tekton> findIsolatedTektons() {
         Set<Tekton> visited = new HashSet<>();
         Tekton start = TektonManager.getInstance().getTektons().get(0); // Kezdő csúcs
@@ -259,6 +298,11 @@ public class MainMenu extends JPanel {
         return isolated;
     }
 
+    /**
+     * Összekapcsolja az elszigetelt Tektonokat a legközelebbi szomszédjukkal.
+     *
+     * @param isolated Az elszigetelt Tektonok listája.
+     */
     private void connectIsolatedTektons(ArrayList<Tekton> isolated) {
         for (Tekton isolatedTekton : isolated) {
             Tekton closestTekton = null;
@@ -285,6 +329,10 @@ public class MainMenu extends JPanel {
         }
     }
 
+    /**
+     * Létrehozza a rovarokat és hozzárendeli őket a megfelelő gombászokhoz.
+     * A rovarok színét és nevét a felhasználó által megadott értékek alapján állítja be.
+     */
     private void createInsects() {
         ArrayList<Tekton> tektons = new ArrayList<>(TektonManager.getInstance().getTektons());
         Collections.shuffle(tektons); // Shuffle to randomize assignment
@@ -337,6 +385,10 @@ public class MainMenu extends JPanel {
         }
     }
 
+    /**
+     * Létrehozza a gombákat és hozzárendeli őket a megfelelő gombászokhoz.
+     * A gombák típusát és nevét a felhasználó által megadott értékek alapján állítja be.
+     */
     private void createMyceliums() {
         TektonManager tektonManager = TektonManager.getInstance();
 

@@ -27,7 +27,6 @@ public class SingleTypeTekton extends Tekton {
      */
     @Override
     public boolean addHyphae(Hyphae hyphae) {
-        // TODO implement function, add javadoc
         if (fungalManager.getHyphaeCount() == 0) {
             this.owner = hyphae.getOwner();
             fungalManager.addHyphae(hyphae);
