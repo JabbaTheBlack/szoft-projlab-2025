@@ -19,8 +19,8 @@ import hu.bme.tekton.Tekton;
 
 //-------------------------------------------------------------------------------------------------------------
 //              Ez a Központi egér eseménykezelős osztály, ha szét akarod szedni a kódot több osztályra, sok sikert.
-//              Ha máshogy akarod megoldani akkor légyszíves jelezd hanyadik agyfaszt kapod. Eddigi agyfaszok száma: 3 
-//              ebbol egyet Praxi okozott Janinak.
+//              Ha máshogy akarod megoldani akkor légyszíves jelezd hanyadik agyfaszt kapod. Eddigi agyfaszok száma: 4
+//              ebbol egyet Praxi okozott Janinak. Falra maszok a breakaparttol.
 //-------------------------------------------------------------------------------------------------------------
 public class CentralMouseHandler extends MouseAdapter {
     private DefaultListModel<String> commandListModel;

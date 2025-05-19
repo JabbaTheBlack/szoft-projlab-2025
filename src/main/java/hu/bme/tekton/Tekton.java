@@ -10,8 +10,11 @@ import java.util.Set;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
+import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.Spore;
 import hu.bme.managers.FungalManager;
+import hu.bme.managers.MyceliumManager;
+import hu.bme.managers.MycologistManager;
 
 /**
  * Represents a tekton, managing its connections to other tektons and
@@ -87,25 +90,19 @@ public abstract class Tekton {
             }
 
             // Remove all Hyphaes
-            for (java.util.Iterator<Hyphae> il = new ArrayList<>(fungalManager.getHyphaes()).iterator(); il.hasNext(); ) {
-                Hyphae hyphae = il.next();
-                for (java.util.Iterator<Hyphae> it = hyphae.getConnectedHyphae().iterator(); it.hasNext(); ) {
-                    Hyphae connectedHyphae = it.next();
-                    if (connectedHyphae.getCurrentTekton().size() > 1) {
-                        connectedHyphae.setTimeToLive(0);
-                    } else {
-                        if (connectedHyphae.getCurrentTekton().get(0).equals(this)) {
-                            connectedHyphae.setTimeToLive(0);
-                        } else if (connectedHyphae.isConnectedToMycelium() || connectedHyphae.isOnKeeperTekton()) {
-                            connectedHyphae.setTimeToLive(-1);
-                        } else {
-                            connectedHyphae.setTimeToLive(2);
-                        }
-                    }
+            for (Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
+                if (hyphae.getCurrentTekton().contains(this)) {
+                    hyphae.setTimeToLive(0);
                 }
             }
-                
-            
+
+            updateHyphaeLifeOnBreak();
+
+            for (Hyphae hyphae : new ArrayList<>(fungalManager.getHyphaes())) {
+                if (hyphae.getCurrentTekton().contains(this)) {
+                    hyphae.setTimeToLive(0);
+                }
+            }
 
             // Return the new Tektons
             List<Tekton> newTektons = new ArrayList<>();
@@ -116,6 +113,63 @@ public abstract class Tekton {
         return null;
     }
 
+
+    public void updateHyphaeLifeOnBreak() {
+    // Get all hyphae from all mycologists
+    List<Mycologist> mycologists = MycologistManager.getInstance().getMycologists();
+    List<Hyphae> allHyphae = new ArrayList<>();
+    for (Mycologist mycologist : mycologists) {
+        allHyphae.addAll(mycologist.getHyphaes());
+    }
+    
+        Set<Hyphae> visited = new HashSet<>();
+
+        for (Hyphae hyphae : allHyphae) {
+            // Kihagyjuk a halott hyphae-kat
+            if (visited.contains(hyphae) || hyphae.getTimeToLive() == 0) continue;
+
+            List<Hyphae> component = new ArrayList<>();
+            boolean hasMycelium = findConnectedComponent(hyphae, component, visited);
+
+            if (!hasMycelium) {
+                for (Hyphae h : component) {
+                    h.setTimeToLive(2);
+                }
+            }
+        }
+    }
+
+    // DFS helper: returns true if any hyphae in the component is connected to mycelium
+    private boolean findConnectedComponent(Hyphae start, List<Hyphae> component, Set<Hyphae> visited) {
+        boolean hasMycelium = false;
+        Queue<Hyphae> queue = new LinkedList<>();
+        queue.add(start);
+        visited.add(start);
+
+        while (!queue.isEmpty()) {
+            Hyphae current = queue.poll();
+            // Skip dead hyphae
+            if (current.getTimeToLive() == 0) continue;
+
+            component.add(current);
+            
+            // Check if this hyphae has a mycelium connection
+            if (current.isConnectedToMyceliumbreakapart()) {
+                hasMycelium = true;
+                // We could break early here if optimization is needed
+            }
+
+            // Visit all connected, unvisited hyphae
+            for (Hyphae neighbor : current.getConnectedHyphae()) {
+                if (!visited.contains(neighbor) && neighbor.getTimeToLive() != 0) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+        return hasMycelium;
+}
+  
     /**
      * Connects the tekton to another tekton.
      * 
