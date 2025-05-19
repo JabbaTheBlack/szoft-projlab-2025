@@ -12,6 +12,7 @@ import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
 import hu.bme.fungi.spore.Spore;
+import hu.bme.interfaces.ITickable;
 import hu.bme.managers.FungalManager;
 import hu.bme.managers.MyceliumManager;
 import hu.bme.managers.MycologistManager;
@@ -20,7 +21,7 @@ import hu.bme.managers.MycologistManager;
  * Represents a tekton, managing its connections to other tektons and
  * neighbours.
  */
-public abstract class Tekton {
+public abstract class Tekton implements ITickable {
 
     protected final FungalManager fungalManager;
     private List<Tekton> neighbours;
@@ -421,4 +422,11 @@ private boolean dfsReachable(Tekton current, Tekton target, Set<Tekton> visited,
     // Ha ide jutottunk, nincs út a célponthoz a megengedett mélységen belül
     return false;
     }
+
+    @Override
+    public void tick() {
+        
+    }
 }
+
+   

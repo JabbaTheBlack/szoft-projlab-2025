@@ -27,7 +27,11 @@ public class KeeperTekton extends Tekton {
     @Override
     public boolean addHyphae(Hyphae hyphae) {
         fungalManager.addHyphae(hyphae);
-        hyphae.setIsOnKeeperTekton(true);
+
+        if(hyphae.getCurrentTekton().size() <= 1) {
+            hyphae.setIsOnKeeperTekton(true);
+        }
+
         return true;
 
     }
