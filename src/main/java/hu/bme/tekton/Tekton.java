@@ -368,9 +368,11 @@ private boolean dfsReachable(Tekton current, Tekton target, Set<Tekton> visited,
     // Ha ide jutottunk, nincs út a célponthoz a megengedett mélységen belül
     return false;
     }
-}
 
     @Override
     public void tick() {
         
     }
+}
+
+   
