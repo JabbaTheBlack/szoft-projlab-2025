@@ -1,14 +1,9 @@
 package hu.bme.view;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import java.awt.event.MouseEvent;
-
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 
 import hu.bme.insect.Entomologist;

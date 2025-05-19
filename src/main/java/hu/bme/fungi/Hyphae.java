@@ -11,7 +11,6 @@ import java.util.Set;
 
 import hu.bme.tekton.Tekton;
 import hu.bme.view.TextureProvider;
-import hu.bme.fungi.spore.*;
 
 /**
  * Represents a hyphae in a fungal network, managing connections to other hyphae
@@ -147,6 +146,44 @@ public class Hyphae {
      * 
      * @return true if connected to at least one mycelium, false otherwise.
      */
+    public boolean isConnectedToMyceliumbreakapart() {
+
+        if (!connectedMyceliums.isEmpty()) {
+            return true;
+        }
+
+        Set<Hyphae> visited = new HashSet<>();
+        Queue<Hyphae> queue = new LinkedList<>();
+
+        queue.add(this);
+        visited.add(this);
+
+
+        while (!queue.isEmpty()) {
+            Hyphae current = queue.poll();
+
+           // Halott hyphae-t ne vegyük figyelembe
+            if (current.getTimeToLive() == 0) {
+                continue;
+            }
+
+            if (!current.connectedMyceliums.isEmpty()) {
+                return true;
+            }
+
+            for (Hyphae neighbour : current.connectedHyphae) {
+                if (!visited.contains(neighbour) && neighbour.getTimeToLive() != 0) {
+                    visited.add(neighbour);
+                    queue.add(neighbour);
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
     public boolean isConnectedToMycelium() {
 
         if (!connectedMyceliums.isEmpty()) {
@@ -159,15 +196,21 @@ public class Hyphae {
         queue.add(this);
         visited.add(this);
 
+
         while (!queue.isEmpty()) {
             Hyphae current = queue.poll();
+
+           // Halott hyphae-t ne vegyük figyelembe
+            if (current.getTimeToLive() == 0) {
+                continue;
+            }
 
             if (!current.connectedMyceliums.isEmpty()) {
                 return true;
             }
 
             for (Hyphae neighbour : current.connectedHyphae) {
-                if (!visited.contains(neighbour)) {
+                if (!visited.contains(neighbour) && neighbour.getTimeToLive() != 0) {
                     visited.add(neighbour);
                     queue.add(neighbour);
                 }
@@ -176,7 +219,6 @@ public class Hyphae {
 
         return false;
     }
-
     /**
      * Adds a mycelium to the list of connected myceliums.
      * 

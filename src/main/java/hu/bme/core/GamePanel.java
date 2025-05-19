@@ -2,24 +2,16 @@ package hu.bme.core;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import hu.bme.fungi.Mycologist;
-import hu.bme.fungi.spore.Spore;
+
 import hu.bme.insect.Entomologist;
 import hu.bme.insect.Insect;
 import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
 import hu.bme.managers.TektonManager;
-import hu.bme.tekton.AbsrobingTekton;
-import hu.bme.tekton.KeeperTekton;
-import hu.bme.tekton.MultiTypeTekton;
-import hu.bme.tekton.MyceliumFreeTekton;
-import hu.bme.tekton.SingleTypeTekton;
 import hu.bme.tekton.Tekton;
 import hu.bme.view.CentralMouseHandler;
 
@@ -40,7 +32,7 @@ public class GamePanel extends JPanel {
     private Object activePlayer; // Az aktuális játékos
     private int currentPlayerIndex = 0; // Az aktuális játékos indexe
     private Ticker ticker;
-    private int round = 0;
+    private int round = 1;
 
     public GamePanel() {
         players = new ArrayList<>();
@@ -192,6 +184,8 @@ public class GamePanel extends JPanel {
         // Frissítsd a felületet az aktuális játékos nevével ez a logika még nem
         // működik, a nextplayert nem tudtam még befejezniw
 
+
+
         if (InsectManager.getInstance().geEntomologists().contains(activePlayer)) {
             System.out.println("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
             activePlayerLabel.setText("Aktuális játékos (Rovarász): " + ((Entomologist) activePlayer).getName());
@@ -204,12 +198,14 @@ public class GamePanel extends JPanel {
         if (currentPlayerIndex % players.size() == 0) {
             ticker.tick();
             round++;
-            if (round % 5 == 0) {
-
-                breakEmptyTektons();
+            if (checkGameEnd()) {
+                // End the game after 20 rounds
+                return;
             }
+            if (round % 5 == 0) {
+                breakEmptyTektons();
         }
-
+    }
     }
 
     private void breakEmptyTektons() {
@@ -235,13 +231,11 @@ public class GamePanel extends JPanel {
                     tektonManager.breakApart(tekton);
                     return;
                 }
-
-                checkGameEnd();
             }
         }
     }
 
-    private void checkGameEnd() {
+    private boolean checkGameEnd() {
         if (round >= 20) {
             // Legjobb rovarász
             Entomologist bestEntomologist = null;
@@ -276,6 +270,7 @@ public class GamePanel extends JPanel {
             JOptionPane.showMessageDialog(this, message, "Végeredmény", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
+        return false; // Játék nem ért véget
     }
 
 }

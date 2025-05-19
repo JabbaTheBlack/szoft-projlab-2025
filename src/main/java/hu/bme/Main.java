@@ -1,25 +1,9 @@
 package hu.bme;
 
-import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
-import hu.bme.core.GamePanel;
-import hu.bme.fungi.Hyphae;
-import hu.bme.fungi.Mycelium;
-import hu.bme.fungi.Mycologist;
-import hu.bme.fungi.spore.DefensiveSpore;
-import hu.bme.fungi.spore.SlowingSpore;
-import hu.bme.insect.Entomologist;
-import hu.bme.insect.Insect;
-import hu.bme.managers.InsectManager;
-import hu.bme.managers.MycologistManager;
-import hu.bme.managers.TektonManager;
-import hu.bme.tekton.MultiTypeTekton;
-import hu.bme.tekton.Tekton;
 import hu.bme.view.MainMenu;
 
 public class Main {

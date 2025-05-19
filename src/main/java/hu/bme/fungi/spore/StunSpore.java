@@ -1,9 +1,7 @@
 package hu.bme.fungi.spore;
 
-import java.awt.TexturePaint;
-
 import hu.bme.insect.Insect;
-import hu.bme.view.TextureProvider;
+
 
 /**
  * Class representing a StunSpore.

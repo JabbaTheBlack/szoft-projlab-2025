@@ -13,6 +13,7 @@ import hu.bme.tekton.Tekton;
 public class TektonManager implements ITickable{
     private static volatile TektonManager instance;
     private List<Tekton> tektons;
+    private int breakApartCounter = 0;
 
     /**
      * Initializes a new tekton manager with an empty list of tektons.
@@ -75,10 +76,15 @@ public class TektonManager implements ITickable{
      * @param tekton to be broken apart.
      */
     public List<Tekton> breakApart(Tekton tekton) {
-        System.out.println("[TektonManager] breakApart() -> [" + tekton + "]");
-        List<Tekton> newTektons = tekton.breakApart();
+        breakApartCounter++;
+        List<Tekton> newTektons = null;
+        if (breakApartCounter > 0) {
+            System.out.println("[TektonManager] breakApart() -> [" + tekton + "]");
+            newTektons = tekton.breakApart();    
+        }
+        
 
-        if (newTektons == null) {
+        if (newTektons == null ) {
             System.out.println("[TektonManager] breakApart() <- [" + tekton + "] {fail}");
             return null;
         }
@@ -88,6 +94,7 @@ public class TektonManager implements ITickable{
             addTekton(newTekton);
         }
         removeTekton(tekton);
+        breakApartCounter = 0;
         
         return newTektons;
     }

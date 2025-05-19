@@ -4,22 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import hu.bme.fungi.Hyphae;
 import hu.bme.fungi.Mycelium;
 import hu.bme.fungi.Mycologist;
-import hu.bme.insect.Entomologist;
-import hu.bme.insect.Insect;
-import hu.bme.managers.FungalManager;
-import hu.bme.managers.InsectManager;
 import hu.bme.managers.MycologistManager;
-import hu.bme.tekton.Tekton;
 
 public class MyceliumView extends JPanel {
 

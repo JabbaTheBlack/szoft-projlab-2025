@@ -3,7 +3,6 @@ package hu.bme.fungi;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import hu.bme.fungi.spore.CloneSpore;

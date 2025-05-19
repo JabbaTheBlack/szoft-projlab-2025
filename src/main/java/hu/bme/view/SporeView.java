@@ -7,9 +7,6 @@ import java.util.List;
 
 import hu.bme.fungi.spore.Spore;
 import hu.bme.tekton.Tekton;
-import hu.bme.managers.FungalManager;
-import hu.bme.managers.MycologistManager;
-import hu.bme.managers.SporeManager;
 import hu.bme.managers.TektonManager;
 
 public class SporeView extends JPanel {
@@ -39,8 +36,6 @@ public class SporeView extends JPanel {
                         g2d.drawImage(sporeImage, x - size / 2, y - size / 2, size, size, null);
                     }
                 }
-                // e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e - e
-                // - e - e
             }
         }
     }

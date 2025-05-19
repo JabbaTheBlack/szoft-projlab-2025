@@ -1,10 +1,9 @@
 package hu.bme.tekton;
 
 import hu.bme.fungi.Hyphae;
-import hu.bme.fungi.Mycologist;
+
 
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Represents a tekton that can absorb hyphae, subclass of Tekton.
