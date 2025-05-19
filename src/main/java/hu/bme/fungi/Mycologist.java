@@ -93,7 +93,8 @@ public class Mycologist {
      */
     public void growHyphaeToTekton(Hyphae hyphae, Tekton targetTekton) {
 
-        if (hyphae == null || targetTekton == null || !hyphaes.contains(hyphae) || !hyphae.isConnectedToMycelium()) {
+        if (hyphae == null || targetTekton == null || !hyphaes.contains(hyphae) || !hyphae.isConnectedToMycelium() ||
+            hyphae.getCurrentTekton().size() == 2) {
             return;
         }
 
@@ -282,21 +283,6 @@ public class Mycologist {
             hyphae.addHyphae(newHyphae);
             hyphaes.add(newHyphae);
         }
-    }
-
-    public void growHyphaeOnTekton(Mycelium mycelium, Hyphae hyphae) {
-
-        if (mycelium == null || !hyphaes.contains(hyphae)) {
-            return;
-        }
-
-        Hyphae newHyphae = hyphae;
-        newHyphae.addCurrentTekton(mycelium.getCurrentTekton());
-        if (mycelium.getCurrentTekton().addHyphae(newHyphae)) {
-            newHyphae.setOwner(this);
-            mycelium.addHyphae(newHyphae);
-        }
-
     }
 
     /**
