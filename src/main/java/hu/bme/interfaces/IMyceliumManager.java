@@ -1,6 +1,5 @@
 package hu.bme.interfaces;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 import hu.bme.fungi.Mycelium;

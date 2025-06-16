@@ -3,7 +3,6 @@ package hu.bme.insect;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Manages insect populations within the ecosystem simulation, handling
  * lifecycle operations
@@ -11,12 +10,42 @@ import java.util.List;
  */
 public class Entomologist {
     private List<Insect> insects;
+    private String name;
 
     /**
      * Constructs an Entomologist with an empty insect population.
      */
     public Entomologist() {
         insects = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a new Entomologist instance with the specified name.
+     * Initializes the entomologist's list of insects as empty.
+     *
+     * @param name the name of the Entomologist
+     */
+    public Entomologist(String name) {
+        this.name = name;
+        insects = new ArrayList<>();
+    }
+
+    /**
+     * Retrieves the name of the Entomologist.
+     *
+     * @return the name of the Entomologist
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of the Entomologist.
+     *
+     * @param name the new name to set for the Entomologist
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -46,6 +75,14 @@ public class Entomologist {
         return insects.size();
     }
 
+    public int getNutrition() {
+        int nutrition = 0;
+        for (Insect insect : insects) {
+            nutrition += insect.getNutrition();
+        }
+        return nutrition;
+    }
+
     /**
      * Advances all insects through one simulation round, triggering their lifecycle
      * updates.
@@ -66,6 +103,7 @@ public class Entomologist {
         Insect newInsect = new Insect();
         newInsect.setEntomologist(this);
         newInsect.setCurrentTekton(insect.getCurrentTekton());
+        newInsect.textureProvider = insect.textureProvider;
         insects.add(newInsect);
     }
 

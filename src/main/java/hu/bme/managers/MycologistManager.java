@@ -1,7 +1,6 @@
 package hu.bme.managers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hu.bme.fungi.Mycologist;
 import hu.bme.interfaces.ITickable;
@@ -11,7 +10,7 @@ import hu.bme.interfaces.ITickable;
  */
 public class MycologistManager implements ITickable{
     private static volatile MycologistManager instance;
-    private List<Mycologist> mycologists;
+    private ArrayList<Mycologist> mycologists;
 
     /**
      * Private MycologistManager constructor.
@@ -69,7 +68,7 @@ public class MycologistManager implements ITickable{
         return mycologists.size();
     }
 
-    public List<Mycologist> getMycologists() {
+    public ArrayList<Mycologist> getMycologists() {
         return mycologists;
     }
 }

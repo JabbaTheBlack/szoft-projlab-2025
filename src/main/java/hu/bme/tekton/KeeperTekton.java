@@ -3,15 +3,17 @@ package hu.bme.tekton;
 import hu.bme.fungi.Hyphae;
 
 /**
- * A specialized Tekton that maintains hyphae indefinitely by marking them as persistent.
- * This class extends the base Tekton functionality to provide additional support for fungal networks.
+ * A specialized Tekton that maintains hyphae indefinitely by marking them as
+ * persistent.
+ * This class extends the base Tekton functionality to provide additional
+ * support for fungal networks.
  */
 public class KeeperTekton extends Tekton {
-    
+
     /**
      * Constructs a KeeperTekton with default Tekton properties.
      */
-    public KeeperTekton(){
+    public KeeperTekton() {
         super();
     }
 
@@ -25,7 +27,11 @@ public class KeeperTekton extends Tekton {
     @Override
     public boolean addHyphae(Hyphae hyphae) {
         fungalManager.addHyphae(hyphae);
-        hyphae.setIsOnKeeperTekton(true);
+
+        if(hyphae.getCurrentTekton().size() <= 1) {
+            hyphae.setIsOnKeeperTekton(true);
+        }
+
         return true;
 
     }
